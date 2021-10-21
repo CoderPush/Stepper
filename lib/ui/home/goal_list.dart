@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
-import 'package:stepper/common/palette.dart';
 import 'package:stepper/ui/home/goal_item.dart';
 
 class GoalList extends StatelessWidget {
