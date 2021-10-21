@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
-import 'package:stepper/ui/home/goal_item.dart';
+import 'package:stepper/presentation/home/views/goal_item.dart';
 
 class GoalList extends StatelessWidget {
   const GoalList({Key? key}) : super(key: key);

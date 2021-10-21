@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stepper/ui/home/home_screen.dart';
+import 'package:stepper/presentation/home/home.dart';
 
 void main() {
   runApp(const MyApp());
