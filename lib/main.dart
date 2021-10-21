@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:stepper/ui/home/home_screen.dart';
+import 'package:stepper/presentation/area/area.dart';
+import 'package:stepper/presentation/home/home.dart';
+import 'package:stepper/routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,6 +20,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const HomeScreen(),
+      routes: {
+        Routes.home: (context) => const HomeScreen(),
+        Routes.area: (context) => const AreaScreen()
+      },
     );
   }
 }

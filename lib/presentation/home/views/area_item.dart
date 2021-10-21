@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
-import 'package:stepper/ui/home/rating_indicator.dart';
+import 'package:stepper/presentation/home/views/rating_indicator.dart';
 
 class AreaItem extends StatelessWidget {
   const AreaItem({Key? key}) : super(key: key);
