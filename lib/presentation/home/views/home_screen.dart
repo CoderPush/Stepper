@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
-import 'package:stepper/presentation/common/common_widgets.dart';
+import 'package:stepper/presentation/common/drawer/drawer.dart';
 import 'package:stepper/presentation/home/views/area_item.dart';
 import 'package:stepper/presentation/home/views/goal_list.dart';
 

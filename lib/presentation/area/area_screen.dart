@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stepper/presentation/common/common_widgets.dart';
+import 'package:stepper/presentation/common/drawer/drawer.dart';
 
 class AreaScreen extends StatelessWidget {
   const AreaScreen({Key? key}) : super(key: key);
@@ -8,7 +8,12 @@ class AreaScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(),
+        child: Builder(builder: (context) {
+          return IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          );
+        }),
       ),
       drawer: MainDrawer(),
     );
