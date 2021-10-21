@@ -1,16 +1,25 @@
-# stepper
+# Stepper
 
-A new Flutter project.
+Flutter project for level up employees (engineers, designers, etc) in CoderPush.
 
-## Getting Started
+## Development setup
 
-This project is a starting point for a Flutter application.
+To run the project, here are the steps:
 
-A few resources to get you started if this is your first Flutter project:
+- Install Flutter on your local machine: https://flutter.dev/docs/get-started/install
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+  - For iOS users, make sure you have install Xcode to create an iOS simulator:
+  https://www.apple.com/app-store/
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+  - For Android users, make sure you have install Android Studio to create an Android emulator:
+  https://developer.android.com/studio
+
+- Install VsCode (optional for Android user): https://code.visualstudio.com/download
+
+- Run command in your project terminal to fetch all dependencies:
+
+  ```dart
+  flutter pub get
+  ```
+
+- Open the project in VsCode (or Android Studio), click Run tab -> Start Debugging (make sure you have your simulator on)
