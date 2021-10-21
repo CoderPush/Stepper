@@ -73,39 +73,36 @@ class MainDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => DrawerCubit(),
-      child: BlocListener<DrawerCubit, DrawerState>(
-        listener: (context, state) {
-          if (state.selectedItem == DrawerType.home) {
-            _onHomeScreenTap(context);
-          } else if (state.selectedItem == DrawerType.area) {
-            _onAreaScreenTap(context);
-          } else {
-            _onCalendarScreenTap(context);
-          }
-        },
-        child: SafeArea(
-          child: Drawer(
-            child: Container(
-              color: mediumGrey,
-              child: Column(
-                children: <Widget>[
-                  ListTile(
-                    leading: const CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        avatarProfileUrl,
-                      ),
-                    ),
-                    title: const Text('John Doe'),
-                    trailing: IconButton(
-                      onPressed: () => _onDrawerClosed(context),
-                      icon: const Icon(Icons.arrow_back_ios),
+    return BlocConsumer<DrawerCubit, DrawerState>(
+      listener: (context, state) {
+        if (state.selectedItem == DrawerType.home) {
+          _onHomeScreenTap(context);
+        } else if (state.selectedItem == DrawerType.area) {
+          _onAreaScreenTap(context);
+        } else {
+          _onCalendarScreenTap(context);
+        }
+      },
+      builder: (context, state) => SafeArea(
+        child: Drawer(
+          child: Container(
+            color: mediumGrey,
+            child: Column(
+              children: <Widget>[
+                ListTile(
+                  leading: const CircleAvatar(
+                    backgroundImage: NetworkImage(
+                      avatarProfileUrl,
                     ),
                   ),
-                  ..._buildDrawerItems(context),
-                ],
-              ),
+                  title: const Text('John Doe'),
+                  trailing: IconButton(
+                    onPressed: () => _onDrawerClosed(context),
+                    icon: const Icon(Icons.arrow_back_ios),
+                  ),
+                ),
+                ..._buildDrawerItems(context),
+              ],
             ),
           ),
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/presentation/common/drawer/cubit/drawer_cubit.dart';
 
@@ -15,19 +16,28 @@ class DrawerItem extends StatelessWidget {
     required this.drawerType,
   }) : super(key: key);
 
-  void _onItemTap(BuildContext context) {
-    BlocProvider.of<DrawerCubit>(context).selectDrawerItem(drawerType);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Icon(
-        drawerIcon,
-        color: black,
+    final drawerCubit = BlocProvider.of<DrawerCubit>(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: screenSmallPadding),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(mediumBorderRadius),
+        ),
+        elevation: 0.0,
+        color: drawerType == drawerCubit.state.selectedItem
+            ? lightGrey
+            : mediumGrey,
+        child: ListTile(
+          leading: Icon(
+            drawerIcon,
+            color: black,
+          ),
+          title: Text(drawerTitle),
+          onTap: () => drawerCubit.selectDrawerItem(drawerType),
+        ),
       ),
-      title: Text(drawerTitle),
-      onTap: () =>  _onItemTap(context),
     );
   }
 }
