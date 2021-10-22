@@ -1,34 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
+import 'package:stepper/domain/models/models.dart';
 
 class RatingIndicator extends StatelessWidget {
-  const RatingIndicator({Key? key}) : super(key: key);
+  final String indicatorText;
+  final double indicatorWidth;
+  final double indicatorHeight;
+  final double indicatorPadding;
+  final Area area;
+  const RatingIndicator({
+    Key? key,
+    required this.indicatorText,
+    required this.indicatorWidth,
+    required this.indicatorHeight,
+    required this.indicatorPadding,
+    required this.area,
+  }) : super(key: key);
 
-  double _calculateIndicatorWidth(Size screenSize) {
-    return (screenSize.width * 0.6 -
-            screenMediumPadding -
-            screenExtraSmallPadding * 3) /
-        3;
+  List<Color> _calculateColorSchema() {
+    List<Color> currentAreaScheme = List.from(area.getAreaTheme());
+    for (var i = area.rating; i < currentAreaScheme.length; i++) {
+      currentAreaScheme[i] = lightGrey;
+    }
+    return currentAreaScheme;
   }
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        const Text('Good', style: TextStyle(fontSize: smallFontSize)),
+        Text(
+          indicatorText,
+          style: const TextStyle(
+            fontSize: smallFontSize,
+            color: lightGrey,
+          ),
+        ),
+        const SizedBox(
+          height: screenSmallPadding,
+        ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: List.generate(
             3,
             (index) => Padding(
-              padding: const EdgeInsets.only(left: screenExtraSmallPadding),
-              child: Container(
-                width: _calculateIndicatorWidth(screenSize),
-                height: screenSize.width * 0.01,
-                color: lightGrey,
+              padding: EdgeInsets.only(left: indicatorPadding),
+              child: FittedBox(
+                child: Container(
+                  width: indicatorWidth,
+                  height: indicatorHeight,
+                  color: _calculateColorSchema()[index],
+                ),
               ),
             ),
           ),
