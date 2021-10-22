@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       create: (context) => DrawerCubit(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'Stepper',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
