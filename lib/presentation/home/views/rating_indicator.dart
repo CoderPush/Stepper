@@ -9,6 +9,7 @@ class RatingIndicator extends StatelessWidget {
   final double indicatorHeight;
   final double indicatorPadding;
   final Area area;
+
   const RatingIndicator({
     Key? key,
     required this.indicatorText,
