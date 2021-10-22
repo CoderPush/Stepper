@@ -1,0 +1,46 @@
+name: 🚀 Deploy to Staging
+
+on:
+  push:
+    branches:
+      - main
+      - setup-deploy
+    paths:
+      - 'lib/**'
+      - 'web/**'
+      - 'pubspec.*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: subosito/flutter-action@v1
+      with:
+        channel: "stable"
+    - name: flutter pub get
+      run: flutter pub get
+    - name: flutter build web --release
+      run: flutter build web --release
+
+    - name: Deploy to S3
+      uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --delete
+      env:
+        AWS_S3_BUCKET: stepper-stag
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: 'ap-southeast-1'   # optional: defaults to us-east-1
+        SOURCE_DIR: 'build/web'     # optional: defaults to entire repository
+
+    - name: invalidate cloudfront
+      uses: chetan/invalidate-cloudfront-action@master
+      env:
+        DISTRIBUTION: E23VKKDEJR3Q6C
+        PATHS: '/*'
+        AWS_REGION: 'ap-southeast-1'
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
