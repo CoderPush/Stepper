@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stepper/common/palette.dart';
 import 'package:stepper/presentation/area/area.dart';
 import 'package:stepper/presentation/common/drawer/drawer.dart';
 import 'package:stepper/presentation/home/home.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Stepper',
         theme: ThemeData(
+          scaffoldBackgroundColor: darkPurple,
           primarySwatch: Colors.blue,
         ),
         home: const HomeScreen(),

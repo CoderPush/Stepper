@@ -16,7 +16,7 @@ class _GoalItemState extends State<GoalItem> {
     return Padding(
       padding: const EdgeInsets.only(top: screenSmallPadding),
       child: Card(
-        color: grey,
+        color: darkGrey,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(mediumBorderRadius)),
         child: ListTile(
@@ -41,13 +41,13 @@ class _GoalItemState extends State<GoalItem> {
           trailing: const Icon(Icons.more_vert),
           title: const Text(
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-            style: TextStyle(fontSize: normalFontSize),
+            style: TextStyle(fontSize: normalFontSize, color: white),
           ),
           subtitle: Row(
             children: [
               const Text(
                 'S1',
-                style: TextStyle(fontSize: smallFontSize),
+                style: TextStyle(fontSize: smallFontSize, color: lightGrey),
               ),
               const SizedBox(width: screenExtraSmallPadding),
               Container(
@@ -61,7 +61,7 @@ class _GoalItemState extends State<GoalItem> {
               const SizedBox(width: screenExtraSmallPadding),
               const Text(
                 '3 days ago',
-                style: TextStyle(fontSize: smallFontSize),
+                style: TextStyle(fontSize: smallFontSize, color: lightGrey),
               )
             ],
           ),

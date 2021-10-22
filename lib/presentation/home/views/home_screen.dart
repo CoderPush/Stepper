@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
+import 'package:stepper/dummy_data.dart';
+import 'package:stepper/presentation/common/custom_floating_button.dart';
 import 'package:stepper/presentation/common/drawer/drawer.dart';
-import 'package:stepper/presentation/home/views/area_item.dart';
+import 'package:stepper/presentation/common/area/area_item.dart';
 import 'package:stepper/presentation/home/views/goal_list.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -12,6 +14,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       drawer: SizedBox(
         child: MainDrawer(),
@@ -24,6 +27,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               Builder(builder: (context) {
                 return IconButton(
+                  color: darkGrey,
                   icon: const Icon(Icons.menu),
                   onPressed: () => Scaffold.of(context).openDrawer(),
                 );
@@ -37,6 +41,7 @@ class HomeScreen extends StatelessWidget {
                 child: Text(
                   recentlyUpdated,
                   style: TextStyle(
+                    color: white,
                     fontWeight: FontWeight.bold,
                     fontSize: mediumFontSize,
                   ),
@@ -48,10 +53,15 @@ class HomeScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: List.generate(
-                      3,
-                      (index) => const Padding(
-                        padding: EdgeInsets.only(left: screenSmallPadding),
-                        child: AreaItem(),
+                      scopeAreaList.length,
+                      (index) => Padding(
+                        padding:
+                            const EdgeInsets.only(left: screenSmallPadding),
+                        child: AreaItem(
+                          areaSubTitle: good,
+                          itemWidth: screenSize.width * 0.6,
+                          area: scopeAreaList[index],
+                        ),
                       ),
                     ),
                   ),
@@ -67,6 +77,7 @@ class HomeScreen extends StatelessWidget {
                 child: Text(
                   priorityGoal,
                   style: TextStyle(
+                    color: white,
                     fontWeight: FontWeight.bold,
                     fontSize: mediumFontSize,
                   ),
@@ -77,12 +88,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        elevation: 0.0,
-        backgroundColor: darkGrey,
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: const CustomFloatingButton(),
     );
   }
 }
