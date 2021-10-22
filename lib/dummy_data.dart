@@ -12,17 +12,67 @@ final List<Area> scopeAreaList = [
 ];
 
 final List<Area> expertiseAreaList = [
-  Area(areaName: 'E1', numberOfUpdate: 2, rating: 3, areaType: AreaType.expertise),
-  Area(areaName: 'E2', numberOfUpdate: 4, rating: 2, areaType: AreaType.expertise),
-  Area(areaName: 'E3', numberOfUpdate: 5, rating: 1, areaType: AreaType.expertise),
-  Area(areaName: 'E4', numberOfUpdate: 8, rating: 3, areaType: AreaType.expertise),
-  Area(areaName: 'E5', numberOfUpdate: 2, rating: 1, areaType: AreaType.expertise),
+  Area(
+    areaName: 'E1',
+    numberOfUpdate: 2,
+    rating: 3,
+    areaType: AreaType.expertise,
+  ),
+  Area(
+    areaName: 'E2',
+    numberOfUpdate: 4,
+    rating: 2,
+    areaType: AreaType.expertise,
+  ),
+  Area(
+    areaName: 'E3',
+    numberOfUpdate: 5,
+    rating: 1,
+    areaType: AreaType.expertise,
+  ),
+  Area(
+    areaName: 'E4',
+    numberOfUpdate: 8,
+    rating: 3,
+    areaType: AreaType.expertise,
+  ),
+  Area(
+    areaName: 'E5',
+    numberOfUpdate: 2,
+    rating: 1,
+    areaType: AreaType.expertise,
+  ),
 ];
 
 final List<Area> mindsetAreaList = [
-  Area(areaName: 'M1', numberOfUpdate: 2, rating: 3, areaType: AreaType.mindset),
-  Area(areaName: 'M2', numberOfUpdate: 4, rating: 2, areaType: AreaType.mindset),
-  Area(areaName: 'M3', numberOfUpdate: 5, rating: 1, areaType: AreaType.mindset),
-  Area(areaName: 'M4', numberOfUpdate: 8, rating: 3, areaType: AreaType.mindset),
-  Area(areaName: 'M5', numberOfUpdate: 2, rating: 1, areaType: AreaType.mindset),
+  Area(
+    areaName: 'M1',
+    numberOfUpdate: 2,
+    rating: 3,
+    areaType: AreaType.mindset,
+  ),
+  Area(
+    areaName: 'M2',
+    numberOfUpdate: 4,
+    rating: 2,
+    areaType: AreaType.mindset,
+  ),
+  Area(
+    areaName: 'M3',
+    numberOfUpdate: 5,
+    rating: 1,
+    areaType: AreaType.mindset,
+  ),
+  Area(
+    areaName: 'M4',
+    numberOfUpdate: 8,
+    rating: 3,
+    areaType: AreaType.mindset,
+  ),
+  Area(
+    areaName: 'M5',
+    numberOfUpdate: 2,
+    rating: 1,
+    areaType: AreaType.mindset,
+  ),
 ];
