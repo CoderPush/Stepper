@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/palette.dart';
+import 'package:stepper/common/texts.dart';
 
 class TabBarItem extends StatelessWidget {
   final String tabBarText;
   const TabBarItem({Key? key, required this.tabBarText}) : super(key: key);
+
+  Color _getTabColor() {
+    if (tabBarText == scope) {
+      return purple;
+    } else if (tabBarText == expertise) {
+      return orange;
+    } else {
+      return green;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +24,7 @@ class TabBarItem extends StatelessWidget {
         width: double.infinity,
         height: 30.0,
         decoration: BoxDecoration(
-          color: purple,
+          color: _getTabColor(),
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: Text(tabBarText),

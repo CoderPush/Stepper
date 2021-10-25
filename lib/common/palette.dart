@@ -11,8 +11,13 @@ const Color mediumPurple = Color(0xff9E9BFF);
 const Color lightPurple = Color(0xffCECCFF);
 const Color white = Color(0xffffffff);
 const Color orange = Color(0xffFF733C);
+const Color mediumOrange = Color(0xffF9AB85);
+const Color lightOrange = Color(0xffFBCEBA);
+const Color green = Color(0xff44CDAD);
+const Color mediumGreen = Color(0xff63E5CE);
+const Color lightGreen = Color(0xffB3F4E4);
 
 // Indicator colors
 const List<Color> scopeScheme = [lightPurple, mediumPurple, purple];
-const List<Color> expertiseScheme = [lightPurple, mediumPurple, purple];
-const List<Color> mindsetScheme = [lightPurple, mediumPurple, purple];
+const List<Color> expertiseScheme = [lightOrange, mediumOrange, orange];
+const List<Color> mindsetScheme = [lightGreen, mediumGreen, green];
