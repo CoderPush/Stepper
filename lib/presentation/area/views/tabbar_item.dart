@@ -3,8 +3,13 @@ import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 
 class TabBarItem extends StatelessWidget {
+  final bool isSelected;
   final String tabBarText;
-  const TabBarItem({Key? key, required this.tabBarText}) : super(key: key);
+  const TabBarItem({
+    Key? key,
+    required this.tabBarText,
+    required this.isSelected,
+  }) : super(key: key);
 
   Color _getTabColor() {
     if (tabBarText == scope) {
@@ -24,7 +29,7 @@ class TabBarItem extends StatelessWidget {
         width: double.infinity,
         height: 30.0,
         decoration: BoxDecoration(
-          color: _getTabColor(),
+          color: isSelected ? _getTabColor() : darkPurple,
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: Text(tabBarText),

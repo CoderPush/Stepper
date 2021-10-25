@@ -5,8 +5,8 @@ import 'package:stepper/common/texts.dart';
 import 'package:stepper/dummy_data.dart';
 import 'package:stepper/presentation/common/custom_floating_button.dart';
 import 'package:stepper/presentation/common/drawer/drawer.dart';
-import 'package:stepper/presentation/common/area/area_item.dart';
-import 'package:stepper/presentation/home/views/goal_list.dart';
+import 'package:stepper/presentation/common/commons.dart';
+import 'package:stepper/presentation/home/views/horizontal_area_list.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
               }),
               const Padding(
                 padding: EdgeInsets.only(
-                  left: screenSmallPadding,
+                  left: screenMediumPadding,
                   bottom: screenSmallPadding,
                   top: screenMediumPadding,
                 ),
@@ -47,30 +47,11 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: screenSmallPadding),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: List.generate(
-                      scopeAreaList.length,
-                      (index) => Padding(
-                        padding:
-                            const EdgeInsets.only(left: screenSmallPadding),
-                        child: AreaItem(
-                          areaSubTitle: good,
-                          itemWidth: screenSize.width * 0.6,
-                          area: scopeAreaList[index],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              HorizontalAreaList(areaList: scopeAreaList),
               const Padding(
                 padding: EdgeInsets.fromLTRB(
-                  screenSmallPadding,
-                  40.0,
+                  screenMediumPadding,
+                  screenLargePadding,
                   screenSmallPadding,
                   screenSmallPadding,
                 ),
@@ -83,7 +64,15 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const GoalList(),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: screenMediumPadding,
+                ),
+                child: GoalList(
+                  goalList:
+                      goalList.where((goal) => goal.areaName == 'S1').toList(),
+                ),
+              ),
             ],
           ),
         ),

@@ -13,11 +13,17 @@ class AreaCubit extends Cubit<AreaState> {
 
   Future<void> getAreas(AreaType areaType) async {
     try {
-      emit(const AreaLoading());
+      emit(AreaLoading(areaType: areaType));
       final areaList = await areaRepository.fetchAreas(areaType);
-      emit(AreaLoaded(areaList: areaList));
+      emit(AreaLoaded(
+        areaList: areaList,
+        areaType: areaType,
+      ));
     } on NetworkException {
-      emit(const AreaError(errorMessage: 'Network error'));
+      emit(AreaError(
+        errorMessage: 'Network error',
+        areaType: areaType,
+      ));
     }
   }
 }
