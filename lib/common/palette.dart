@@ -16,6 +16,9 @@ const Color lightOrange = Color(0xffFBCEBA);
 const Color green = Color(0xff44CDAD);
 const Color mediumGreen = Color(0xff63E5CE);
 const Color lightGreen = Color(0xffB3F4E4);
+const Color blueGrey = Color(0xff2D2D4A);
+const Color moreIconColor = Color(0xffA7ACC5);
+const Color seeMoreTextColor = Color(0xff626481);
 
 // Indicator colors
 const List<Color> scopeScheme = [lightPurple, mediumPurple, purple];

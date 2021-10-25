@@ -8,3 +8,6 @@ const String expertise = 'Expertise';
 const String mindset = 'Mindset';
 const String updateThisWeek = 'update this week';
 const String good = 'Good';
+const String goalThisMonth = 'Goal this month';
+const String seeMore = 'See more';
+const String seeLess = 'See less';

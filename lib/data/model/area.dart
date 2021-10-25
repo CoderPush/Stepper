@@ -6,12 +6,14 @@ class Area {
   final int numberOfUpdate;
   final int rating;
   final AreaType areaType;
+  final String areaDescription;
 
   Area({
     required this.areaName,
     required this.numberOfUpdate,
     required this.rating,
     required this.areaType,
+    required this.areaDescription,
   });
 
   List<Color> getAreaTheme() {

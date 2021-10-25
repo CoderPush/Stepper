@@ -15,6 +15,7 @@ void main() {
     numberOfUpdate: 2,
     rating: 2,
     areaType: AreaType.scope,
+    areaDescription: 'dummy description'
   );
 
   testWidgets('Rating indicator', (WidgetTester tester) async {

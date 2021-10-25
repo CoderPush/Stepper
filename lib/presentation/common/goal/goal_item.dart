@@ -38,7 +38,10 @@ class _GoalItemState extends State<GoalItem> {
               side: BorderSide.none,
             ),
           ),
-          trailing: const Icon(Icons.more_vert),
+          trailing: const Icon(
+            Icons.more_vert,
+            color: moreIconColor,
+          ),
           title: const Text(
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
             style: TextStyle(fontSize: normalFontSize, color: white),
