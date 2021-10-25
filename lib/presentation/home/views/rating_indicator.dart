@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
-import 'package:stepper/domain/models/models.dart';
+import 'package:stepper/data/model/models.dart';
 
 class RatingIndicator extends StatelessWidget {
   final String indicatorText;

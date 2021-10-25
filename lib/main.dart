@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/palette.dart';
+import 'package:stepper/data/repositories/fake_repos/fake_area_repository_impl.dart';
 import 'package:stepper/presentation/area/area.dart';
+import 'package:stepper/presentation/area/cubit/area_cubit.dart';
 import 'package:stepper/presentation/common/drawer/drawer.dart';
 import 'package:stepper/presentation/home/home.dart';
 import 'package:stepper/routes.dart';
@@ -16,8 +18,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => DrawerCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => DrawerCubit()),
+        BlocProvider(
+            create: (context) =>
+                AreaCubit(areaRepository: FakeAreaRepositoryImpl())),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Stepper',
