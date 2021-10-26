@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
-import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/presentation/common/commons.dart';
@@ -25,7 +24,6 @@ class MonthSection extends StatelessWidget {
           child: Text(
             goalThisMonth,
             style: TextStyle(
-              color: white,
               fontSize: mediumFontSize,
               fontWeight: FontWeight.bold,
             ),

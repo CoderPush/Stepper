@@ -35,12 +35,7 @@ class AreaMainCard extends StatelessWidget {
               )
             ],
           ),
-          Text(
-            area.areaDescription,
-            style: const TextStyle(
-              color: white,
-            ),
-          ),
+          Text(area.areaDescription),
           RatingIndicator(
             indicatorText: '',
             indicatorWidth: screenSize.width * 0.7 / 3,

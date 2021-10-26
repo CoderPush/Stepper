@@ -44,7 +44,7 @@ class _GoalItemState extends State<GoalItem> {
           ),
           title: const Text(
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-            style: TextStyle(fontSize: normalFontSize, color: white),
+            style: TextStyle(fontSize: normalFontSize),
           ),
           subtitle: Row(
             children: [

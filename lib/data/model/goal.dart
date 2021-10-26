@@ -3,11 +3,13 @@ class Goal {
   final int goalId;
   final String areaName;
   final DateTime createdTime;
+  final bool achieved;
 
   const Goal({
     required this.goalId,
     required this.goalDescription,
     required this.areaName,
     required this.createdTime,
+    required this.achieved,
   });
 }
