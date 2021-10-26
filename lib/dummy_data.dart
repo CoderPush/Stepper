@@ -137,48 +137,56 @@ final List<Goal> goalList = [
     goalDescription: 'Marriage and Family Harmony',
     areaName: 'S1',
     createdTime: DateTime(2021, 10, 21),
+    achieved: false,
   ),
   Goal(
     goalId: 2,
     goalDescription: 'Proper Mindset and Balance',
     areaName: 'S1',
     createdTime: DateTime(2021, 10, 19),
+    achieved: false,
   ),
   Goal(
     goalId: 3,
     goalDescription: 'Commitment to Improved Physical Health',
     areaName: 'S1',
     createdTime: DateTime(2021, 05, 02),
+    achieved: true,
   ),
   Goal(
     goalId: 4,
     goalDescription: 'Career Passion and Personal Satisfaction',
     areaName: 'S2',
     createdTime: DateTime(2021, 09, 21),
+    achieved: true,
   ),
   Goal(
     goalId: 5,
     goalDescription: 'Develop Empathy and Gentleness',
     areaName: 'S2',
     createdTime: DateTime(2021, 07, 20),
+    achieved: true,
   ),
   Goal(
     goalId: 6,
     goalDescription: 'Financial Stability',
     areaName: 'M1',
     createdTime: DateTime(2021, 09, 21),
+    achieved: false,
   ),
   Goal(
     goalId: 7,
     goalDescription: 'Service and Social Responsibility',
     areaName: 'M2',
     createdTime: DateTime(2021, 10, 21),
+    achieved: true,
   ),
   Goal(
     goalId: 8,
     goalDescription: 'Stress-Busting Leisure Time',
     areaName: 'E1',
     createdTime: DateTime(2021, 08, 21),
+    achieved: false,
   ),
 ];
 
@@ -188,41 +196,48 @@ final List<Post> postList = [
     postedTime: DateTime(2021, 10, 21),
     description:
         'Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc asr rewc adcby af aeqrq qesv bgfb uhsdf uihsdfih huiw fhaui uif',
+    taggedGoalIds: [1, 2],
   ),
   Post(
     areaName: 'S1',
     postedTime: DateTime(2021, 10, 19),
     description:
         'Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc',
+    taggedGoalIds: [3],
   ),
   Post(
     areaName: 'S1',
     postedTime: DateTime(2021, 10, 15),
     description:
         'Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc',
+    taggedGoalIds: [],
   ),
   Post(
     areaName: 'S1',
     postedTime: DateTime(2021, 09, 21),
     description:
         'Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc',
+    taggedGoalIds: [5, 3],
   ),
   Post(
     areaName: 'S2',
     postedTime: DateTime(2021, 09, 14),
     description:
         'Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc',
+    taggedGoalIds: [8],
   ),
   Post(
     areaName: 'S2',
     postedTime: DateTime(2021, 08, 21),
     description:
         'Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc',
+    taggedGoalIds: [6, 7],
   ),
   Post(
     areaName: 'S2',
     postedTime: DateTime(2021, 08, 22),
     description:
         'Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc',
+    taggedGoalIds: [3, 4, 5],
   ),
 ];

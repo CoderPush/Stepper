@@ -1,0 +1,36 @@
+import 'package:flutter/material.dart';
+import 'package:stepper/common/consts.dart';
+import 'package:stepper/common/palette.dart';
+import 'package:stepper/data/model/models.dart';
+
+class PostDay extends StatelessWidget {
+  final Post post;
+  const PostDay({
+    Key? key,
+    required this.post,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        text: post.postedTime.day.toString(),
+        style: const TextStyle(
+          color: white,
+          fontSize: largeFontSize,
+          fontWeight: FontWeight.bold,
+        ),
+        children: [
+          TextSpan(
+            style: const TextStyle(
+              fontSize: smallFontSize,
+              fontWeight: FontWeight.normal,
+            ),
+            text:
+                ' ${monthNames[post.postedTime.month - 1]} ${post.postedTime.year}',
+          )
+        ],
+      ),
+    );
+  }
+}

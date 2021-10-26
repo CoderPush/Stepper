@@ -11,3 +11,4 @@ const String good = 'Good';
 const String goalThisMonth = 'Goal this month';
 const String seeMore = 'See more';
 const String seeLess = 'See less';
+const String post = 'Post';

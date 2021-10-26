@@ -41,7 +41,6 @@ class HomeScreen extends StatelessWidget {
                 child: Text(
                   recentlyUpdated,
                   style: TextStyle(
-                    color: white,
                     fontWeight: FontWeight.bold,
                     fontSize: mediumFontSize,
                   ),
@@ -58,7 +57,6 @@ class HomeScreen extends StatelessWidget {
                 child: Text(
                   priorityGoal,
                   style: TextStyle(
-                    color: white,
                     fontWeight: FontWeight.bold,
                     fontSize: mediumFontSize,
                   ),

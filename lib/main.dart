@@ -4,6 +4,7 @@ import 'package:stepper/common/palette.dart';
 import 'package:stepper/presentation/area/area.dart';
 import 'package:stepper/presentation/common/drawer/drawer.dart';
 import 'package:stepper/presentation/home/home.dart';
+import 'package:stepper/presentation/post_detail/post_detail_screen.dart';
 import 'package:stepper/presentation/post_list/post_list_screen.dart';
 import 'package:stepper/routes.dart';
 
@@ -25,12 +26,17 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           scaffoldBackgroundColor: darkPurple,
           primarySwatch: Colors.blue,
+          textTheme: Theme.of(context).textTheme.apply(
+                bodyColor: white,
+                displayColor: white,
+              ),
         ),
         home: const HomeScreen(),
         routes: {
           Routes.home: (context) => const HomeScreen(),
           Routes.area: (context) => const AreaScreen(),
-          Routes.postList: (context) => const PostListScreen()
+          Routes.postList: (context) => const PostListScreen(),
+          Routes.postDetail: (context) => const PostDetailScreen()
         },
       ),
     );
