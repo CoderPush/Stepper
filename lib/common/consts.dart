@@ -39,3 +39,6 @@ List<String> sliderValues = ['No progress', 'Good', 'Exellent', 'Outstanding'];
 
 // AnimatedList key
 final animatedListKey = GlobalKey<AnimatedListState>();
+
+// Area name
+const String defaultAreaName = 'S1';
