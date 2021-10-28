@@ -8,7 +8,7 @@ class CreatePostCurvedTabBar extends StatefulWidget {
   final Function(CreatePostMode) updateCreatePostMode;
   const CreatePostCurvedTabBar({Key? key, required this.updateCreatePostMode})
       : super(key: key);
-
+  
   @override
   State<CreatePostCurvedTabBar> createState() => _CreatePostCurvedTabBarState();
 }
