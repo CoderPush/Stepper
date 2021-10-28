@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/dummy_data.dart';
+import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
 
-class AreaDropdown extends StatefulWidget {
+class AreaDropdown extends StatelessWidget {
   const AreaDropdown({Key? key}) : super(key: key);
 
-  @override
-  State<AreaDropdown> createState() => _AreaDropdownState();
-}
-
-class _AreaDropdownState extends State<AreaDropdown> {
-  String _selectedValue = scopeAreaList[0].areaName;
+  void _onDropdownItemSelected(BuildContext context, String areaName) {
+    context.read<CreatePostCubit>().onChangeAreaName(areaName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,29 +20,33 @@ class _AreaDropdownState extends State<AreaDropdown> {
         color: dropdownButtonColor,
         borderRadius: BorderRadius.circular(largeBorderRadius),
       ),
-      child: DropdownButtonHideUnderline(
-        child: ButtonTheme(
-          buttonColor: white,
-          alignedDropdown: true,
-          child: DropdownButton<String>(
-            dropdownColor: dropdownButtonColor,
-            iconEnabledColor: white,
-            onChanged: (value) {
-              setState(() {
-                _selectedValue = value!;
-              });
-            },
-            value: _selectedValue,
-            items: scopeAreaList
-                .map(
-                  (area) => DropdownMenuItem(
-                    child: Text(area.areaName),
-                    value: area.areaName,
-                  ),
-                )
-                .toList(),
-          ),
-        ),
+      child: BlocBuilder<CreatePostCubit, CreatePostState>(
+        builder: (context, state) {
+          return DropdownButtonHideUnderline(
+            child: ButtonTheme(
+              buttonColor: white,
+              alignedDropdown: true,
+              child: DropdownButton<String>(
+                dropdownColor: dropdownButtonColor,
+                iconEnabledColor: white,
+                onChanged: (value) {
+                  if (value != null) {
+                    _onDropdownItemSelected(context, value);
+                  }
+                },
+                value: state.areaName,
+                items: scopeAreaList
+                    .map(
+                      (area) => DropdownMenuItem(
+                        child: Text(area.areaName),
+                        value: area.areaName,
+                      ),
+                    )
+                    .toList(),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
