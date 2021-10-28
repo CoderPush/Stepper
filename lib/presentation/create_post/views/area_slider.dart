@@ -9,9 +9,6 @@ class AreaSlider extends StatelessWidget {
 
   void _onAreaSliderChanged(BuildContext context, double value) {
     context.read<CreatePostCubit>().onChangeAreaRating(value.toInt());
-    print(context.read<CreatePostCubit>().state.selectedAreaType);
-    print(context.read<CreatePostCubit>().state.areaRating);
-    print(context.read<CreatePostCubit>().state.areaName);
   }
 
   @override
