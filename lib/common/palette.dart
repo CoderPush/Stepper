@@ -19,6 +19,9 @@ const Color lightGreen = Color(0xffB3F4E4);
 const Color blueGrey = Color(0xff2D2D4A);
 const Color moreIconColor = Color(0xffA7ACC5);
 const Color seeMoreTextColor = Color(0xff626481);
+const Color dropdownButtonColor = Color(0xff737492);
+const Color sliderInactiveColor = Color(0xff494E6A);
+const Color scaffoldColor = Color(0xff0D122E);
 
 // Indicator colors
 const List<Color> scopeScheme = [lightPurple, mediumPurple, purple];

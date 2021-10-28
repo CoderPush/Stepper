@@ -23,17 +23,15 @@ class TabBarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Tab(
-      child: Container(
-        alignment: Alignment.center,
-        width: double.infinity,
-        height: 30.0,
-        decoration: BoxDecoration(
-          color: isSelected ? _getTabColor() : darkPurple,
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Text(tabBarText),
+    return Container(
+      alignment: Alignment.center,
+      width: double.infinity,
+      height: 30.0,
+      decoration: BoxDecoration(
+        color: isSelected ? _getTabColor() : darkPurple,
+        borderRadius: BorderRadius.circular(10.0),
       ),
+      child: Text(tabBarText),
     );
   }
 }

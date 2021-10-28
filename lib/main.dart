@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/presentation/area/area.dart';
 import 'package:stepper/presentation/common/drawer/drawer.dart';
+import 'package:stepper/presentation/create_post/create_post_screen.dart';
 import 'package:stepper/presentation/home/home.dart';
 import 'package:stepper/presentation/post_detail/post_detail_screen.dart';
 import 'package:stepper/presentation/post_list/post_list_screen.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Stepper',
         theme: ThemeData(
-          scaffoldBackgroundColor: darkPurple,
+          scaffoldBackgroundColor: scaffoldColor,
           primarySwatch: Colors.blue,
           textTheme: Theme.of(context).textTheme.apply(
                 bodyColor: white,
@@ -36,7 +37,8 @@ class MyApp extends StatelessWidget {
           Routes.home: (context) => const HomeScreen(),
           Routes.area: (context) => const AreaScreen(),
           Routes.postList: (context) => const PostListScreen(),
-          Routes.postDetail: (context) => const PostDetailScreen()
+          Routes.postDetail: (context) => const PostDetailScreen(),
+          Routes.createPost: (context) => const CreatePostScreen(),
         },
       ),
     );

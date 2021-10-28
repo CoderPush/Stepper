@@ -7,7 +7,9 @@ import 'package:stepper/data/model/models.dart';
 part 'area_state.dart';
 
 class AreaCubit extends Cubit<AreaState> {
-  AreaCubit({required this.areaRepository}) : super(const AreaInitial());
+  AreaCubit({required this.areaRepository}) : super(const AreaInitial()) {
+    getAreas(AreaType.scope);
+  }
 
   final AreaRepository areaRepository;
 
