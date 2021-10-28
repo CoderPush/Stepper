@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 // Screen padding
 const double screenLargePadding = 24.0;
 const double screenMediumPadding = 16.0;
@@ -34,3 +36,6 @@ List<String> monthNames = [
 
 // Slider values
 List<String> sliderValues = ['No progress', 'Good', 'Exellent', 'Outstanding'];
+
+// AnimatedList key
+final animatedListKey = GlobalKey<AnimatedListState>();

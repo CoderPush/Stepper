@@ -14,7 +14,10 @@ class GoalList extends StatelessWidget {
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemBuilder: (context, index) => const GoalItem(),
+      itemBuilder: (context, index) => GoalItem(
+        isCreatingGoal: false,
+        goal: goalList[index],
+      ),
       itemCount: goalList.length,
     );
   }

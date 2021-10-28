@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
+import 'package:stepper/presentation/create_post/views/post_section.dart';
 
 class CreatePostCurvedTabBar extends StatefulWidget {
-  const CreatePostCurvedTabBar({Key? key}) : super(key: key);
-
+  final Function(CreatePostMode) updateCreatePostMode;
+  const CreatePostCurvedTabBar({Key? key, required this.updateCreatePostMode})
+      : super(key: key);
+  
   @override
   State<CreatePostCurvedTabBar> createState() => _CreatePostCurvedTabBarState();
 }
@@ -23,6 +26,9 @@ class _CreatePostCurvedTabBarState extends State<CreatePostCurvedTabBar>
       if (_tabController.indexIsChanging) {
         setState(() {
           _selectedTabIndex = _tabController.index;
+          widget.updateCreatePostMode(_tabController.index == 0
+              ? CreatePostMode.writeUpdate
+              : CreatePostMode.setGoal);
         });
       }
     });

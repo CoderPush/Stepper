@@ -16,3 +16,4 @@ const String createPost = 'Create post';
 const String writeUpdate = 'Write update';
 const String setGoal = 'Set goal';
 const String writeUpdateHint = 'What do you want to update today?';
+const String addGoal = 'Add goal';
