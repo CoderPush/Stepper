@@ -3,4 +3,5 @@ class Routes {
   static const String area = '/area';
   static const String postList = '/postList';
   static const String postDetail = '/postDetail';
+  static const String createPost = '/createPost';
 }

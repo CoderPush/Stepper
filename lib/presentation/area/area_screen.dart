@@ -78,9 +78,7 @@ class AreaScreen extends StatelessWidget {
                 children: [
                   BlocBuilder<AreaCubit, AreaState>(
                     builder: (context, state) {
-                      if (state is AreaInitial) {
-                        context.read<AreaCubit>().getAreas(AreaType.scope);
-                      } else if (state is AreaLoading) {
+                      if (state is AreaLoading) {
                         return _buildLoadingState();
                       } else if (state is AreaLoaded) {
                         return ScopeView(areaList: state.areaList);
