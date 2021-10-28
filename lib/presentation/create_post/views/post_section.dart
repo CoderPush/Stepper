@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
-import 'package:stepper/common/texts.dart';
 import 'package:stepper/presentation/create_post/views/create_post_curved_tab_bar.dart';
-import 'package:stepper/presentation/create_post/views/post_action_row.dart';
+import 'package:stepper/presentation/create_post/views/create_post_input.dart';
+import 'package:stepper/presentation/create_post/views/create_post_action_row.dart';
 
-class PostSection extends StatelessWidget {
+// TODO: change this to Stateless widget
+class PostSection extends StatefulWidget {
   const PostSection({Key? key}) : super(key: key);
+
+  @override
+  State<PostSection> createState() => _PostSectionState();
+}
+
+class _PostSectionState extends State<PostSection> {
+  CreatePostMode _currentPostMode = CreatePostMode.writeUpdate;
+  void _updateCreatePostMode(CreatePostMode mode) {
+    setState(() {
+      _currentPostMode = mode;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,28 +30,20 @@ class PostSection extends StatelessWidget {
       ),
       child: Column(
         children: [
-          const CreatePostCurvedTabBar(),
+          CreatePostCurvedTabBar(updateCreatePostMode: _updateCreatePostMode),
           Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: screenMediumPadding,
+            padding: const EdgeInsets.only(
+              left: screenMediumPadding,
+              top: screenMediumPadding,
+              bottom: screenMediumPadding,
             ),
-            child: TextFormField(
-              maxLines: 12,
-              minLines: 10,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                errorBorder: InputBorder.none,
-                disabledBorder: InputBorder.none,
-                hintText: writeUpdateHint,
-                hintStyle: TextStyle(color: mediumGrey),
-              ),
-            ),
+            child: CreatePostInput(mode: _currentPostMode),
           ),
-          const PostActionRow()
+          const CreatePostActionRow()
         ],
       ),
     );
   }
 }
+
+enum CreatePostMode { writeUpdate, setGoal }

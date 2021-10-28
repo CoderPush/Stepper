@@ -3,8 +3,8 @@ import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 
-class PostActionRow extends StatelessWidget {
-  const PostActionRow({Key? key}) : super(key: key);
+class CreatePostActionRow extends StatelessWidget {
+  const CreatePostActionRow({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
+import 'package:stepper/data/model/models.dart';
 
 class GoalItem extends StatefulWidget {
-  const GoalItem({Key? key}) : super(key: key);
+  final bool isCreatingGoal;
+  final Goal goal;
+  const GoalItem({
+    Key? key,
+    required this.goal,
+    required this.isCreatingGoal,
+  }) : super(key: key);
 
   @override
   State<GoalItem> createState() => _GoalItemState();
@@ -38,36 +45,44 @@ class _GoalItemState extends State<GoalItem> {
               side: BorderSide.none,
             ),
           ),
-          trailing: const Icon(
-            Icons.more_vert,
-            color: moreIconColor,
+          trailing: !widget.isCreatingGoal
+              ? const Icon(
+                  Icons.more_vert,
+                  color: moreIconColor,
+                )
+              : null,
+          title: Text(
+            widget.goal.goalDescription,
+            style: const TextStyle(fontSize: normalFontSize),
           ),
-          title: const Text(
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-            style: TextStyle(fontSize: normalFontSize),
-          ),
-          subtitle: Row(
-            children: [
-              const Text(
-                'S1',
-                style: TextStyle(fontSize: smallFontSize, color: lightGrey),
-              ),
-              const SizedBox(width: screenExtraSmallPadding),
-              Container(
-                width: 5.0,
-                height: 5.0,
-                decoration: const BoxDecoration(
-                  color: darkGrey,
-                  shape: BoxShape.circle,
-                ),
-              ),
-              const SizedBox(width: screenExtraSmallPadding),
-              const Text(
-                '3 days ago',
-                style: TextStyle(fontSize: smallFontSize, color: lightGrey),
-              )
-            ],
-          ),
+          subtitle: !widget.isCreatingGoal
+              ? Row(
+                  children: [
+                    Text(
+                      widget.goal.areaName,
+                      style: const TextStyle(
+                        fontSize: smallFontSize,
+                        color: lightGrey,
+                      ),
+                    ),
+                    const SizedBox(width: screenExtraSmallPadding),
+                    Container(
+                      width: 5.0,
+                      height: 5.0,
+                      decoration: const BoxDecoration(
+                        color: lightGrey,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    const SizedBox(width: screenExtraSmallPadding),
+                    Text(
+                      '${monthNames[widget.goal.createdTime.month - 1]} ${widget.goal.createdTime.day}',
+                      style: const TextStyle(
+                          fontSize: smallFontSize, color: lightGrey),
+                    )
+                  ],
+                )
+              : null,
         ),
       ),
     );
