@@ -22,12 +22,14 @@ class CreatePostLoadedState extends CreatePostState {
   final List<Area> areaList;
   final String selectedAreaName;
   final int areaRating;
+  final CreatePostMode createPostMode;
 
   const CreatePostLoadedState({
     required this.areaList,
     required selectedAreaType,
     required this.selectedAreaName,
     this.areaRating = 0,
+    this.createPostMode = CreatePostMode.writeUpdate,
   }) : super(selectedAreaType: selectedAreaType);
 
   CreatePostLoadedState copyWith({
@@ -35,18 +37,25 @@ class CreatePostLoadedState extends CreatePostState {
     AreaType? selectedAreaType,
     String? selectedAreaName,
     int? areaRating,
+    CreatePostMode? createPostMode,
   }) {
     return CreatePostLoadedState(
       areaList: areaList ?? this.areaList,
       selectedAreaType: selectedAreaType ?? this.selectedAreaType,
       selectedAreaName: selectedAreaName ?? this.selectedAreaName,
       areaRating: areaRating ?? this.areaRating,
+      createPostMode: createPostMode ?? this.createPostMode,
     );
   }
 
   @override
-  List<Object?> get props =>
-      [areaList, selectedAreaType, selectedAreaName, areaRating];
+  List<Object?> get props => [
+        areaList,
+        selectedAreaType,
+        selectedAreaName,
+        areaRating,
+        createPostMode,
+      ];
 }
 
 class CreatePostErrorState extends CreatePostState {

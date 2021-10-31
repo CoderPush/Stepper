@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
-import 'package:stepper/dummy_data.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
 import 'package:stepper/presentation/create_post/views/area_rating.dart';
 
 class AreaSection extends StatelessWidget {
@@ -19,7 +20,17 @@ class AreaSection extends StatelessWidget {
         children: [
           const AreaRating(),
           const SizedBox(height: screenSmallPadding),
-          Text(scopeAreaList[0].areaDescription)
+          BlocBuilder<CreatePostCubit, CreatePostState>(
+            builder: (context, state) {
+              final currentState = state as CreatePostLoadedState;
+              return Text(
+                currentState.areaList
+                    .firstWhere((area) =>
+                        area.areaName == currentState.selectedAreaName)
+                    .areaDescription,
+              );
+            },
+          )
         ],
       ),
     );

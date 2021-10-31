@@ -46,6 +46,7 @@ class CreatePostScreen extends StatelessWidget {
                   } else if (state is CreatePostLoadedState) {
                     return Column(
                       children: const [
+                        SizedBox(height: screenMediumPadding),
                         AreaSection(),
                         SizedBox(height: screenMediumPadding),
                         PostSection(),
