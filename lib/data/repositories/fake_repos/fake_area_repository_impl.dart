@@ -12,10 +12,10 @@ class FakeAreaRepositoryImpl extends AreaRepository {
       () {
         final random = Random();
 
-        // Simulate some network exception
-        if (random.nextBool()) {
-          throw NetworkException();
-        }
+        // // Simulate some network exception
+        // if (random.nextBool()) {
+        //   throw NetworkException();
+        // }
 
         // Return "fetched" areas
         if (areaType == AreaType.scope) {

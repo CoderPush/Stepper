@@ -1,33 +1,45 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import 'package:stepper/common/consts.dart';
 import 'package:stepper/data/model/area.dart';
+import 'package:stepper/data/repositories/abstract/area_repository.dart';
+import 'package:stepper/data/repositories/fake_repos/fake_repos.dart';
 
 part 'create_post_state.dart';
 
 class CreatePostCubit extends Cubit<CreatePostState> {
-  CreatePostCubit() : super(const CreatePostInitial());
+  final AreaRepository areaRepository;
 
-  void onChangeTab(AreaType areaType) {
-    emit(CreatePostChangeAreaType(
-      selectedAreaType: areaType,
-      areaName: state.areaName,
-      areaRating: state.areaRating,
-    ));
+  CreatePostCubit({required this.areaRepository})
+      : super(const CreatePostInitialState(selectedAreaType: AreaType.scope)) {
+    getAreas(AreaType.scope);
+  }
+
+  Future<void> getAreas(AreaType areaType) async {
+    try {
+      emit(CreatePostLoadingState(selectedAreaType: areaType));
+      final areaList = await areaRepository.fetchAreas(areaType);
+      final firstSelectedAreaName = areaList[0].areaName;
+      emit(CreatePostLoadedState(
+        areaList: areaList,
+        selectedAreaType: areaType,
+        selectedAreaName: firstSelectedAreaName,
+      ));
+    } on NetworkException {
+      emit(CreatePostErrorState(
+        errorMessage: 'Network error',
+        selectedAreaType: areaType,
+      ));
+    }
   }
 
   void onChangeAreaName(String areaName) {
-    emit(CreatePostChangeAreaName(
-        areaName: areaName,
-        areaRating: state.areaRating,
-        selectedAreaType: state.selectedAreaType));
+    final currentState = state as CreatePostLoadedState;
+    emit(currentState.copyWith(selectedAreaName: areaName));
   }
 
   void onChangeAreaRating(int areaRating) {
-    emit(CreatePostChangeAreaRating(
-      areaRating: areaRating,
-      areaName: state.areaName,
-      selectedAreaType: state.selectedAreaType,
-    ));
+    final currentState = state as CreatePostLoadedState;
+    emit(currentState.copyWith(areaRating: areaRating));
   }
 }

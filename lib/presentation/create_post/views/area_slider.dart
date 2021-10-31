@@ -16,7 +16,7 @@ class AreaSlider extends StatelessWidget {
     return BlocBuilder<CreatePostCubit, CreatePostState>(
       builder: (context, state) {
         return Slider(
-          label: sliderValues[state.areaRating],
+          label: sliderValues[(state as CreatePostLoadedState).areaRating],
           activeColor: purple,
           thumbColor: purple,
           inactiveColor: sliderInactiveColor,
