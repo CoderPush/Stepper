@@ -4,6 +4,8 @@ import 'package:integration_test/integration_test.dart';
 
 import 'package:stepper/main.dart' as app;
 
+import 'package:stepper/presentation/home/views/horizontal_area_list.dart';
+
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
@@ -27,6 +29,15 @@ void main() {
       expect(find.byIcon(Icons.add), findsOneWidget);
       final Finder createPostButton = find.byTooltip("createPostButton");
       await tester.tap(createPostButton);
+      await tester.pumpAndSettle();
+
+      // Test recently updated, navigate to post list screen
+      final Finder createPostBackButton = find.byTooltip("createPostBackButton");
+      await tester.tap(createPostBackButton);
+      await tester.pumpAndSettle();
+
+      final Finder recentlyUpdatedCard = find.byType(HorizontalAreaList);
+      await tester.tap(recentlyUpdatedCard);
       await tester.pumpAndSettle();
     });
   });
