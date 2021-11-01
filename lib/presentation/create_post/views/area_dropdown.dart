@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
-import 'package:stepper/dummy_data.dart';
 import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
 
 class AreaDropdown extends StatelessWidget {
@@ -22,6 +21,7 @@ class AreaDropdown extends StatelessWidget {
       ),
       child: BlocBuilder<CreatePostCubit, CreatePostState>(
         builder: (context, state) {
+          final currentState = state as CreatePostLoadedState;
           return DropdownButtonHideUnderline(
             child: ButtonTheme(
               buttonColor: white,
@@ -34,8 +34,8 @@ class AreaDropdown extends StatelessWidget {
                     _onDropdownItemSelected(context, value);
                   }
                 },
-                value: state.areaName,
-                items: scopeAreaList
+                value: currentState.selectedAreaName,
+                items: currentState.areaList
                     .map(
                       (area) => DropdownMenuItem(
                         child: Text(area.areaName),

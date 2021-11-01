@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
-import 'package:stepper/presentation/create_post/views/post_section.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stepper/data/model/post.dart';
+import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
 
 class CreatePostCurvedTabBar extends StatefulWidget {
-  final Function(CreatePostMode) updateCreatePostMode;
-  const CreatePostCurvedTabBar({Key? key, required this.updateCreatePostMode})
-      : super(key: key);
-  
+  const CreatePostCurvedTabBar({Key? key}) : super(key: key);
+
   @override
   State<CreatePostCurvedTabBar> createState() => _CreatePostCurvedTabBarState();
 }
@@ -26,9 +26,10 @@ class _CreatePostCurvedTabBarState extends State<CreatePostCurvedTabBar>
       if (_tabController.indexIsChanging) {
         setState(() {
           _selectedTabIndex = _tabController.index;
-          widget.updateCreatePostMode(_tabController.index == 0
-              ? CreatePostMode.writeUpdate
-              : CreatePostMode.setGoal);
+          context.read<CreatePostCubit>().onCreatePostModeChange(
+              _selectedTabIndex == 0
+                  ? CreatePostMode.writeUpdate
+                  : CreatePostMode.setGoal);
         });
       }
     });

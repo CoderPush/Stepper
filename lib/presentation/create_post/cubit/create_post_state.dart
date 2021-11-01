@@ -1,58 +1,66 @@
 part of 'create_post_cubit.dart';
 
 @immutable
-abstract class CreatePostState {
+abstract class CreatePostState extends Equatable {
   final AreaType selectedAreaType;
-  final String areaName;
+  const CreatePostState({required this.selectedAreaType});
+  @override
+  List<Object?> get props => [];
+}
+
+class CreatePostInitialState extends CreatePostState {
+  const CreatePostInitialState({required selectedAreaType})
+      : super(selectedAreaType: selectedAreaType);
+}
+
+class CreatePostLoadingState extends CreatePostState {
+  const CreatePostLoadingState({required selectedAreaType})
+      : super(selectedAreaType: selectedAreaType);
+}
+
+class CreatePostLoadedState extends CreatePostState {
+  final List<Area> areaList;
+  final String selectedAreaName;
   final int areaRating;
-  const CreatePostState({
-    required this.selectedAreaType,
-    required this.areaName,
-    required this.areaRating,
-  });
-}
+  final CreatePostMode createPostMode;
 
-class CreatePostInitial extends CreatePostState {
-  const CreatePostInitial()
-      : super(
-          areaName: defaultAreaName,
-          areaRating: 0,
-          selectedAreaType: AreaType.scope,
-        );
-}
-
-class CreatePostChangeAreaType extends CreatePostState {
-  const CreatePostChangeAreaType({
+  const CreatePostLoadedState({
+    required this.areaList,
     required selectedAreaType,
-    required areaName,
-    required areaRating,
-  }) : super(
-          selectedAreaType: selectedAreaType,
-          areaName: areaName,
-          areaRating: areaRating,
-        );
+    required this.selectedAreaName,
+    this.areaRating = 0,
+    this.createPostMode = CreatePostMode.writeUpdate,
+  }) : super(selectedAreaType: selectedAreaType);
+
+  CreatePostLoadedState copyWith({
+    List<Area>? areaList,
+    AreaType? selectedAreaType,
+    String? selectedAreaName,
+    int? areaRating,
+    CreatePostMode? createPostMode,
+  }) {
+    return CreatePostLoadedState(
+      areaList: areaList ?? this.areaList,
+      selectedAreaType: selectedAreaType ?? this.selectedAreaType,
+      selectedAreaName: selectedAreaName ?? this.selectedAreaName,
+      areaRating: areaRating ?? this.areaRating,
+      createPostMode: createPostMode ?? this.createPostMode,
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        areaList,
+        selectedAreaType,
+        selectedAreaName,
+        areaRating,
+        createPostMode,
+      ];
 }
 
-class CreatePostChangeAreaName extends CreatePostState {
-  const CreatePostChangeAreaName({
-    required selectedAreaType,
-    required areaName,
-    required areaRating,
-  }) : super(
-          selectedAreaType: selectedAreaType,
-          areaName: areaName,
-          areaRating: areaRating,
-        );
-}
-
-class CreatePostChangeAreaRating extends CreatePostState {
-  const CreatePostChangeAreaRating({
-    required selectedAreaType,
-    required areaName,
-    required areaRating,
-  }) : super(
-          selectedAreaType: selectedAreaType,
-          areaName: areaName,
-          areaRating: areaRating,
-        );
+class CreatePostErrorState extends CreatePostState {
+  final String errorMessage;
+  const CreatePostErrorState(
+      {required this.errorMessage, required selectedAreaType})
+      : super(selectedAreaType: selectedAreaType);
 }

@@ -15,14 +15,11 @@ class PostList extends StatelessWidget {
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount:
-          postList.where((post) => post.postedTime.month == 10).toList().length,
+      itemCount: postList.length,
       itemBuilder: (context, index) => Padding(
         padding: const EdgeInsets.only(top: screenMediumPadding),
         child: PostItem(
-          post: postList
-              .where((post) => post.postedTime.month == 10)
-              .toList()[index],
+          post: postList[index],
         ),
       ),
     );

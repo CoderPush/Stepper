@@ -13,3 +13,5 @@ class Post {
     required this.taggedGoalIds,
   });
 }
+
+enum CreatePostMode { writeUpdate, setGoal }
