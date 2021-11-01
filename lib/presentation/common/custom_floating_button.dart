@@ -12,6 +12,7 @@ class CustomFloatingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+      tooltip: "createPostButton",
       onPressed: () => _onCreatePostButtonPressed(context),
       elevation: 0.0,
       backgroundColor: orange,

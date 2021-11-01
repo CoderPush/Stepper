@@ -97,6 +97,7 @@ class MainDrawer extends StatelessWidget {
                   ),
                   title: const Text('John Doe'),
                   trailing: IconButton(
+                    tooltip: "closeDrawerButton",
                     onPressed: () => _onDrawerClosed(context),
                     icon: const Icon(Icons.arrow_back_ios),
                   ),
