@@ -32,6 +32,7 @@ class PostItem extends StatelessWidget {
           color: blueGrey,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

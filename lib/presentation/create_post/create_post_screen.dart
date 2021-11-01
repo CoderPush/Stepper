@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
+import 'package:stepper/data/repositories/fake_repos/fake_post_repository_impl.dart';
 import 'package:stepper/data/repositories/fake_repos/fake_repos.dart';
 import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
 import 'package:stepper/presentation/create_post/views/area_section.dart';
@@ -15,8 +16,11 @@ class CreatePostScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          CreatePostCubit(areaRepository: FakeAreaRepositoryImpl()),
+      create: (context) => CreatePostCubit(
+        areaRepository: FakeAreaRepositoryImpl(),
+        postRepository: FakePostRepositoryImpl(),
+        writeUpdateController: TextEditingController(),
+      ),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: scaffoldColor,
