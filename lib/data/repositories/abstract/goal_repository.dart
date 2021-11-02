@@ -1,5 +1,5 @@
 import 'package:stepper/data/model/models.dart';
 
 abstract class GoalRepository {
-  Future<void> setGoals(List<Goal> goalList);
+  Future<void> setGoals(List<Goal> goals);
 }
