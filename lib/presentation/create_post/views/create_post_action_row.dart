@@ -9,7 +9,11 @@ import 'package:stepper/presentation/create_post/views/create_post_action_button
 import 'package:stepper/routes.dart';
 
 class CreatePostActionRow extends StatelessWidget {
-  const CreatePostActionRow({Key? key}) : super(key: key);
+  final CreatePostMode createPostMode;
+  const CreatePostActionRow({
+    Key? key,
+    required this.createPostMode,
+  }) : super(key: key);
 
   void onAttachFile() {}
 
@@ -17,43 +21,63 @@ class CreatePostActionRow extends StatelessWidget {
 
   void onAttachGoal() {}
 
-  void onPostClick(BuildContext context) {
-    final currentState =
-        context.read<CreatePostCubit>().state as CreatePostLoadedState;
-    if (currentState.createPostMode == CreatePostMode.writeUpdate) {
-      context.read<CreatePostCubit>().onWriteUpdate();
-      Navigator.of(context).pushNamed(Routes.home);
-    }
+  void onPostClick(BuildContext context) async {
+    await context.read<CreatePostCubit>().onCreatePost();
   }
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        CreatePostActionButton(
-          iconData: Icons.attach_file,
-          onTap: onAttachFile,
-        ),
-        CreatePostActionButton(
-          iconData: Icons.crop_original,
-          onTap: onAttachPicture,
-        ),
-        CreatePostActionButton(
-          iconData: Icons.brightness_7_outlined,
-          onTap: onAttachGoal,
-        ),
+        createPostMode == CreatePostMode.writeUpdate
+            ? CreatePostActionButton(
+                iconData: Icons.attach_file,
+                onTap: onAttachFile,
+              )
+            : const SizedBox.shrink(),
+        createPostMode == CreatePostMode.writeUpdate
+            ? CreatePostActionButton(
+                iconData: Icons.crop_original,
+                onTap: onAttachPicture,
+              )
+            : const SizedBox.shrink(),
+        createPostMode == CreatePostMode.writeUpdate
+            ? CreatePostActionButton(
+                iconData: Icons.brightness_7_outlined,
+                onTap: onAttachGoal,
+              )
+            : const SizedBox.shrink(),
         Expanded(
           child: Container(
             padding: const EdgeInsets.all(screenSmallPadding),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: purple,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(largeBorderRadius),
+            child: BlocListener<CreatePostCubit, CreatePostState>(
+              listener: (context, state) {
+                if (state is CreateUpdateSuccessState) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text(writeUpdateSucceed)),
+                  );
+                  Navigator.of(context).pushReplacementNamed(Routes.home);
+                } else if (state is CreateGoalSuccessState) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text(setGoalSucceed)),
+                  );
+                  Navigator.of(context).pushReplacementNamed(Routes.home);
+                } else if (state is CreatePostErrorState) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(state.errorMessage)),
+                  );
+                }
+              },
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: purple,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(largeBorderRadius),
+                  ),
                 ),
+                onPressed: () => onPostClick(context),
+                child: const Text(post),
               ),
-              onPressed: () => onPostClick(context),
-              child: const Text(post),
             ),
           ),
         )

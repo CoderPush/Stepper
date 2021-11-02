@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
+import 'package:stepper/data/repositories/fake_repos/fake_goal_repository_impl.dart';
 import 'package:stepper/data/repositories/fake_repos/fake_post_repository_impl.dart';
 import 'package:stepper/data/repositories/fake_repos/fake_repos.dart';
 import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
@@ -19,6 +20,7 @@ class CreatePostScreen extends StatelessWidget {
       create: (context) => CreatePostCubit(
         areaRepository: FakeAreaRepositoryImpl(),
         postRepository: FakePostRepositoryImpl(),
+        goalRepository: FakeGoalRepositoryImpl(),
         writeUpdateController: TextEditingController(),
       ),
       child: Scaffold(
@@ -57,9 +59,10 @@ class CreatePostScreen extends StatelessWidget {
                         PostSection(),
                       ],
                     );
-                  } else {
-                    return Text((state as CreatePostErrorState).errorMessage);
+                  } else if (state is CreatePostErrorState) {
+                    return Text(state.errorMessage);
                   }
+                  return Container();
                 }),
               ],
             ),

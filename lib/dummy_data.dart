@@ -138,6 +138,7 @@ final List<Goal> goalList = [
     areaName: 'S1',
     createdTime: DateTime(2021, 10, 21),
     achieved: false,
+    isPrioritized: false,
   ),
   Goal(
     goalId: 2,
@@ -145,6 +146,7 @@ final List<Goal> goalList = [
     areaName: 'S1',
     createdTime: DateTime(2021, 10, 19),
     achieved: false,
+    isPrioritized: true,
   ),
   Goal(
     goalId: 3,
@@ -152,6 +154,7 @@ final List<Goal> goalList = [
     areaName: 'S1',
     createdTime: DateTime(2021, 05, 02),
     achieved: true,
+    isPrioritized: true,
   ),
   Goal(
     goalId: 4,
@@ -159,6 +162,7 @@ final List<Goal> goalList = [
     areaName: 'S2',
     createdTime: DateTime(2021, 09, 21),
     achieved: true,
+    isPrioritized: true,
   ),
   Goal(
     goalId: 5,
@@ -166,6 +170,7 @@ final List<Goal> goalList = [
     areaName: 'S2',
     createdTime: DateTime(2021, 07, 20),
     achieved: true,
+    isPrioritized: false,
   ),
   Goal(
     goalId: 6,
@@ -173,6 +178,7 @@ final List<Goal> goalList = [
     areaName: 'M1',
     createdTime: DateTime(2021, 09, 21),
     achieved: false,
+    isPrioritized: true,
   ),
   Goal(
     goalId: 7,
@@ -180,6 +186,7 @@ final List<Goal> goalList = [
     areaName: 'M2',
     createdTime: DateTime(2021, 10, 21),
     achieved: true,
+    isPrioritized: true,
   ),
   Goal(
     goalId: 8,
@@ -187,6 +194,7 @@ final List<Goal> goalList = [
     areaName: 'E1',
     createdTime: DateTime(2021, 08, 21),
     achieved: false,
+    isPrioritized: true,
   ),
 ];
 

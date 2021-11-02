@@ -69,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 child: GoalList(
                   goalList:
-                      goalList.where((goal) => goal.areaName == 'S1').toList(),
+                      goalList.where((goal) => goal.isPrioritized).toList(),
                 ),
               ),
             ],

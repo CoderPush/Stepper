@@ -4,6 +4,7 @@ class Goal {
   final String areaName;
   final DateTime createdTime;
   final bool achieved;
+  final bool isPrioritized;
 
   const Goal({
     required this.goalId,
@@ -11,5 +12,6 @@ class Goal {
     required this.areaName,
     required this.createdTime,
     required this.achieved,
+    required this.isPrioritized,
   });
 }

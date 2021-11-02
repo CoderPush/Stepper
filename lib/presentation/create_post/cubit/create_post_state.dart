@@ -23,6 +23,7 @@ class CreatePostLoadedState extends CreatePostState {
   final String selectedAreaName;
   final int areaRating;
   final CreatePostMode createPostMode;
+  final List<Goal> newlyAddedGoals;
 
   const CreatePostLoadedState({
     required this.areaList,
@@ -30,6 +31,7 @@ class CreatePostLoadedState extends CreatePostState {
     required this.selectedAreaName,
     this.areaRating = 0,
     this.createPostMode = CreatePostMode.writeUpdate,
+    this.newlyAddedGoals = const [],
   }) : super(selectedAreaType: selectedAreaType);
 
   CreatePostLoadedState copyWith({
@@ -38,6 +40,7 @@ class CreatePostLoadedState extends CreatePostState {
     String? selectedAreaName,
     int? areaRating,
     CreatePostMode? createPostMode,
+    List<Goal>? newlyAddedGoals,
   }) {
     return CreatePostLoadedState(
       areaList: areaList ?? this.areaList,
@@ -45,6 +48,7 @@ class CreatePostLoadedState extends CreatePostState {
       selectedAreaName: selectedAreaName ?? this.selectedAreaName,
       areaRating: areaRating ?? this.areaRating,
       createPostMode: createPostMode ?? this.createPostMode,
+      newlyAddedGoals: newlyAddedGoals ?? this.newlyAddedGoals,
     );
   }
 
@@ -55,6 +59,7 @@ class CreatePostLoadedState extends CreatePostState {
         selectedAreaName,
         areaRating,
         createPostMode,
+        newlyAddedGoals,
       ];
 }
 
@@ -62,5 +67,15 @@ class CreatePostErrorState extends CreatePostState {
   final String errorMessage;
   const CreatePostErrorState(
       {required this.errorMessage, required selectedAreaType})
+      : super(selectedAreaType: selectedAreaType);
+}
+
+class CreateUpdateSuccessState extends CreatePostState {
+  const CreateUpdateSuccessState({required selectedAreaType})
+      : super(selectedAreaType: selectedAreaType);
+}
+
+class CreateGoalSuccessState extends CreatePostState {
+  const CreateGoalSuccessState({required selectedAreaType})
       : super(selectedAreaType: selectedAreaType);
 }

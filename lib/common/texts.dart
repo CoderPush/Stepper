@@ -17,3 +17,5 @@ const String writeUpdate = 'Write update';
 const String setGoal = 'Set goal';
 const String writeUpdateHint = 'What do you want to update today?';
 const String addGoal = 'Add goal';
+const String writeUpdateSucceed = 'Update added successfully';
+const String setGoalSucceed = 'Goal set successfully';
