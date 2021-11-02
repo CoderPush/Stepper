@@ -25,6 +25,7 @@ class CreatePostScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: scaffoldColor,
           leading: IconButton(
+            tooltip: "createPostBackButton",
             onPressed: () {
               Navigator.of(context).pop();
             },
