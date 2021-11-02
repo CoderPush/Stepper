@@ -17,26 +17,26 @@ class PostSection extends StatelessWidget {
         color: blueGrey,
         borderRadius: BorderRadius.circular(mediumBorderRadius),
       ),
-      child: Column(
-        children: [
-          const CreatePostCurvedTabBar(),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: screenMediumPadding,
-              top: screenMediumPadding,
-              bottom: screenMediumPadding,
-            ),
-            child: BlocBuilder<CreatePostCubit, CreatePostState>(
-              builder: (context, state) {
-                final currentState = state as CreatePostLoadedState;
-                return CreatePostInput(
+      child: BlocBuilder<CreatePostCubit, CreatePostState>(
+        builder: (context, state) {
+          final currentState = state as CreatePostLoadedState;
+          return Column(
+            children: [
+              const CreatePostCurvedTabBar(),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: screenMediumPadding,
+                  top: screenMediumPadding,
+                  bottom: screenMediumPadding,
+                ),
+                child: CreatePostInput(
                   mode: currentState.createPostMode,
-                );
-              },
-            ),
-          ),
-          const CreatePostActionRow()
-        ],
+                ),
+              ),
+              CreatePostActionRow(createPostMode: currentState.createPostMode)
+            ],
+          );
+        },
       ),
     );
   }
