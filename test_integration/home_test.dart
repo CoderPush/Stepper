@@ -10,7 +10,7 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group("end-to-end test", () {
-    testWidgets("Check existent widget and their behavior",
+    testWidgets("Check existent widget and their behavior in home screen",
         (WidgetTester tester) async {
       app.main();
       await tester.pumpAndSettle();
