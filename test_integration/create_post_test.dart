@@ -48,6 +48,31 @@ void main() {
         await tester.drag(areaSlider, const Offset(0, 3));
         await tester.pump(const Duration(seconds: 1));
         await tester.pumpAndSettle();
+
+        // Test switch write and set goal
+        await tester.tap(find.text("Write update"));
+        await tester.pump(const Duration(seconds: 1));
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text("Set goal"));
+        await tester.pump(const Duration(seconds: 1));
+        await tester.pumpAndSettle();
+
+        // Test write update
+        await tester.tap(find.text("Write update"));
+        await tester.pump(const Duration(seconds: 1));
+        await tester.pumpAndSettle();
+
+        const String writeUpdateText = "Today i will flutter code";
+        final Finder updateTextField = find.byType(TextFormField);
+        await tester.enterText(updateTextField, writeUpdateText);
+        await tester.pump(const Duration(seconds: 1));
+        await tester.pumpAndSettle();
+
+        // Test write set goal
+        await tester.tap(find.text("Set goal"));
+        await tester.pump(const Duration(seconds: 1));
+        await tester.pumpAndSettle();
       });
     },
   );
