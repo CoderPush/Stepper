@@ -18,26 +18,31 @@ void main() {
       // Test drawer, open drawer
       final Finder openDrawerButton = find.byTooltip("openDrawerButton");
       await tester.tap(openDrawerButton);
+      await tester.pump(const Duration(seconds: 1));
       await tester.pumpAndSettle();
 
       // Test drawer, close drawer
       final Finder closeDrawerButton = find.byTooltip("closeDrawerButton");
       await tester.tap(closeDrawerButton);
+      await tester.pump(const Duration(seconds: 1));
       await tester.pumpAndSettle();
 
       // Test floating action button, navigate to create post screen
       expect(find.byIcon(Icons.add), findsOneWidget);
       final Finder createPostButton = find.byTooltip("createPostButton");
       await tester.tap(createPostButton);
+      await tester.pump(const Duration(seconds: 1));
       await tester.pumpAndSettle();
 
       // Test recently updated, navigate to post list screen
       final Finder createPostBackButton = find.byTooltip("createPostBackButton");
       await tester.tap(createPostBackButton);
+      await tester.pump(const Duration(seconds: 1));
       await tester.pumpAndSettle();
 
       final Finder recentlyUpdatedCard = find.byType(HorizontalAreaList);
       await tester.tap(recentlyUpdatedCard);
+      await tester.pump(const Duration(seconds: 1));
       await tester.pumpAndSettle();
     });
   });
