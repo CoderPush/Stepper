@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/routes.dart';
 
@@ -12,7 +13,7 @@ class CustomFloatingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      tooltip: "createPostButton",
+      tooltip: createPostButton,
       onPressed: () => _onCreatePostButtonPressed(context),
       elevation: 0.0,
       backgroundColor: orange,

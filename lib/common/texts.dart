@@ -19,3 +19,6 @@ const String writeUpdateHint = 'What do you want to update today?';
 const String addGoal = 'Add goal';
 const String writeUpdateSucceed = 'Update added successfully';
 const String setGoalSucceed = 'Goal set successfully';
+
+// Testing
+const String writeUpdateText = "Today i will integration test code in flutter";

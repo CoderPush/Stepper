@@ -62,7 +62,7 @@ class CreateGoalList extends StatelessWidget {
               initialItemCount: currentState.newlyAddedGoals.length,
             ),
             TextButton.icon(
-              key: const Key("addGoalButton"),
+              key: const Key(addGoalButton),
               onPressed: () => _addAnimatedListItem(context, currentState),
               icon: const Icon(Icons.add, color: mediumGrey),
               label: const Text(addGoal, style: TextStyle(color: mediumGrey)),

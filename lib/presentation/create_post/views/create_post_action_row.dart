@@ -69,6 +69,7 @@ class CreatePostActionRow extends StatelessWidget {
                 }
               },
               child: ElevatedButton(
+                key: const Key(postButton),
                 style: ElevatedButton.styleFrom(
                   primary: purple,
                   shape: RoundedRectangleBorder(
