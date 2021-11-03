@@ -28,8 +28,8 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: scaffoldColor,
           primarySwatch: Colors.blue,
           textTheme: Theme.of(context).textTheme.apply(
-                bodyColor: white,
-                displayColor: white,
+                bodyColor: textColor,
+                displayColor: textColor,
               ),
         ),
         home: const HomeScreen(),

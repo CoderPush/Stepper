@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
-import 'package:stepper/common/palette.dart';
 import 'package:stepper/data/model/models.dart';
 
 class PostDay extends StatelessWidget {
@@ -16,7 +15,6 @@ class PostDay extends StatelessWidget {
       text: TextSpan(
         text: post.postedTime.day.toString(),
         style: const TextStyle(
-          color: white,
           fontSize: largeFontSize,
           fontWeight: FontWeight.bold,
         ),
