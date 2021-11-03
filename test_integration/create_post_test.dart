@@ -81,7 +81,7 @@ void main() {
 
         // Test close goal
         for (var index = 0; index < 3; index++) {
-          final Finder closeGoalButton = find.byType(IconButton).at(index);
+          final Finder closeGoalButton = find.byType(IconButton).first;
           await tester.tap(closeGoalButton);
           await tester.pump(const Duration(seconds: 1));
           await tester.pumpAndSettle();

@@ -16,13 +16,13 @@ class TabRow extends StatelessWidget {
         onTap: (index) {
           switch (index) {
             case 0:
-              context.read<CreatePostCubit>().onChangeTab(AreaType.scope);
+              context.read<CreatePostCubit>().getAreas(AreaType.scope);
               break;
             case 1:
-              context.read<CreatePostCubit>().onChangeTab(AreaType.expertise);
+              context.read<CreatePostCubit>().getAreas(AreaType.expertise);
               break;
             case 2:
-              context.read<CreatePostCubit>().onChangeTab(AreaType.mindset);
+              context.read<CreatePostCubit>().getAreas(AreaType.mindset);
               break;
           }
         },
