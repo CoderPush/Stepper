@@ -43,6 +43,7 @@ class PostItem extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: largeFontSize,
                       fontWeight: FontWeight.bold,
+                      color: textColor,
                     ),
                     children: [
                       TextSpan(
@@ -70,6 +71,7 @@ class PostItem extends StatelessWidget {
               colorClickableText: seeMoreTextColor,
               trimCollapsedText: seeMore,
               trimExpandedText: seeLess,
+              style: const TextStyle(color: textColor),
             )
           ],
         ),
