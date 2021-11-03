@@ -23,7 +23,7 @@ void main() {
       // Test drawer, close drawer
       final Finder closeDrawerButton = find.byTooltip("closeDrawerButton");
       await tester.tap(closeDrawerButton);
-      await tester.pumpAndSettle();;
+      await tester.pumpAndSettle();
 
       // Test floating action button, navigate to create post screen
       expect(find.byIcon(Icons.add), findsOneWidget);
