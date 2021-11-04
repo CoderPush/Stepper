@@ -27,8 +27,8 @@ class AreaMainCard extends StatelessWidget {
             children: [
               Text(
                 area.areaName,
-                style: const TextStyle(
-                  color: purple,
+                style: TextStyle(
+                  color: area.getAreaTheme()[2],
                   fontSize: superLargeFontSize,
                   fontWeight: FontWeight.bold,
                 ),

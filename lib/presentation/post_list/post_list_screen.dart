@@ -56,7 +56,7 @@ class PostListScreen extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: const CustomFloatingButton(),
+      floatingActionButton: CustomFloatingButton(area: area),
     );
   }
 }

@@ -16,7 +16,7 @@ class AreaCubit extends Cubit<AreaState> {
   Future<void> getAreas(AreaType areaType) async {
     try {
       emit(AreaLoading(areaType: areaType));
-      final areaList = await areaRepository.fetchAreas(areaType);
+      final areaList = await areaRepository.fetchAreasByType(areaType);
       emit(AreaLoaded(
         areaList: areaList,
         areaType: areaType,

@@ -4,7 +4,7 @@ import 'package:stepper/dummy_data.dart';
 
 class FakeAreaRepositoryImpl extends AreaRepository {
   @override
-  Future<List<Area>> fetchAreas(AreaType areaType) {
+  Future<List<Area>> fetchAreasByType(AreaType areaType) {
     return Future.delayed(const Duration(seconds: 1), () {
       // Return "fetched" areas
       if (areaType == AreaType.scope) {
