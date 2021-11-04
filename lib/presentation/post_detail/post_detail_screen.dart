@@ -5,7 +5,6 @@ import 'package:stepper/common/texts.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/dummy_data.dart';
 import 'package:stepper/presentation/common/commons.dart';
-import 'package:stepper/presentation/post_detail/views/detail_goal_item.dart';
 
 class PostDetailScreen extends StatelessWidget {
   const PostDetailScreen({Key? key}) : super(key: key);
@@ -51,7 +50,10 @@ class PostDetailScreen extends StatelessWidget {
                 const SizedBox(height: screenMediumPadding),
                 ...List.generate(
                   taggedGoals.length,
-                  (index) => DetailGoalItem(goal: taggedGoals[index]),
+                  (index) => GoalItem(
+                    goal: taggedGoals[index],
+                    isCreatingGoal: false,
+                  ),
                 )
               ],
             ),

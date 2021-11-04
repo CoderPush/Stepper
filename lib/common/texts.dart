@@ -19,3 +19,10 @@ const String writeUpdateHint = 'What do you want to update today?';
 const String addGoal = 'Add goal';
 const String writeUpdateSucceed = 'Update added successfully';
 const String setGoalSucceed = 'Goal set successfully';
+
+// Error message
+const String achieveGoalError = 'Error when achieving a goal. Please try again later';
+
+// Success message
+const String markGoalAsDone = 'Goal is marked as done';
+const String markGoalAsUndone = 'Goal is marked as undone';

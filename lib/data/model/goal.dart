@@ -1,6 +1,8 @@
-class Goal {
-  final String goalDescription;
+import 'package:equatable/equatable.dart';
+
+class Goal extends Equatable {
   final int goalId;
+  final String goalDescription;
   final String areaName;
   final DateTime createdTime;
   final bool achieved;
@@ -14,4 +16,14 @@ class Goal {
     required this.achieved,
     required this.isPrioritized,
   });
+
+  @override
+  List<Object?> get props => [
+        goalId,
+        goalDescription,
+        areaName,
+        createdTime,
+        achieved,
+        isPrioritized,
+      ];
 }
