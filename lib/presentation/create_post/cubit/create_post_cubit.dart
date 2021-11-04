@@ -22,15 +22,24 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     required this.postRepository,
     required this.goalRepository,
     required this.writeUpdateController,
+    Area? preSelectedArea,
   }) : super(const CreatePostInitialState(selectedAreaType: AreaType.scope)) {
-    getAreas(AreaType.scope);
+    if (preSelectedArea != null) {
+      getAreas(
+        preSelectedArea.areaType,
+        preSelectedAreaName: preSelectedArea.areaName,
+      );
+    } else {
+      getAreas(AreaType.scope);
+    }
   }
 
-  Future<void> getAreas(AreaType areaType) async {
+  Future<void> getAreas(AreaType areaType,
+      {String? preSelectedAreaName}) async {
     try {
       emit(CreatePostLoadingState(selectedAreaType: areaType));
-      final areaList = await areaRepository.fetchAreas(areaType);
-      final firstSelectedAreaName = areaList[0].areaName;
+      final areaList = await areaRepository.fetchAreasByType(areaType);
+      final firstSelectedAreaName = preSelectedAreaName ?? areaList[0].areaName;
       emit(CreatePostLoadedState(
         areaList: areaList,
         selectedAreaType: areaType,

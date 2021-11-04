@@ -5,9 +5,7 @@ import 'package:stepper/common/texts.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/data/repositories/fake_repos/fake_repos.dart';
 import 'package:stepper/presentation/area/cubit/area_cubit.dart';
-import 'package:stepper/presentation/area/views/expertise_view.dart';
-import 'package:stepper/presentation/area/views/mindset_view.dart';
-import 'package:stepper/presentation/area/views/scope_view.dart';
+import 'package:stepper/presentation/area/views/area_list.dart';
 import 'package:stepper/presentation/area/views/tabbar_item.dart';
 import 'package:stepper/presentation/common/drawer/drawer.dart';
 
@@ -81,7 +79,7 @@ class AreaScreen extends StatelessWidget {
                       if (state is AreaLoading) {
                         return _buildLoadingState();
                       } else if (state is AreaLoaded) {
-                        return ScopeView(areaList: state.areaList);
+                        return AreaList(areaList: state.areaList);
                       } else if (state is AreaError) {
                         return const Text('Error loading scope area');
                       }
@@ -93,7 +91,7 @@ class AreaScreen extends StatelessWidget {
                       if (state is AreaLoading) {
                         return _buildLoadingState();
                       } else if (state is AreaLoaded) {
-                        return ExpertiseView(areaList: state.areaList);
+                        return AreaList(areaList: state.areaList);
                       } else {
                         return const Text('Error loading scope area');
                       }
@@ -104,7 +102,7 @@ class AreaScreen extends StatelessWidget {
                       if (state is AreaLoading) {
                         return _buildLoadingState();
                       } else if (state is AreaLoaded) {
-                        return MindsetView(areaList: state.areaList);
+                        return AreaList(areaList: state.areaList);
                       } else {
                         return const Text('Error loading scope area');
                       }
