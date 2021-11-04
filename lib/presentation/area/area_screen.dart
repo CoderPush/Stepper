@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/data/model/models.dart';
-import 'package:stepper/data/repositories/fake_repos/fake_area_repository_impl.dart';
+import 'package:stepper/data/repositories/fake_repos/fake_repos.dart';
 import 'package:stepper/presentation/area/cubit/area_cubit.dart';
 import 'package:stepper/presentation/area/views/expertise_view.dart';
 import 'package:stepper/presentation/area/views/mindset_view.dart';
