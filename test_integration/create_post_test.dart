@@ -63,6 +63,11 @@ void main() {
         final Finder finderPostListScrollView = find.byType(SingleChildScrollView);
         await tester.drag(finderPostListScrollView, const Offset(0.0, -5000));
         await tester.pumpAndSettle();
+
+        expect(
+            find.byWidgetPredicate((widget) =>
+                widget is RichText && widget.text.toPlainText() == writeUpdateText),
+            findsOneWidget);
       });
     },
   );
