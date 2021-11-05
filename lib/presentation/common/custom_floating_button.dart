@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
+import 'package:stepper/data/model/models.dart';
 import 'package:stepper/routes.dart';
 
 class CustomFloatingButton extends StatelessWidget {
-  const CustomFloatingButton({Key? key}) : super(key: key);
+  final Area? area;
+  const CustomFloatingButton({Key? key, this.area}) : super(key: key);
 
   void _onCreatePostButtonPressed(BuildContext context) {
-    Navigator.of(context).pushNamed(Routes.createPost);
+    Navigator.of(context)
+        .pushNamed(Routes.createPost, arguments: {'area': area});
   }
 
   @override

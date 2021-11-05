@@ -22,6 +22,8 @@ const Color seeMoreTextColor = Color(0xff626481);
 const Color dropdownButtonColor = Color(0xff737492);
 const Color sliderInactiveColor = Color(0xff494E6A);
 const Color scaffoldColor = Color(0xff0D122E);
+const Color textColor = Color(0xffE1E6EE);
+const Color checkboxBackGroundColor = Color(0xff737492);
 
 // Indicator colors
 const List<Color> scopeScheme = [lightPurple, mediumPurple, purple];

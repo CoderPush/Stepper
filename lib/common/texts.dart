@@ -22,3 +22,10 @@ const String setGoalSucceed = 'Goal set successfully';
 
 // Testing
 const String writeUpdateText = "Today i will integration test code in flutter";
+
+// Error message
+const String achieveGoalError = 'Error when achieving a goal. Please try again later';
+
+// Success message
+const String markGoalAsDone = 'Goal is marked as done';
+const String markGoalAsUndone = 'Goal is marked as undone';
