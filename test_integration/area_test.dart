@@ -11,9 +11,9 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group(
-    "end-to-end test",
+    "Integration test in area screen",
     () {
-      testWidgets("Check existing widgets and their behavior in area screen",
+      testWidgets("Check existing widgets and their behavior",
           (WidgetTester tester) async {
         app.main();
         await tester.pumpAndSettle();

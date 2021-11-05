@@ -11,8 +11,8 @@ import 'package:stepper/presentation/home/views/horizontal_area_list.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group("end-to-end test", () {
-    testWidgets("Check existing widgets and their behavior in home screen",
+  group("Integration test in home screen", () {
+    testWidgets("Check existing widgets and their behavior",
         (WidgetTester tester) async {
       app.main();
       await tester.pumpAndSettle();
