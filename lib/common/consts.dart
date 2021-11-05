@@ -35,10 +35,19 @@ List<String> monthNames = [
 ];
 
 // Slider values
-List<String> sliderValues = ['No progress', 'Good', 'Exellent', 'Outstanding'];
+List<String> sliderValues = ['No progress', 'Good', 'Excellent', 'Outstanding'];
 
 // AnimatedList key
 final animatedListKey = GlobalKey<AnimatedListState>();
 
 // Area name
 const String defaultAreaName = 'S1';
+
+// Testing
+const String openDrawerButton = 'openDrawerButton';
+const String closeDrawerButton = 'closeDrawerButton';
+const String createPostButton = 'createPostButton';
+const String createPostBackButton = 'createPostBackButton';
+const String postButton = "postButton";
+const String addGoalButton = 'addGoalButton';
+const String postListScrollView = 'postListScrollView';

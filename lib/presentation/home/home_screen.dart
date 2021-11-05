@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Builder(builder: (context) {
                         return IconButton(
-                          tooltip: "openDrawerButton",
+                          tooltip: openDrawerButton,
                           color: darkGrey,
                           icon: const Icon(Icons.menu),
                           onPressed: () => Scaffold.of(context).openDrawer(),
