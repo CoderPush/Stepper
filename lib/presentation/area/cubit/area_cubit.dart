@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:stepper/data/repositories/abstract/area_repository.dart';
-import 'package:stepper/data/repositories/fake_repos/fake_area_repository_impl.dart';
+import 'package:stepper/domain/repositories/area_repository.dart';
+import 'package:stepper/data/repositories/fake_area_repository_impl.dart';
 import 'package:stepper/data/model/models.dart';
 
 part 'area_state.dart';
