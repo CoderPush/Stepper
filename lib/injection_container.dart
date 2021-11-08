@@ -1,9 +1,7 @@
-import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stepper/data/datasources/local/databases.dart';
 import 'package:stepper/data/model/models.dart';
-import 'package:stepper/data/network/network_status.dart';
 import 'package:stepper/domain/repositories/repositories.dart';
 import 'package:stepper/data/repositories/fake_repos.dart';
 
@@ -29,8 +27,4 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<PostDatabase>(() => PostDatabase());
 
   sl.registerLazySingleton<GoalDatabase>(() => GoalDatabase());
-
-  //Singleton for NetworkStatus identification
-  sl.registerLazySingleton<NetworkStatus>(
-      () => NetworkStatusImpl(DataConnectionChecker()));
 }
