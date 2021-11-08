@@ -4,7 +4,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/data/model/models.dart';
-import 'package:stepper/dummy_data.dart';
 import 'package:stepper/presentation/common/custom_floating_button.dart';
 import 'package:stepper/presentation/common/drawer/drawer.dart';
 import 'package:stepper/presentation/post_list/views/area_main_card.dart';
