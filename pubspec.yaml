@@ -35,10 +35,6 @@ dependencies:
   hive: ^2.0.4
   hive_flutter: ^1.1.0
   get_it: ^7.2.0
-  data_connection_checker:
-    git:
-      url: https://github.com/chornthorn/data_connection_checker.git
-      ref: master
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
