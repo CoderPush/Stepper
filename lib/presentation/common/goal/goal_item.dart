@@ -19,6 +19,7 @@ class GoalItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final displayTime = goal.updatedTime ?? goal.createdTime;
     return BlocProvider(
       create: (context) => GoalCubit(
         goal: goal,
@@ -34,23 +35,29 @@ class GoalItem extends StatelessWidget {
             horizontalTitleGap: 8.0,
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: screenSmallPadding),
-            leading: BlocConsumer<GoalCubit, GoalState>(
+            leading: BlocListener<GoalCubit, GoalState>(
               listener: (context, state) {
                 if (state is GoalErrorState) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text(achieveGoalError)));
+                    const SnackBar(
+                      content: Text(achieveGoalError),
+                      duration: Duration(milliseconds: 1000),
+                    ),
+                  );
                 } else if (state is GoalEditState) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
                       content: Text(
-                    state.isAchieved == true
-                        ? markGoalAsDone
-                        : markGoalAsUndone,
-                  )));
+                        state.isAchieved == true
+                            ? markGoalAsDone
+                            : markGoalAsUndone,
+                      ),
+                      duration: const Duration(milliseconds: 1000),
+                    ),
+                  );
                 }
               },
-              builder: (context, state) {
-                return CustomCheckbox(isChecked: state.isAchieved);
-              },
+              child: CustomCheckbox(isChecked: goal.achieved),
             ),
             trailing: !isCreatingGoal
                 ? const Icon(
@@ -82,15 +89,11 @@ class GoalItem extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: screenExtraSmallPadding),
-                      BlocBuilder<GoalCubit, GoalState>(
-                        builder: (context, state) {
-                          return Text(
-                            '${monthNames[state.updatedTime.month - 1]} ${state.updatedTime.day}',
-                            style: const TextStyle(
-                                fontSize: smallFontSize, color: lightGrey),
-                          );
-                        },
-                      )
+                      Text(
+                        '${monthNames[displayTime.month - 1]} ${displayTime.day}',
+                        style: const TextStyle(
+                            fontSize: smallFontSize, color: lightGrey),
+                      ),
                     ],
                   )
                 : null,

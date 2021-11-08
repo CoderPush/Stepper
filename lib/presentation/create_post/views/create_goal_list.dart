@@ -30,7 +30,7 @@ class CreateGoalList extends StatelessWidget {
             achieved: false,
             areaName: state.selectedAreaName,
             goalDescription: 'Lorem ipsum dolor sit amet',
-            goalId: DateTime.now().millisecondsSinceEpoch,
+            goalId: DateTime.now().toString(),
             createdTime: DateTime.now(),
             isPrioritized: false,
           ),

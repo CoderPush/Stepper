@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/data/model/models.dart';
@@ -43,13 +45,23 @@ class PostListScreen extends StatelessWidget {
             child: Column(
               children: [
                 AreaMainCard(area: area),
-                MonthSection(
-                  goalList: goalList
-                      .where((goal) => goal.areaName == area.areaName)
-                      .toList(),
-                  postList: postList
-                      .where((post) => post.areaName == area.areaName)
-                      .toList(),
+                ValueListenableBuilder<Box<Post>>(
+                  valueListenable: Hive.box<Post>('Post').listenable(),
+                  builder: (context, postBox, widget) {
+                    return ValueListenableBuilder<Box<Goal>>(
+                      valueListenable: Hive.box<Goal>('Goal').listenable(),
+                      builder: (context, goalBox, widget) {
+                        return MonthSection(
+                          goalList: goalBox.values
+                              .where((goal) => goal.areaName == area.areaName)
+                              .toList(),
+                          postList: postBox.values
+                              .where((post) => post.areaName == area.areaName)
+                              .toList(),
+                        );
+                      },
+                    );
+                  },
                 ),
               ],
             ),

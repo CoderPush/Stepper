@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:stepper/data/model/area.dart';
 import 'package:stepper/data/model/models.dart';
-import 'package:stepper/data/repositories/abstract/area_repository.dart';
-import 'package:stepper/data/repositories/abstract/goal_repository.dart';
-import 'package:stepper/data/repositories/abstract/post_repository.dart';
-import 'package:stepper/data/repositories/fake_repos/fake_repos.dart';
+import 'package:stepper/domain/repositories/area_repository.dart';
+import 'package:stepper/domain/repositories/goal_repository.dart';
+import 'package:stepper/domain/repositories/post_repository.dart';
+import 'package:stepper/data/repositories/fake_repos.dart';
 
 part 'create_post_state.dart';
 
@@ -105,7 +105,7 @@ class CreatePostCubit extends Cubit<CreatePostState> {
       postedTime: DateTime.now(),
       description: writeUpdateController.text,
       // TODO: tag a goal here
-      taggedGoalIds: [1, 2],
+      taggedGoalIds: [],
     );
     if (writeUpdateController.text.isNotEmpty) {
       await postRepository.writeUpdate(addedPost);
@@ -117,18 +117,19 @@ class CreatePostCubit extends Cubit<CreatePostState> {
   Future<void> onSetGoals() async {
     final currentState = state as CreatePostLoadedState;
     if (currentState.newlyAddedGoals.isNotEmpty) {
-      await goalRepository.setGoals(currentState.newlyAddedGoals
-          .map(
-            (goal) => Goal(
-              goalId: DateTime.now().millisecondsSinceEpoch,
-              goalDescription: goal.goalDescription,
-              areaName: currentState.selectedAreaName,
-              createdTime: DateTime.now(),
-              achieved: false,
-              isPrioritized: false,
-            ),
-          )
-          .toList());
+      await goalRepository.setGoals(currentState.newlyAddedGoals.map(
+        (goal) {
+          final createdTime = DateTime.now();
+          return Goal(
+            goalId: createdTime.toString(),
+            goalDescription: goal.goalDescription,
+            areaName: currentState.selectedAreaName,
+            createdTime: createdTime,
+            achieved: false,
+            isPrioritized: false,
+          );
+        },
+      ).toList());
     }
     await onAreaRated();
     emit(CreateGoalSuccessState(selectedAreaType: state.selectedAreaType));

@@ -1,9 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:stepper/data/model/models.dart';
-import 'package:stepper/data/repositories/abstract/area_repository.dart';
-import 'package:stepper/data/repositories/abstract/goal_repository.dart';
-import 'package:stepper/data/repositories/fake_repos/fake_repos.dart';
+import 'package:stepper/data/repositories/fake_repos.dart';
+import 'package:stepper/domain/repositories/repositories.dart';
 
 part 'home_state.dart';
 

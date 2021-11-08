@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
@@ -80,8 +82,15 @@ class HomeScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                           horizontal: screenMediumPadding,
                         ),
-                        child: GoalList(
-                          goalList: state.priorityGoalList,
+                        child: ValueListenableBuilder<Box<Goal>>(
+                          valueListenable: Hive.box<Goal>('Goal').listenable(),
+                          builder: (context, goalBox, widget) {
+                            return GoalList(
+                              goalList: goalBox.values
+                                  .where((goal) => goal.isPrioritized)
+                                  .toList(),
+                            );
+                          },
                         ),
                       ),
                     ],
