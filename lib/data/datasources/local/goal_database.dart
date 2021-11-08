@@ -13,7 +13,6 @@ class GoalDatabase {
   // get goal by id
   Future<Goal?> getGoalById(String goalId) async {
     final box = await goalBox();
-    print(goalId);
     return box.get(goalId);
   }
 
@@ -40,7 +39,6 @@ class GoalDatabase {
   // to add goal in box
   Future<void> addGoal(Goal goal) async {
     final box = await goalBox();
-    print(goal.goalId);
     await box.put(goal.goalId, goal);
   }
 
