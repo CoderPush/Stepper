@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/data/model/models.dart';
-import 'package:stepper/data/repositories/fake_repos/fake_repos.dart';
+import 'package:stepper/injection_container.dart';
 import 'package:stepper/presentation/area/cubit/area_cubit.dart';
 import 'package:stepper/presentation/area/views/area_list.dart';
 import 'package:stepper/presentation/area/views/tabbar_item.dart';
@@ -19,7 +19,7 @@ class AreaScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AreaCubit(areaRepository: FakeAreaRepositoryImpl()),
+      create: (context) => AreaCubit(areaRepository: sl()),
       child: Builder(builder: (context) {
         return DefaultTabController(
           length: 3,

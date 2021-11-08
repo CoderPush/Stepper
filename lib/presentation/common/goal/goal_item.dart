@@ -4,7 +4,7 @@ import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/data/model/models.dart';
-import 'package:stepper/data/repositories/fake_repos/fake_repos.dart';
+import 'package:stepper/injection_container.dart';
 import 'package:stepper/presentation/common/checkbox/custom_checkbox.dart';
 import 'package:stepper/presentation/common/goal/cubit/goal_cubit.dart';
 
@@ -22,7 +22,7 @@ class GoalItem extends StatelessWidget {
     return BlocProvider(
       create: (context) => GoalCubit(
         goal: goal,
-        goalRepository: FakeGoalRepositoryImpl(),
+        goalRepository: sl(),
       ),
       child: Padding(
         padding: const EdgeInsets.only(top: screenSmallPadding),

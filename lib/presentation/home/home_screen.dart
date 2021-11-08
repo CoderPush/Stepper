@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
-import 'package:stepper/data/repositories/fake_repos/fake_repos.dart';
+import 'package:stepper/data/model/models.dart';
+import 'package:stepper/injection_container.dart';
 import 'package:stepper/presentation/common/custom_floating_button.dart';
 import 'package:stepper/presentation/common/drawer/drawer.dart';
 import 'package:stepper/presentation/common/commons.dart';
@@ -19,8 +20,8 @@ class HomeScreen extends StatelessWidget {
 
     return BlocProvider(
       create: (context) => HomeCubit(
-        areaRepository: FakeAreaRepositoryImpl(),
-        goalRepository: FakeGoalRepositoryImpl(),
+        areaRepository: sl(),
+        goalRepository: sl(),
       ),
       child: Scaffold(
         drawer: SizedBox(
