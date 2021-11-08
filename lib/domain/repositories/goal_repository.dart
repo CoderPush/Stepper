@@ -4,7 +4,7 @@ abstract class GoalRepository {
   Future<void> setGoals(List<Goal> goals);
 
   Future<void> achieveGoal({
-    required int goalId,
+    required String goalId,
     required bool isAchieved,
     required DateTime updatedTime,
   });

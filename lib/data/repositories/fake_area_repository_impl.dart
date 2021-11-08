@@ -1,5 +1,5 @@
 import 'package:stepper/data/model/area.dart';
-import 'package:stepper/data/repositories/abstract/area_repository.dart';
+import 'package:stepper/domain/repositories/area_repository.dart';
 import 'package:stepper/dummy_data.dart';
 
 class FakeAreaRepositoryImpl extends AreaRepository {
