@@ -4,7 +4,7 @@ import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/data/model/models.dart';
-import 'package:stepper/data/repositories/fake_repos/fake_repos.dart';
+import 'package:stepper/injection_container.dart';
 import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
 import 'package:stepper/presentation/create_post/views/area_section.dart';
 import 'package:stepper/presentation/create_post/views/post_section.dart';
@@ -19,9 +19,9 @@ class CreatePostScreen extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as Map<String, Area?>;
     return BlocProvider(
       create: (context) => CreatePostCubit(
-        areaRepository: FakeAreaRepositoryImpl(),
-        postRepository: FakePostRepositoryImpl(),
-        goalRepository: FakeGoalRepositoryImpl(),
+        areaRepository: sl(),
+        postRepository: sl(),
+        goalRepository: sl(),
         writeUpdateController: TextEditingController(),
         preSelectedArea: routeArgs['area'],
       ),

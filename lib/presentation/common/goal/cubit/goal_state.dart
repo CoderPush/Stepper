@@ -1,7 +1,7 @@
 part of 'goal_cubit.dart';
 
 abstract class GoalState extends Equatable {
-  final int goalId;
+  final String goalId;
   final bool isAchieved;
   final String goalDescription;
   final bool isPrioritized;
@@ -24,7 +24,7 @@ abstract class GoalState extends Equatable {
 
 class GoalInitialState extends GoalState {
   const GoalInitialState({
-    required int goalId,
+    required String goalId,
     required bool isAchieved,
     required String goalDescription,
     required bool isPrioritized,
@@ -40,7 +40,7 @@ class GoalInitialState extends GoalState {
 
 class GoalEditState extends GoalState {
   const GoalEditState({
-    required int goalId,
+    required String goalId,
     required bool isAchieved,
     required String goalDescription,
     required bool isPrioritized,
@@ -58,7 +58,7 @@ class GoalErrorState extends GoalState {
   final String errorMessage;
   const GoalErrorState({
     required this.errorMessage,
-    required int goalId,
+    required String goalId,
     required bool isAchieved,
     required String goalDescription,
     required bool isPrioritized,
