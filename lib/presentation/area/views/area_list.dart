@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/data/model/models.dart';
-import 'package:stepper/presentation/common/commons.dart';
+import 'package:stepper/presentation/area/views/area_with_description_item.dart';
 
 class AreaList extends StatelessWidget {
   final List<Area> areaList;
+
   const AreaList({
     Key? key,
     required this.areaList,
@@ -17,7 +18,7 @@ class AreaList extends StatelessWidget {
 
     return ListView.builder(
       padding: const EdgeInsets.all(screenMediumPadding),
-      itemBuilder: (context, index) => AreaItem(
+      itemBuilder: (context, index) => AreaWithDescriptionItem(
         area: areaList[index],
         areaSubTitle: '${areaList[index].numberOfUpdate} $updateThisWeek',
         itemWidth: screenSize.width - screenMediumPadding * 2,

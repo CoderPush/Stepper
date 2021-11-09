@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/data/model/models.dart';
-import 'package:stepper/presentation/common/commons.dart';
+import 'package:stepper/presentation/home/views/area_item.dart';
 
 class HorizontalAreaList extends StatelessWidget {
   final List<Area> areaList;
