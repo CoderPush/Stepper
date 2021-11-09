@@ -3,6 +3,7 @@ const String priorityGoal = 'Priority goal';
 const String home = 'Home';
 const String area = 'Area';
 const String calendar = 'Calendar';
+const String account = 'Account';
 const String scope = 'Scope';
 const String expertise = 'Expertise';
 const String mindset = 'Mindset';
@@ -19,12 +20,14 @@ const String writeUpdateHint = 'What do you want to update today?';
 const String addGoal = 'Add goal';
 const String writeUpdateSucceed = 'Update added successfully';
 const String setGoalSucceed = 'Goal set successfully';
+const String changeProfilePicture = 'Change profile picture';
 
 // Testing
 const String writeUpdateText = "Today i will integration test code in flutter";
 
 // Error message
-const String achieveGoalError = 'Error when achieving a goal. Please try again later';
+const String achieveGoalError =
+    'Error when achieving a goal. Please try again later';
 
 // Success message
 const String markGoalAsDone = 'Goal is marked as done';

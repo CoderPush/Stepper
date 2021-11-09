@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
+import 'package:stepper/common/consts.dart';
 import 'package:stepper/dummy_data.dart';
 import 'package:stepper/presentation/common/drawer/cubit/drawer_cubit.dart';
 import 'package:stepper/presentation/common/drawer/views/drawer_item.dart';
@@ -53,6 +54,13 @@ class MainDrawer extends StatelessWidget {
         .toList();
   }
 
+  void _onProfileUserScreenTap(BuildContext context) {
+    Navigator.pushReplacementNamed(
+      context,
+      Routes.profileUser,
+    );
+  }
+
   void _onHomeScreenTap(BuildContext context) {
     Navigator.pushReplacementNamed(
       context,
@@ -89,17 +97,20 @@ class MainDrawer extends StatelessWidget {
             color: mediumGrey,
             child: Column(
               children: <Widget>[
-                ListTile(
-                  leading: const CircleAvatar(
-                    backgroundImage: NetworkImage(
-                      avatarProfileUrl,
+                GestureDetector(
+                  onTap: () => _onProfileUserScreenTap(context),
+                  child: ListTile(
+                    leading: const CircleAvatar(
+                      backgroundImage: NetworkImage(
+                        avatarProfileUrl,
+                      ),
                     ),
-                  ),
-                  title: const Text('John Doe'),
-                  trailing: IconButton(
-                    tooltip: "closeDrawerButton",
-                    onPressed: () => _onDrawerClosed(context),
-                    icon: const Icon(Icons.arrow_back_ios),
+                    title: const Text('John Doe'),
+                    trailing: IconButton(
+                      tooltip: closeDrawerButton,
+                      onPressed: () => _onDrawerClosed(context),
+                      icon: const Icon(Icons.arrow_back_ios),
+                    ),
                   ),
                 ),
                 ..._buildDrawerItems(context),

@@ -4,4 +4,6 @@ class Routes {
   static const String postList = '/postList';
   static const String postDetail = '/postDetail';
   static const String createPost = '/createPost';
+  static const String profileUser = '/profileUser';
+  static const String profileUserEdit = 'profileUserEdit';
 }

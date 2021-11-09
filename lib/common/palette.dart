@@ -6,6 +6,7 @@ const Color mediumGrey = Color(0xff8E8E93);
 const Color darkGrey = Color(0xff494E6A);
 const Color black = Color(0xff000000);
 const Color darkPurple = Color(0xff0D122F);
+const Color darkBlue = Color(0xFF181C3C);
 const Color purple = Color(0xff726EFF);
 const Color mediumPurple = Color(0xff9E9BFF);
 const Color lightPurple = Color(0xffCECCFF);
