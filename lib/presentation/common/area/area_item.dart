@@ -9,6 +9,7 @@ class AreaItem extends StatelessWidget {
   final String areaSubTitle;
   final double itemWidth;
   final Area area;
+
   const AreaItem({
     Key? key,
     required this.areaSubTitle,
