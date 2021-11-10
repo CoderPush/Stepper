@@ -5,23 +5,7 @@ import 'package:stepper/common/palette.dart';
 import 'package:stepper/presentation/profile_user_edit/views/row_level_view.dart';
 
 class UserLevelView extends StatelessWidget {
-  UserLevelView({Key? key}) : super(key: key);
-
-  final List<String> _professionList = [
-    'Software Engineer 1',
-    'Software Engineer 2',
-    'Software Engineer 3',
-    'Software Engineer 4',
-    'Software Engineer 5',
-  ];
-
-  final List<String> _bandList = [
-    'Band 1',
-    'Band 2',
-    'Band 3',
-    'Band 4',
-    'Band 5',
-  ];
+  const UserLevelView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +23,8 @@ class UserLevelView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          RowLevelView(titleText: 'Profession', list: _professionList),
-          RowLevelView(titleText: 'Band', list: _bandList),
+          RowLevelView(titleText: 'Profession', list: professionList),
+          RowLevelView(titleText: 'Band', list: bandList),
         ],
       ),
     );

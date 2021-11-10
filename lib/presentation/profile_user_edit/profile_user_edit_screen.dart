@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stepper/common/consts.dart';
-import 'package:stepper/common/numbers.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
-import 'package:stepper/dummy_data.dart';
 import 'package:stepper/presentation/profile_user_edit/views/avatar_view.dart';
 import 'package:stepper/presentation/profile_user_edit/views/user_information_view.dart';
 import 'package:stepper/presentation/profile_user_edit/views/user_level_view.dart';
@@ -20,16 +17,16 @@ class ProfileUserEditScreen extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: const Icon(Icons.arrow_back_ios, color: darkGrey),
+          icon: const Icon(Icons.arrow_back_ios),
         ),
         title: const Text(account),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [
-            const AvatarView(),
-            const UserInformationView(),
+          children: const [
+            AvatarView(),
+            UserInformationView(),
             UserLevelView(),
           ],
         ),
