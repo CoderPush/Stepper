@@ -15,13 +15,11 @@ class CreatePostCubit extends Cubit<CreatePostState> {
   final AreaRepository areaRepository;
   final PostRepository postRepository;
   final GoalRepository goalRepository;
-  final TextEditingController writeUpdateController;
 
   CreatePostCubit({
     required this.areaRepository,
     required this.postRepository,
     required this.goalRepository,
-    required this.writeUpdateController,
     Area? preSelectedArea,
   }) : super(const CreatePostInitialState(selectedAreaType: AreaType.scope)) {
     if (preSelectedArea != null) {
@@ -39,11 +37,14 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     try {
       emit(CreatePostLoadingState(selectedAreaType: areaType));
       final areaList = await areaRepository.fetchAreasByType(areaType);
-      final firstSelectedAreaName = preSelectedAreaName ?? areaList[0].areaName;
+      final selectedAreaName = preSelectedAreaName ?? areaList[0].areaName;
+      final draftPost =
+          await postRepository.getDraftPostByAreaName(selectedAreaName);
       emit(CreatePostLoadedState(
         areaList: areaList,
         selectedAreaType: areaType,
-        selectedAreaName: firstSelectedAreaName,
+        selectedAreaName: selectedAreaName,
+        draftPost: draftPost,
       ));
     } on NetworkException {
       emit(CreatePostErrorState(
@@ -53,9 +54,13 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     }
   }
 
-  void onChangeAreaName(String areaName) {
+  void onChangeAreaName(String areaName) async {
     final currentState = state as CreatePostLoadedState;
-    emit(currentState.copyWith(selectedAreaName: areaName));
+    final draftPost = await postRepository.getDraftPostByAreaName(areaName);
+    emit(currentState.copyWith(
+      selectedAreaName: areaName,
+      draftPost: draftPost,
+    ));
   }
 
   void onChangeAreaRating(int areaRating) {
@@ -82,39 +87,28 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     ));
   }
 
-  Future<void> onCreatePost() async {
+  Future<void> onPublishUpdate(String postDescription) async {
     final currentState = state as CreatePostLoadedState;
-    try {
-      if (currentState.createPostMode == CreatePostMode.writeUpdate) {
-        await onWriteUpdate();
-      } else {
-        await onSetGoals();
-      }
-    } catch (error) {
-      emit(CreatePostErrorState(
-        errorMessage: error.toString(),
-        selectedAreaType: state.selectedAreaType,
-      ));
+    if (postDescription.isEmpty) {
+      return;
     }
-  }
-
-  Future<void> onWriteUpdate() async {
-    final currentState = state as CreatePostLoadedState;
+    final currentTime = DateTime.now();
     final addedPost = Post(
+      postId: currentTime.toString(),
       areaName: currentState.selectedAreaName,
-      postedTime: DateTime.now(),
-      description: writeUpdateController.text,
+      postedTime: currentTime,
+      description: postDescription,
       // TODO: tag a goal here
       taggedGoalIds: [],
     );
-    if (writeUpdateController.text.isNotEmpty) {
-      await postRepository.writeUpdate(addedPost);
-    }
+    await postRepository.savePost(addedPost);
+    // delete draft post
+    await postRepository.deletePost('draft_${currentState.selectedAreaName}');
     await onAreaRated();
     emit(CreateUpdateSuccessState(selectedAreaType: state.selectedAreaType));
   }
 
-  Future<void> onSetGoals() async {
+  Future<void> onPublishGoals() async {
     final currentState = state as CreatePostLoadedState;
     if (currentState.newlyAddedGoals.isNotEmpty) {
       await goalRepository.setGoals(currentState.newlyAddedGoals.map(
@@ -137,4 +131,16 @@ class CreatePostCubit extends Cubit<CreatePostState> {
 
   // TODO: rate an area here
   Future<void> onAreaRated() async {}
+
+  Future<void> onUserWriteUpdate(String update) async {
+    final currentState = state as CreatePostLoadedState;
+    final post = Post(
+      postId: 'draft_${currentState.selectedAreaName}',
+      areaName: currentState.selectedAreaName,
+      postedTime: DateTime.now(),
+      description: update,
+      taggedGoalIds: [],
+    );
+    await postRepository.savePost(post);
+  }
 }

@@ -5,17 +5,20 @@ part 'post.g.dart';
 @HiveType(typeId: 0)
 class Post {
   @HiveField(0)
-  final DateTime postedTime;
+  final String postId;
   @HiveField(1)
-  final String description;
+  final DateTime postedTime;
   @HiveField(2)
-  final String? imageUrl;
+  final String description;
   @HiveField(3)
-  final String areaName;
+  final String? imageUrl;
   @HiveField(4)
+  final String areaName;
+  @HiveField(5)
   final List<String> taggedGoalIds;
 
   const Post({
+    required this.postId,
     required this.areaName,
     required this.postedTime,
     required this.description,

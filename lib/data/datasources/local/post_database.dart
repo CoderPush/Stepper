@@ -11,7 +11,7 @@ class PostDatabase {
   }
 
   // get post by area name
-  Future<List<Post>> getPostByAreaName(String areaName) async {
+  Future<List<Post>> getPostsByAreaName(String areaName) async {
     final box = await postBox();
     return box.values
         .toList()
@@ -19,11 +19,16 @@ class PostDatabase {
         .toList();
   }
 
+  Future<Post?> getDraftPostByAreaName(String areaName) async {
+    final box = await postBox();
+    return box.get('draft_$areaName');
+  }
+
   // to add post in box
   Future<void> addPost(Post post) async {
     final box = await postBox();
 
-    await box.put(post.postedTime.toString(), post);
+    await box.put(post.postId, post);
   }
 
   // delete post from box

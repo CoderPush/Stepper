@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
+import 'package:stepper/data/model/post.dart';
 import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
 import 'package:stepper/presentation/create_post/views/create_post_curved_tab_bar.dart';
-import 'package:stepper/presentation/create_post/views/create_post_input.dart';
-import 'package:stepper/presentation/create_post/views/create_post_action_row.dart';
+import 'package:stepper/presentation/create_post/views/set_goal_view.dart';
+import 'package:stepper/presentation/create_post/views/write_update_view.dart';
 
 class PostSection extends StatelessWidget {
   const PostSection({Key? key}) : super(key: key);
@@ -28,12 +29,15 @@ class PostSection extends StatelessWidget {
                   left: screenMediumPadding,
                   top: screenMediumPadding,
                   bottom: screenMediumPadding,
+                  right: screenMediumPadding,
                 ),
-                child: CreatePostInput(
-                  mode: currentState.createPostMode,
-                ),
+                child: currentState.createPostMode == CreatePostMode.writeUpdate
+                    ? WriteUpdateView(
+                        initialPostDescription:
+                            currentState.draftPost?.description,
+                      )
+                    : const SetGoalView(),
               ),
-              CreatePostActionRow(createPostMode: currentState.createPostMode)
             ],
           );
         },

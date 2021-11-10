@@ -5,7 +5,7 @@ abstract class CreatePostState extends Equatable {
   final AreaType selectedAreaType;
   const CreatePostState({required this.selectedAreaType});
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [selectedAreaType];
 }
 
 class CreatePostInitialState extends CreatePostState {
@@ -24,6 +24,7 @@ class CreatePostLoadedState extends CreatePostState {
   final int areaRating;
   final CreatePostMode createPostMode;
   final List<Goal> newlyAddedGoals;
+  final Post? draftPost;
 
   const CreatePostLoadedState({
     required this.areaList,
@@ -32,6 +33,7 @@ class CreatePostLoadedState extends CreatePostState {
     this.areaRating = 0,
     this.createPostMode = CreatePostMode.writeUpdate,
     this.newlyAddedGoals = const [],
+    this.draftPost,
   }) : super(selectedAreaType: selectedAreaType);
 
   CreatePostLoadedState copyWith({
@@ -41,6 +43,7 @@ class CreatePostLoadedState extends CreatePostState {
     int? areaRating,
     CreatePostMode? createPostMode,
     List<Goal>? newlyAddedGoals,
+    Post? draftPost,
   }) {
     return CreatePostLoadedState(
       areaList: areaList ?? this.areaList,
@@ -49,6 +52,7 @@ class CreatePostLoadedState extends CreatePostState {
       areaRating: areaRating ?? this.areaRating,
       createPostMode: createPostMode ?? this.createPostMode,
       newlyAddedGoals: newlyAddedGoals ?? this.newlyAddedGoals,
+      draftPost: draftPost,
     );
   }
 
@@ -60,6 +64,7 @@ class CreatePostLoadedState extends CreatePostState {
         areaRating,
         createPostMode,
         newlyAddedGoals,
+        draftPost,
       ];
 }
 

@@ -17,27 +17,30 @@ class PostAdapter extends TypeAdapter<Post> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Post(
-      areaName: fields[3] as String,
-      postedTime: fields[0] as DateTime,
-      description: fields[1] as String,
-      imageUrl: fields[2] as String?,
-      taggedGoalIds: (fields[4] as List).cast<String>(),
+      postId: fields[0] as String,
+      areaName: fields[4] as String,
+      postedTime: fields[1] as DateTime,
+      description: fields[2] as String,
+      imageUrl: fields[3] as String?,
+      taggedGoalIds: (fields[5] as List).cast<String>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Post obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
-      ..write(obj.postedTime)
+      ..write(obj.postId)
       ..writeByte(1)
-      ..write(obj.description)
+      ..write(obj.postedTime)
       ..writeByte(2)
-      ..write(obj.imageUrl)
+      ..write(obj.description)
       ..writeByte(3)
-      ..write(obj.areaName)
+      ..write(obj.imageUrl)
       ..writeByte(4)
+      ..write(obj.areaName)
+      ..writeByte(5)
       ..write(obj.taggedGoalIds);
   }
 
