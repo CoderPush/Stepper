@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/numbers.dart';
-import 'package:stepper/common/palette.dart';
 import 'package:stepper/presentation/profile_user/views/badge_item_view.dart';
 
 class BadgeListView extends StatelessWidget {
