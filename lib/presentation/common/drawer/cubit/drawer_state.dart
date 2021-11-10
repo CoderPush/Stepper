@@ -1,6 +1,7 @@
 part of 'drawer_cubit.dart';
 
 enum DrawerType {
+  profile,
   home,
   area,
   calendar,

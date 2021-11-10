@@ -87,8 +87,10 @@ class MainDrawer extends StatelessWidget {
           _onHomeScreenTap(context);
         } else if (state.selectedItem == DrawerType.area) {
           _onAreaScreenTap(context);
-        } else {
+        } else if (state.selectedItem == DrawerType.calendar) {
           _onCalendarScreenTap(context);
+        } else {
+          _onProfileUserScreenTap(context);
         }
       },
       builder: (context, state) => SafeArea(
@@ -97,21 +99,21 @@ class MainDrawer extends StatelessWidget {
             color: mediumGrey,
             child: Column(
               children: <Widget>[
-                GestureDetector(
-                  onTap: () => _onProfileUserScreenTap(context),
-                  child: ListTile(
-                    leading: const CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        avatarProfileUrl,
-                      ),
-                    ),
-                    title: const Text('John Doe'),
-                    trailing: IconButton(
-                      tooltip: closeDrawerButton,
-                      onPressed: () => _onDrawerClosed(context),
-                      icon: const Icon(Icons.arrow_back_ios),
+                ListTile(
+                  leading: const CircleAvatar(
+                    backgroundImage: NetworkImage(
+                      avatarProfileUrl,
                     ),
                   ),
+                  title: const Text('John Doe'),
+                  trailing: IconButton(
+                    tooltip: closeDrawerButton,
+                    onPressed: () => _onDrawerClosed(context),
+                    icon: const Icon(Icons.arrow_back_ios),
+                  ),
+                  onTap: () => context
+                      .read<DrawerCubit>()
+                      .selectDrawerItem(DrawerType.profile),
                 ),
                 ..._buildDrawerItems(context),
               ],
