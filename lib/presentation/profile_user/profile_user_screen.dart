@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
-import 'package:stepper/common/texts.dart';
 import 'package:stepper/presentation/common/commons.dart';
 import 'package:stepper/presentation/profile_user/views/avatar_view.dart';
-import 'package:stepper/routes.dart';
+import 'package:stepper/presentation/profile_user/views/badge_view.dart';
+import 'package:stepper/presentation/profile_user/views/mode_view.dart';
 
 class ProfileUserScreen extends StatelessWidget {
   const ProfileUserScreen({Key? key}) : super(key: key);
@@ -32,10 +32,13 @@ class ProfileUserScreen extends StatelessWidget {
                 );
               }),
               const AvatarView(),
+              const BadgeView(),
+              const ModeView(),
             ],
           ),
         ),
       ),
+      floatingActionButton: const CustomFloatingButton(),
     );
   }
 }
