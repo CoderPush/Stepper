@@ -200,6 +200,7 @@ final List<Goal> goalList = [
 
 final List<Post> postList = [
   Post(
+    postId: '1',
     areaName: 'S1',
     postedTime: DateTime(2021, 10, 21),
     description:
@@ -207,6 +208,7 @@ final List<Post> postList = [
     taggedGoalIds: ['1', '2'],
   ),
   Post(
+    postId: '2',
     areaName: 'S1',
     postedTime: DateTime(2021, 10, 19),
     description:
@@ -214,6 +216,7 @@ final List<Post> postList = [
     taggedGoalIds: ['3'],
   ),
   Post(
+    postId: '3',
     areaName: 'S1',
     postedTime: DateTime(2021, 10, 15),
     description:
@@ -221,6 +224,7 @@ final List<Post> postList = [
     taggedGoalIds: [],
   ),
   Post(
+    postId: '4',
     areaName: 'S1',
     postedTime: DateTime(2021, 09, 21),
     description:
@@ -228,6 +232,7 @@ final List<Post> postList = [
     taggedGoalIds: ['5', '3'],
   ),
   Post(
+    postId: '5',
     areaName: 'S2',
     postedTime: DateTime(2021, 09, 14),
     description:
@@ -235,6 +240,7 @@ final List<Post> postList = [
     taggedGoalIds: ['8'],
   ),
   Post(
+    postId: '6',
     areaName: 'S2',
     postedTime: DateTime(2021, 08, 21),
     description:
@@ -242,6 +248,7 @@ final List<Post> postList = [
     taggedGoalIds: ['6', '7'],
   ),
   Post(
+    postId: '7',
     areaName: 'S2',
     postedTime: DateTime(2021, 08, 22),
     description:
