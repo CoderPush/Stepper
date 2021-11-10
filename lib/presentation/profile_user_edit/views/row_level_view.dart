@@ -21,13 +21,13 @@ class RowLevelView extends StatelessWidget {
         Text(
           titleText,
           style: const TextStyle(
-            fontSize: mediumFontSize,
+            fontSize: seventeen,
             color: white,
           ),
         ),
         Container(
           height: fortyTwo,
-          width: twoHundredSeven,
+          width: twoHundredForty,
           decoration: BoxDecoration(
             color: darkBlue,
             borderRadius: BorderRadius.circular(largeBorderRadius),
@@ -44,7 +44,8 @@ class RowLevelView extends StatelessWidget {
                 items: list
                     .map(
                       (item) => DropdownMenuItem(
-                        child: Text(item),
+                        child:
+                            Text(item, style: const TextStyle(fontSize: seventeen)),
                         value: item,
                       ),
                     )

@@ -25,7 +25,7 @@ class AvatarView extends StatelessWidget {
           child: const Text(
             changeProfilePicture,
             style: TextStyle(
-              fontSize: normalFontSize,
+              fontSize: fifteen,
               color: purple,
             ),
           ),

@@ -20,7 +20,7 @@ class RowInformationView extends StatelessWidget {
         Text(
           firstText,
           style: const TextStyle(
-            fontSize: mediumFontSize,
+            fontSize: seventeen,
             color: white,
           ),
         ),
@@ -28,7 +28,7 @@ class RowInformationView extends StatelessWidget {
         Text(
           secondText,
           style: const TextStyle(
-            fontSize: mediumFontSize,
+            fontSize: seventeen,
             color: moreIconColor,
           ),
         ),
