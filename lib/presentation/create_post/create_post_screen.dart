@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
-import 'package:stepper/data/model/models.dart';
 import 'package:stepper/injection_container.dart';
+import 'package:stepper/presentation/common/arguments/screen_arguments.dart';
 import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
 import 'package:stepper/presentation/create_post/views/area_section.dart';
 import 'package:stepper/presentation/create_post/views/post_section.dart';
@@ -16,13 +16,13 @@ class CreatePostScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final routeArgs =
-        ModalRoute.of(context)!.settings.arguments as Map<String, Area?>;
+        ModalRoute.of(context)!.settings.arguments as CreatePostScreenArgument;
     return BlocProvider(
       create: (context) => CreatePostCubit(
         areaRepository: sl(),
         postRepository: sl(),
         goalRepository: sl(),
-        preSelectedArea: routeArgs['area'],
+        createPostScreenArgument: routeArgs,
       ),
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),

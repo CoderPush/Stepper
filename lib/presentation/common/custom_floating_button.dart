@@ -3,14 +3,19 @@ import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/routes.dart';
+import 'package:stepper/presentation/common/arguments/screen_arguments.dart';
 
 class CustomFloatingButton extends StatelessWidget {
   final Area? area;
   const CustomFloatingButton({Key? key, this.area}) : super(key: key);
 
   void _onCreatePostButtonPressed(BuildContext context) {
-    Navigator.of(context)
-        .pushNamed(Routes.createPost, arguments: {'area': area});
+    Navigator.of(context).pushNamed(
+      Routes.createPost,
+      arguments: CreatePostScreenArgument(
+        preSelectedArea: area,
+      ),
+    );
   }
 
   @override

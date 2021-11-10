@@ -8,6 +8,7 @@ import 'package:stepper/domain/repositories/area_repository.dart';
 import 'package:stepper/domain/repositories/goal_repository.dart';
 import 'package:stepper/domain/repositories/post_repository.dart';
 import 'package:stepper/data/repositories/fake_repos.dart';
+import 'package:stepper/presentation/common/arguments/screen_arguments.dart';
 
 part 'create_post_state.dart';
 
@@ -15,20 +16,53 @@ class CreatePostCubit extends Cubit<CreatePostState> {
   final AreaRepository areaRepository;
   final PostRepository postRepository;
   final GoalRepository goalRepository;
+  final CreatePostScreenArgument createPostScreenArgument;
 
   CreatePostCubit({
     required this.areaRepository,
     required this.postRepository,
     required this.goalRepository,
-    Area? preSelectedArea,
+    required this.createPostScreenArgument,
   }) : super(const CreatePostInitialState(selectedAreaType: AreaType.scope)) {
-    if (preSelectedArea != null) {
+    if (createPostScreenArgument.preSelectedPost != null) {
+      editPost(createPostScreenArgument.preSelectedPost!);
+    } else if (createPostScreenArgument.preSelectedArea != null) {
       getAreas(
-        preSelectedArea.areaType,
-        preSelectedAreaName: preSelectedArea.areaName,
+        createPostScreenArgument.preSelectedArea!.areaType,
+        preSelectedAreaName: createPostScreenArgument.preSelectedArea!.areaName,
       );
     } else {
       getAreas(AreaType.scope);
+    }
+  }
+
+  // Temporary function to get AreaType from AreaName
+  AreaType _getAreaType(String areaName) {
+    if (areaName.startsWith('S')) {
+      return AreaType.scope;
+    } else if (areaName.startsWith('E')) {
+      return AreaType.expertise;
+    } else {
+      return AreaType.mindset;
+    }
+  }
+
+  Future<void> editPost(Post post) async {
+    final areaType = _getAreaType(post.areaName);
+    try {
+      emit(CreatePostLoadingState(selectedAreaType: areaType));
+      final areaList = await areaRepository.fetchAreasByType(areaType);
+      emit(CreatePostLoadedState(
+        areaList: areaList,
+        selectedAreaType: areaType,
+        selectedAreaName: post.areaName,
+        draftPost: post,
+      ));
+    } on NetworkException {
+      emit(CreatePostErrorState(
+        errorMessage: 'Network error',
+        selectedAreaType: areaType,
+      ));
     }
   }
 
@@ -44,7 +78,11 @@ class CreatePostCubit extends Cubit<CreatePostState> {
         areaList: areaList,
         selectedAreaType: areaType,
         selectedAreaName: selectedAreaName,
-        draftPost: draftPost,
+        draftPost: createPostScreenArgument.isEditPost &&
+                selectedAreaName ==
+                    createPostScreenArgument.preSelectedPost!.areaName
+            ? createPostScreenArgument.preSelectedPost
+            : draftPost,
       ));
     } on NetworkException {
       emit(CreatePostErrorState(
@@ -59,7 +97,10 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     final draftPost = await postRepository.getDraftPostByAreaName(areaName);
     emit(currentState.copyWith(
       selectedAreaName: areaName,
-      draftPost: draftPost,
+      draftPost: createPostScreenArgument.isEditPost &&
+              areaName == createPostScreenArgument.preSelectedPost!.areaName
+          ? createPostScreenArgument.preSelectedPost
+          : draftPost,
     ));
   }
 
@@ -94,7 +135,12 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     }
     final currentTime = DateTime.now();
     final addedPost = Post(
-      postId: currentTime.toString(),
+      // If we in edit mode and editing post is not draft
+      postId: createPostScreenArgument.isEditPost &&
+              !createPostScreenArgument.preSelectedPost!.postId
+                  .startsWith('draft')
+          ? createPostScreenArgument.preSelectedPost!.postId
+          : currentTime.toString(),
       areaName: currentState.selectedAreaName,
       postedTime: currentTime,
       description: postDescription,
@@ -133,14 +179,19 @@ class CreatePostCubit extends Cubit<CreatePostState> {
   Future<void> onAreaRated() async {}
 
   Future<void> onUserWriteUpdate(String update) async {
-    final currentState = state as CreatePostLoadedState;
-    final post = Post(
-      postId: 'draft_${currentState.selectedAreaName}',
-      areaName: currentState.selectedAreaName,
-      postedTime: DateTime.now(),
-      description: update,
-      taggedGoalIds: [],
-    );
-    await postRepository.savePost(post);
+    if (createPostScreenArgument.isEditPost) {
+      final editedPost = createPostScreenArgument.preSelectedPost!;
+      await postRepository.savePost(editedPost.copyWith(description: update));
+    } else {
+      final currentState = state as CreatePostLoadedState;
+      final post = Post(
+        postId: 'draft_${currentState.selectedAreaName}',
+        areaName: currentState.selectedAreaName,
+        postedTime: DateTime.now(),
+        description: update,
+        taggedGoalIds: [],
+      );
+      await postRepository.savePost(post);
+    }
   }
 }

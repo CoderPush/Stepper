@@ -25,6 +25,24 @@ class Post {
     this.imageUrl,
     required this.taggedGoalIds,
   });
+
+  Post copyWith({
+    String? postId,
+    DateTime? postedTime,
+    String? description,
+    String? imageUrl,
+    String? areaName,
+    List<String>? taggedGoalIds,
+  }) {
+    return Post(
+      areaName: areaName ?? this.areaName,
+      description: description ?? this.description,
+      postId: postId ?? this.postId,
+      postedTime: postedTime ?? this.postedTime,
+      taggedGoalIds: taggedGoalIds ?? this.taggedGoalIds,
+      imageUrl: imageUrl ?? this.imageUrl,
+    );
+  }
 }
 
 enum CreatePostMode { writeUpdate, setGoal }
