@@ -18,6 +18,27 @@ class ModeView extends StatelessWidget {
         color: blueGrey,
         borderRadius: BorderRadius.circular(largeBorderRadius),
       ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: const [
+              Icon(Icons.brightness_2_outlined, color: moreIconColor),
+              SizedBox(width: fourteen),
+              Text(
+                'Dark Mode',
+                style: TextStyle(color: textColor, fontSize: seventeen),
+              )
+            ],
+          ),
+          Switch(
+            onChanged: (isSwitch) {},
+            value: true,
+            activeColor: orange,
+            inactiveTrackColor: textColor,
+          ),
+        ],
+      ),
     );
   }
 }

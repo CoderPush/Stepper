@@ -2,6 +2,7 @@ const double four = 4.0;
 const double eight = 8.0;
 const double ten = 10.0;
 const double twelve = 12.0;
+const double fourteen = 14.0;
 const double fifteen = 15.0;
 const double sixteen = 16.0;
 const double seventeen = 17.0;
