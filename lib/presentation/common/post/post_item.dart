@@ -5,6 +5,7 @@ import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/routes.dart';
+import 'package:stepper/presentation/common/arguments/screen_arguments.dart';
 
 class PostItem extends StatelessWidget {
   final Post post;
@@ -16,8 +17,11 @@ class PostItem extends StatelessWidget {
   void _tapOnPostItem(BuildContext context, Post post) {
     Navigator.pushNamed(
       context,
-      Routes.postDetail,
-      arguments: {'post': post},
+      Routes.createPost,
+      arguments: CreatePostScreenArgument(
+        preSelectedPost: post,
+        isEditPost: true,
+      ),
     );
   }
 

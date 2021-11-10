@@ -9,12 +9,12 @@ abstract class CreatePostState extends Equatable {
 }
 
 class CreatePostInitialState extends CreatePostState {
-  const CreatePostInitialState({required selectedAreaType})
+  const CreatePostInitialState({required AreaType selectedAreaType})
       : super(selectedAreaType: selectedAreaType);
 }
 
 class CreatePostLoadingState extends CreatePostState {
-  const CreatePostLoadingState({required selectedAreaType})
+  const CreatePostLoadingState({required AreaType selectedAreaType})
       : super(selectedAreaType: selectedAreaType);
 }
 
