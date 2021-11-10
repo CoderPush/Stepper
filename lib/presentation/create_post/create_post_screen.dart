@@ -22,51 +22,53 @@ class CreatePostScreen extends StatelessWidget {
         areaRepository: sl(),
         postRepository: sl(),
         goalRepository: sl(),
-        writeUpdateController: TextEditingController(),
         preSelectedArea: routeArgs['area'],
       ),
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: scaffoldColor,
-          leading: IconButton(
-            tooltip: createPostBackButton,
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(Icons.close),
+      child: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: scaffoldColor,
+            leading: IconButton(
+              tooltip: "createPostBackButton",
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: const Icon(Icons.close),
+            ),
+            title: const Text(createPost),
+            centerTitle: true,
           ),
-          title: const Text(createPost),
-          centerTitle: true,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.only(
-            left: screenMediumPadding,
-            right: screenMediumPadding,
-            bottom: screenMediumPadding,
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const TabRow(),
-                BlocBuilder<CreatePostCubit, CreatePostState>(
-                    builder: (context, state) {
-                  if (state is CreatePostLoadingState) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (state is CreatePostLoadedState) {
-                    return Column(
-                      children: const [
-                        SizedBox(height: screenMediumPadding),
-                        AreaSection(),
-                        SizedBox(height: screenMediumPadding),
-                        PostSection(),
-                      ],
-                    );
-                  } else if (state is CreatePostErrorState) {
-                    return Text(state.errorMessage);
-                  }
-                  return Container();
-                }),
-              ],
+          body: Padding(
+            padding: const EdgeInsets.only(
+              left: screenMediumPadding,
+              right: screenMediumPadding,
+              bottom: screenMediumPadding,
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const TabRow(),
+                  BlocBuilder<CreatePostCubit, CreatePostState>(
+                      builder: (context, state) {
+                    if (state is CreatePostLoadingState) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state is CreatePostLoadedState) {
+                      return Column(
+                        children: const [
+                          SizedBox(height: screenMediumPadding),
+                          AreaSection(),
+                          SizedBox(height: screenMediumPadding),
+                          PostSection(),
+                        ],
+                      );
+                    } else if (state is CreatePostErrorState) {
+                      return Text(state.errorMessage);
+                    }
+                    return Container();
+                  }),
+                ],
+              ),
             ),
           ),
         ),

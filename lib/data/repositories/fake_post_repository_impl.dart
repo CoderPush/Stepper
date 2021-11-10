@@ -8,19 +8,23 @@ class FakePostRepositoryImpl extends PostRepository {
   FakePostRepositoryImpl({required this.postDatabase}) : super();
 
   @override
-  Future<void> writeUpdate(Post post) async {
-    // TODO: check network status and call post REST API here
-    Future.delayed(
-      const Duration(seconds: 1),
-      () async {
-        await postDatabase.addPost(post);
-      },
-    );
+  Future<void> savePost(Post post) async {
+    await postDatabase.addPost(post);
   }
 
   @override
-  Future<List<Post>> getPostByAreaName(String areaName) async {
+  Future<List<Post>> getPostsByAreaName(String areaName) async {
     // TODO: check network status and call post REST API here
-    return await postDatabase.getPostByAreaName(areaName);
+    return await postDatabase.getPostsByAreaName(areaName);
+  }
+
+  @override
+  Future<Post?> getDraftPostByAreaName(String areaName) async {
+    return await postDatabase.getDraftPostByAreaName(areaName);
+  }
+
+  @override
+  Future<void> deletePost(String postId) async {
+    await postDatabase.deletePost(postId);
   }
 }
