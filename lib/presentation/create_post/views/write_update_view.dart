@@ -81,9 +81,10 @@ class _WriteUpdateViewState extends State<WriteUpdateView> {
         BlocListener<CreatePostCubit, CreatePostState>(
           listener: (context, state) {
             if (state is CreateUpdateSuccessState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text(writeUpdateSucceed)),
-              );
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text(writeUpdateSucceed),
+                duration: Duration(milliseconds: 1000),
+              ));
               Navigator.of(context).pushReplacementNamed(Routes.home);
             } else if (state is CreateGoalSuccessState) {
               ScaffoldMessenger.of(context).showSnackBar(

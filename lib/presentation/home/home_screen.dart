@@ -71,7 +71,7 @@ class HomeScreen extends StatelessWidget {
                           screenSmallPadding,
                         ),
                         child: Text(
-                          priorityGoal,
+                          yourPosts,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: mediumFontSize,
@@ -79,16 +79,18 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: screenMediumPadding,
+                        padding: const EdgeInsets.fromLTRB(
+                          screenMediumPadding,
+                          screenSmallPadding,
+                          screenMediumPadding,
+                          screenMediumPadding,
                         ),
-                        child: ValueListenableBuilder<Box<Goal>>(
-                          valueListenable: Hive.box<Goal>('Goal').listenable(),
-                          builder: (context, goalBox, widget) {
-                            return GoalList(
-                              goalList: goalBox.values
-                                  .where((goal) => goal.isPrioritized)
-                                  .toList(),
+                        child: ValueListenableBuilder<Box<Post>>(
+                          valueListenable: Hive.box<Post>('Post').listenable(),
+                          builder: (context, postBox, widget) {
+                            return PostList(
+                              postList:
+                                  postBox.values.toList().reversed.toList(),
                             );
                           },
                         ),
