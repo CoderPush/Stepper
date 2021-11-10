@@ -12,8 +12,15 @@ class UserInformationView extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
 
     return Container(
-      margin: const EdgeInsets.only(left: twenty, right: twenty, bottom: twenty),
-      padding: const EdgeInsets.symmetric(vertical: sixteen, horizontal: twenty),
+      margin: const EdgeInsets.only(
+        left: twenty,
+        right: twenty,
+        bottom: twenty,
+      ),
+      padding: const EdgeInsets.symmetric(
+        vertical: sixteen,
+        horizontal: twenty,
+      ),
       height: screenSize.width * 0.24,
       width: double.infinity,
       decoration: BoxDecoration(

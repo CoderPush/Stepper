@@ -15,8 +15,10 @@ class LabelView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+
     return Container(
-      height: twentyFour,
+      height: screenSize.width * 0.06,
       width: labelWidth,
       decoration: BoxDecoration(
         color: sliderInactiveColor,

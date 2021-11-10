@@ -16,19 +16,25 @@ class RowInformationView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(
-          firstText,
-          style: const TextStyle(
-            fontSize: seventeen,
-            color: white,
+        Flexible(
+          flex: 1,
+          child: Text(
+            firstText,
+            style: const TextStyle(
+              fontSize: seventeen,
+              color: white,
+            ),
           ),
         ),
         const SizedBox(width: fifty),
-        Text(
-          secondText,
-          style: const TextStyle(
-            fontSize: seventeen,
-            color: moreIconColor,
+        Flexible(
+          flex: 2,
+          child: Text(
+            secondText,
+            style: const TextStyle(
+              fontSize: seventeen,
+              color: moreIconColor,
+            ),
           ),
         ),
       ],

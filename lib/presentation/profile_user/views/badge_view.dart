@@ -21,17 +21,17 @@ class BadgeView extends StatelessWidget {
         vertical: sixteen,
         horizontal: twelve,
       ),
-      height: screenSize.width * 0.30,
+      height: screenSize.width * 0.32,
       width: double.infinity,
       decoration: BoxDecoration(
         color: blueGrey,
         borderRadius: BorderRadius.circular(largeBorderRadius),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
             alignment: Alignment.topLeft,
-            margin: const EdgeInsets.only(bottom: twentyOne),
             child: const Text(
               'My Badge',
               style: TextStyle(color: textColor, fontSize: seventeen),

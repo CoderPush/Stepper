@@ -8,11 +8,13 @@ class ModeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+
     return Container(
       margin: const EdgeInsets.only(left: twenty, right: twenty, bottom: sixteen),
       padding: const EdgeInsets.only(
           left: twentyFour, right: ten, top: twelve, bottom: twelve),
-      height: fortyFour,
+      height: screenSize.width * 0.11,
       width: double.infinity,
       decoration: BoxDecoration(
         color: blueGrey,

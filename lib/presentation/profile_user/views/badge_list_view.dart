@@ -7,8 +7,10 @@ class BadgeListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+
     return SizedBox(
-      height: fortySix,
+      height: screenSize.width * 0.11,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: 10,

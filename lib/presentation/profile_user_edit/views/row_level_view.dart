@@ -18,38 +18,46 @@ class RowLevelView extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          titleText,
-          style: const TextStyle(
-            fontSize: seventeen,
-            color: white,
+        Flexible(
+          flex: 1,
+          child: Text(
+            titleText,
+            style: const TextStyle(
+              fontSize: seventeen,
+              color: white,
+            ),
           ),
         ),
-        Container(
-          height: fortyTwo,
-          width: twoHundredForty,
-          decoration: BoxDecoration(
-            color: darkBlue,
-            borderRadius: BorderRadius.circular(largeBorderRadius),
-          ),
-          child: DropdownButtonHideUnderline(
-            child: ButtonTheme(
-              buttonColor: white,
-              alignedDropdown: true,
-              child: DropdownButton<String>(
-                dropdownColor: dropdownButtonColor,
-                iconEnabledColor: white,
-                onChanged: (value) {},
-                value: list.first,
-                items: list
-                    .map(
-                      (item) => DropdownMenuItem(
-                        child:
-                            Text(item, style: const TextStyle(fontSize: seventeen)),
-                        value: item,
-                      ),
-                    )
-                    .toList(),
+        Flexible(
+          flex: 2,
+          child: Container(
+            height: fortyTwo,
+            width: twoHundredForty,
+            decoration: BoxDecoration(
+              color: darkBlue,
+              borderRadius: BorderRadius.circular(largeBorderRadius),
+            ),
+            child: DropdownButtonHideUnderline(
+              child: ButtonTheme(
+                buttonColor: white,
+                alignedDropdown: true,
+                child: DropdownButton<String>(
+                  dropdownColor: dropdownButtonColor,
+                  iconEnabledColor: white,
+                  onChanged: (value) {},
+                  value: list.first,
+                  items: list
+                      .map(
+                        (item) => DropdownMenuItem(
+                          child: FittedBox(
+                            child: Text(item,
+                                style: const TextStyle(fontSize: seventeen)),
+                          ),
+                          value: item,
+                        ),
+                      )
+                      .toList(),
+                ),
               ),
             ),
           ),

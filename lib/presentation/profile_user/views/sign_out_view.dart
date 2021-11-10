@@ -8,11 +8,13 @@ class SignOutView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+
     return GestureDetector(
       onTap: () {},
       child: Container(
         margin: const EdgeInsets.only(left: twenty, right: twenty),
-        height: fortyFour,
+        height: screenSize.width * 0.11,
         width: double.infinity,
         decoration: BoxDecoration(
           color: blueGrey,
