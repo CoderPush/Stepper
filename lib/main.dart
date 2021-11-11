@@ -4,10 +4,12 @@ import 'package:stepper/common/palette.dart';
 import 'package:stepper/injection_container.dart';
 import 'package:stepper/presentation/area/area.dart';
 import 'package:stepper/presentation/common/drawer/drawer.dart';
-import 'package:stepper/presentation/create_post/create_post_screen.dart';
 import 'package:stepper/presentation/home/home_screen.dart';
-import 'package:stepper/presentation/post_detail/post_detail_screen.dart';
 import 'package:stepper/presentation/post_list/post_list_screen.dart';
+import 'package:stepper/presentation/post_detail/post_detail_screen.dart';
+import 'package:stepper/presentation/create_post/create_post_screen.dart';
+import 'package:stepper/presentation/profile_user/profile_user_screen.dart';
+import 'package:stepper/presentation/profile_user_edit/profile_user_edit_screen.dart';
 import 'package:stepper/routes.dart';
 
 void main() async {
@@ -42,6 +44,8 @@ class MyApp extends StatelessWidget {
           Routes.postList: (context) => const PostListScreen(),
           Routes.postDetail: (context) => const PostDetailScreen(),
           Routes.createPost: (context) => const CreatePostScreen(),
+          Routes.profileUser: (context) => const ProfileUserScreen(),
+          Routes.profileUserEdit: (context) => const ProfileUserEditScreen(),
         },
       ),
     );

@@ -34,6 +34,14 @@ List<String> monthNames = [
   'December'
 ];
 
+// Profile user
+final List<String> professionList = [
+  'SE',
+  'QA',
+];
+
+final List<String> bandList = ['Band 1', 'Band 2', 'Band 3', 'Band 4', 'Band 5'];
+
 // Slider values
 List<String> sliderValues = ['No progress', 'Good', 'Excellent', 'Outstanding'];
 

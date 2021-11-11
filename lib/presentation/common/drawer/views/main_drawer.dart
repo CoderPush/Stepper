@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
+import 'package:stepper/common/consts.dart';
 import 'package:stepper/dummy_data.dart';
 import 'package:stepper/presentation/common/drawer/cubit/drawer_cubit.dart';
 import 'package:stepper/presentation/common/drawer/views/drawer_item.dart';
@@ -53,6 +54,13 @@ class MainDrawer extends StatelessWidget {
         .toList();
   }
 
+  void _onProfileUserScreenTap(BuildContext context) {
+    Navigator.pushReplacementNamed(
+      context,
+      Routes.profileUser,
+    );
+  }
+
   void _onHomeScreenTap(BuildContext context) {
     Navigator.pushReplacementNamed(
       context,
@@ -79,8 +87,10 @@ class MainDrawer extends StatelessWidget {
           _onHomeScreenTap(context);
         } else if (state.selectedItem == DrawerType.area) {
           _onAreaScreenTap(context);
-        } else {
+        } else if (state.selectedItem == DrawerType.calendar) {
           _onCalendarScreenTap(context);
+        } else {
+          _onProfileUserScreenTap(context);
         }
       },
       builder: (context, state) => SafeArea(
@@ -97,10 +107,13 @@ class MainDrawer extends StatelessWidget {
                   ),
                   title: const Text('John Doe'),
                   trailing: IconButton(
-                    tooltip: "closeDrawerButton",
+                    tooltip: closeDrawerButton,
                     onPressed: () => _onDrawerClosed(context),
                     icon: const Icon(Icons.arrow_back_ios),
                   ),
+                  onTap: () => context
+                      .read<DrawerCubit>()
+                      .selectDrawerItem(DrawerType.profile),
                 ),
                 ..._buildDrawerItems(context),
               ],
