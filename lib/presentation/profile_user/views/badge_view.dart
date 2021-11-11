@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/numbers.dart';
 import 'package:stepper/common/palette.dart';
+import 'package:stepper/common/texts.dart';
 import 'package:stepper/presentation/profile_user/views/badge_list_view.dart';
 
 class BadgeView extends StatelessWidget {
@@ -33,7 +34,7 @@ class BadgeView extends StatelessWidget {
           Container(
             alignment: Alignment.topLeft,
             child: const Text(
-              'My Badge',
+              myBadge,
               style: TextStyle(color: textColor, fontSize: seventeen),
             ),
           ),

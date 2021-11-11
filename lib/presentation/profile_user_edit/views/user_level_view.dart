@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/numbers.dart';
 import 'package:stepper/common/palette.dart';
+import 'package:stepper/common/texts.dart';
 import 'package:stepper/presentation/profile_user_edit/views/row_level_view.dart';
 
 class UserLevelView extends StatelessWidget {
@@ -23,8 +24,8 @@ class UserLevelView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          RowLevelView(titleText: 'Profession', list: professionList),
-          RowLevelView(titleText: 'Band', list: bandList),
+          RowLevelView(titleText: profession, list: professionList),
+          RowLevelView(titleText: band, list: bandList),
         ],
       ),
     );

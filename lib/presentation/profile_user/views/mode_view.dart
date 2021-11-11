@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/numbers.dart';
 import 'package:stepper/common/palette.dart';
+import 'package:stepper/common/texts.dart';
 
 class ModeView extends StatelessWidget {
   const ModeView({Key? key}) : super(key: key);
@@ -28,7 +29,7 @@ class ModeView extends StatelessWidget {
               Icon(Icons.brightness_2_outlined, color: moreIconColor),
               SizedBox(width: fourteen),
               Text(
-                'Dark Mode',
+                darkMode,
                 style: TextStyle(color: textColor, fontSize: seventeen),
               )
             ],

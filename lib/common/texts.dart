@@ -21,6 +21,10 @@ const String addGoal = 'Add goal';
 const String writeUpdateSucceed = 'Update added successfully';
 const String setGoalSucceed = 'Goal set successfully';
 const String changeProfilePicture = 'Change profile picture';
+const String band = 'Band';
+const String profession = 'Profession';
+const String myBadge = 'My Badge';
+const String darkMode = 'Dark Mode';
 
 // Testing
 const String writeUpdateText = "Today i will integration test code in flutter";
