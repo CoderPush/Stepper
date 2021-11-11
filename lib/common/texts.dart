@@ -25,6 +25,11 @@ const String band = 'Band';
 const String profession = 'Profession';
 const String myBadge = 'My Badge';
 const String darkMode = 'Dark Mode';
+const String name = "Name";
+const String email = 'Email';
+const String johnDoe = 'John Doe';
+const String johnDoeEmail = 'johndoe@gmail.com';
+const String signOut = 'Sign out';
 
 // Testing
 const String writeUpdateText = "Today i will integration test code in flutter";

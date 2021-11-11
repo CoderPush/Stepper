@@ -7,9 +7,11 @@ class BadgeItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+
     return Container(
-      height: fortySix,
-      width: fortySix,
+      height: screenSize.width * 0.11,
+      width: screenSize.width * 0.11,
       margin: const EdgeInsets.only(right: twentyOne),
       decoration: BoxDecoration(
         color: sliderInactiveColor,

@@ -13,9 +13,7 @@ class ModeView extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.only(left: twenty, right: twenty, bottom: sixteen),
-      padding: const EdgeInsets.only(
-          left: twentyFour, right: ten, top: twelve, bottom: twelve),
-      height: screenSize.width * 0.11,
+      padding: const EdgeInsets.symmetric(horizontal: twelve),
       width: double.infinity,
       decoration: BoxDecoration(
         color: blueGrey,

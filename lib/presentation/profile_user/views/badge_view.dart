@@ -10,8 +10,6 @@ class BadgeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-
     return Container(
       margin: const EdgeInsets.only(
         left: twenty,
@@ -22,7 +20,6 @@ class BadgeView extends StatelessWidget {
         vertical: sixteen,
         horizontal: twelve,
       ),
-      height: screenSize.width * 0.32,
       width: double.infinity,
       decoration: BoxDecoration(
         color: blueGrey,
@@ -38,6 +35,7 @@ class BadgeView extends StatelessWidget {
               style: TextStyle(color: textColor, fontSize: seventeen),
             ),
           ),
+          const SizedBox(height: twenty),
           const BadgeListView(),
         ],
       ),

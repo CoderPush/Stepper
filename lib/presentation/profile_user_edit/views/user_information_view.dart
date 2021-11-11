@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/numbers.dart';
 import 'package:stepper/common/palette.dart';
+import 'package:stepper/common/texts.dart';
 import 'package:stepper/presentation/profile_user_edit/views/row_information_view.dart';
 
 class UserInformationView extends StatelessWidget {
@@ -9,8 +10,6 @@ class UserInformationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-
     return Container(
       margin: const EdgeInsets.only(
         left: twenty,
@@ -21,7 +20,6 @@ class UserInformationView extends StatelessWidget {
         vertical: sixteen,
         horizontal: twenty,
       ),
-      height: screenSize.width * 0.24,
       width: double.infinity,
       decoration: BoxDecoration(
         color: blueGrey,
@@ -30,8 +28,9 @@ class UserInformationView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: const [
-          RowInformationView(firstText: 'Name', secondText: 'John Doe'),
-          RowInformationView(firstText: 'Email', secondText: 'johndoe@gmail.com'),
+          RowInformationView(firstText: name, secondText: johnDoe),
+          SizedBox(height: twenty),
+          RowInformationView(firstText: email, secondText: johnDoeEmail),
         ],
       ),
     );

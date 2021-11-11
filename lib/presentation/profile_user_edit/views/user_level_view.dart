@@ -10,12 +10,9 @@ class UserLevelView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-
     return Container(
       margin: const EdgeInsets.only(left: twenty, right: twenty),
       padding: const EdgeInsets.symmetric(vertical: sixteen, horizontal: twenty),
-      height: screenSize.width * 0.32,
       width: double.infinity,
       decoration: BoxDecoration(
         color: blueGrey,
@@ -25,6 +22,7 @@ class UserLevelView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           RowLevelView(titleText: profession, list: professionList),
+          const SizedBox(height: twenty),
           RowLevelView(titleText: band, list: bandList),
         ],
       ),
