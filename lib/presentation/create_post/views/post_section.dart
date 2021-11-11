@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
-import 'package:stepper/data/model/post.dart';
+import 'package:stepper/common/texts.dart';
 import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
-import 'package:stepper/presentation/create_post/views/create_post_curved_tab_bar.dart';
-import 'package:stepper/presentation/create_post/views/set_goal_view.dart';
 import 'package:stepper/presentation/create_post/views/write_update_view.dart';
 
 class PostSection extends StatelessWidget {
@@ -23,7 +21,6 @@ class PostSection extends StatelessWidget {
           final currentState = state as CreatePostLoadedState;
           return Column(
             children: [
-              const CreatePostCurvedTabBar(),
               Padding(
                 padding: const EdgeInsets.only(
                   left: screenMediumPadding,
@@ -31,12 +28,24 @@ class PostSection extends StatelessWidget {
                   bottom: screenMediumPadding,
                   right: screenMediumPadding,
                 ),
-                child: currentState.createPostMode == CreatePostMode.writeUpdate
-                    ? WriteUpdateView(
-                        initialPostDescription:
-                            currentState.draftPost?.description,
-                      )
-                    : const SetGoalView(),
+                child: Column(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: screenSmallPadding),
+                      child: Text(
+                        writeUpdate,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: mediumFontSize,
+                        ),
+                      ),
+                    ),
+                    WriteUpdateView(
+                      initialPostDescription:
+                          currentState.draftPost?.description,
+                    ),
+                  ],
+                ),
               ),
             ],
           );

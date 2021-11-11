@@ -4,10 +4,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/data/model/models.dart';
+import 'package:stepper/presentation/common/commons.dart';
 import 'package:stepper/presentation/common/custom_floating_button.dart';
 import 'package:stepper/presentation/common/drawer/drawer.dart';
 import 'package:stepper/presentation/post_list/views/area_main_card.dart';
-import 'package:stepper/presentation/post_list/views/month_section.dart';
 
 class PostListScreen extends StatelessWidget {
   const PostListScreen({Key? key}) : super(key: key);
@@ -47,18 +47,12 @@ class PostListScreen extends StatelessWidget {
                 ValueListenableBuilder<Box<Post>>(
                   valueListenable: Hive.box<Post>('Post').listenable(),
                   builder: (context, postBox, widget) {
-                    return ValueListenableBuilder<Box<Goal>>(
-                      valueListenable: Hive.box<Goal>('Goal').listenable(),
-                      builder: (context, goalBox, widget) {
-                        return MonthSection(
-                          goalList: goalBox.values
-                              .where((goal) => goal.areaName == area.areaName)
-                              .toList(),
-                          postList: postBox.values
-                              .where((post) => post.areaName == area.areaName)
-                              .toList(),
-                        );
-                      },
+                    return PostList(
+                      postList: postBox.values
+                          .where((post) => post.areaName == area.areaName)
+                          .toList()
+                          .reversed
+                          .toList(),
                     );
                   },
                 ),

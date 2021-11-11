@@ -3,7 +3,6 @@ import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/presentation/common/commons.dart';
-import 'package:stepper/presentation/post_list/views/post_list.dart';
 
 class MonthSection extends StatelessWidget {
   final List<Goal> goalList;
