@@ -1,0 +1,309 @@
+{
+  "professions": [
+    {
+      "profession_name": "Engineer",
+      "bandIds": [
+        "Engineer_Band1",
+        "Engineer_Band2",
+        "Engineer_Band3",
+        "Engineer_Band4"
+      ]
+    }
+  ],
+  "bands": [
+    {
+      "bandId": "Engineer_Band1",
+      "bandName": "Band 1",
+      "areaNames": ["S1", "S2", "S3", "S4", "E1", "E2", "E3", "M1", "M2", "M3"]
+    },
+    {
+      "bandId": "Engineer_Band2",
+      "bandName": "Band 2",
+      "areaNames": ["S9", "S10", "S11", "E8", "E9", "E10", "M10", "M11", "M12"]
+    },
+    {
+      "bandId": "Engineer_Band3",
+      "bandName": "Band 3",
+      "areaNames": [
+        "S16",
+        "S17",
+        "S18",
+        "E14",
+        "E15",
+        "E16",
+        "M20",
+        "M21",
+        "M22"
+      ]
+    },
+    {
+      "bandId": "Engineer_Band4",
+      "bandName": "Band 4",
+      "areaNames": [
+        "S24",
+        "S25",
+        "S26",
+        "E20",
+        "E21",
+        "E22",
+        "M29",
+        "M30",
+        "M31"
+      ]
+    }
+  ],
+  "areas": [
+    {
+      "areaName": "S1",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will write readable code, adhering to language, framework, and style-guide conventions. You follow good coding principles such as DRY, well scoped functions, and small commits."
+    },
+    {
+      "areaName": "S2",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will provide consistent, sufficient, and comprehensive test coverage."
+    },
+    {
+      "areaName": "S3",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will fix bugs and associated tests, backfilling coverage starting with a failing test for each of the bugs to be fixed."
+    },
+    {
+      "areaName": "E1",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You will have a good understanding of computer science fundamentals: data structures, methodologies, and strategies."
+    },
+    {
+      "areaName": "E2",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You have practical knowledge in the specific programming language(s) and framework(s) used by your team."
+    },
+    {
+      "areaName": "E3",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You are capable of diagnosing problems, planning and applying fixes."
+    },
+    {
+      "areaName": "M1",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You are emotionally mature & humble. You care about being effective over being right. Ideally you’ve made major changes and decisions in your life and learned from the results."
+    },
+    {
+      "areaName": "M2",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You geek out about how cool software is, inhale articles and books on the subject, and enjoy trying out different languages, technologies, and methodologies."
+    },
+    {
+      "areaName": "M3",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "Your focus is primarily at the syntax level, focused on code clarity and readability."
+    },
+    {
+      "areaName": "S9",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will own a small component or project, guiding it from inception through completion in a timely manner."
+    },
+    {
+      "areaName": "S10",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You design solutions to medium complexity problems, managing simplicity, completeness, performance, and risk-tolerance."
+    },
+    {
+      "areaName": "S11",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will seek and incorporate reviews; handle testing, instrumentation, deployment, and monitoring."
+    },
+    {
+      "areaName": "E8",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You have a background and experience in software development — a Computer Science degree (or comparable) and several years’ working experience in non-trivial software development."
+    },
+    {
+      "areaName": "E9",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You possess a deep understanding of computer science fundamentals: data structures, algorithms, and strategies."
+    },
+    {
+      "areaName": "E10",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You have in-depth knowledge of multiple programming languages, frameworks, and/or specialized systems. You are able to discern and articulate the relative merits of each."
+    },
+    {
+      "areaName": "M10",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You're championing quality through your own coding practices."
+    },
+    {
+      "areaName": "M11",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You are actively working to hone your craft and be a better programmer."
+    },
+    {
+      "areaName": "M12",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You seek to learn more about the organization, our business, and problem domain."
+    },
+    {
+      "areaName": "S16",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You may take on a Technical Lead role on a project, for a particular component or area of the codebase, or for your broader team."
+    },
+    {
+      "areaName": "S17",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You find innovative solutions to complex problems."
+    },
+    {
+      "areaName": "S18",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will take on an ownership stake in the work of your entire team."
+    },
+    {
+      "areaName": "E14",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You have a deep understanding of various pieces of our codebase or different clients' projects."
+    },
+    {
+      "areaName": "E15",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You can explain our application architecture, infrastructure, and codebase to others."
+    },
+    {
+      "areaName": "E16",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You have a good understanding of how each component, service, and process affects user experience and system performance."
+    },
+    {
+      "areaName": "M20",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You're championing quality throughout your team."
+    },
+    {
+      "areaName": "M21",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You have a passion for scale and performance. You think people deserve access to their data in milliseconds and feel slow web pages are an insult. You worry about what happens when we have 100x more customers, but are practical and experienced to know how to solve what you need to right now."
+    },
+    {
+      "areaName": "M22",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You test components and microservices comprehensively — both in isolation and across internal systems and external services."
+    },
+    {
+      "areaName": "S24",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will own large components, systems, or projects, coordinating and communicating with teams and leads across the organization."
+    },
+    {
+      "areaName": "S25",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will design solutions to high complexity problems, with high-availability and high-reliability in mind."
+    },
+    {
+      "areaName": "S26",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will instigate design discussions and facilitate engineering-wide learning."
+    },
+    {
+      "areaName": "E20",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You have a deep understanding of the landscape of our codebases, components, and services."
+    },
+    {
+      "areaName": "E21",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You have a mastery of your primary languages and frameworks."
+    },
+    {
+      "areaName": "E22",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You are up to date with the landscape of technologies and techniques and able to evaluate their impact on the organization and its products and services."
+    },
+    {
+      "areaName": "M29",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You are actively seeking out opportunities to teach and mentor fellow team members."
+    },
+    {
+      "areaName": "M30",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You are actively pushing back on over-engineered solutions. Conversely, you are advocating for improving under-implemented solutions."
+    },
+    {
+      "areaName": "M31",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You are quick to revisit past assumptions - the solution that worked 'then' may not be the right solution for 'now.'"
+    }
+  ]
+}
