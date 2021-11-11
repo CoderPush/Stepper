@@ -75,6 +75,13 @@
       "areaDescription": "You will fix bugs and associated tests, backfilling coverage starting with a failing test for each of the bugs to be fixed."
     },
     {
+      "areaName": "S4",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will deliver stories successfully and consistently to move the team project along."
+    },
+    {
       "areaName": "E1",
       "numberOfUpdate": 0,
       "rating": 0,

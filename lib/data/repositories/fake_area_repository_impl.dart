@@ -1,20 +1,18 @@
+import 'package:stepper/data/datasources/remote/area_service.dart';
 import 'package:stepper/data/model/area.dart';
 import 'package:stepper/domain/repositories/area_repository.dart';
 import 'package:stepper/dummy_data.dart';
 
 class FakeAreaRepositoryImpl extends AreaRepository {
+  final AreaService areaService;
+
+  FakeAreaRepositoryImpl({required this.areaService});
+
   @override
-  Future<List<Area>> fetchAreasByType(AreaType areaType) {
-    return Future.delayed(const Duration(seconds: 1), () {
-      // Return "fetched" areas
-      if (areaType == AreaType.scope) {
-        return scopeAreaList;
-      } else if (areaType == AreaType.expertise) {
-        return expertiseAreaList;
-      } else {
-        return mindsetAreaList;
-      }
-    });
+  Future<List<Area>> fetchAreasByType(AreaType areaType) async {
+    // TODO: replace this with current band from settings
+    final areaList = await areaService.getAreaWithBandId('Engineer_Band1');
+    return areaList.where((area) => area.areaType == areaType).toList();
   }
 
   @override
