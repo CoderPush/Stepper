@@ -46,6 +46,6 @@ class PostDatabase {
   // update post
   Future<void> updatePost(Post post) async {
     final box = await postBox();
-    await box.put(post.postedTime.toString(), post);
+    await box.put(post.postId, post);
   }
 }

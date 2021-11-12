@@ -4,4 +4,6 @@ abstract class AreaRepository {
   Future<List<Area>> fetchAreasByType(AreaType areaType);
 
   Future<List<Area>> fetchRecentlyUpdatedAreas();
+
+  Future<void> updateAreaWhenAddNewPost(String areaName);
 }
