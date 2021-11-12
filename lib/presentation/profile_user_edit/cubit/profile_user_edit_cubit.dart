@@ -1,4 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stepper/data/datasources/local/band_database.dart';
+import 'package:stepper/data/model/band/band_item_model.dart';
 import 'package:stepper/domain/repositories/band_repository.dart';
 import 'package:stepper/domain/repositories/profession_repository.dart';
 import 'package:stepper/presentation/profile_user_edit/cubit/profile_user_edit_state.dart';
@@ -26,5 +28,9 @@ class ProfileUserEditCubit extends Cubit<ProfileUserEditState> {
     } catch (error) {
       emit(ProfileUserEditInFailed(error: error.toString()));
     }
+  }
+
+  Future<void> saveBandModelItem(BandItemModel bandItemModel) async {
+    await bandRepository.saveBandItemModel(bandItemModel);
   }
 }

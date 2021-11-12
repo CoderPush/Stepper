@@ -30,6 +30,7 @@ const String email = 'Email';
 const String johnDoe = 'John Doe';
 const String johnDoeEmail = 'johndoe@gmail.com';
 const String signOut = 'Sign out';
+const String engineer = 'Engineer';
 
 // Testing
 const String writeUpdateText = "Today i will integration test code in flutter";
