@@ -5,11 +5,15 @@ import 'package:stepper/common/palette.dart';
 
 class RowLevelView extends StatelessWidget {
   final String titleText;
+  final String value;
   final List<String> list;
+  final Function(String?)? onChanged;
 
   const RowLevelView({
     required this.titleText,
+    required this.value,
     required this.list,
+    this.onChanged,
     Key? key,
   }) : super(key: key);
 
@@ -44,19 +48,19 @@ class RowLevelView extends StatelessWidget {
                 child: DropdownButton<String>(
                   dropdownColor: dropdownButtonColor,
                   iconEnabledColor: white,
-                  onChanged: (value) {},
-                  value: list.first,
-                  items: list
-                      .map(
-                        (item) => DropdownMenuItem(
-                          child: FittedBox(
-                            child: Text(item,
-                                style: const TextStyle(fontSize: seventeen)),
-                          ),
-                          value: item,
+                  onChanged: onChanged,
+                  value: value,
+                  items: list.map(
+                    (item) {
+                      return DropdownMenuItem(
+                        child: FittedBox(
+                          child: Text(item,
+                              style: const TextStyle(fontSize: seventeen)),
                         ),
-                      )
-                      .toList(),
+                        value: item,
+                      );
+                    },
+                  ).toList(),
                 ),
               ),
             ),

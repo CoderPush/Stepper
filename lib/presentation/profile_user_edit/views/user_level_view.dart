@@ -3,20 +3,25 @@ import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/numbers.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
+import 'package:stepper/data/model/band/band_item_model.dart';
 import 'package:stepper/data/model/band/band_model.dart';
 import 'package:stepper/data/model/profession/profession_model.dart';
+import 'package:stepper/presentation/profile_user_edit/cubit/profile_user_edit_cubit.dart';
 import 'package:stepper/presentation/profile_user_edit/views/row_level_view.dart';
 
 class UserLevelView extends StatelessWidget {
-  final ProfessionModel profession;
   final BandModel band;
+  final ProfessionModel profession;
+  final ProfileUserEditCubit profileUserEditCubit;
 
   const UserLevelView({
-    required this.profession,
     required this.band,
+    required this.profession,
+    required this.profileUserEditCubit,
     Key? key,
   }) : super(key: key);
 
+  // Private Methods
   List<String> _getProfessionNames() {
     List<String> professionNames = [];
     for (var professionItem in profession.professions) {
@@ -27,10 +32,40 @@ class UserLevelView extends StatelessWidget {
 
   List<String> _getBandNames() {
     List<String> bandNames = [];
-    for (var bandItem in band.bands) {
-      bandNames.add(bandItem.bandName);
+    List<String> bandIds = [];
+
+    for (var professionItem in profession.professions) {
+      bandIds = professionItem.bandIds;
     }
+
+    for (var bandId in bandIds) {
+      for (var bandItem in band.bands) {
+        if (bandId == bandItem.bandId) {
+          bandNames.add(bandItem.bandName);
+        }
+      }
+    }
+
     return bandNames;
+  }
+
+  List<BandItemModel> _getBands() {
+    List<BandItemModel> bands = [];
+    List<String> bandIds = [];
+
+    for (var professionItem in profession.professions) {
+      bandIds = professionItem.bandIds;
+    }
+
+    for (var bandId in bandIds) {
+      for (var bandItem in band.bands) {
+        if (bandId == bandItem.bandId) {
+          bands.add(bandItem);
+        }
+      }
+    }
+
+    return bands;
   }
 
   @override
@@ -46,9 +81,26 @@ class UserLevelView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          RowLevelView(titleText: professionText, list: _getProfessionNames()),
+          RowLevelView(
+            titleText: professionText,
+            value: engineer,
+            list: _getProfessionNames(),
+            onChanged: (professionName) {},
+          ),
           const SizedBox(height: twenty),
-          RowLevelView(titleText: bandText, list: _getBandNames()),
+          RowLevelView(
+            titleText: bandText,
+            value: _getBandNames().first,
+            list: _getBandNames(),
+            onChanged: (bandName) {
+              if (bandName == null) return;
+
+              // Save Current Band Item Model
+              final currentIndexBands = _getBandNames().indexOf(bandName);
+              final currentBandItemModel = _getBands()[currentIndexBands];
+              profileUserEditCubit.saveBandModelItem(currentBandItemModel);
+            },
+          ),
         ],
       ),
     );

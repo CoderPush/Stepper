@@ -34,7 +34,8 @@ class ProfileUserEditScreen extends StatelessWidget {
         ),
         body: BlocBuilder<ProfileUserEditCubit, ProfileUserEditState>(
           builder: (context, state) {
-            context.read<ProfileUserEditCubit>().getProfessionsAndBands();
+            final profileUserEditCubit = context.read<ProfileUserEditCubit>();
+            profileUserEditCubit.getProfessionsAndBands();
 
             if (state is ProfileUserEditInFailed) {
               return Text(state.error, style: const TextStyle(fontSize: sixteen));
@@ -44,7 +45,11 @@ class ProfileUserEditScreen extends StatelessWidget {
                   children: [
                     const AvatarView(),
                     const UserInformationView(),
-                    UserLevelView(profession: state.profession, band: state.band),
+                    UserLevelView(
+                      band: state.band,
+                      profession: state.profession,
+                      profileUserEditCubit: profileUserEditCubit,
+                    ),
                   ],
                 ),
               );
