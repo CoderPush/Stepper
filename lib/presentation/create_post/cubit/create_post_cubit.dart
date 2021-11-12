@@ -148,6 +148,8 @@ class CreatePostCubit extends Cubit<CreatePostState> {
       taggedGoalIds: [],
     );
     await postRepository.savePost(addedPost);
+    await areaRepository
+        .updateAreaWhenAddNewPost(currentState.selectedAreaName);
     // delete draft post
     await postRepository.deletePost('draft_${currentState.selectedAreaName}');
     await onAreaRated();
