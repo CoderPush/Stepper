@@ -36,7 +36,7 @@ class FakeAreaRepositoryImpl extends AreaRepository {
         .toList()
       ..sort((first, next) => next.updatedTime!.compareTo(first.updatedTime!));
     if (updatedAreaList.length >= 6) {
-      return updatedAreaList..sublist(0, 6);
+      return updatedAreaList.sublist(0, 6);
     } else {
       return updatedAreaList;
     }
