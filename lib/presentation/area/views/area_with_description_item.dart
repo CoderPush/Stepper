@@ -3,6 +3,7 @@ import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/presentation/home/views/rating_indicator.dart';
+import 'package:stepper/presentation/utils.dart';
 import 'package:stepper/routes.dart';
 
 class AreaWithDescriptionItem extends StatelessWidget {
@@ -30,19 +31,22 @@ class AreaWithDescriptionItem extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(bottom: screenMediumPadding),
         child: Container(
+          padding: const EdgeInsets.symmetric(
+            vertical: screenMediumPadding,
+            horizontal: screenMediumPadding,
+          ),
           decoration: BoxDecoration(
             color: darkGrey,
             borderRadius: BorderRadius.circular(mediumBorderRadius),
           ),
           width: itemWidth,
-          height: screenSize.width * 0.25,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Flexible(
                     flex: 2,
@@ -51,20 +55,19 @@ class AreaWithDescriptionItem extends StatelessWidget {
                       style: TextStyle(
                         fontSize: largeFontSize,
                         fontWeight: FontWeight.bold,
-                        color: area.getAreaTheme()[2],
+                        color: getAreaTheme(area.areaType)[2],
                       ),
                     ),
                   ),
                   Flexible(
                     flex: 4,
                     child: Padding(
-                      padding: const EdgeInsets.only(
-                        bottom: screenSmallPadding,
-                        left: screenSmallPadding,
-                      ),
+                      padding:
+                          const EdgeInsets.only(bottom: screenSmallPadding),
                       child: RatingIndicator(
                         indicatorText: areaSubTitle,
-                        indicatorWidth: itemWidth * 0.6 / 3 - screenSmallPadding,
+                        indicatorWidth:
+                            itemWidth * 0.6 / 3 - screenSmallPadding,
                         indicatorHeight: screenSize.width * 0.01,
                         indicatorPadding: indicatorPadding,
                         area: area,
@@ -73,17 +76,12 @@ class AreaWithDescriptionItem extends StatelessWidget {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: screenMediumPadding,
-                  right: screenMediumPadding,
-                ),
-                child: Text(
-                  area.areaDescription,
-                  style: const TextStyle(
-                    fontSize: smallFontSize,
-                    color: lightGrey,
-                  ),
+              const SizedBox(height: screenSmallPadding),
+              Text(
+                area.areaDescription,
+                style: const TextStyle(
+                  fontSize: normalFontSize,
+                  color: lightGrey,
                 ),
               ),
             ],

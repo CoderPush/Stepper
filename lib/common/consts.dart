@@ -17,6 +17,7 @@ const double superLargeFontSize = 45.0;
 // Border radius
 const double mediumBorderRadius = 5.0;
 const double largeBorderRadius = 10.0;
+const double extraLargeBorderRadius = 20.0;
 
 // Month names
 List<String> monthNames = [

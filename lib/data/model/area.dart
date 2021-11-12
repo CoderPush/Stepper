@@ -46,16 +46,7 @@ class Area {
     );
   }
 
-  List<Color> getAreaTheme() {
-    switch (areaType) {
-      case AreaType.scope:
-        return scopeScheme;
-      case AreaType.expertise:
-        return expertiseScheme;
-      case AreaType.mindset:
-        return mindsetScheme;
-    }
-  }
+
 }
 
 @HiveType(typeId: 4)

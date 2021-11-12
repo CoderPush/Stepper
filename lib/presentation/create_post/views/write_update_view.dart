@@ -5,6 +5,7 @@ import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
 import 'package:stepper/presentation/create_post/views/create_post_action_button.dart';
+import 'package:stepper/presentation/utils.dart';
 import 'package:stepper/routes.dart';
 
 class WriteUpdateView extends StatefulWidget {
@@ -78,7 +79,7 @@ class _WriteUpdateViewState extends State<WriteUpdateView> {
             },
           ),
         ),
-        BlocListener<CreatePostCubit, CreatePostState>(
+        BlocConsumer<CreatePostCubit, CreatePostState>(
           listener: (context, state) {
             if (state is CreateUpdateSuccessState) {
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -97,31 +98,33 @@ class _WriteUpdateViewState extends State<WriteUpdateView> {
               );
             }
           },
-          child: Row(
+          builder: (context, state) => Row(
             children: [
-              CreatePostActionButton(
-                iconData: Icons.attach_file,
-                onTap: onAttachFile,
-              ),
-              CreatePostActionButton(
-                iconData: Icons.crop_original,
-                onTap: onAttachPicture,
-              ),
-              CreatePostActionButton(
-                iconData: Icons.brightness_7_outlined,
-                onTap: onAttachGoal,
-              ),
+              // TODO: post interaction
+              // CreatePostActionButton(
+              //   iconData: Icons.attach_file,
+              //   onTap: onAttachFile,
+              // ),
+              // CreatePostActionButton(
+              //   iconData: Icons.crop_original,
+              //   onTap: onAttachPicture,
+              // ),
+              // CreatePostActionButton(
+              //   iconData: Icons.brightness_7_outlined,
+              //   onTap: onAttachGoal,
+              // ),
               Expanded(
                 child: ElevatedButton(
                   key: const Key(postButton),
                   style: ElevatedButton.styleFrom(
-                    primary: purple,
+                    primary: getAreaTheme(state.selectedAreaType)[2],
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(largeBorderRadius),
+                      borderRadius:
+                          BorderRadius.circular(extraLargeBorderRadius),
                     ),
                   ),
                   onPressed: () => onPostClick(context),
-                  child: const Text(post),
+                  child: const Text(publish),
                 ),
               ),
             ],
