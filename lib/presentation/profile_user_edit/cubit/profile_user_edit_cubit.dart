@@ -20,8 +20,8 @@ class ProfileUserEditCubit extends Cubit<ProfileUserEditState> {
       final bandResponse = await bandRepository.getBands();
 
       emit(ProfileUserEditInSuccess(
-        professions: professionResponse.professions,
-        bands: bandResponse.bands,
+        profession: professionResponse,
+        band: bandResponse,
       ));
     } catch (error) {
       emit(ProfileUserEditInFailed(error: error.toString()));
