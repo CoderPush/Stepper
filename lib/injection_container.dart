@@ -41,6 +41,7 @@ Future<void> initializeDependencies() async {
   Hive.openBox<BandItemModel>('BandItemModel');
   Hive.registerAdapter<Post>(PostAdapter());
   Hive.registerAdapter<Goal>(GoalAdapter());
+  Hive.registerAdapter<BandItemModel>(BandItemModelAdapter());
 
   sl.registerLazySingleton<BandDatabase>(() => BandDatabase());
 
