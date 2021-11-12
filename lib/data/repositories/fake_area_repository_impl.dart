@@ -33,9 +33,13 @@ class FakeAreaRepositoryImpl extends AreaRepository {
     final updatedAreaList = (await areaDatabase.getAllAreas())
         .where((area) => areaNamesList.contains(area.areaName))
         .where((area) => area.updatedTime != null)
-        .toList();
-    return updatedAreaList
-      ..sort((first, next) => first.updatedTime!.compareTo(next.updatedTime!));
+        .toList()
+      ..sort((first, next) => next.updatedTime!.compareTo(first.updatedTime!));
+    if (updatedAreaList.length >= 6) {
+      return updatedAreaList.sublist(0, 6);
+    } else {
+      return updatedAreaList;
+    }
   }
 
   @override
