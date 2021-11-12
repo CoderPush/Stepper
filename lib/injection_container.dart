@@ -46,7 +46,6 @@ Future<void> initializeDatabase() async {
 }
 
 Future<void> prepopulateAreaDatabase() async {
-  print('prepopulate');
   Hive.openBox<Area>('Area');
   final areaList = await sl<AreaService>().getAllAreas();
   for (var area in areaList) {
