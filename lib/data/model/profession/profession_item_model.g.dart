@@ -9,7 +9,8 @@ part of 'profession_item_model.dart';
 ProfessionItemModel _$ProfessionItemModelFromJson(Map<String, dynamic> json) =>
     ProfessionItemModel(
       professionName: json['profession_name'] as String,
-      bandIds: json['bandIds'] as String,
+      bandIds:
+          (json['bandIds'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$ProfessionItemModelToJson(

@@ -8,7 +8,7 @@ class ProfessionItemModel {
   final String professionName;
 
   @JsonKey(name: "bandIds")
-  final String bandIds;
+  final List<String> bandIds;
 
   ProfessionItemModel({
     required this.professionName,
