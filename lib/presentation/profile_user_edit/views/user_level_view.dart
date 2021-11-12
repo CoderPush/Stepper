@@ -8,14 +8,30 @@ import 'package:stepper/data/model/profession/profession_model.dart';
 import 'package:stepper/presentation/profile_user_edit/views/row_level_view.dart';
 
 class UserLevelView extends StatelessWidget {
-  final ProfessionModel professions;
-  final BandModel bands;
+  final ProfessionModel profession;
+  final BandModel band;
 
   const UserLevelView({
-    required this.professions,
-    required this.bands,
+    required this.profession,
+    required this.band,
     Key? key,
   }) : super(key: key);
+
+  List<String> _getProfessionNames() {
+    List<String> professionNames = [];
+    for (var professionItem in profession.professions) {
+      professionNames.add(professionItem.professionName);
+    }
+    return professionNames;
+  }
+
+  List<String> _getBandNames() {
+    List<String> bandNames = [];
+    for (var bandItem in band.bands) {
+      bandNames.add(bandItem.bandName);
+    }
+    return bandNames;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +46,9 @@ class UserLevelView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          RowLevelView(titleText: profession, list: professionList),
+          RowLevelView(titleText: professionText, list: _getProfessionNames()),
           const SizedBox(height: twenty),
-          RowLevelView(titleText: band, list: bandList),
+          RowLevelView(titleText: bandText, list: _getBandNames()),
         ],
       ),
     );

@@ -44,10 +44,7 @@ class ProfileUserEditScreen extends StatelessWidget {
                   children: [
                     const AvatarView(),
                     const UserInformationView(),
-                    UserLevelView(
-                      professions: state.profession,
-                      bands: state.band,
-                    ),
+                    UserLevelView(profession: state.profession, band: state.band),
                   ],
                 ),
               );
