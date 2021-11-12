@@ -4,7 +4,6 @@ import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
-import 'package:stepper/presentation/create_post/views/create_post_action_button.dart';
 import 'package:stepper/presentation/utils.dart';
 import 'package:stepper/routes.dart';
 
