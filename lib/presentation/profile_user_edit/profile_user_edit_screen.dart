@@ -15,49 +15,44 @@ class ProfileUserEditScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ProfileUserEditCubit(
-        professionRepository: sl(),
-        bandRepository: sl(),
-      ),
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: scaffoldColor,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(Icons.arrow_back_ios),
-          ),
-          title: const Text(account),
-          centerTitle: true,
-        ),
-        body: BlocBuilder<ProfileUserEditCubit, ProfileUserEditState>(
-          builder: (context, state) {
-            final profileUserEditCubit = context.read<ProfileUserEditCubit>();
-            profileUserEditCubit.getProfessionsAndBands();
+    final profileUserEditCubit = context.read<ProfileUserEditCubit>();
+    profileUserEditCubit.getProfessionsAndBands();
 
-            if (state is ProfileUserEditInFailed) {
-              return Text(state.error, style: const TextStyle(fontSize: sixteen));
-            } else if (state is ProfileUserEditInSuccess) {
-              return SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const AvatarView(),
-                    const UserInformationView(),
-                    UserLevelView(
-                      band: state.band,
-                      profession: state.profession,
-                      profileUserEditCubit: profileUserEditCubit,
-                    ),
-                  ],
-                ),
-              );
-            }
-
-            return const Center(child: CircularProgressIndicator());
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: scaffoldColor,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
           },
+          icon: const Icon(Icons.arrow_back_ios),
         ),
+        title: const Text(account),
+        centerTitle: true,
+      ),
+      body: BlocBuilder<ProfileUserEditCubit, ProfileUserEditState>(
+        builder: (context, state) {
+          print("run loop");
+          if (state is ProfileUserEditInFailed) {
+            return Text(state.error, style: const TextStyle(fontSize: sixteen));
+          } else if (state is ProfileUserEditInSuccess) {
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  const AvatarView(),
+                  const UserInformationView(),
+                  UserLevelView(
+                    band: state.band,
+                    profession: state.profession,
+                    profileUserEditCubit: profileUserEditCubit,
+                  ),
+                ],
+              ),
+            );
+          }
+
+          return const Center(child: CircularProgressIndicator());
+        },
       ),
     );
   }

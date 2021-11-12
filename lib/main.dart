@@ -11,6 +11,7 @@ import 'package:stepper/presentation/post_detail/post_detail_screen.dart';
 import 'package:stepper/presentation/create_post/create_post_screen.dart';
 import 'package:stepper/presentation/profile_user/profile_user_screen.dart';
 import 'package:stepper/presentation/profile_user_edit/profile_user_edit_screen.dart';
+import 'package:stepper/presentation/profile_user_edit/cubit/profile_user_edit_cubit.dart';
 import 'package:stepper/routes.dart';
 
 void main() async {
@@ -45,9 +46,17 @@ class MyApp extends StatelessWidget {
           Routes.postList: (context) => const PostListScreen(),
           Routes.postDetail: (context) => const PostDetailScreen(),
           Routes.createPost: (context) => const CreatePostScreen(),
-          Routes.profileUser: (context) => const ProfileUserScreen(),
-          Routes.profileUserEdit: (context) => const ProfileUserEditScreen(),
           Routes.calendar: (context) => const CalendarScreen(),
+          Routes.profileUser: (context) => const ProfileUserScreen(),
+          Routes.profileUserEdit: (context) {
+            return BlocProvider(
+              create: (context) => ProfileUserEditCubit(
+                professionRepository: sl(),
+                bandRepository: sl(),
+              ),
+              child: const ProfileUserEditScreen(),
+            );
+          },
         },
       ),
     );

@@ -70,6 +70,13 @@ class UserLevelView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final professionNames = _getProfessionNames();
+    final bandNames = _getBandNames();
+    final bands = _getBands();
+
+    // Save Default Band Model Item
+    profileUserEditCubit.saveBandModelItem(bands.first);
+
     return Container(
       margin: const EdgeInsets.only(left: twenty, right: twenty),
       padding: const EdgeInsets.symmetric(vertical: sixteen, horizontal: twenty),
@@ -84,18 +91,18 @@ class UserLevelView extends StatelessWidget {
           RowLevelView(
             titleText: professionText,
             value: engineer,
-            list: _getProfessionNames(),
+            list: professionNames,
             onChanged: (professionName) {},
           ),
           const SizedBox(height: twenty),
           StreamBuilder<String>(
-              initialData: _getBandNames().first,
+              initialData: bandNames.first,
               stream: profileUserEditCubit.bandDropDownStream,
               builder: (context, snapshot) {
                 return RowLevelView(
                   titleText: bandText,
                   value: snapshot.data!,
-                  list: _getBandNames(),
+                  list: bandNames,
                   onChanged: (bandName) {
                     if (bandName == null) return;
 
@@ -103,8 +110,8 @@ class UserLevelView extends StatelessWidget {
                     profileUserEditCubit.onChangedBandDropDown(bandName);
 
                     // Save Current Band Item Model
-                    final currentIndexBands = _getBandNames().indexOf(bandName);
-                    final currentBandItemModel = _getBands()[currentIndexBands];
+                    final currentIndexBands = bandNames.indexOf(bandName);
+                    final currentBandItemModel = bands[currentIndexBands];
                     profileUserEditCubit.saveBandModelItem(currentBandItemModel);
                   },
                 );
