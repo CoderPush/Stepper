@@ -76,7 +76,10 @@ class MainDrawer extends StatelessWidget {
   }
 
   void _onCalendarScreenTap(BuildContext context) {
-    //TODO implement calendar tap here
+    Navigator.pushReplacementNamed(
+      context,
+      Routes.calendar,
+    );
   }
 
   @override
@@ -96,7 +99,7 @@ class MainDrawer extends StatelessWidget {
       builder: (context, state) => SafeArea(
         child: Drawer(
           child: Container(
-            color: mediumGrey,
+            color: darkBlue,
             child: Column(
               children: <Widget>[
                 ListTile(
@@ -109,7 +112,7 @@ class MainDrawer extends StatelessWidget {
                   trailing: IconButton(
                     tooltip: closeDrawerButton,
                     onPressed: () => _onDrawerClosed(context),
-                    icon: const Icon(Icons.arrow_back_ios),
+                    icon: const Icon(Icons.arrow_back_ios, color: orange),
                   ),
                   onTap: () => context
                       .read<DrawerCubit>()

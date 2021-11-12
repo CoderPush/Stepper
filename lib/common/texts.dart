@@ -13,6 +13,7 @@ const String goalThisMonth = 'Goal this month';
 const String seeMore = 'See more';
 const String seeLess = 'See less';
 const String post = 'Post';
+const String publish = 'Publish';
 const String createPost = 'Create post';
 const String writeUpdate = 'Write update';
 const String setGoal = 'Set goal';
@@ -30,6 +31,9 @@ const String email = 'Email';
 const String johnDoe = 'John Doe';
 const String johnDoeEmail = 'johndoe@gmail.com';
 const String signOut = 'Sign out';
+const String noUpdate = 'You have no item updated recently';
+const String noPost = 'You have no post. Use "+" button to create post';
+const String incomingFeature = 'Incoming feature';
 
 // Testing
 const String writeUpdateText = "Today i will integration test code in flutter";

@@ -63,7 +63,13 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       state.recentlyUpdatedAreas.isEmpty
-                          ? SizedBox(height: screenSize.height * 0.1)
+                          ? SizedBox(
+                              height: screenSize.height * 0.1,
+                              child: const Padding(
+                                padding: EdgeInsets.all(screenMediumPadding),
+                                child: Text(noUpdate),
+                              ),
+                            )
                           : HorizontalAreaList(
                               areaList: state.recentlyUpdatedAreas),
                       const Padding(
@@ -92,11 +98,16 @@ class HomeScreen extends StatelessWidget {
                           valueListenable: Hive.box<Post>('Post').listenable(),
                           builder: (context, postBox, widget) {
                             // TODO: get areaName list with current band
-                            return PostList(
-                              postList: postBox.values.toList()
-                                ..sort((first, next) => next.postedTime
-                                    .compareTo(first.postedTime)),
-                            );
+                            final postList = postBox.values.toList()
+                              ..sort((first, next) =>
+                                  next.postedTime.compareTo(first.postedTime));
+                            if (postList.isEmpty) {
+                              return const Text(noPost);
+                            } else {
+                              return PostList(
+                                postList: postList,
+                              );
+                            }
                           },
                         ),
                       ),

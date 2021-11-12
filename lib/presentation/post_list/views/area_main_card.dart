@@ -3,6 +3,7 @@ import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/presentation/home/views/rating_indicator.dart';
+import 'package:stepper/presentation/utils.dart';
 
 class AreaMainCard extends StatelessWidget {
   final Area area;
@@ -28,7 +29,7 @@ class AreaMainCard extends StatelessWidget {
               Text(
                 area.areaName,
                 style: TextStyle(
-                  color: area.getAreaTheme()[2],
+                  color: getAreaTheme(area.areaType)[2],
                   fontSize: superLargeFontSize,
                   fontWeight: FontWeight.bold,
                 ),

@@ -23,16 +23,16 @@ class DrawerItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: screenSmallPadding),
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(mediumBorderRadius),
+          borderRadius: BorderRadius.circular(largeBorderRadius),
         ),
         elevation: 0.0,
         color: drawerType == drawerCubit.state.selectedItem
-            ? lightGrey
-            : mediumGrey,
+            ? drawerItemColor
+            : Colors.transparent,
         child: ListTile(
           leading: Icon(
             drawerIcon,
-            color: black,
+            color: orange,
           ),
           title: Text(drawerTitle),
           onTap: () => drawerCubit.selectDrawerItem(drawerType),
