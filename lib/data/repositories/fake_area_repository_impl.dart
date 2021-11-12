@@ -5,10 +5,12 @@ import 'package:stepper/domain/repositories/area_repository.dart';
 
 class FakeAreaRepositoryImpl extends AreaRepository {
   final AreaDatabase areaDatabase;
+  final PostDatabase postDatabase;
   final AreaService areaService;
 
   FakeAreaRepositoryImpl({
     required this.areaDatabase,
+    required this.postDatabase,
     required this.areaService,
   });
 
@@ -44,10 +46,11 @@ class FakeAreaRepositoryImpl extends AreaRepository {
 
   @override
   Future<void> updateAreaWhenAddNewPost(String areaName) async {
+    final posts = await postDatabase.getPostsByAreaName(areaName);
     final area = await areaDatabase.getAreaByName(areaName);
     await areaDatabase.updateArea(area.copyWith(
       updatedTime: DateTime.now(),
-      numberOfUpdate: area.numberOfUpdate + 1,
+      numberOfUpdate: posts.length,
     ));
   }
 }
