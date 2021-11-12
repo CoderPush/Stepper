@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/data/model/band/band_item_model.dart';
 import 'package:stepper/domain/repositories/band_repository.dart';
@@ -8,11 +10,15 @@ class ProfileUserEditCubit extends Cubit<ProfileUserEditState> {
   final ProfessionRepository professionRepository;
   final BandRepository bandRepository;
 
+  Stream<String> get bandDropDownStream => _bandDropDownSubject.stream;
+  final StreamController<String> _bandDropDownSubject = StreamController<String>();
+
   ProfileUserEditCubit({
     required this.professionRepository,
     required this.bandRepository,
   }) : super(ProfileUserEditInitial());
 
+  // Cubit Methods
   Future<void> getProfessionsAndBands() async {
     emit(ProfileUserEditInProgress());
 
@@ -29,7 +35,11 @@ class ProfileUserEditCubit extends Cubit<ProfileUserEditState> {
     }
   }
 
-  Future<void> saveBandModelItem(BandItemModel bandItemModel) async {
-    await bandRepository.saveBandItemModel(bandItemModel);
-  }
+  // Local Methods
+  Future<void> saveBandModelItem(BandItemModel bandItemModel) async =>
+      await bandRepository.saveBandItemModel(bandItemModel);
+
+// Rx Methods
+  Future<void> onChangedBandDropDown(String bandName) async =>
+      _bandDropDownSubject.add(bandName);
 }

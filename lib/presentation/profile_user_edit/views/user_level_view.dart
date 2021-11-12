@@ -88,19 +88,27 @@ class UserLevelView extends StatelessWidget {
             onChanged: (professionName) {},
           ),
           const SizedBox(height: twenty),
-          RowLevelView(
-            titleText: bandText,
-            value: _getBandNames().first,
-            list: _getBandNames(),
-            onChanged: (bandName) {
-              if (bandName == null) return;
+          StreamBuilder<String>(
+              initialData: _getBandNames().first,
+              stream: profileUserEditCubit.bandDropDownStream,
+              builder: (context, snapshot) {
+                return RowLevelView(
+                  titleText: bandText,
+                  value: snapshot.data!,
+                  list: _getBandNames(),
+                  onChanged: (bandName) {
+                    if (bandName == null) return;
 
-              // Save Current Band Item Model
-              final currentIndexBands = _getBandNames().indexOf(bandName);
-              final currentBandItemModel = _getBands()[currentIndexBands];
-              profileUserEditCubit.saveBandModelItem(currentBandItemModel);
-            },
-          ),
+                    // Trigger change band name
+                    profileUserEditCubit.onChangedBandDropDown(bandName);
+
+                    // Save Current Band Item Model
+                    final currentIndexBands = _getBandNames().indexOf(bandName);
+                    final currentBandItemModel = _getBands()[currentIndexBands];
+                    profileUserEditCubit.saveBandModelItem(currentBandItemModel);
+                  },
+                );
+              }),
         ],
       ),
     );
