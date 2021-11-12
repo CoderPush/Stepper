@@ -18,15 +18,13 @@ final sl = GetIt.instance;
 Future<void> initializeDependencies() async {
   // Features
   sl.registerLazySingleton<AreaRepository>(
-      () => FakeAreaRepositoryImpl(areaService: sl()));
+      () => FakeAreaRepositoryImpl(areaService: sl(), areaDatabase: sl()));
 
   sl.registerLazySingleton<ProfessionRepository>(
       () => ProfessionRepositoryImpl(professionService: sl()));
 
-  sl.registerLazySingleton<BandRepository>(() => BandRepositoryImpl(
-        bandService: sl(),
-        bandDatabase: sl(),
-      ));
+  sl.registerLazySingleton<BandRepository>(
+      () => BandRepositoryImpl(bandService: sl(), bandDatabase: sl()));
 
   sl.registerLazySingleton<GoalRepository>(
       () => FakeGoalRepositoryImpl(goalDatabase: sl()));
@@ -34,7 +32,25 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<PostRepository>(
       () => FakePostRepositoryImpl(postDatabase: sl()));
 
-  // Database
+  sl.registerLazySingleton<PostDatabase>(() => PostDatabase());
+
+  sl.registerLazySingleton<GoalDatabase>(() => GoalDatabase());
+
+  sl.registerLazySingleton<AreaDatabase>(() => AreaDatabase());
+
+  sl.registerLazySingleton<BandDatabase>(() => BandDatabase());
+
+  sl.registerLazySingleton<AreaService>(() => AreaService());
+
+  sl.registerLazySingleton<ProfessionService>(() => ProfessionService());
+
+  sl.registerLazySingleton<BandService>(() => BandService());
+
+  // Databases
+  await initializeDatabase();
+}
+
+Future<void> initializeDatabase() async {
   await Hive.initFlutter();
   Hive.openBox<Post>('Post');
   Hive.openBox<Goal>('Goal');
@@ -42,16 +58,18 @@ Future<void> initializeDependencies() async {
   Hive.registerAdapter<Post>(PostAdapter());
   Hive.registerAdapter<Goal>(GoalAdapter());
   Hive.registerAdapter<BandItemModel>(BandItemModelAdapter());
+  Hive.registerAdapter<Area>(AreaAdapter());
+  Hive.registerAdapter<AreaType>(AreaTypeAdapter());
 
-  sl.registerLazySingleton<BandDatabase>(() => BandDatabase());
+  if (!await Hive.boxExists('Area')) {
+    prepopulateAreaDatabase();
+  }
+}
 
-  sl.registerLazySingleton<PostDatabase>(() => PostDatabase());
-
-  sl.registerLazySingleton<GoalDatabase>(() => GoalDatabase());
-
-  sl.registerLazySingleton<AreaService>(() => AreaService());
-
-  sl.registerLazySingleton<ProfessionService>(() => ProfessionService());
-
-  sl.registerLazySingleton<BandService>(() => BandService());
+Future<void> prepopulateAreaDatabase() async {
+  Hive.openBox<Area>('Area');
+  final areaList = await sl<AreaService>().getAllAreas();
+  for (var area in areaList) {
+    await sl<AreaDatabase>().addArea(area);
+  }
 }

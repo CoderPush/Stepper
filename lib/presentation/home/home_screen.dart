@@ -62,7 +62,16 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      HorizontalAreaList(areaList: state.recentlyUpdatedAreas),
+                      state.recentlyUpdatedAreas.isEmpty
+                          ? SizedBox(
+                              height: screenSize.height * 0.1,
+                              child: const Padding(
+                                padding: EdgeInsets.all(screenMediumPadding),
+                                child: Text(noUpdate),
+                              ),
+                            )
+                          : HorizontalAreaList(
+                              areaList: state.recentlyUpdatedAreas),
                       const Padding(
                         padding: EdgeInsets.fromLTRB(
                           screenMediumPadding,
@@ -88,10 +97,17 @@ class HomeScreen extends StatelessWidget {
                         child: ValueListenableBuilder<Box<Post>>(
                           valueListenable: Hive.box<Post>('Post').listenable(),
                           builder: (context, postBox, widget) {
-                            return PostList(
-                              postList:
-                                  postBox.values.toList().reversed.toList(),
-                            );
+                            // TODO: get areaName list with current band
+                            final postList = postBox.values.toList()
+                              ..sort((first, next) =>
+                                  next.postedTime.compareTo(first.postedTime));
+                            if (postList.isEmpty) {
+                              return const Text(noPost);
+                            } else {
+                              return PostList(
+                                postList: postList,
+                              );
+                            }
                           },
                         ),
                       ),

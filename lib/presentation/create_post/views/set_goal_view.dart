@@ -97,7 +97,7 @@ class SetGoalView extends StatelessWidget {
               ),
             ),
             onPressed: () => onPostClick(context),
-            child: const Text(post),
+            child: const Text(publish),
           ),
         )
       ],

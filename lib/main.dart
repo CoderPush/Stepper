@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/injection_container.dart';
 import 'package:stepper/presentation/area/area.dart';
+import 'package:stepper/presentation/calendar/calendar_screen.dart';
 import 'package:stepper/presentation/common/drawer/drawer.dart';
 import 'package:stepper/presentation/home/home_screen.dart';
 import 'package:stepper/presentation/post_list/post_list_screen.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
           Routes.createPost: (context) => const CreatePostScreen(),
           Routes.profileUser: (context) => const ProfileUserScreen(),
           Routes.profileUserEdit: (context) => const ProfileUserEditScreen(),
+          Routes.calendar: (context) => const CalendarScreen(),
         },
       ),
     );

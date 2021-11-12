@@ -17,7 +17,7 @@ class AreaDropdown extends StatelessWidget {
       height: 30.0,
       decoration: BoxDecoration(
         color: dropdownButtonColor,
-        borderRadius: BorderRadius.circular(largeBorderRadius),
+        borderRadius: BorderRadius.circular(extraLargeBorderRadius),
       ),
       child: BlocBuilder<CreatePostCubit, CreatePostState>(
         builder: (context, state) {
