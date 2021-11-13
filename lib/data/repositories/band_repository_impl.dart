@@ -27,8 +27,8 @@ class BandRepositoryImpl implements BandRepository {
   }
 
   @override
-  Future<int> getCurrentIndexOfBands() async {
-    return await bandDatabase.getCurrentIndexOfBands();
+  int getCurrentIndexOfBands() {
+    return bandDatabase.getCurrentIndexOfBands();
   }
 
   @override

@@ -7,38 +7,39 @@ class BandDatabase {
   final _currentIndexOfBands = 'currentIndexOfBands';
   final _bandModelItem = 'bandItemModel';
 
-  // open a box
+  // Open Band Box
   Future<Box<BandItemModel>> _bandBox() async {
     final box = await Hive.openBox<BandItemModel>(_boxBandName);
     return box;
   }
 
-  Future<Box<int>> _storageAboutNumberBox() async {
-    final box = await Hive.openBox<int>(_boxStorageAboutNumberName);
-    return box;
+  // Open Storage About Number Box
+  Box _storageAboutNumberBox() {
+    final _box = Hive.box(_boxStorageAboutNumberName);
+    return _box;
   }
 
-  // get band item model
+  // Get Band Item Model
   Future<BandItemModel?> getBandItemModel() async {
     final box = await _bandBox();
     return box.get(_bandModelItem);
   }
 
-  // save band item model
+  // Save Band Item Model
   Future<void> saveBandItemModel(BandItemModel bandItemModel) async {
     final box = await _bandBox();
     await box.put(_bandModelItem, bandItemModel);
   }
 
-  // get current index of bands
-  Future<int> getCurrentIndexOfBands() async {
-    final box = await _storageAboutNumberBox();
+  // Get Current Index Of Bands
+  int getCurrentIndexOfBands() {
+    final box = _storageAboutNumberBox();
     return box.get(_currentIndexOfBands) ?? 0;
   }
 
-  // save current index of bands
+  // Save Current Index Of Bands
   Future<void> saveCurrentIndexOfBands(int currentIndexOfBands) async {
-    final box = await _storageAboutNumberBox();
+    final box = _storageAboutNumberBox();
     await box.put(_currentIndexOfBands, currentIndexOfBands);
   }
 }

@@ -68,9 +68,14 @@ class UserLevelView extends StatelessWidget {
     return bands;
   }
 
+  BandItemModel _getDefaultBandItemModel(List<BandItemModel> bands) {
+    final currentIndexOfBands = profileUserEditCubit.getCurrentIndexOfBands();
+    return bands[currentIndexOfBands];
+  }
+
   Future<void> _saveDefaultBandItemModel(List<BandItemModel> bands) async {
-    final currentIndexOfBands = await profileUserEditCubit.getCurrentIndexOfBands();
-    profileUserEditCubit.saveBandModelItem(bands[currentIndexOfBands]);
+    final currentIndexOfBands = profileUserEditCubit.getCurrentIndexOfBands();
+    await profileUserEditCubit.saveBandModelItem(bands[currentIndexOfBands]);
   }
 
   @override
@@ -82,7 +87,9 @@ class UserLevelView extends StatelessWidget {
     // Save Default Band Item Model
     _saveDefaultBandItemModel(bands);
 
-    // Get Default Band Name
+    // Get Default Band Item Model
+    final currentBandItemModel = _getDefaultBandItemModel(bands);
+
     return Container(
       margin: const EdgeInsets.only(left: twenty, right: twenty),
       padding: const EdgeInsets.symmetric(vertical: sixteen, horizontal: twenty),
@@ -102,7 +109,7 @@ class UserLevelView extends StatelessWidget {
           ),
           const SizedBox(height: twenty),
           StreamBuilder<String>(
-              initialData: bandNames.first,
+              initialData: currentBandItemModel.bandName,
               stream: profileUserEditCubit.bandDropDownStream,
               builder: (context, snapshot) {
                 return RowLevelView(
@@ -121,7 +128,7 @@ class UserLevelView extends StatelessWidget {
                     // Save Current Band Item Model
                     profileUserEditCubit.saveBandModelItem(currentBandItemModel);
 
-                    // Trigger change band name
+                    // Trigger Change Band Name
                     profileUserEditCubit.onChangedBandDropDown(bandName);
                   },
                 );

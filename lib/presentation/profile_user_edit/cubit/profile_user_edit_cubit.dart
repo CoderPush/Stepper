@@ -35,8 +35,7 @@ class ProfileUserEditCubit extends Cubit<ProfileUserEditState> {
   }
 
   // Local Methods
-  Future<int> getCurrentIndexOfBands() async =>
-      await bandRepository.getCurrentIndexOfBands();
+  int getCurrentIndexOfBands() => bandRepository.getCurrentIndexOfBands();
 
   Future<void> saveCurrentIndexOfBands(int currentIndexOfBands) async =>
       await bandRepository.saveCurrentIndexOfBands(currentIndexOfBands);

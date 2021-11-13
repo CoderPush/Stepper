@@ -8,7 +8,7 @@ abstract class BandRepository {
 
   Future<void> saveBandItemModel(BandItemModel bandItemModel);
 
-  Future<int> getCurrentIndexOfBands();
+  int getCurrentIndexOfBands();
 
   Future<void> saveCurrentIndexOfBands(int currentIndexOfBands);
 }

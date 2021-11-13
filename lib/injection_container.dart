@@ -51,24 +51,32 @@ Future<void> initializeDependencies() async {
 }
 
 Future<void> initializeDatabase() async {
+  const storageAboutNumber = 'StorageAboutNumber';
+  const post = 'Post';
+  const goal = 'Goal';
+  const bandItemModel = 'BandItemModel';
+  const area = 'Area';
+
   await Hive.initFlutter();
-  Hive.openBox<int>('StorageAboutNumber');
-  Hive.openBox<Post>('Post');
-  Hive.openBox<Goal>('Goal');
-  Hive.openBox<BandItemModel>('BandItemModel');
+  Hive.openBox(storageAboutNumber);
+  Hive.openBox<Post>(post);
+  Hive.openBox<Goal>(goal);
+  Hive.openBox<BandItemModel>(bandItemModel);
   Hive.registerAdapter<Post>(PostAdapter());
   Hive.registerAdapter<Goal>(GoalAdapter());
   Hive.registerAdapter<BandItemModel>(BandItemModelAdapter());
   Hive.registerAdapter<Area>(AreaAdapter());
   Hive.registerAdapter<AreaType>(AreaTypeAdapter());
 
-  if (!await Hive.boxExists('Area')) {
+  if (!await Hive.boxExists(area)) {
     prepopulateAreaDatabase();
   }
 }
 
 Future<void> prepopulateAreaDatabase() async {
-  Hive.openBox<Area>('Area');
+  const area = 'Area';
+
+  Hive.openBox<Area>(area);
   final areaList = await sl<AreaService>().getAllAreas();
   for (var area in areaList) {
     await sl<AreaDatabase>().addArea(area);
