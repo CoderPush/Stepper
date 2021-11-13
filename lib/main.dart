@@ -48,15 +48,13 @@ class MyApp extends StatelessWidget {
           Routes.createPost: (context) => const CreatePostScreen(),
           Routes.calendar: (context) => const CalendarScreen(),
           Routes.profileUser: (context) => const ProfileUserScreen(),
-          Routes.profileUserEdit: (context) {
-            return BlocProvider(
-              create: (context) => ProfileUserEditCubit(
-                professionRepository: sl(),
-                bandRepository: sl(),
+          Routes.profileUserEdit: (context) => BlocProvider(
+                create: (context) => ProfileUserEditCubit(
+                  professionRepository: sl(),
+                  bandRepository: sl(),
+                ),
+                child: const ProfileUserEditScreen(),
               ),
-              child: const ProfileUserEditScreen(),
-            );
-          },
         },
       ),
     );

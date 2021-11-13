@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/data/model/band/band_item_model.dart';
 import 'package:stepper/domain/repositories/band_repository.dart';
@@ -36,10 +35,19 @@ class ProfileUserEditCubit extends Cubit<ProfileUserEditState> {
   }
 
   // Local Methods
+  Future<int> getCurrentIndexOfBands() async =>
+      await bandRepository.getCurrentIndexOfBands();
+
+  Future<void> saveCurrentIndexOfBands(int currentIndexOfBands) async =>
+      await bandRepository.saveCurrentIndexOfBands(currentIndexOfBands);
+
+  Future<BandItemModel?> getBandModelItem() async =>
+      await bandRepository.getBandItemModel();
+
   Future<void> saveBandModelItem(BandItemModel bandItemModel) async =>
       await bandRepository.saveBandItemModel(bandItemModel);
 
-// Rx Methods
+  // Rx Methods
   Future<void> onChangedBandDropDown(String bandName) async =>
       _bandDropDownSubject.add(bandName);
 }

@@ -25,4 +25,14 @@ class BandRepositoryImpl implements BandRepository {
   Future<void> saveBandItemModel(BandItemModel bandItemModel) async {
     await bandDatabase.saveBandItemModel(bandItemModel);
   }
+
+  @override
+  Future<int> getCurrentIndexOfBands() async {
+    return await bandDatabase.getCurrentIndexOfBands();
+  }
+
+  @override
+  Future<void> saveCurrentIndexOfBands(int currentIndexOfBands) async {
+    await bandDatabase.saveCurrentIndexOfBands(currentIndexOfBands);
+  }
 }

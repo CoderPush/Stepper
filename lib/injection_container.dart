@@ -52,6 +52,7 @@ Future<void> initializeDependencies() async {
 
 Future<void> initializeDatabase() async {
   await Hive.initFlutter();
+  Hive.openBox<int>('StorageAboutNumber');
   Hive.openBox<Post>('Post');
   Hive.openBox<Goal>('Goal');
   Hive.openBox<BandItemModel>('BandItemModel');
