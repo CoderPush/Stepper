@@ -30,6 +30,7 @@ const String name = "Name";
 const String email = 'Email';
 const String johnDoe = 'John Doe';
 const String johnDoeEmail = 'johndoe@gmail.com';
+const String clearData = 'Clear data';
 const String signOut = 'Sign out';
 const String engineer = 'Engineer';
 const String noUpdate = 'You have no item updated recently';
