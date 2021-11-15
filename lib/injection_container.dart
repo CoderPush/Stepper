@@ -20,6 +20,7 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<AreaRepository>(() => FakeAreaRepositoryImpl(
         areaService: sl(),
         areaDatabase: sl(),
+        postDatabase: sl(),
         bandDatabase: sl(),
       ));
 
