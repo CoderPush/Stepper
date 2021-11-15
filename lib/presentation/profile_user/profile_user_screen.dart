@@ -4,6 +4,7 @@ import 'package:stepper/common/palette.dart';
 import 'package:stepper/presentation/common/commons.dart';
 import 'package:stepper/presentation/profile_user/views/avatar_view.dart';
 import 'package:stepper/presentation/profile_user/views/badge_view.dart';
+import 'package:stepper/presentation/profile_user/views/clear_data_view.dart';
 import 'package:stepper/presentation/profile_user/views/mode_view.dart';
 import 'package:stepper/presentation/profile_user/views/sign_out_view.dart';
 
@@ -35,6 +36,7 @@ class ProfileUserScreen extends StatelessWidget {
               const AvatarView(),
               const BadgeView(),
               const ModeView(),
+              const ClearDataView(),
               const SignOutView(),
             ],
           ),

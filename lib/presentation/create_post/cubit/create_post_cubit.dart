@@ -70,7 +70,11 @@ class CreatePostCubit extends Cubit<CreatePostState> {
       {String? preSelectedAreaName}) async {
     try {
       emit(CreatePostLoadingState(selectedAreaType: areaType));
-      final areaList = await areaRepository.fetchAreasByType(areaType);
+      final areaList = (await areaRepository.fetchAreasByType(areaType))
+        ..sort((first, next) => first.areaName
+            .substring(1)
+            .padLeft(3, '0')
+            .compareTo(next.areaName.substring(1).padLeft(3, '0')));
       final selectedAreaName = preSelectedAreaName ?? areaList[0].areaName;
       final draftPost =
           await postRepository.getDraftPostByAreaName(selectedAreaName);

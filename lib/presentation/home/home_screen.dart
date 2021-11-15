@@ -98,7 +98,14 @@ class HomeScreen extends StatelessWidget {
                           valueListenable: Hive.box<Post>('Post').listenable(),
                           builder: (context, postBox, widget) {
                             // TODO: get areaName list with current band
-                            final postList = postBox.values.toList()
+                            final areaNames =
+                                Hive.box<BandItemModel>('BandItemModel')
+                                    .get('bandItemModel')!
+                                    .areaNames;
+                            final postList = postBox.values
+                                .where(
+                                    (post) => areaNames.contains(post.areaName))
+                                .toList()
                               ..sort((first, next) =>
                                   next.postedTime.compareTo(first.postedTime));
                             if (postList.isEmpty) {

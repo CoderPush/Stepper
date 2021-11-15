@@ -5,20 +5,22 @@ import 'package:stepper/domain/repositories/area_repository.dart';
 
 class FakeAreaRepositoryImpl extends AreaRepository {
   final AreaDatabase areaDatabase;
+  final BandDatabase bandDatabase;
   final PostDatabase postDatabase;
   final AreaService areaService;
 
   FakeAreaRepositoryImpl({
     required this.areaDatabase,
+    required this.bandDatabase,
     required this.postDatabase,
     required this.areaService,
   });
 
   @override
   Future<List<Area>> fetchAreasByType(AreaType areaType) async {
-    // TODO: replace this with current band from settings
+    final currentBandId = (await bandDatabase.getBandItemModel())!.bandId;
     final areaNamesList =
-        await areaService.getAreaNamesWithBandId('Engineer_Band1');
+        await areaService.getAreaNamesWithBandId(currentBandId);
     return (await areaDatabase.getAllAreas())
         .where(
           (area) =>
@@ -30,8 +32,9 @@ class FakeAreaRepositoryImpl extends AreaRepository {
 
   @override
   Future<List<Area>> fetchRecentlyUpdatedAreas() async {
+    final currentBandId = (await bandDatabase.getBandItemModel())!.bandId;
     final areaNamesList =
-        await areaService.getAreaNamesWithBandId('Engineer_Band1');
+        await areaService.getAreaNamesWithBandId(currentBandId);
     final updatedAreaList = (await areaDatabase.getAllAreas())
         .where((area) => areaNamesList.contains(area.areaName))
         .where((area) => area.updatedTime != null)

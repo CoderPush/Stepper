@@ -4,8 +4,8 @@ import 'package:stepper/common/numbers.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 
-class SignOutView extends StatelessWidget {
-  const SignOutView({Key? key}) : super(key: key);
+class ClearDataView extends StatelessWidget {
+  const ClearDataView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class SignOutView extends StatelessWidget {
         ),
         child: const Center(
           child: Text(
-            signOut,
+            clearData,
             style: TextStyle(color: orange, fontSize: seventeen),
           ),
         ),
