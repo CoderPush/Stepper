@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/numbers.dart';
 import 'package:stepper/common/palette.dart';
+import 'package:stepper/data/model/models.dart';
 import 'package:stepper/dummy_data.dart';
 import 'package:stepper/presentation/profile_user/views/label_view.dart';
 import 'package:stepper/routes.dart';
@@ -15,6 +17,9 @@ class AvatarView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bandName =
+        Hive.box<BandItemModel>('BandItemModel').get('bandItemModel')!.bandName;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -54,7 +59,8 @@ class AvatarView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const LabelView(
-                  labelText: 'Software Engineer 1', labelWidth: oneHundredSixty),
+                  labelText: 'Software Engineer 1',
+                  labelWidth: oneHundredSixty),
               Container(
                 height: four,
                 width: four,
@@ -63,7 +69,7 @@ class AvatarView extends StatelessWidget {
                     color: sliderInactiveColor,
                     borderRadius: BorderRadius.circular(largeBorderRadius)),
               ),
-              const LabelView(labelText: 'Band 1', labelWidth: seventy),
+              LabelView(labelText: bandName, labelWidth: seventy),
             ],
           ),
         ),

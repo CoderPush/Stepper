@@ -26,35 +26,47 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => DrawerCubit(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Stepper',
-        theme: ThemeData(
-          scaffoldBackgroundColor: scaffoldColor,
-          primarySwatch: Colors.blue,
-          textTheme: Theme.of(context).textTheme.apply(
-                bodyColor: textColor,
-                displayColor: textColor,
-              ),
-        ),
-        home: const HomeScreen(),
-        routes: {
-          Routes.home: (context) => const HomeScreen(),
-          Routes.area: (context) => const AreaScreen(),
-          Routes.postList: (context) => const PostListScreen(),
-          Routes.postDetail: (context) => const PostDetailScreen(),
-          Routes.createPost: (context) => const CreatePostScreen(),
-          Routes.calendar: (context) => const CalendarScreen(),
-          Routes.profileUser: (context) => const ProfileUserScreen(),
-          Routes.profileUserEdit: (context) => BlocProvider(
-                create: (context) => ProfileUserEditCubit(
-                  professionRepository: sl(),
-                  bandRepository: sl(),
-                ),
-                child: const ProfileUserEditScreen(),
-              ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<DrawerCubit>(create: (context) => DrawerCubit()),
+        BlocProvider<ProfileUserEditCubit>(
+          lazy: false,
+          create: (context) => ProfileUserEditCubit(
+            professionRepository: sl(),
+            bandRepository: sl(),
+          ),
+        )
+      ],
+      child: BlocBuilder<ProfileUserEditCubit, ProfileUserEditState>(
+        builder: (context, state) {
+          if (state is ProfileUserEditInProgress) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Stepper',
+            theme: ThemeData(
+              scaffoldBackgroundColor: scaffoldColor,
+              primarySwatch: Colors.blue,
+              textTheme: Theme.of(context).textTheme.apply(
+                    bodyColor: textColor,
+                    displayColor: textColor,
+                  ),
+            ),
+            home: const HomeScreen(),
+            routes: {
+              Routes.home: (context) => const HomeScreen(),
+              Routes.area: (context) => const AreaScreen(),
+              Routes.postList: (context) => const PostListScreen(),
+              Routes.postDetail: (context) => const PostDetailScreen(),
+              Routes.createPost: (context) => const CreatePostScreen(),
+              Routes.calendar: (context) => const CalendarScreen(),
+              Routes.profileUser: (context) => const ProfileUserScreen(),
+              Routes.profileUserEdit: (context) => const ProfileUserEditScreen()
+            },
+          );
         },
       ),
     );

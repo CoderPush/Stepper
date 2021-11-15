@@ -4,7 +4,6 @@ import 'package:stepper/common/numbers.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/presentation/profile_user_edit/cubit/profile_user_edit_cubit.dart';
-import 'package:stepper/presentation/profile_user_edit/cubit/profile_user_edit_state.dart';
 import 'package:stepper/presentation/profile_user_edit/views/avatar_view.dart';
 import 'package:stepper/presentation/profile_user_edit/views/user_level_view.dart';
 import 'package:stepper/presentation/profile_user_edit/views/user_information_view.dart';
@@ -14,9 +13,6 @@ class ProfileUserEditScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final profileUserEditCubit = context.read<ProfileUserEditCubit>();
-    profileUserEditCubit.getProfessionsAndBands();
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: scaffoldColor,
@@ -42,7 +38,7 @@ class ProfileUserEditScreen extends StatelessWidget {
                   UserLevelView(
                     band: state.band,
                     profession: state.profession,
-                    profileUserEditCubit: profileUserEditCubit,
+                    profileUserEditCubit: context.read<ProfileUserEditCubit>(),
                   ),
                 ],
               ),

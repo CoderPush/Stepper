@@ -1,6 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:stepper/data/model/band/band_model.dart';
-import 'package:stepper/data/model/profession/profession_model.dart';
+part of 'profile_user_edit_cubit.dart';
 
 class ProfileUserEditState extends Equatable {
   @override

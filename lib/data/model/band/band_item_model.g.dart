@@ -8,7 +8,7 @@ part of 'band_item_model.dart';
 
 class BandItemModelAdapter extends TypeAdapter<BandItemModel> {
   @override
-  final int typeId = 2;
+  final int typeId = 5;
 
   @override
   BandItemModel read(BinaryReader reader) {

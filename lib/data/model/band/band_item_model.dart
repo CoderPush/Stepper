@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'band_item_model.g.dart';
 
-@HiveType(typeId: 2)
+@HiveType(typeId: 5)
 @JsonSerializable()
 class BandItemModel {
   @HiveField(0)

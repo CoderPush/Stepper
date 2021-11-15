@@ -17,8 +17,11 @@ final sl = GetIt.instance;
 
 Future<void> initializeDependencies() async {
   // Features
-  sl.registerLazySingleton<AreaRepository>(
-      () => FakeAreaRepositoryImpl(areaService: sl(), areaDatabase: sl()));
+  sl.registerLazySingleton<AreaRepository>(() => FakeAreaRepositoryImpl(
+        areaService: sl(),
+        areaDatabase: sl(),
+        bandDatabase: sl(),
+      ));
 
   sl.registerLazySingleton<ProfessionRepository>(
       () => ProfessionRepositoryImpl(professionService: sl()));
