@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.stepper">
    <application
-        android:label="stepper"
+        android:label="Stepper"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
