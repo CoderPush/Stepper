@@ -14,7 +14,7 @@
     {
       "bandId": "Engineer_Band1",
       "bandName": "Band 1",
-      "areaNames": ["S1", "S2", "S3", "S4", "E1", "E2", "E3", "M1", "M2", "M3"]
+      "areaNames": ["S1", "S2", "S3", "E1", "E2", "E3", "M1", "M2", "M3"]
     },
     {
       "bandId": "Engineer_Band2",
