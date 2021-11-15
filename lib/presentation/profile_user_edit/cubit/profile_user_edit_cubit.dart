@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stepper/data/datasources/local/databases.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/domain/repositories/band_repository.dart';
 import 'package:stepper/domain/repositories/profession_repository.dart';
