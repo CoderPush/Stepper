@@ -42,8 +42,10 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     try {
       emit(CreatePostLoadingState(selectedAreaType: areaType));
       final areaList = await areaRepository.fetchAreasByType(areaType);
+      final area = await areaRepository.fetchAreaByAreaName(post.areaName);
       emit(CreatePostLoadedState(
         areaList: areaList,
+        areaRating: area.rating,
         selectedAreaType: areaType,
         selectedAreaName: post.areaName,
         draftPost: post,
@@ -66,9 +68,11 @@ class CreatePostCubit extends Cubit<CreatePostState> {
             .padLeft(3, '0')
             .compareTo(next.areaName.substring(1).padLeft(3, '0')));
       final selectedAreaName = preSelectedAreaName ?? areaList[0].areaName;
+      final area = await areaRepository.fetchAreaByAreaName(selectedAreaName);
       final draftPost =
           await postRepository.getDraftPostByAreaName(selectedAreaName);
       emit(CreatePostLoadedState(
+        areaRating: area.rating,
         areaList: areaList,
         selectedAreaType: areaType,
         selectedAreaName: selectedAreaName,
@@ -89,8 +93,10 @@ class CreatePostCubit extends Cubit<CreatePostState> {
   void onChangeAreaName(String areaName) async {
     final currentState = state as CreatePostLoadedState;
     final draftPost = await postRepository.getDraftPostByAreaName(areaName);
+    final area = await areaRepository.fetchAreaByAreaName(areaName);
     emit(currentState.copyWith(
       selectedAreaName: areaName,
+      areaRating: area.rating,
       draftPost: createPostScreenArgument.isEditPost &&
               areaName == createPostScreenArgument.preSelectedPost!.areaName
           ? createPostScreenArgument.preSelectedPost
@@ -100,7 +106,11 @@ class CreatePostCubit extends Cubit<CreatePostState> {
 
   void onChangeAreaRating(int areaRating) {
     final currentState = state as CreatePostLoadedState;
-    emit(currentState.copyWith(areaRating: areaRating));
+    areaRepository.rateArea(currentState.selectedAreaName, areaRating);
+    emit(currentState.copyWith(
+      areaRating: areaRating,
+      draftPost: currentState.draftPost,
+    ));
   }
 
   void onCreatePostModeChange(CreatePostMode createPostMode) {
@@ -176,11 +186,11 @@ class CreatePostCubit extends Cubit<CreatePostState> {
   Future<void> onAreaRated() async {}
 
   Future<void> onUserWriteUpdate(String update) async {
+    final currentState = state as CreatePostLoadedState;
     if (createPostScreenArgument.isEditPost) {
       final editedPost = createPostScreenArgument.preSelectedPost!;
       await postRepository.savePost(editedPost.copyWith(description: update));
     } else {
-      final currentState = state as CreatePostLoadedState;
       final post = Post(
         postId: 'draft_${currentState.selectedAreaName}',
         areaName: currentState.selectedAreaName,

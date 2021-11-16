@@ -17,9 +17,6 @@ class AvatarView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bandName =
-        Hive.box<BandItemModel>('BandItemModel').get('bandItemModel')!.bandName;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -59,8 +56,7 @@ class AvatarView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const LabelView(
-                  labelText: 'Software Engineer 1',
-                  labelWidth: oneHundredSixty),
+                  labelText: 'Software Engineer', labelWidth: oneHundredSixty),
               Container(
                 height: four,
                 width: four,
@@ -69,7 +65,13 @@ class AvatarView extends StatelessWidget {
                     color: sliderInactiveColor,
                     borderRadius: BorderRadius.circular(largeBorderRadius)),
               ),
-              LabelView(labelText: bandName, labelWidth: seventy),
+              ValueListenableBuilder<Box<BandItemModel>>(
+                valueListenable:
+                    Hive.box<BandItemModel>('BandItemModel').listenable(),
+                builder: (context, bandBox, widget) => LabelView(
+                    labelText: bandBox.get('bandItemModel')!.bandName,
+                    labelWidth: seventy),
+              ),
             ],
           ),
         ),

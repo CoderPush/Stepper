@@ -10,9 +10,15 @@ class ClearDataView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(incomingFeature),
+          duration: Duration(milliseconds: 1000),
+        ));
+      },
       child: Container(
-        margin: const EdgeInsets.only(left: twenty, right: twenty, bottom: twenty),
+        margin:
+            const EdgeInsets.only(left: twenty, right: twenty, bottom: twenty),
         padding: const EdgeInsets.symmetric(vertical: twelve),
         width: double.infinity,
         decoration: BoxDecoration(
