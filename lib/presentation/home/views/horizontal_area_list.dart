@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
-import 'package:stepper/common/texts.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/presentation/home/views/area_item.dart';
 
@@ -21,7 +20,7 @@ class HorizontalAreaList extends StatelessWidget {
           (index) => Padding(
             padding: const EdgeInsets.only(left: screenMediumPadding),
             child: AreaItem(
-              areaSubTitle: good,
+              areaSubTitle: sliderValues[areaList[index].rating],
               itemWidth: screenSize.width * 0.6,
               area: areaList[index],
             ),

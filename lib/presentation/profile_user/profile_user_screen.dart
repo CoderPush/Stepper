@@ -34,7 +34,7 @@ class ProfileUserScreen extends StatelessWidget {
                 );
               }),
               const AvatarView(),
-              const BadgeView(),
+              // const BadgeView(),
               const ModeView(),
               const ClearDataView(),
               const SignOutView(),

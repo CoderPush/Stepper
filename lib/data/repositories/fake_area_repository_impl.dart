@@ -56,6 +56,21 @@ class FakeAreaRepositoryImpl extends AreaRepository {
       numberOfUpdate: posts.length,
     ));
   }
+
+  @override
+  Future<void> rateArea(String areaName, int rating) async {
+    final area = await areaDatabase.getAreaByName(areaName);
+    await areaDatabase.updateArea(area.copyWith(
+      updatedTime: DateTime.now(),
+      rating: rating,
+    ));
+  }
+
+  @override
+  Future<Area> fetchAreaByAreaName(String areaName) async {
+    final area = await areaDatabase.getAreaByName(areaName);
+    return area;
+  }
 }
 
 class NetworkException implements Exception {}
