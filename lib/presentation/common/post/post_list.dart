@@ -5,9 +5,12 @@ import 'package:stepper/presentation/common/post/post_item.dart';
 
 class PostList extends StatelessWidget {
   final List<Post> postList;
+  final bool hasAreaName;
+
   const PostList({
     Key? key,
     required this.postList,
+    required this.hasAreaName,
   }) : super(key: key);
 
   @override
@@ -19,6 +22,7 @@ class PostList extends StatelessWidget {
       itemBuilder: (context, index) => Padding(
         padding: const EdgeInsets.only(top: screenMediumPadding),
         child: PostItem(
+          hasAreaName: hasAreaName,
           post: postList[index],
         ),
       ),

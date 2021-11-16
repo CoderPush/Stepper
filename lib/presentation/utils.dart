@@ -12,3 +12,14 @@ List<Color> getAreaTheme(AreaType areaType) {
       return mindsetScheme;
   }
 }
+
+// Temporary function to get AreaType from AreaName
+AreaType getAreaType(String areaName) {
+  if (areaName.startsWith('S')) {
+    return AreaType.scope;
+  } else if (areaName.startsWith('E')) {
+    return AreaType.expertise;
+  } else {
+    return AreaType.mindset;
+  }
+}

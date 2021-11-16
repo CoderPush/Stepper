@@ -97,7 +97,6 @@ class HomeScreen extends StatelessWidget {
                         child: ValueListenableBuilder<Box<Post>>(
                           valueListenable: Hive.box<Post>('Post').listenable(),
                           builder: (context, postBox, widget) {
-                            // TODO: get areaName list with current band
                             final areaNames =
                                 Hive.box<BandItemModel>('BandItemModel')
                                     .get('bandItemModel')!
@@ -112,6 +111,7 @@ class HomeScreen extends StatelessWidget {
                               return const Text(noPost);
                             } else {
                               return PostList(
+                                hasAreaName: true,
                                 postList: postList,
                               );
                             }

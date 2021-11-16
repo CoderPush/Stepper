@@ -4,14 +4,18 @@ import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/data/model/models.dart';
+import 'package:stepper/presentation/utils.dart';
 import 'package:stepper/routes.dart';
 import 'package:stepper/presentation/common/arguments/screen_arguments.dart';
 
 class PostItem extends StatelessWidget {
   final Post post;
+  final bool hasAreaName;
+
   const PostItem({
     Key? key,
     required this.post,
+    required this.hasAreaName,
   }) : super(key: key);
 
   void _tapOnPostItem(BuildContext context, Post post) {
@@ -23,6 +27,14 @@ class PostItem extends StatelessWidget {
         isEditPost: true,
       ),
     );
+  }
+
+  String _getPostTitleText() {
+    if (hasAreaName) {
+      return ' ${post.postedTime.day.toString()} ${monthNames[post.postedTime.month - 1].substring(0, 3)} ${post.postedTime.year}';
+    } else {
+      return ' ${monthNames[post.postedTime.month - 1]} ${post.postedTime.year}';
+    }
   }
 
   @override
@@ -43,20 +55,24 @@ class PostItem extends StatelessWidget {
               children: [
                 RichText(
                   text: TextSpan(
-                    text: post.postedTime.day.toString(),
-                    style: const TextStyle(
+                    text: hasAreaName
+                        ? post.areaName
+                        : post.postedTime.day.toString(),
+                    style: TextStyle(
                       fontSize: largeFontSize,
                       fontWeight: FontWeight.bold,
-                      color: textColor,
+                      color: hasAreaName
+                          ? getAreaTheme(getAreaType(post.areaName))[2]
+                          : textColor,
                     ),
                     children: [
                       TextSpan(
                         style: const TextStyle(
                           fontSize: smallFontSize,
                           fontWeight: FontWeight.normal,
+                          color: textColor,
                         ),
-                        text:
-                            ' ${monthNames[post.postedTime.month - 1]} ${post.postedTime.year}',
+                        text: _getPostTitleText(),
                       )
                     ],
                   ),

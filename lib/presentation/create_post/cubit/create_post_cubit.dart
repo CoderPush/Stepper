@@ -9,6 +9,7 @@ import 'package:stepper/domain/repositories/goal_repository.dart';
 import 'package:stepper/domain/repositories/post_repository.dart';
 import 'package:stepper/data/repositories/fake_repos.dart';
 import 'package:stepper/presentation/common/arguments/screen_arguments.dart';
+import 'package:stepper/presentation/utils.dart';
 
 part 'create_post_state.dart';
 
@@ -36,19 +37,8 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     }
   }
 
-  // Temporary function to get AreaType from AreaName
-  AreaType _getAreaType(String areaName) {
-    if (areaName.startsWith('S')) {
-      return AreaType.scope;
-    } else if (areaName.startsWith('E')) {
-      return AreaType.expertise;
-    } else {
-      return AreaType.mindset;
-    }
-  }
-
   Future<void> editPost(Post post) async {
-    final areaType = _getAreaType(post.areaName);
+    final areaType = getAreaType(post.areaName);
     try {
       emit(CreatePostLoadingState(selectedAreaType: areaType));
       final areaList = await areaRepository.fetchAreasByType(areaType);

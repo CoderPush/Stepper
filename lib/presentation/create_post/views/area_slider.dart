@@ -3,6 +3,7 @@ import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
+import 'package:stepper/presentation/utils.dart';
 
 class AreaSlider extends StatelessWidget {
   const AreaSlider({Key? key}) : super(key: key);
@@ -17,8 +18,8 @@ class AreaSlider extends StatelessWidget {
       builder: (context, state) {
         return Slider(
           label: sliderValues[(state as CreatePostLoadedState).areaRating],
-          activeColor: purple,
-          thumbColor: purple,
+          activeColor: getAreaTheme(state.selectedAreaType)[2],
+          thumbColor: getAreaTheme(state.selectedAreaType)[2],
           inactiveColor: sliderInactiveColor,
           value: state.areaRating.toDouble(),
           min: 0,
