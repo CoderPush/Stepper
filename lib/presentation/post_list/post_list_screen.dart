@@ -48,6 +48,7 @@ class PostListScreen extends StatelessWidget {
                   valueListenable: Hive.box<Post>('Post').listenable(),
                   builder: (context, postBox, widget) {
                     return PostList(
+                      hasAreaName: false,
                       postList: postBox.values
                           .where((post) => post.areaName == area.areaName)
                           .toList()

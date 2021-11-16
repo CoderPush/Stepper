@@ -29,7 +29,10 @@ class MonthSection extends StatelessWidget {
           ),
         ),
         GoalList(goalList: goalList.toList()),
-        PostList(postList: postList)
+        PostList(
+          postList: postList,
+          hasAreaName: false,
+        )
       ],
     );
   }
