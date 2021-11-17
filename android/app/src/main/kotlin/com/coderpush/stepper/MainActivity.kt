@@ -1,4 +1,4 @@
-package com.example.stepper
+package com.coderpush.stepper
 
 import io.flutter.embedding.android.FlutterActivity
 
