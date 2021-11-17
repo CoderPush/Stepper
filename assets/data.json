@@ -15,33 +15,114 @@
       "bandId": "Engineer_Band1",
       "bandName": "Band 1",
       "areaNames": [
-        "S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8",
-        "E1", "E2", "E3", "E4", "E5", "E6", "E7",
-        "M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9"]
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "S6",
+        "S7",
+        "S8",
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "E5",
+        "E6",
+        "E7",
+        "M1",
+        "M2",
+        "M3",
+        "M4",
+        "M5",
+        "M6",
+        "M7",
+        "M8",
+        "M9"
+      ]
     },
     {
       "bandId": "Engineer_Band2",
       "bandName": "Band 2",
       "areaNames": [
-        "S9", "S10", "S11", "S12", "S13", "S14", "S15", 
-        "E8", "E9", "E10", "E11", "E12", "E13", 
-        "M10", "M11", "M12", "M13", "M14", "M15", "M16", "M17", "M18", "M19"]
+        "S9",
+        "S10",
+        "S11",
+        "S12",
+        "S13",
+        "S14",
+        "S15",
+        "E8",
+        "E9",
+        "E10",
+        "E11",
+        "E12",
+        "E13",
+        "M10",
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M17",
+        "M18",
+        "M19"
+      ]
     },
     {
       "bandId": "Engineer_Band3",
       "bandName": "Band 3",
       "areaNames": [
-        "S16", "S17", "S18", "S19", "S20", "S21", "S22", "S23",
-        "E14", "E15", "E16", "E17", "E18", "E19", 
-        "M20", "M21", "M22", "M23","M24","M25","M26","M27","M28"]
+        "S16",
+        "S17",
+        "S18",
+        "S19",
+        "S20",
+        "S21",
+        "S22",
+        "S23",
+        "E14",
+        "E15",
+        "E16",
+        "E17",
+        "E18",
+        "E19",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M24",
+        "M25",
+        "M26",
+        "M27",
+        "M28"
+      ]
     },
     {
       "bandId": "Engineer_Band4",
       "bandName": "Band 4",
       "areaNames": [
-        "S24", "S25", "S26", "S27", "S28", "S29", "S30",
-        "E20", "E21", "E22", "E23", "E24",
-        "M29", "M30", "M31", "M32", "M33", "M34", "M35"]
+        "S24",
+        "S25",
+        "S26",
+        "S27",
+        "S28",
+        "S29",
+        "S30",
+        "E20",
+        "E21",
+        "E22",
+        "E23",
+        "E24",
+        "M29",
+        "M30",
+        "M31",
+        "M32",
+        "M33",
+        "M34",
+        "M35"
+      ]
     }
   ],
   "areas": [
@@ -472,7 +553,6 @@
       "areaType": "expertise",
       "areaDescription": "You’re a skilled manager of the projects you lead or are a part of. You can organize and lead processes, ceremonies, and tools to do so (e.g. sprint planning sessions, standups, task tracking boards, risk plans.)"
     },
-    
     {
       "areaName": "M20",
       "numberOfUpdate": 0,
@@ -640,28 +720,28 @@
       "rating": 0,
       "areaType": "mindSet",
       "areaDescription": "You are quick to revisit past assumptions - the solution that worked 'then' may not be the right solution for 'now.'"
-    }
+    },
     {
       "areaName": "M32",
       "numberOfUpdate": 0,
       "rating": 0,
       "areaType": "mindSet",
       "areaDescription": "You help determine team goals, KPIs, and projects necessary to deliver on those goals / measure KPIs."
-    }
+    },
     {
       "areaName": "M33",
       "numberOfUpdate": 0,
       "rating": 0,
       "areaType": "mindSet",
       "areaDescription": "You actively contribute to motivating and growing the team. You're asked to provide performance feedback and input on opportunities for individual growth."
-    }
+    },
     {
       "areaName": "M34",
       "numberOfUpdate": 0,
       "rating": 0,
       "areaType": "mindSet",
       "areaDescription": "You are a picture of responsibility and accountability. The organization depends on you."
-    }
+    },
     {
       "areaName": "M35",
       "numberOfUpdate": 0,
