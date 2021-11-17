@@ -14,42 +14,34 @@
     {
       "bandId": "Engineer_Band1",
       "bandName": "Band 1",
-      "areaNames": ["S1", "S2", "S3", "S4", "E1", "E2", "E3", "M1", "M2", "M3"]
+      "areaNames": [
+        "S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8",
+        "E1", "E2", "E3", "E4", "E5", "E6", "E7",
+        "M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9"]
     },
     {
       "bandId": "Engineer_Band2",
       "bandName": "Band 2",
-      "areaNames": ["S9", "S10", "S11", "E8", "E9", "E10", "M10", "M11", "M12"]
+      "areaNames": [
+        "S9", "S10", "S11", "S12", "S13", "S14", "S15", 
+        "E8", "E9", "E10", "E11", "E12", "E13", 
+        "M10", "M11", "M12", "M13", "M14", "M15", "M16", "M17", "M18", "M19"]
     },
     {
       "bandId": "Engineer_Band3",
       "bandName": "Band 3",
       "areaNames": [
-        "S16",
-        "S17",
-        "S18",
-        "E14",
-        "E15",
-        "E16",
-        "M20",
-        "M21",
-        "M22"
-      ]
+        "S16", "S17", "S18", "S19", "S20", "S21", "S22", "S23",
+        "E14", "E15", "E16", "E17", "E18", "E19", 
+        "M20", "M21", "M22", "M23","M24","M25","M26","M27","M28"]
     },
     {
       "bandId": "Engineer_Band4",
       "bandName": "Band 4",
       "areaNames": [
-        "S24",
-        "S25",
-        "S26",
-        "E20",
-        "E21",
-        "E22",
-        "M29",
-        "M30",
-        "M31"
-      ]
+        "S24", "S25", "S26", "S27", "S28", "S29", "S30",
+        "E20", "E21", "E22", "E23", "E24",
+        "M29", "M30", "M31", "M32", "M33", "M34", "M35"]
     }
   ],
   "areas": [
@@ -82,6 +74,34 @@
       "areaDescription": "You will deliver stories successfully and consistently to move the team project along."
     },
     {
+      "areaName": "S5",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will actively participate in and contribute to team process including planning, standups, and retros."
+    },
+    {
+      "areaName": "S6",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will maintain ticket state and keep stakeholders informed."
+    },
+    {
+      "areaName": "S7",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will produce reviewable, focused, well written/loomed pull-requests."
+    },
+    {
+      "areaName": "S8",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will participate in off-hours pairing sessions or rotation, using the experience to learn from more senior engineers and understand our systems."
+    },
+    {
       "areaName": "E1",
       "numberOfUpdate": 0,
       "rating": 0,
@@ -101,6 +121,34 @@
       "rating": 0,
       "areaType": "expertise",
       "areaDescription": "You are capable of diagnosing problems, planning and applying fixes."
+    },
+    {
+      "areaName": "E4",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You are motivated to learn new technologies and techniques and demonstrate an ability to turn these learnings into new skills and experiences quickly."
+    },
+    {
+      "areaName": "E5",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You can communicate your understanding of a problem and your proposed solution."
+    },
+    {
+      "areaName": "E6",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You are familiar with deploying working software."
+    },
+    {
+      "areaName": "E7",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You have a good handle on the development processes the team employ (Scrum, Kanban) and associated tools we use (Git, GitHub/GitLab/Atlassian, video screencasts, video calls, Mattermost/Slack)."
     },
     {
       "areaName": "M1",
@@ -124,6 +172,48 @@
       "areaDescription": "Your focus is primarily at the syntax level, focused on code clarity and readability."
     },
     {
+      "areaName": "M4",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You are becoming increasingly comfortable with the confidence that testing brings to your coding."
+    },
+    {
+      "areaName": "M5",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You ask for reviews of the code you're writing and feedback on the work you’re doing."
+    },
+    {
+      "areaName": "M6",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You seek out mentorship and soak up opportunities for learning."
+    },
+    {
+      "areaName": "M7",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You are focused on making only new mistakes. You turn personal mistake into team knowledge. You are eager to share what you learn."
+    },
+    {
+      "areaName": "M8",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You are hungry and driven to contribute and provide value to your team and to the product and organization. You set aggressive milestones for yourself and do extra to meet them."
+    },
+    {
+      "areaName": "M9",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You are fine-tuning your communication skills: you are an active listener and are able to articulate your thoughts/feelings. You regularly provide updates and ask for help quickly."
+    },
+    {
       "areaName": "S9",
       "numberOfUpdate": 0,
       "rating": 0,
@@ -143,6 +233,34 @@
       "rating": 0,
       "areaType": "scope",
       "areaDescription": "You will seek and incorporate reviews; handle testing, instrumentation, deployment, and monitoring."
+    },
+    {
+      "areaName": "S12",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will provide thoughtful, constructive code reviews."
+    },
+    {
+      "areaName": "S13",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will take on mentorship of more junior engineers, highlight their accomplishments, and help them find their way in the organization."
+    },
+    {
+      "areaName": "S14",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will participate in an on-call rotation, applying your expertise to solve problems where you’re familiar, or helping to find the right person to solve the problems where you’re not."
+    },
+    {
+      "areaName": "S15",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will participate in on-call rotation, using the experience to learn from more senior engineers and understand our systems."
     },
     {
       "areaName": "E8",
@@ -166,6 +284,27 @@
       "areaDescription": "You have in-depth knowledge of multiple programming languages, frameworks, and/or specialized systems. You are able to discern and articulate the relative merits of each."
     },
     {
+      "areaName": "E11",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You have knowledge of how the internet and networking works (i.e. DNS, HTTP, TLS, Certificates, etc) and the tools and services that enable people and devices to connect to services (e.g., browsers, CDNs, proxies, etc)."
+    },
+    {
+      "areaName": "E12",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You have some knowledge of and experience with how systems work at scale (e.g. threads, virtualization, configuration management, load balancers, caching)."
+    },
+    {
+      "areaName": "E13",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You are skilled in managing your time and the projects you lead or are a part of and can leverage processes, ceremonies, and tools to do so."
+    },
+    {
       "areaName": "M10",
       "numberOfUpdate": 0,
       "rating": 0,
@@ -185,6 +324,55 @@
       "rating": 0,
       "areaType": "mindSet",
       "areaDescription": "You seek to learn more about the organization, our business, and problem domain."
+    },
+    {
+      "areaName": "M13",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "Testing is a natural part of your workflow; you feel better when you're shipping a test. You guarantee your software and are the first to know if something is amiss."
+    },
+    {
+      "areaName": "M14",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You enjoy participating in and providing feedback on design and code reviews. You're socializing and testing your designs for components/modules before cutting code."
+    },
+    {
+      "areaName": "M15",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You are accountable: if you ship something you own it from inception to production."
+    },
+    {
+      "areaName": "M16",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You are collaborative: you work with other engineers on solutions that cut across teams/technologies."
+    },
+    {
+      "areaName": "M17",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You can work independently: you manage your own time efficiently with a strong sense of prioritization."
+    },
+    {
+      "areaName": "M18",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You can manage your workload: you communicate frequently and honestly to stakeholders and yourself about the work you commit to."
+    },
+    {
+      "areaName": "M19",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You are fast-paced: you love the speed of and impact you have in startups. You set aggressive milestones for yourself and do extra to meet them."
     },
     {
       "areaName": "S16",
@@ -208,6 +396,41 @@
       "areaDescription": "You will take on an ownership stake in the work of your entire team."
     },
     {
+      "areaName": "S19",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will proactively improve the lot of engineers on call by creating automated tasks, writing runbooks, and ensuring all errors appearing in logs are actual errors rather than simply living with “some we can ignore.”"
+    },
+    {
+      "areaName": "S20",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will contribute to open-source projects on behalf of the organization."
+    },
+    {
+      "areaName": "S21",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will participate in hiring as a technical interviewer."
+    },
+    {
+      "areaName": "S22",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You take initiative and pitch in. You jump into areas that need your help, you leave code better than when you found it, and you actively contribute to your team’s or the engineering org’s priorities."
+    },
+    {
+      "areaName": "S23",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You are comfortable spiking or creating an MVP in order to ensure we learn quickly, and understand the appropriate tradeoffs to make to do so."
+    },
+    {
       "areaName": "E14",
       "numberOfUpdate": 0,
       "rating": 0,
@@ -229,6 +452,28 @@
       "areaDescription": "You have a good understanding of how each component, service, and process affects user experience and system performance."
     },
     {
+      "areaName": "E17",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You are a systems thinker. You think about how your designs will affect other aspects of the service and how it will evolve in the future."
+    },
+    {
+      "areaName": "E18",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You have experience building transactional applications at scale. You’ve worked w/ APIs (REST, JSON/HTTP, GraphQL) and know how the server-side works — if you didn’t build it yourself."
+    },
+    {
+      "areaName": "E19",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You’re a skilled manager of the projects you lead or are a part of. You can organize and lead processes, ceremonies, and tools to do so (e.g. sprint planning sessions, standups, task tracking boards, risk plans.)"
+    },
+    
+    {
       "areaName": "M20",
       "numberOfUpdate": 0,
       "rating": 0,
@@ -248,6 +493,48 @@
       "rating": 0,
       "areaType": "mindSet",
       "areaDescription": "You test components and microservices comprehensively — both in isolation and across internal systems and external services."
+    },
+    {
+      "areaName": "M23",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You're leading design conversations and proposing design specifications for components, interfaces, and services."
+    },
+    {
+      "areaName": "M24",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You're bringing more to code reviews than review, actively raising the bar for code quality, scalability, and confidence."
+    },
+    {
+      "areaName": "M25",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You are accountable not only for your own work, but for those of your teammates."
+    },
+    {
+      "areaName": "M26",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You are someone with extremely high standards. You’re practical and know perfect is the enemy of good, but you aspire for us to be great."
+    },
+    {
+      "areaName": "M27",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You are an owner. You feel personally accountable and responsible and know seeing the problem is less than half of it. You look for problems and inefficiencies and find elegant solutions to them before they become major issues."
+    },
+    {
+      "areaName": "M28",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You stay on top of risks. As our organization becomes commonplace around the world, the products and services we provide and data we store will be more and more valuable. It is your job to make things highly available, performant, and secure as appropriate."
     },
     {
       "areaName": "S24",
@@ -271,6 +558,34 @@
       "areaDescription": "You will instigate design discussions and facilitate engineering-wide learning."
     },
     {
+      "areaName": "S27",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will represent engineering across the organization."
+    },
+    {
+      "areaName": "S28",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will be the primary driver of resolving production issues, holding post-mortems, and owning long-term fixes."
+    },
+    {
+      "areaName": "S29",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will take on independent greenfield projects with an eye to furthering the products and services of the organization."
+    },
+    {
+      "areaName": "S30",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You help decide when it is appropriate to spike or create an MVP in order to ensure we learn quickly, and can rally the team around the appropriate tradeoffs needed to do so."
+    },
+    {
       "areaName": "E20",
       "numberOfUpdate": 0,
       "rating": 0,
@@ -292,6 +607,20 @@
       "areaDescription": "You are up to date with the landscape of technologies and techniques and able to evaluate their impact on the organization and its products and services."
     },
     {
+      "areaName": "E23",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You understand and drive techniques for improving engineering productivity."
+    },
+    {
+      "areaName": "E24",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You are experienced with a wide variety of development approaches, patterns, and implementation styles."
+    },
+    {
       "areaName": "M29",
       "numberOfUpdate": 0,
       "rating": 0,
@@ -311,6 +640,34 @@
       "rating": 0,
       "areaType": "mindSet",
       "areaDescription": "You are quick to revisit past assumptions - the solution that worked 'then' may not be the right solution for 'now.'"
+    }
+    {
+      "areaName": "M32",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You help determine team goals, KPIs, and projects necessary to deliver on those goals / measure KPIs."
+    }
+    {
+      "areaName": "M33",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You actively contribute to motivating and growing the team. You're asked to provide performance feedback and input on opportunities for individual growth."
+    }
+    {
+      "areaName": "M34",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You are a picture of responsibility and accountability. The organization depends on you."
+    }
+    {
+      "areaName": "M35",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You play a key role in hiring and promoting the organization as an employer."
     }
   ]
 }
