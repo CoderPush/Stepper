@@ -5,7 +5,7 @@ import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
 import 'package:stepper/presentation/utils.dart';
-import 'package:stepper/routes.dart';
+import 'package:stepper/config/routes/routes.dart';
 
 class WriteUpdateView extends StatefulWidget {
   final String? initialPostDescription;
@@ -85,12 +85,12 @@ class _WriteUpdateViewState extends State<WriteUpdateView> {
                 content: Text(writeUpdateSucceed),
                 duration: Duration(milliseconds: 1000),
               ));
-              Navigator.of(context).pushReplacementNamed(Routes.home);
+              Navigator.of(context).pushReplacementNamed(RouteNames.home);
             } else if (state is CreateGoalSuccessState) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text(setGoalSucceed)),
               );
-              Navigator.of(context).pushReplacementNamed(Routes.home);
+              Navigator.of(context).pushReplacementNamed(RouteNames.home);
             } else if (state is CreatePostErrorState) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.errorMessage)),

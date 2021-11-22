@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/data/model/models.dart';
-import 'package:stepper/routes.dart';
+import 'package:stepper/config/routes/routes.dart';
 import 'package:stepper/presentation/common/arguments/screen_arguments.dart';
 
 class CustomFloatingButton extends StatelessWidget {
@@ -11,7 +11,7 @@ class CustomFloatingButton extends StatelessWidget {
 
   void _onCreatePostButtonPressed(BuildContext context) {
     Navigator.of(context).pushNamed(
-      Routes.createPost,
+      RouteNames.createPost,
       arguments: CreatePostScreenArgument(
         preSelectedArea: area,
       ),

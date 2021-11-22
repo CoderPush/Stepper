@@ -7,15 +7,16 @@ import 'package:stepper/dummy_data.dart';
 import 'package:stepper/presentation/common/commons.dart';
 
 class PostDetailScreen extends StatelessWidget {
-  const PostDetailScreen({Key? key}) : super(key: key);
+  final Post selectedPost;
+  const PostDetailScreen({
+    Key? key,
+    required this.selectedPost,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final routeArgs =
-        ModalRoute.of(context)!.settings.arguments as Map<String, Post>;
-    final Post currentPost = routeArgs['post']!;
     final List<Goal> taggedGoals = [];
-    for (var id in currentPost.taggedGoalIds) {
+    for (var id in selectedPost.taggedGoalIds) {
       taggedGoals.add(goalList.firstWhere((goal) => goal.goalId == id));
     }
 
@@ -44,9 +45,9 @@ class PostDetailScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                PostDay(post: currentPost),
+                PostDay(post: selectedPost),
                 const SizedBox(height: screenMediumPadding),
-                Text(currentPost.description),
+                Text(selectedPost.description),
                 const SizedBox(height: screenMediumPadding),
                 ...List.generate(
                   taggedGoals.length,

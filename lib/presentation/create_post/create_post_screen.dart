@@ -9,21 +9,23 @@ import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
 import 'package:stepper/presentation/create_post/views/area_section.dart';
 import 'package:stepper/presentation/create_post/views/post_section.dart';
 import 'package:stepper/presentation/create_post/views/tab_row.dart';
-import 'package:stepper/routes.dart';
+import 'package:stepper/config/routes/routes.dart';
 
 class CreatePostScreen extends StatelessWidget {
-  const CreatePostScreen({Key? key}) : super(key: key);
+  final CreatePostScreenArgument argument;
+  const CreatePostScreen({
+    Key? key,
+    required this.argument,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final routeArgs =
-        ModalRoute.of(context)!.settings.arguments as CreatePostScreenArgument;
     return BlocProvider(
       create: (context) => CreatePostCubit(
         areaRepository: sl(),
         postRepository: sl(),
         goalRepository: sl(),
-        createPostScreenArgument: routeArgs,
+        createPostScreenArgument: argument,
       ),
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -33,7 +35,7 @@ class CreatePostScreen extends StatelessWidget {
             leading: IconButton(
               tooltip: "createPostBackButton",
               onPressed: () {
-                Navigator.pushNamed(context, Routes.home);
+                Navigator.pushNamed(context, RouteNames.home);
               },
               icon: const Icon(Icons.close),
             ),

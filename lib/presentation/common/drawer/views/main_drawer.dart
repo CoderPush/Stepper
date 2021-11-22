@@ -6,7 +6,7 @@ import 'package:stepper/common/consts.dart';
 import 'package:stepper/dummy_data.dart';
 import 'package:stepper/presentation/common/drawer/cubit/drawer_cubit.dart';
 import 'package:stepper/presentation/common/drawer/views/drawer_item.dart';
-import 'package:stepper/routes.dart';
+import 'package:stepper/config/routes/routes.dart';
 
 class DrawerData {
   final String drawerTitle;
@@ -57,28 +57,28 @@ class MainDrawer extends StatelessWidget {
   void _onProfileUserScreenTap(BuildContext context) {
     Navigator.pushReplacementNamed(
       context,
-      Routes.profileUser,
+      RouteNames.profileUser,
     );
   }
 
   void _onHomeScreenTap(BuildContext context) {
     Navigator.pushReplacementNamed(
       context,
-      Routes.home,
+      RouteNames.home,
     );
   }
 
   void _onAreaScreenTap(BuildContext context) {
     Navigator.pushReplacementNamed(
       context,
-      Routes.area,
+      RouteNames.area,
     );
   }
 
   void _onCalendarScreenTap(BuildContext context) {
     Navigator.pushReplacementNamed(
       context,
-      Routes.calendar,
+      RouteNames.calendar,
     );
   }
 
