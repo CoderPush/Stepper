@@ -4,7 +4,7 @@ import 'package:stepper/common/palette.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/presentation/home/views/rating_indicator.dart';
 import 'package:stepper/presentation/utils.dart';
-import 'package:stepper/routes.dart';
+import 'package:stepper/config/routes/routes.dart';
 
 class AreaWithDescriptionItem extends StatelessWidget {
   final String areaSubTitle;
@@ -19,7 +19,7 @@ class AreaWithDescriptionItem extends StatelessWidget {
   }) : super(key: key);
 
   void _onAreaItemTap(BuildContext context, Area area) {
-    Navigator.pushNamed(context, Routes.postList, arguments: {'area': area});
+    Navigator.pushNamed(context, RouteNames.postList, arguments: area);
   }
 
   @override

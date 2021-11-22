@@ -10,14 +10,15 @@ import 'package:stepper/presentation/common/drawer/drawer.dart';
 import 'package:stepper/presentation/post_list/views/area_main_card.dart';
 
 class PostListScreen extends StatelessWidget {
-  const PostListScreen({Key? key}) : super(key: key);
+  final Area area;
+  const PostListScreen({
+    Key? key,
+    required this.area,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    final routeArgs =
-        ModalRoute.of(context)!.settings.arguments as Map<String, Area>;
-    final Area area = routeArgs['area']!;
 
     return Scaffold(
       appBar: AppBar(

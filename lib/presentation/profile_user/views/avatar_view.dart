@@ -6,13 +6,13 @@ import 'package:stepper/common/palette.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/dummy_data.dart';
 import 'package:stepper/presentation/profile_user/views/label_view.dart';
-import 'package:stepper/routes.dart';
+import 'package:stepper/config/routes/routes.dart';
 
 class AvatarView extends StatelessWidget {
   const AvatarView({Key? key}) : super(key: key);
 
   void _onProfileUserEditScreenTap(BuildContext context) {
-    Navigator.pushNamed(context, Routes.profileUserEdit);
+    Navigator.pushNamed(context, RouteNames.profileUserEdit);
   }
 
   @override
