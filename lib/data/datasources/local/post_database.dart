@@ -19,6 +19,11 @@ class PostDatabase {
         .toList();
   }
 
+  Future<Post?> getPostById(String postId) async {
+    final box = await postBox();
+    return box.get(postId);
+  }
+
   Future<Post?> getDraftPostByAreaName(String areaName) async {
     final box = await postBox();
     return box.get('draft_$areaName');

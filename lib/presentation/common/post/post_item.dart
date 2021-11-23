@@ -6,7 +6,6 @@ import 'package:stepper/common/texts.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/presentation/utils.dart';
 import 'package:stepper/config/routes/routes.dart';
-import 'package:stepper/presentation/common/arguments/screen_arguments.dart';
 
 class PostItem extends StatelessWidget {
   final Post post;
@@ -19,13 +18,11 @@ class PostItem extends StatelessWidget {
   }) : super(key: key);
 
   void _tapOnPostItem(BuildContext context, Post post) {
-    Navigator.pushNamed(
-      context,
-      RouteNames.createPost,
-      arguments: CreatePostScreenArgument(
-        preSelectedPost: post,
-        isEditPost: true,
-      ),
+    Navigator.of(context).pushNamed(
+      Uri(
+        path: RouteNames.createPost,
+        queryParameters: {'postId': post.postId},
+      ).toString(),
     );
   }
 
