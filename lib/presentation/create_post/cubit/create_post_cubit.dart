@@ -25,20 +25,16 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     required this.goalRepository,
     required this.createPostScreenArgument,
   }) : super(const CreatePostInitialState(selectedAreaType: AreaType.scope)) {
-    if (createPostScreenArgument.preSelectedPost != null) {
-      editPost(createPostScreenArgument.preSelectedPost!);
-    } else if (createPostScreenArgument.preSelectedArea != null) {
-      getAreas(
-        createPostScreenArgument.preSelectedArea!.areaType,
-        preSelectedAreaName: createPostScreenArgument.preSelectedArea!.areaName,
-      );
+    if (createPostScreenArgument.preSelectedPostId != null) {
+      editPost(createPostScreenArgument.preSelectedPostId!);
     } else {
-      getAreas(AreaType.scope);
+      getAreas(preSelectedAreaName: createPostScreenArgument.preSelectedArea);
     }
   }
 
-  Future<void> editPost(Post post) async {
-    final areaType = getAreaType(post.areaName);
+  Future<void> editPost(String postId) async {
+    final post = await postRepository.getPostById(postId);
+    final areaType = getAreaType(post!.areaName);
     try {
       emit(CreatePostLoadingState(selectedAreaType: areaType));
       final areaList = await areaRepository.fetchAreasByType(areaType);
@@ -58,11 +54,19 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     }
   }
 
-  Future<void> getAreas(AreaType areaType,
-      {String? preSelectedAreaName}) async {
+  Future<void> getAreas({
+    String? preSelectedAreaName,
+    AreaType? areaType,
+  }) async {
+    var calculatedAreaType = preSelectedAreaName != null
+        ? (await areaRepository.fetchAreaByAreaName(preSelectedAreaName))
+            .areaType
+        : AreaType.scope;
+    calculatedAreaType = areaType ?? calculatedAreaType;
     try {
-      emit(CreatePostLoadingState(selectedAreaType: areaType));
-      final areaList = (await areaRepository.fetchAreasByType(areaType))
+      emit(CreatePostLoadingState(selectedAreaType: calculatedAreaType));
+      final areaList = (await areaRepository
+          .fetchAreasByType(calculatedAreaType))
         ..sort((first, next) => first.areaName
             .substring(1)
             .padLeft(3, '0')
@@ -74,13 +78,9 @@ class CreatePostCubit extends Cubit<CreatePostState> {
       emit(CreatePostLoadedState(
         areaRating: area.rating,
         areaList: areaList,
-        selectedAreaType: areaType,
+        selectedAreaType: calculatedAreaType,
         selectedAreaName: selectedAreaName,
-        draftPost: createPostScreenArgument.isEditPost &&
-                selectedAreaName ==
-                    createPostScreenArgument.preSelectedPost!.areaName
-            ? createPostScreenArgument.preSelectedPost
-            : draftPost,
+        draftPost: draftPost,
       ));
     } on NetworkException {
       emit(CreatePostErrorState(
@@ -97,10 +97,7 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     emit(currentState.copyWith(
       selectedAreaName: areaName,
       areaRating: area.rating,
-      draftPost: createPostScreenArgument.isEditPost &&
-              areaName == createPostScreenArgument.preSelectedPost!.areaName
-          ? createPostScreenArgument.preSelectedPost
-          : draftPost,
+      draftPost: draftPost,
     ));
   }
 
@@ -138,12 +135,14 @@ class CreatePostCubit extends Cubit<CreatePostState> {
       return;
     }
     final currentTime = DateTime.now();
+    final editedPost = await postRepository
+        .getPostById(createPostScreenArgument.preSelectedPostId);
     final addedPost = Post(
       // If we in edit mode and editing post is not draft
-      postId: createPostScreenArgument.isEditPost &&
-              !createPostScreenArgument.preSelectedPost!.postId
-                  .startsWith('draft')
-          ? createPostScreenArgument.preSelectedPost!.postId
+      postId: editedPost != null &&
+              editedPost.areaName == currentState.selectedAreaName &&
+              !createPostScreenArgument.preSelectedPostId!.startsWith('draft')
+          ? createPostScreenArgument.preSelectedPostId!
           : currentTime.toString(),
       areaName: currentState.selectedAreaName,
       postedTime: currentTime,
@@ -157,7 +156,6 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     // update area
     await areaRepository
         .updateAreaWhenAddNewPost(currentState.selectedAreaName);
-    await onAreaRated();
     emit(CreateUpdateSuccessState(selectedAreaType: state.selectedAreaType));
   }
 
@@ -178,17 +176,15 @@ class CreatePostCubit extends Cubit<CreatePostState> {
         },
       ).toList());
     }
-    await onAreaRated();
     emit(CreateGoalSuccessState(selectedAreaType: state.selectedAreaType));
   }
 
-  // TODO: rate an area here
-  Future<void> onAreaRated() async {}
-
   Future<void> onUserWriteUpdate(String update) async {
     final currentState = state as CreatePostLoadedState;
-    if (createPostScreenArgument.isEditPost) {
-      final editedPost = createPostScreenArgument.preSelectedPost!;
+    final editedPost = await postRepository
+        .getPostById(createPostScreenArgument.preSelectedPostId);
+    if (editedPost != null &&
+        editedPost.areaName == currentState.selectedAreaName) {
       await postRepository.savePost(editedPost.copyWith(description: update));
     } else {
       final post = Post(

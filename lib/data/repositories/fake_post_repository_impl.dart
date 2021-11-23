@@ -27,4 +27,10 @@ class FakePostRepositoryImpl extends PostRepository {
   Future<void> deletePost(String postId) async {
     await postDatabase.deletePost(postId);
   }
+
+  @override
+  Future<Post?> getPostById(String? postId) async {
+    if (postId == null) return null;
+    return await postDatabase.getPostById(postId);
+  }
 }

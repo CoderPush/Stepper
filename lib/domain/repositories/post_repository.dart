@@ -5,6 +5,8 @@ abstract class PostRepository {
 
   Future<List<Post>> getPostsByAreaName(String areaName);
 
+  Future<Post?> getPostById(String? postId);
+
   Future<Post?> getDraftPostByAreaName(String areaName);
 
   Future<void> deletePost(String postId);

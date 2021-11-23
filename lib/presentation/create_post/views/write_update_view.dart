@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
+import 'package:stepper/presentation/common/commons.dart';
 import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
 import 'package:stepper/presentation/utils.dart';
 import 'package:stepper/config/routes/routes.dart';
@@ -35,6 +36,7 @@ class _WriteUpdateViewState extends State<WriteUpdateView> {
 
   void onPostClick(BuildContext context) async {
     await context.read<CreatePostCubit>().onPublishUpdate(_controller.text);
+    context.read<DrawerCubit>().selectDrawerItem(DrawerType.home);
   }
 
   void onAttachFile() {}
