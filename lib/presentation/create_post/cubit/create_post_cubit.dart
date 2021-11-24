@@ -37,7 +37,9 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     final areaType = getAreaType(post!.areaName);
     try {
       emit(CreatePostLoadingState(selectedAreaType: areaType));
-      final areaList = await areaRepository.fetchAreasByType(areaType);
+      var areaList = await areaRepository.fetchAreasByType(areaType);
+      // sort area list in order
+      areaList = sortAreasInOrder(areaList);
       final area = await areaRepository.fetchAreaByAreaName(post.areaName);
       emit(CreatePostLoadedState(
         areaList: areaList,
@@ -65,12 +67,9 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     calculatedAreaType = areaType ?? calculatedAreaType;
     try {
       emit(CreatePostLoadingState(selectedAreaType: calculatedAreaType));
-      final areaList = (await areaRepository
-          .fetchAreasByType(calculatedAreaType))
-        ..sort((first, next) => first.areaName
-            .substring(1)
-            .padLeft(3, '0')
-            .compareTo(next.areaName.substring(1).padLeft(3, '0')));
+      var areaList = await areaRepository.fetchAreasByType(calculatedAreaType);
+      // sort area list in order
+      areaList = sortAreasInOrder(areaList);
       final selectedAreaName = preSelectedAreaName ?? areaList[0].areaName;
       final area = await areaRepository.fetchAreaByAreaName(selectedAreaName);
       final draftPost =

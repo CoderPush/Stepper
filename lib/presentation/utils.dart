@@ -15,11 +15,19 @@ List<Color> getAreaTheme(AreaType areaType) {
 
 // Temporary function to get AreaType from AreaName
 AreaType getAreaType(String areaName) {
-  if (areaName.startsWith('S')) {
+  if (areaName.contains('S')) {
     return AreaType.scope;
-  } else if (areaName.startsWith('E')) {
+  } else if (areaName.contains('E')) {
     return AreaType.expertise;
   } else {
     return AreaType.mindset;
   }
+}
+
+List<Area> sortAreasInOrder(List<Area> areaList) {
+  return areaList
+    ..sort((first, next) => first.areaName
+        .substring(1)
+        .padLeft(3, '0')
+        .compareTo(next.areaName.substring(1).padLeft(3, '0')));
 }

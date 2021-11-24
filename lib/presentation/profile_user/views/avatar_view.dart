@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/numbers.dart';
 import 'package:stepper/common/palette.dart';
-import 'package:stepper/data/model/models.dart';
 import 'package:stepper/dummy_data.dart';
 import 'package:stepper/presentation/profile_user/views/label_view.dart';
 import 'package:stepper/config/routes/routes.dart';
+import 'package:stepper/presentation/profile_user_edit/cubit/profile_user_edit_cubit.dart';
 
 class AvatarView extends StatelessWidget {
   const AvatarView({Key? key}) : super(key: key);
@@ -52,27 +52,35 @@ class AvatarView extends StatelessWidget {
         ),
         Container(
           padding: const EdgeInsets.only(bottom: fifty),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const LabelView(
-                  labelText: 'Software Engineer', labelWidth: oneHundredSixty),
-              Container(
-                height: four,
-                width: four,
-                margin: const EdgeInsets.only(left: twelve, right: twelve),
-                decoration: BoxDecoration(
-                    color: sliderInactiveColor,
-                    borderRadius: BorderRadius.circular(largeBorderRadius)),
-              ),
-              ValueListenableBuilder<Box<BandItemModel>>(
-                valueListenable:
-                    Hive.box<BandItemModel>('BandItemModel').listenable(),
-                builder: (context, bandBox, widget) => LabelView(
-                    labelText: bandBox.get('bandItemModel')!.bandName,
-                    labelWidth: seventy),
-              ),
-            ],
+          child: BlocBuilder<ProfileUserEditCubit, ProfileUserEditState>(
+            builder: (context, state) {
+              if (state is ProfileUserEditInSuccess) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    LabelView(
+                      labelText: state.selectedProfession,
+                      labelWidth: oneHundredSixty,
+                    ),
+                    Container(
+                      height: four,
+                      width: four,
+                      margin:
+                          const EdgeInsets.only(left: twelve, right: twelve),
+                      decoration: BoxDecoration(
+                        color: sliderInactiveColor,
+                        borderRadius: BorderRadius.circular(largeBorderRadius),
+                      ),
+                    ),
+                    LabelView(
+                      labelText: state.selectedBand.bandName,
+                      labelWidth: seventy,
+                    ),
+                  ],
+                );
+              }
+              return const SizedBox.shrink();
+            },
           ),
         ),
       ],

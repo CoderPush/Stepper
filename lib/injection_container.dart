@@ -1,8 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stepper/data/model/models.dart';
-import 'package:stepper/data/model/band/band_item_model.dart';
-import 'package:stepper/data/datasources/local/band_database.dart';
 import 'package:stepper/data/datasources/local/databases.dart';
 import 'package:stepper/data/datasources/remote/area_service.dart';
 import 'package:stepper/data/datasources/remote/band_service.dart';
@@ -20,15 +18,15 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<AreaRepository>(() => FakeAreaRepositoryImpl(
         areaService: sl(),
         areaDatabase: sl(),
+        settingDatabase: sl(),
         postDatabase: sl(),
-        bandDatabase: sl(),
       ));
 
-  sl.registerLazySingleton<ProfessionRepository>(
-      () => ProfessionRepositoryImpl(professionService: sl()));
+  sl.registerLazySingleton<ProfessionRepository>(() =>
+      ProfessionRepositoryImpl(professionService: sl(), settingDatabase: sl()));
 
   sl.registerLazySingleton<BandRepository>(
-      () => BandRepositoryImpl(bandService: sl(), bandDatabase: sl()));
+      () => BandRepositoryImpl(bandService: sl(), settingDatabase: sl()));
 
   sl.registerLazySingleton<GoalRepository>(
       () => FakeGoalRepositoryImpl(goalDatabase: sl()));
@@ -42,7 +40,7 @@ Future<void> initializeDependencies() async {
 
   sl.registerLazySingleton<AreaDatabase>(() => AreaDatabase());
 
-  sl.registerLazySingleton<BandDatabase>(() => BandDatabase());
+  sl.registerLazySingleton<SettingDatabase>(() => SettingDatabase());
 
   sl.registerLazySingleton<AreaService>(() => AreaService());
 
@@ -55,17 +53,15 @@ Future<void> initializeDependencies() async {
 }
 
 Future<void> initializeDatabase() async {
-  const storageAboutNumber = 'StorageAboutNumber';
+  const setting = 'Setting';
   const post = 'Post';
   const goal = 'Goal';
-  const bandItemModel = 'BandItemModel';
   const area = 'Area';
 
   await Hive.initFlutter();
-  Hive.openBox(storageAboutNumber);
   Hive.openBox<Post>(post);
   Hive.openBox<Goal>(goal);
-  Hive.openBox<BandItemModel>(bandItemModel);
+  Hive.openBox<dynamic>(setting);
   Hive.registerAdapter<Post>(PostAdapter());
   Hive.registerAdapter<Goal>(GoalAdapter());
   Hive.registerAdapter<BandItemModel>(BandItemModelAdapter());

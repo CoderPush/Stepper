@@ -24,8 +24,9 @@ class HomeCubit extends Cubit<HomeState> {
           await areaRepository.fetchRecentlyUpdatedAreas();
       final priorityGoalList = await goalRepository.getPriorityGoals();
       emit(HomeLoadedState(
-          recentlyUpdatedAreas: recentlyUpdatedAreas,
-          priorityGoalList: priorityGoalList));
+        recentlyUpdatedAreas: recentlyUpdatedAreas,
+        priorityGoalList: priorityGoalList,
+      ));
     } on NetworkException {
       emit(const HomeErrorState(errorMessage: 'Network error'));
     }

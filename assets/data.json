@@ -8,12 +8,20 @@
         "Engineer_Band3",
         "Engineer_Band4"
       ]
+    },
+    {
+      "profession_name": "QA",
+      "bandIds": ["QA_Band1"]
+    },
+    {
+      "profession_name": "Tech Lead",
+      "bandIds": ["TechLead_Band1"]
     }
   ],
   "bands": [
     {
       "bandId": "Engineer_Band1",
-      "bandName": "Band 1",
+      "bandName": "Engineer 1",
       "areaNames": [
         "S1",
         "S2",
@@ -43,8 +51,32 @@
     },
     {
       "bandId": "Engineer_Band2",
-      "bandName": "Band 2",
+      "bandName": "Engineer 2",
       "areaNames": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "S6",
+        "S7",
+        "S8",
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "E5",
+        "E6",
+        "E7",
+        "M1",
+        "M2",
+        "M3",
+        "M4",
+        "M5",
+        "M6",
+        "M7",
+        "M8",
+        "M9",
         "S9",
         "S10",
         "S11",
@@ -72,8 +104,55 @@
     },
     {
       "bandId": "Engineer_Band3",
-      "bandName": "Band 3",
+      "bandName": "Engineer 3",
       "areaNames": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "S6",
+        "S7",
+        "S8",
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "E5",
+        "E6",
+        "E7",
+        "M1",
+        "M2",
+        "M3",
+        "M4",
+        "M5",
+        "M6",
+        "M7",
+        "M8",
+        "M9",
+        "S9",
+        "S10",
+        "S11",
+        "S12",
+        "S13",
+        "S14",
+        "S15",
+        "E8",
+        "E9",
+        "E10",
+        "E11",
+        "E12",
+        "E13",
+        "M10",
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M17",
+        "M18",
+        "M19",
         "S16",
         "S17",
         "S18",
@@ -101,8 +180,78 @@
     },
     {
       "bandId": "Engineer_Band4",
-      "bandName": "Band 4",
+      "bandName": "Engineer 4",
       "areaNames": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "S6",
+        "S7",
+        "S8",
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "E5",
+        "E6",
+        "E7",
+        "M1",
+        "M2",
+        "M3",
+        "M4",
+        "M5",
+        "M6",
+        "M7",
+        "M8",
+        "M9",
+        "S9",
+        "S10",
+        "S11",
+        "S12",
+        "S13",
+        "S14",
+        "S15",
+        "E8",
+        "E9",
+        "E10",
+        "E11",
+        "E12",
+        "E13",
+        "M10",
+        "M11",
+        "M12",
+        "M13",
+        "M14",
+        "M15",
+        "M16",
+        "M17",
+        "M18",
+        "M19",
+        "S16",
+        "S17",
+        "S18",
+        "S19",
+        "S20",
+        "S21",
+        "S22",
+        "S23",
+        "E14",
+        "E15",
+        "E16",
+        "E17",
+        "E18",
+        "E19",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M24",
+        "M25",
+        "M26",
+        "M27",
+        "M28",
         "S24",
         "S25",
         "S26",
@@ -122,6 +271,46 @@
         "M33",
         "M34",
         "M35"
+      ]
+    },
+    {
+      "bandId": "QA_Band1",
+      "bandName": "QA 1",
+      "areaNames": [
+        "QAS1",
+        "QAS2",
+        "QAS3",
+        "QAS4",
+        "QAE1",
+        "QAE2",
+        "QAE3",
+        "QAE4",
+        "QAE5",
+        "QAE6",
+        "QAM1",
+        "QAM2",
+        "QAM3",
+        "QAM4"
+      ]
+    },
+    {
+      "bandId": "TechLead_Band1",
+      "bandName": "Tech Lead 1",
+      "areaNames": [
+        "TLS1",
+        "TLS2",
+        "TLS3",
+        "TLS4",
+        "TLS5",
+        "TLS6",
+        "TLS7",
+        "TLE1",
+        "TLE2",
+        "TLE3",
+        "TLE4",
+        "TLE5",
+        "TLM1",
+        "TLM2"
       ]
     }
   ],
@@ -748,6 +937,195 @@
       "rating": 0,
       "areaType": "mindSet",
       "areaDescription": "You play a key role in hiring and promoting the organization as an employer."
+    },
+    {
+      "areaName": "QAS1",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will create test cases based on acceptance criteria"
+    },
+    {
+      "areaName": "QAS2",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will execute test cases and be able generate reports. You can also retest bugs."
+    },
+    {
+      "areaName": "QAS3",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will attend review meetings and other team building activities."
+    },
+    {
+      "areaName": "QAS4",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will first be familiar with manual testing, and work towards specializing in one of the following: \na) Automation testing\nb) Performance testing\nc) Business analyst"
+    },
+    {
+      "areaName": "QAE1",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You should have sharp analytical skills. For example, puzzles like this is a good way to evaluate and practice."
+    },
+    {
+      "areaName": "QAE2",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You should know basic database/SQL and how to validate data at the database level."
+    },
+    {
+      "areaName": "QAE3",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You should know how to interact with public and internal APIs and sometimes even run linux commands when necessary."
+    },
+    {
+      "areaName": "QAE4",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You are famliar with testing artifacts (test cases/plans, test strategies, bug reports, etc) and make sure they are easy to read and understand."
+    },
+    {
+      "areaName": "QAE5",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You should be good at logging defects, bugs and track them systematically, knowing how to create reports for them in bigger projects."
+    },
+    {
+      "areaName": "QAE6",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You should develop skills on performance testing and use relevant tools to help (time taken to load, max load, latency etc)"
+    },
+    {
+      "areaName": "QAM1",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You should be curious to keep learning new tools across projects."
+    },
+    {
+      "areaName": "QAM2",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You know how to work with developers and understand how to communicate with them effectively (e.g. without blaming)"
+    },
+    {
+      "areaName": "QAM3",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You have a good attitude towards testing. \"Test to break\", detail orientation, willingness to learn and suggest process improvements."
+    },
+    {
+      "areaName": "TLS1",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will be responsible for creating and maintaining the delivery plan for a product, project, or codebase."
+    },
+    {
+      "areaName": "TLS2",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will fully own the technical direction, architecture, and engineering KPIs for the project and associated code."
+    },
+    {
+      "areaName": "TLS3",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will manage the deliverables, priorities, and risks of the project."
+    },
+    {
+      "areaName": "TLS4",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will coordinate with other teams (typically Product, Design, and Support) as needed to bring the work to conclusion."
+    },
+    {
+      "areaName": "TLS5",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will run an inception for the project, bringing together key stakeholders and core team members to define scope; set goals (and anti-goals); assess risks; identify personas, roles, and activities; and produce an initial backlog of stories."
+    },
+    {
+      "areaName": "TLS6",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will lead agile ceremonies for the core team, including: storytime, sprint planning, stand-ups, weekly discussion and retrospectives."
+    },
+    {
+      "areaName": "TLS7",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "scope",
+      "areaDescription": "You will drive the project's stories through estimation, selection for development, review, testing, deployment, and acceptance."
+    },
+    {
+      "areaName": "TLE1",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You have successfully managed small-scale projects. You can organize and lead processes, ceremonies, and tools to do so (e.g. sprint planning sessions, stand-ups, task tracking boards, risk plans.)"
+    },
+    {
+      "areaName": "TLE2",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You have led design conversations and proposed design specifications for components, interfaces, and services."
+    },
+    {
+      "areaName": "TLE3",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You have successfully managed your own workload, particularly work involving coordination with other team members."
+    },
+    {
+      "areaName": "TLE4",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You are able to communicate clearly and concisely both to technical and non-technical audiences about scope of, methodologies employed in, and state of a project."
+    },
+    {
+      "areaName": "TLE5",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "expertise",
+      "areaDescription": "You are able to discern when it is appropriate to spike or create an MVP in order to ensure quick learnings and can rally a team around the appropriate tradeoffs needed to do so."
+    },
+    {
+      "areaName": "TLM1",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "You are actively pushing back on over-engineered solutions."
+    },
+    {
+      "areaName": "TLM2",
+      "numberOfUpdate": 0,
+      "rating": 0,
+      "areaType": "mindSet",
+      "areaDescription": "Conversely, you are advocating for improving under-implemented solutions."
     }
   ]
 }

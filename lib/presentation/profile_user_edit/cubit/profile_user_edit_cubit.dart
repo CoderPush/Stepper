@@ -11,10 +11,6 @@ class ProfileUserEditCubit extends Cubit<ProfileUserEditState> {
   final ProfessionRepository professionRepository;
   final BandRepository bandRepository;
 
-  Stream<String> get bandDropDownStream => _bandDropDownSubject.stream;
-  final StreamController<String> _bandDropDownSubject =
-      StreamController<String>.broadcast();
-
   ProfileUserEditCubit({
     required this.professionRepository,
     required this.bandRepository,
@@ -27,36 +23,70 @@ class ProfileUserEditCubit extends Cubit<ProfileUserEditState> {
     emit(ProfileUserEditInProgress());
 
     try {
-      final professionResponse = await professionRepository.getProfessions();
-      final bandResponse = await bandRepository.getBands();
+      final professionList =
+          (await professionRepository.getProfessions()).professions;
 
-      final currentBandItemModel = await bandRepository.getBandItemModel();
-      if (currentBandItemModel == null) {
-        saveBandModelItem(bandResponse.bands[0]);
-      }
+      // check current selected profession
+      var selectedProfession =
+          await professionRepository.getSelectedProfession();
+      selectedProfession ??= professionList[0].professionName;
+
+      // save selected profession
+      professionRepository.saveSelectedProfession(selectedProfession);
+
+      final bandList = await bandRepository.getBandsWithProfession(
+          professionList.firstWhere(
+              (profession) => profession.professionName == selectedProfession));
+
+      // check current selected band
+      var selectedBand = await bandRepository.getSelectedBand();
+      selectedBand ??= bandList[0];
+
+      // save selectedBand
+      bandRepository.saveSelectedBand(selectedBand);
 
       emit(ProfileUserEditInSuccess(
-        profession: professionResponse,
-        band: bandResponse,
+        professionList: professionList,
+        bandList: bandList,
+        selectedProfession: selectedProfession,
+        selectedBand: selectedBand,
       ));
     } catch (error) {
       emit(ProfileUserEditInFailed(error: error.toString()));
     }
   }
 
-  // Local Methods
-  int getCurrentIndexOfBands() => bandRepository.getCurrentIndexOfBands();
+  Future<void> onProfessionChanged(String professonName) async {
+    final currentState = state as ProfileUserEditInSuccess;
+    final selectedProfession = currentState.professionList
+        .firstWhere((profession) => profession.professionName == professonName);
 
-  Future<void> saveCurrentIndexOfBands(int currentIndexOfBands) async =>
-      await bandRepository.saveCurrentIndexOfBands(currentIndexOfBands);
+    // get new band list
+    final bandList =
+        await bandRepository.getBandsWithProfession(selectedProfession);
 
-  Future<BandItemModel?> getBandModelItem() async =>
-      await bandRepository.getBandItemModel();
+    // save professionName to setting database
+    await professionRepository.saveSelectedProfession(professonName);
 
-  Future<void> saveBandModelItem(BandItemModel bandItemModel) async =>
-      await bandRepository.saveBandItemModel(bandItemModel);
+    // save first band as selected band
+    final selectedBand = bandList[0];
+    await bandRepository.saveSelectedBand(selectedBand);
 
-  // Rx Methods
-  Future<void> onChangedBandDropDown(String bandName) async =>
-      _bandDropDownSubject.add(bandName);
+    emit(currentState.copyWith(
+      bandList: bandList,
+      selectedProfession: selectedProfession.professionName,
+      selectedBand: selectedBand,
+    ));
+  }
+
+  Future<void> onBandChanged(String bandName) async {
+    final currentState = state as ProfileUserEditInSuccess;
+    final selectedBand =
+        currentState.bandList.firstWhere((band) => band.bandName == bandName);
+
+    // save bandName to setting database
+    await bandRepository.saveSelectedBand(selectedBand);
+
+    emit(currentState.copyWith(selectedBand: selectedBand));
+  }
 }
