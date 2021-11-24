@@ -7,13 +7,13 @@ class RowLevelView extends StatelessWidget {
   final String titleText;
   final String value;
   final List<String> list;
-  final Function(String?)? onChanged;
+  final Function(String) onChanged;
 
   const RowLevelView({
     required this.titleText,
     required this.value,
     required this.list,
-    this.onChanged,
+    required this.onChanged,
     Key? key,
   }) : super(key: key);
 
@@ -48,7 +48,11 @@ class RowLevelView extends StatelessWidget {
                 child: DropdownButton<String>(
                   dropdownColor: dropdownButtonColor,
                   iconEnabledColor: white,
-                  onChanged: onChanged,
+                  onChanged: (value) {
+                    if (value != null) {
+                      onChanged(value);
+                    }
+                  },
                   value: value,
                   items: list.map(
                     (item) {

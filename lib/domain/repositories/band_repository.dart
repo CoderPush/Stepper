@@ -1,14 +1,10 @@
-import 'package:stepper/data/model/band/band_item_model.dart';
-import 'package:stepper/data/model/band/band_model.dart';
+import 'package:stepper/data/model/models.dart';
 
 abstract class BandRepository {
-  Future<BandModel> getBands();
+  Future<List<BandItemModel>> getBandsWithProfession(
+      ProfessionItemModel professionItemModel);
 
-  Future<BandItemModel?> getBandItemModel();
+  Future<BandItemModel?> getSelectedBand();
 
-  Future<void> saveBandItemModel(BandItemModel bandItemModel);
-
-  int getCurrentIndexOfBands();
-
-  Future<void> saveCurrentIndexOfBands(int currentIndexOfBands);
+  Future<void> saveSelectedBand(BandItemModel band);
 }
