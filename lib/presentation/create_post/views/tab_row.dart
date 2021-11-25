@@ -18,17 +18,17 @@ class TabRow extends StatelessWidget {
             case 0:
               context
                   .read<CreatePostCubit>()
-                  .getAreas(areaType: AreaType.scope);
+                  .onAreaTypeTabChanged(AreaType.scope);
               break;
             case 1:
               context
                   .read<CreatePostCubit>()
-                  .getAreas(areaType: AreaType.expertise);
+                  .onAreaTypeTabChanged(AreaType.expertise);
               break;
             case 2:
               context
                   .read<CreatePostCubit>()
-                  .getAreas(areaType: AreaType.mindset);
+                  .onAreaTypeTabChanged(AreaType.mindset);
               break;
           }
         },

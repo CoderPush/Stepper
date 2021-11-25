@@ -19,6 +19,10 @@ class CreatePostScreen extends StatelessWidget {
     required this.argument,
   }) : super(key: key);
 
+  void _onBandChange(BuildContext context, String bandName) {
+    context.read<CreatePostCubit>().onBandChange(bandName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -26,56 +30,77 @@ class CreatePostScreen extends StatelessWidget {
         areaRepository: sl(),
         postRepository: sl(),
         goalRepository: sl(),
+        bandRepository: sl(),
         createPostScreenArgument: argument,
       ),
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: scaffoldColor,
-            leading: IconButton(
-              tooltip: "createPostBackButton",
-              onPressed: () {
-                Navigator.pushNamed(context, RouteNames.home);
-                context.read<DrawerCubit>().selectDrawerItem(DrawerType.home);
-              },
-              icon: const Icon(Icons.close),
-            ),
-            title: const Text(createPost),
-            centerTitle: true,
-          ),
-          body: Padding(
-            padding: const EdgeInsets.only(
-              left: screenMediumPadding,
-              right: screenMediumPadding,
-              bottom: screenMediumPadding,
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const TabRow(),
-                  BlocBuilder<CreatePostCubit, CreatePostState>(
-                      builder: (context, state) {
-                    if (state is CreatePostLoadingState) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (state is CreatePostLoadedState) {
-                      return Column(
-                        children: const [
-                          SizedBox(height: screenMediumPadding),
-                          AreaSection(),
-                          SizedBox(height: screenMediumPadding),
-                          PostSection(),
-                        ],
-                      );
-                    } else if (state is CreatePostErrorState) {
-                      return Text(state.errorMessage);
-                    }
-                    return Container();
-                  }),
-                ],
-              ),
-            ),
-          ),
+        child: BlocBuilder<CreatePostCubit, CreatePostState>(
+          builder: (context, state) {
+            if (state is CreatePostLoadingState) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is CreatePostLoadedState) {
+              return Scaffold(
+                appBar: AppBar(
+                  backgroundColor: scaffoldColor,
+                  leading: IconButton(
+                    tooltip: "createPostBackButton",
+                    onPressed: () {
+                      Navigator.pushNamed(context, RouteNames.home);
+                      context
+                          .read<DrawerCubit>()
+                          .selectDrawerItem(DrawerType.home);
+                    },
+                    icon: const Icon(Icons.close),
+                  ),
+                  title: const Text(createPost),
+                  centerTitle: true,
+                  actions: [
+                    DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        dropdownColor: dropdownButtonColor,
+                        value: state.selectedBandName,
+                        onChanged: (bandName) {
+                          if (bandName != null) {
+                            _onBandChange(context, bandName);
+                          }
+                        },
+                        items: state.bandList
+                            .map((band) => DropdownMenuItem(
+                                  child: Text(band),
+                                  value: band,
+                                ))
+                            .toList(),
+                      ),
+                    )
+                  ],
+                ),
+                body: Padding(
+                  padding: const EdgeInsets.only(
+                    left: screenMediumPadding,
+                    right: screenMediumPadding,
+                    bottom: screenMediumPadding,
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        const TabRow(),
+                        Column(
+                          children: const [
+                            SizedBox(height: screenMediumPadding),
+                            AreaSection(),
+                            SizedBox(height: screenMediumPadding),
+                            PostSection(),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }
+            return Container();
+          },
         ),
       ),
     );

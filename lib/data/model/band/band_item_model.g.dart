@@ -20,19 +20,22 @@ class BandItemModelAdapter extends TypeAdapter<BandItemModel> {
       bandId: fields[0] as String,
       bandName: fields[1] as String,
       areaNames: (fields[2] as List).cast<String>(),
+      childBands: (fields[3] as List).cast<String>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, BandItemModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.bandId)
       ..writeByte(1)
       ..write(obj.bandName)
       ..writeByte(2)
-      ..write(obj.areaNames);
+      ..write(obj.areaNames)
+      ..writeByte(3)
+      ..write(obj.childBands);
   }
 
   @override
@@ -56,6 +59,9 @@ BandItemModel _$BandItemModelFromJson(Map<String, dynamic> json) =>
       bandName: json['bandName'] as String,
       areaNames:
           (json['areaNames'] as List<dynamic>).map((e) => e as String).toList(),
+      childBands: (json['childBands'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
     );
 
 Map<String, dynamic> _$BandItemModelToJson(BandItemModel instance) =>
@@ -63,4 +69,5 @@ Map<String, dynamic> _$BandItemModelToJson(BandItemModel instance) =>
       'bandId': instance.bandId,
       'bandName': instance.bandName,
       'areaNames': instance.areaNames,
+      'childBands': instance.childBands,
     };

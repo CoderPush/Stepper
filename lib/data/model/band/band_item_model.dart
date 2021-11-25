@@ -18,10 +18,15 @@ class BandItemModel {
   @JsonKey(name: "areaNames")
   final List<String> areaNames;
 
+  @HiveField(3)
+  @JsonKey(name: "childBands")
+  final List<String> childBands;
+
   const BandItemModel({
     required this.bandId,
     required this.bandName,
     required this.areaNames,
+    required this.childBands,
   });
 
   factory BandItemModel.fromJson(Map<String, dynamic> json) =>

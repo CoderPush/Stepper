@@ -6,5 +6,11 @@ abstract class BandRepository {
 
   Future<BandItemModel?> getSelectedBand();
 
+  Future<List<String>> getBandWithChildBand();
+
+  Future<List<String>> getAllAreasOfABand();
+
   Future<void> saveSelectedBand(BandItemModel band);
+
+  Future<BandItemModel> getBandByAreaName(String areaName);
 }

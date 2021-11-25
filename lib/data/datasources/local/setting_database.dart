@@ -5,6 +5,7 @@ class SettingDatabase {
   final _boxName = "Setting";
   final professionKey = "profession";
   final bandKey = "band";
+  final areaKey = "area";
 
   // open a box
   Future<Box<dynamic>> settingBox() async {
@@ -34,5 +35,17 @@ class SettingDatabase {
   Future<void> saveSelectedBand(BandItemModel band) async {
     final box = await settingBox();
     box.put(bandKey, band);
+  }
+
+  // save all areas (including child) of a selected band
+  Future<void> saveParentAndChildrenAreaNames(List<String> areaNames) async {
+    final box = await settingBox();
+    box.put(areaKey, areaNames);
+  }
+
+  // get all areas (including child) of a selected band
+  Future<List<String>> getParentAndChildrenAreaNames() async {
+    final box = await settingBox();
+    return box.get(areaKey);
   }
 }
