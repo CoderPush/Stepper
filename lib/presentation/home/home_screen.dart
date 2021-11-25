@@ -98,8 +98,7 @@ class HomeScreen extends StatelessWidget {
                           valueListenable: Hive.box<Post>('Post').listenable(),
                           builder: (context, postBox, widget) {
                             final areaNames = (Hive.box<dynamic>('Setting')
-                                    .get('band') as BandItemModel)
-                                .areaNames;
+                                .get('area') as List<String>);
                             final postList = postBox.values
                                 .where(
                                     (post) => areaNames.contains(post.areaName))

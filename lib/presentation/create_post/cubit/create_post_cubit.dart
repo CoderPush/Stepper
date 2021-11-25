@@ -2,12 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'package:stepper/data/model/area.dart';
 import 'package:stepper/data/model/models.dart';
-import 'package:stepper/domain/repositories/area_repository.dart';
-import 'package:stepper/domain/repositories/goal_repository.dart';
-import 'package:stepper/domain/repositories/post_repository.dart';
 import 'package:stepper/data/repositories/fake_repos.dart';
+import 'package:stepper/domain/repositories/repositories.dart';
 import 'package:stepper/presentation/common/arguments/screen_arguments.dart';
 import 'package:stepper/presentation/utils.dart';
 
@@ -17,12 +14,14 @@ class CreatePostCubit extends Cubit<CreatePostState> {
   final AreaRepository areaRepository;
   final PostRepository postRepository;
   final GoalRepository goalRepository;
+  final BandRepository bandRepository;
   final CreatePostScreenArgument createPostScreenArgument;
 
   CreatePostCubit({
     required this.areaRepository,
     required this.postRepository,
     required this.goalRepository,
+    required this.bandRepository,
     required this.createPostScreenArgument,
   }) : super(const CreatePostInitialState(selectedAreaType: AreaType.scope)) {
     if (createPostScreenArgument.preSelectedPostId != null) {
@@ -33,20 +32,40 @@ class CreatePostCubit extends Cubit<CreatePostState> {
   }
 
   Future<void> editPost(String postId) async {
+    // get editing post
     final post = await postRepository.getPostById(postId);
+
+    // get areaType of editing post
     final areaType = getAreaType(post!.areaName);
+
     try {
       emit(CreatePostLoadingState(selectedAreaType: areaType));
-      var areaList = await areaRepository.fetchAreasByType(areaType);
+
+      // get band
+      final selectedBandName =
+          (await bandRepository.getBandByAreaName(post.areaName)).bandName;
+
+      // get area list for drop down
+      var areaList = await areaRepository.fetchAreasWithBandAndType(
+        selectedBandName,
+        areaType,
+      );
+
       // sort area list in order
       areaList = sortAreasInOrder(areaList);
       final area = await areaRepository.fetchAreaByAreaName(post.areaName);
+
+      // fetch bandList
+      final bandList = await bandRepository.getBandWithChildBand();
+
       emit(CreatePostLoadedState(
         areaList: areaList,
         areaRating: area.rating,
         selectedAreaType: areaType,
         selectedAreaName: post.areaName,
         draftPost: post,
+        bandList: bandList,
+        selectedBandName: selectedBandName,
       ));
     } on NetworkException {
       emit(CreatePostErrorState(
@@ -67,19 +86,36 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     calculatedAreaType = areaType ?? calculatedAreaType;
     try {
       emit(CreatePostLoadingState(selectedAreaType: calculatedAreaType));
-      var areaList = await areaRepository.fetchAreasByType(calculatedAreaType);
+
+      // fetch bandList
+      final bandList = await bandRepository.getBandWithChildBand();
+
+      // fetch selectedBand
+      final selectedBandName =
+          (await bandRepository.getSelectedBand())!.bandName;
+
+      // get area list for drop down
+      var areaList = await areaRepository.fetchAreasWithBandAndType(
+        selectedBandName,
+        calculatedAreaType,
+      );
+
       // sort area list in order
       areaList = sortAreasInOrder(areaList);
+
       final selectedAreaName = preSelectedAreaName ?? areaList[0].areaName;
       final area = await areaRepository.fetchAreaByAreaName(selectedAreaName);
       final draftPost =
           await postRepository.getDraftPostByAreaName(selectedAreaName);
+
       emit(CreatePostLoadedState(
         areaRating: area.rating,
         areaList: areaList,
         selectedAreaType: calculatedAreaType,
         selectedAreaName: selectedAreaName,
         draftPost: draftPost,
+        bandList: bandList,
+        selectedBandName: selectedBandName,
       ));
     } on NetworkException {
       emit(CreatePostErrorState(
@@ -89,7 +125,35 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     }
   }
 
-  void onChangeAreaName(String areaName) async {
+  Future<void> onAreaTypeTabChanged(AreaType areaType) async {
+    final currentState = state as CreatePostLoadedState;
+
+    // get area list for drop down
+    var areaList = await areaRepository.fetchAreasWithBandAndType(
+      currentState.selectedBandName,
+      areaType,
+    );
+
+    // sort area list in order
+    areaList = sortAreasInOrder(areaList);
+
+    // get first area
+    final selectedArea = areaList[0];
+
+    // get draft post
+    final draftPost =
+        await postRepository.getDraftPostByAreaName(selectedArea.areaName);
+
+    emit(currentState.copyWith(
+      areaList: areaList,
+      areaRating: selectedArea.rating,
+      draftPost: draftPost,
+      selectedAreaType: areaType,
+      selectedAreaName: selectedArea.areaName,
+    ));
+  }
+
+  Future<void> onChangeAreaName(String areaName) async {
     final currentState = state as CreatePostLoadedState;
     final draftPost = await postRepository.getDraftPostByAreaName(areaName);
     final area = await areaRepository.fetchAreaByAreaName(areaName);
@@ -100,12 +164,40 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     ));
   }
 
-  void onChangeAreaRating(int areaRating) {
+  Future<void> onChangeAreaRating(int areaRating) async {
     final currentState = state as CreatePostLoadedState;
-    areaRepository.rateArea(currentState.selectedAreaName, areaRating);
+    await areaRepository.rateArea(currentState.selectedAreaName, areaRating);
     emit(currentState.copyWith(
       areaRating: areaRating,
       draftPost: currentState.draftPost,
+    ));
+  }
+
+  Future<void> onBandChange(String bandName) async {
+    final currentState = state as CreatePostLoadedState;
+
+    // get area list for drop down
+    var areaList = await areaRepository.fetchAreasWithBandAndType(
+      bandName,
+      currentState.selectedAreaType,
+    );
+
+    // sort area list in order
+    areaList = sortAreasInOrder(areaList);
+
+    // get first area
+    final selectedArea = areaList[0];
+
+    // get draft post
+    final draftPost =
+        await postRepository.getDraftPostByAreaName(selectedArea.areaName);
+
+    emit(currentState.copyWith(
+      areaList: areaList,
+      selectedBandName: bandName,
+      selectedAreaName: selectedArea.areaName,
+      areaRating: selectedArea.rating,
+      draftPost: draftPost,
     ));
   }
 

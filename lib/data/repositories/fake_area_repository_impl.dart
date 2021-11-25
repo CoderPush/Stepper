@@ -1,19 +1,21 @@
 import 'package:stepper/data/datasources/local/databases.dart';
-import 'package:stepper/data/datasources/remote/area_service.dart';
-import 'package:stepper/data/model/area.dart';
-import 'package:stepper/domain/repositories/area_repository.dart';
+import 'package:stepper/data/datasources/remote/services.dart';
+import 'package:stepper/data/model/models.dart';
+import 'package:stepper/domain/repositories/repositories.dart';
 
 class FakeAreaRepositoryImpl extends AreaRepository {
   final AreaDatabase areaDatabase;
   final PostDatabase postDatabase;
   final SettingDatabase settingDatabase;
   final AreaService areaService;
+  final BandService bandService;
 
   FakeAreaRepositoryImpl({
     required this.areaDatabase,
     required this.postDatabase,
     required this.settingDatabase,
     required this.areaService,
+    required this.bandService,
   });
 
   @override
@@ -30,7 +32,7 @@ class FakeAreaRepositoryImpl extends AreaRepository {
 
   @override
   Future<List<Area>> fetchRecentlyUpdatedAreas() async {
-    final areaNamesList = (await settingDatabase.getSelectedBand())!.areaNames;
+    final areaNamesList = await settingDatabase.getParentAndChildrenAreaNames();
     final updatedAreaList = (await areaDatabase.getAllAreas())
         .where((area) => areaNamesList.contains(area.areaName))
         .where((area) => area.updatedTime != null)
@@ -66,6 +68,20 @@ class FakeAreaRepositoryImpl extends AreaRepository {
   Future<Area> fetchAreaByAreaName(String areaName) async {
     final area = await areaDatabase.getAreaByName(areaName);
     return area;
+  }
+
+  @override
+  Future<List<Area>> fetchAreasWithBandAndType(
+    String bandName,
+    AreaType areaType,
+  ) async {
+    final areasWithType = (await areaDatabase.getAllAreas())
+        .where((area) => area.areaType == areaType)
+        .toList();
+    final areaNames = (await bandService.getBandByName(bandName)).areaNames;
+    return areasWithType
+        .where((area) => areaNames.contains(area.areaName))
+        .toList();
   }
 }
 

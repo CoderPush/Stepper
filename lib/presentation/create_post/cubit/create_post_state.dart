@@ -25,6 +25,8 @@ class CreatePostLoadedState extends CreatePostState {
   final CreatePostMode createPostMode;
   final List<Goal> newlyAddedGoals;
   final Post? draftPost;
+  final List<String> bandList;
+  final String selectedBandName;
 
   const CreatePostLoadedState({
     required this.areaList,
@@ -34,6 +36,8 @@ class CreatePostLoadedState extends CreatePostState {
     this.createPostMode = CreatePostMode.writeUpdate,
     this.newlyAddedGoals = const [],
     this.draftPost,
+    required this.bandList,
+    required this.selectedBandName,
   }) : super(selectedAreaType: selectedAreaType);
 
   CreatePostLoadedState copyWith({
@@ -44,6 +48,8 @@ class CreatePostLoadedState extends CreatePostState {
     CreatePostMode? createPostMode,
     List<Goal>? newlyAddedGoals,
     Post? draftPost,
+    List<String>? bandList,
+    String? selectedBandName,
   }) {
     return CreatePostLoadedState(
       areaList: areaList ?? this.areaList,
@@ -53,6 +59,8 @@ class CreatePostLoadedState extends CreatePostState {
       createPostMode: createPostMode ?? this.createPostMode,
       newlyAddedGoals: newlyAddedGoals ?? this.newlyAddedGoals,
       draftPost: draftPost,
+      bandList: bandList ?? this.bandList,
+      selectedBandName: selectedBandName ?? this.selectedBandName,
     );
   }
 
@@ -65,6 +73,7 @@ class CreatePostLoadedState extends CreatePostState {
         createPostMode,
         newlyAddedGoals,
         draftPost,
+        selectedBandName,
       ];
 }
 
