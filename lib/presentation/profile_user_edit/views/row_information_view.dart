@@ -15,6 +15,7 @@ class RowInformationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Flexible(
           flex: 1,
@@ -26,11 +27,12 @@ class RowInformationView extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(width: fifty),
         Flexible(
           flex: 2,
+          fit: FlexFit.tight,
           child: Text(
             secondText,
+            textAlign: TextAlign.left,
             style: const TextStyle(
               fontSize: seventeen,
               color: moreIconColor,
