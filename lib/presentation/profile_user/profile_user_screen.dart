@@ -21,23 +21,29 @@ class ProfileUserScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Builder(builder: (context) {
-                return IconButton(
-                  tooltip: openDrawerButton,
-                  color: darkGrey,
-                  icon: const Icon(Icons.menu),
-                  onPressed: () => Scaffold.of(context).openDrawer(),
-                );
-              }),
-              const AvatarView(),
-              // const BadgeView(),
-              const ModeView(),
-              const ClearDataView(),
-              const SignOutView(),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: screenLargePadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Builder(builder: (context) {
+                  return IconButton(
+                    tooltip: openDrawerButton,
+                    color: darkGrey,
+                    icon: const Icon(Icons.menu),
+                    onPressed: () => Scaffold.of(context).openDrawer(),
+                  );
+                }),
+                const AvatarView(),
+                // const BadgeView(),
+                const SizedBox(height: screenLargePadding * 2),
+                const ModeView(),
+                const SizedBox(height: screenLargePadding),
+                const ClearDataView(),
+                const SizedBox(height: screenLargePadding),
+                const SignOutView(),
+              ],
+            ),
           ),
         ),
       ),

@@ -33,6 +33,7 @@ class RowLevelView extends StatelessWidget {
           ),
         ),
         Flexible(
+          fit: FlexFit.tight,
           flex: 2,
           child: Container(
             height: fortyTwo,

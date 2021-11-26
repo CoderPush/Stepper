@@ -10,8 +10,7 @@ class ModeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: twenty, right: twenty, bottom: sixteen),
-      padding: const EdgeInsets.symmetric(horizontal: twelve),
+      padding: const EdgeInsets.symmetric(vertical: twelve, horizontal: twelve),
       width: double.infinity,
       decoration: BoxDecoration(
         color: blueGrey,
