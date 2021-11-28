@@ -30,7 +30,7 @@ class GoalItem extends StatelessWidget {
         child: Card(
           color: darkGrey,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(mediumBorderRadius)),
+              borderRadius: BorderRadius.circular(largeBorderRadius)),
           child: ListTile(
             horizontalTitleGap: 8.0,
             contentPadding:

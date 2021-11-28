@@ -13,16 +13,21 @@ class LabelView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(screenSmallPadding),
-      decoration: BoxDecoration(
-        color: sliderInactiveColor,
-        borderRadius: BorderRadius.circular(extraLargeBorderRadius),
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        minWidth: 100.0,
       ),
-      child: Center(
-        child: Text(
-          labelText,
-          style: const TextStyle(fontSize: fifteen),
+      child: Container(
+        padding: const EdgeInsets.all(screenSmallPadding),
+        decoration: BoxDecoration(
+          color: sliderInactiveColor,
+          borderRadius: BorderRadius.circular(extraLargeBorderRadius),
+        ),
+        child: Center(
+          child: Text(
+            labelText,
+            style: const TextStyle(fontSize: fifteen),
+          ),
         ),
       ),
     );

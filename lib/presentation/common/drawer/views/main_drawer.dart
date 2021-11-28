@@ -102,21 +102,26 @@ class MainDrawer extends StatelessWidget {
             color: darkBlue,
             child: Column(
               children: <Widget>[
-                ListTile(
-                  leading: const CircleAvatar(
-                    backgroundImage: NetworkImage(
-                      avatarProfileUrl,
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: screenMediumPadding,
+                  ),
+                  child: ListTile(
+                    leading: const CircleAvatar(
+                      backgroundImage: NetworkImage(
+                        avatarProfileUrl,
+                      ),
                     ),
+                    title: const Text('John Doe'),
+                    trailing: IconButton(
+                      tooltip: closeDrawerButton,
+                      onPressed: () => _onDrawerClosed(context),
+                      icon: const Icon(Icons.arrow_back_ios, color: orange),
+                    ),
+                    onTap: () => context
+                        .read<DrawerCubit>()
+                        .selectDrawerItem(DrawerType.profile),
                   ),
-                  title: const Text('John Doe'),
-                  trailing: IconButton(
-                    tooltip: closeDrawerButton,
-                    onPressed: () => _onDrawerClosed(context),
-                    icon: const Icon(Icons.arrow_back_ios, color: orange),
-                  ),
-                  onTap: () => context
-                      .read<DrawerCubit>()
-                      .selectDrawerItem(DrawerType.profile),
                 ),
                 ..._buildDrawerItems(context),
               ],

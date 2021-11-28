@@ -49,7 +49,9 @@ class RatingIndicator extends StatelessWidget {
           children: List.generate(
             3,
             (index) => Padding(
-              padding: EdgeInsets.only(left: indicatorPadding),
+              padding: index == 0
+                  ? const EdgeInsets.only(left: 0.0)
+                  : EdgeInsets.only(left: indicatorPadding),
               child: FittedBox(
                 child: Container(
                   width: indicatorWidth,

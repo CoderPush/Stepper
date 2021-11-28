@@ -14,40 +14,37 @@ class PostSection extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: blueGrey,
-        borderRadius: BorderRadius.circular(mediumBorderRadius),
+        borderRadius: BorderRadius.circular(largeBorderRadius),
       ),
       child: BlocBuilder<CreatePostCubit, CreatePostState>(
         builder: (context, state) {
           final currentState = state as CreatePostLoadedState;
-          return Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: screenMediumPadding,
-                  top: screenMediumPadding,
-                  bottom: screenMediumPadding,
-                  right: screenMediumPadding,
-                ),
-                child: Column(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: screenSmallPadding),
-                      child: Text(
-                        writeUpdate,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: mediumFontSize,
-                        ),
-                      ),
+          return Padding(
+            padding: const EdgeInsets.only(
+              left: screenMediumPadding,
+              top: screenMediumPadding,
+              bottom: screenMediumPadding,
+              right: screenMediumPadding,
+            ),
+            child: Column(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(bottom: screenSmallPadding),
+                  child: Text(
+                    writeUpdate,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: mediumFontSize,
                     ),
-                    WriteUpdateView(
-                      initialPostDescription:
-                          currentState.draftPost?.description,
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ],
+                Expanded(
+                  child: WriteUpdateView(
+                    initialPostDescription: currentState.draftPost?.description,
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ),

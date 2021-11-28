@@ -5,6 +5,7 @@ import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/injection_container.dart';
 import 'package:stepper/presentation/common/arguments/screen_arguments.dart';
+import 'package:stepper/presentation/common/commons.dart';
 import 'package:stepper/presentation/common/drawer/cubit/drawer_cubit.dart';
 import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
 import 'package:stepper/presentation/create_post/views/area_section.dart';
@@ -57,13 +58,11 @@ class CreatePostScreen extends StatelessWidget {
                   centerTitle: true,
                   actions: [
                     DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
+                      child: CustomDropdownButton<String>(
                         dropdownColor: dropdownButtonColor,
                         value: state.selectedBandName,
                         onChanged: (bandName) {
-                          if (bandName != null) {
-                            _onBandChange(context, bandName);
-                          }
+                          _onBandChange(context, bandName);
                         },
                         items: state.bandList
                             .map((band) => DropdownMenuItem(
@@ -75,26 +74,30 @@ class CreatePostScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                body: Padding(
-                  padding: const EdgeInsets.only(
+                body: const Padding(
+                  padding: EdgeInsets.only(
                     left: screenMediumPadding,
                     right: screenMediumPadding,
                     bottom: screenMediumPadding,
                   ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        const TabRow(),
-                        Column(
-                          children: const [
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverList(
+                        delegate: SliverChildListDelegate.fixed(
+                          [
+                            SizedBox(height: screenMediumPadding),
+                            TabRow(),
                             SizedBox(height: screenMediumPadding),
                             AreaSection(),
                             SizedBox(height: screenMediumPadding),
-                            PostSection(),
                           ],
-                        )
-                      ],
-                    ),
+                        ),
+                      ),
+                      SliverFillRemaining(
+                        child: PostSection(),
+                        hasScrollBody: false,
+                      )
+                    ],
                   ),
                 ),
               );
