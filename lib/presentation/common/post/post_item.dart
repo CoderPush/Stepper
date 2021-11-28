@@ -41,7 +41,7 @@ class PostItem extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(screenMediumPadding),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(mediumBorderRadius),
+          borderRadius: BorderRadius.circular(largeBorderRadius),
           color: blueGrey,
         ),
         child: Column(

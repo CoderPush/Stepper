@@ -12,7 +12,7 @@ class AvatarView extends StatelessWidget {
   const AvatarView({Key? key}) : super(key: key);
 
   void _onProfileUserEditScreenTap(BuildContext context) {
-    Navigator.pushNamed(context, RouteNames.profileUserEdit);
+    Navigator.pushReplacementNamed(context, RouteNames.profileUserEdit);
   }
 
   @override

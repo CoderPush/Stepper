@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/data/model/models.dart';
@@ -29,6 +30,7 @@ class AreaScreen extends StatelessWidget {
               title: const Text(area),
               centerTitle: true,
               bottom: TabBar(
+                labelPadding: const EdgeInsets.all(0.0),
                 onTap: (index) {
                   switch (index) {
                     case 0:
@@ -46,9 +48,13 @@ class AreaScreen extends StatelessWidget {
                 tabs: [
                   BlocBuilder<AreaCubit, AreaState>(
                     builder: (context, state) {
-                      return TabBarItem(
-                        tabBarText: scope,
-                        isSelected: state.areaType == AreaType.scope,
+                      return Padding(
+                        padding:
+                            const EdgeInsets.only(left: screenMediumPadding),
+                        child: TabBarItem(
+                          tabBarText: scope,
+                          isSelected: state.areaType == AreaType.scope,
+                        ),
                       );
                     },
                   ),
@@ -62,9 +68,13 @@ class AreaScreen extends StatelessWidget {
                   ),
                   BlocBuilder<AreaCubit, AreaState>(
                     builder: (context, state) {
-                      return TabBarItem(
-                        tabBarText: mindset,
-                        isSelected: state.areaType == AreaType.mindset,
+                      return Padding(
+                        padding:
+                            const EdgeInsets.only(right: screenMediumPadding),
+                        child: TabBarItem(
+                          tabBarText: mindset,
+                          isSelected: state.areaType == AreaType.mindset,
+                        ),
                       );
                     },
                   ),
@@ -73,6 +83,7 @@ class AreaScreen extends StatelessWidget {
             ),
             body: SafeArea(
               child: TabBarView(
+                physics: const NeverScrollableScrollPhysics(),
                 children: [
                   BlocBuilder<AreaCubit, AreaState>(
                     builder: (context, state) {

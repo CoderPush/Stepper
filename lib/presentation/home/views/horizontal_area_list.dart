@@ -18,7 +18,12 @@ class HorizontalAreaList extends StatelessWidget {
         children: List.generate(
           areaList.length,
           (index) => Padding(
-            padding: const EdgeInsets.only(left: screenMediumPadding),
+            padding: index == 0
+                ? const EdgeInsets.only(
+                    left: screenMediumPadding,
+                    right: screenMediumPadding,
+                  )
+                : const EdgeInsets.only(right: screenMediumPadding),
             child: AreaItem(
               areaSubTitle: sliderValues[areaList[index].rating],
               itemWidth: screenSize.width * 0.6,

@@ -20,7 +20,7 @@ class AreaMainCard extends StatelessWidget {
       padding: const EdgeInsets.all(screenMediumPadding),
       decoration: BoxDecoration(
         color: blueGrey,
-        borderRadius: BorderRadius.circular(mediumBorderRadius),
+        borderRadius: BorderRadius.circular(largeBorderRadius),
       ),
       child: Column(
         children: [
@@ -36,14 +36,18 @@ class AreaMainCard extends StatelessWidget {
               )
             ],
           ),
-          Text(area.areaDescription),
           RatingIndicator(
-            indicatorText: '',
-            indicatorWidth: screenSize.width * 0.7 / 3,
+            indicatorText: sliderValues[area.rating],
+            indicatorWidth: ((screenSize.width -
+                    screenMediumPadding * 4 -
+                    indicatorPadding * 2) /
+                3),
             indicatorHeight: screenSize.width * 0.015,
             indicatorPadding: indicatorPadding,
             area: area,
-          )
+          ),
+          const SizedBox(height: screenMediumPadding),
+          Text(area.areaDescription),
         ],
       ),
     );

@@ -4,7 +4,6 @@ import 'package:stepper/common/palette.dart';
 import 'package:stepper/presentation/common/commons.dart';
 import 'package:stepper/presentation/profile_user/views/avatar_view.dart';
 import 'package:stepper/presentation/profile_user/views/clear_data_view.dart';
-import 'package:stepper/presentation/profile_user/views/mode_view.dart';
 import 'package:stepper/presentation/profile_user/views/sign_out_view.dart';
 
 class ProfileUserScreen extends StatelessWidget {
@@ -21,29 +20,29 @@ class ProfileUserScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: screenLargePadding),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Builder(builder: (context) {
-                  return IconButton(
-                    tooltip: openDrawerButton,
-                    color: darkGrey,
-                    icon: const Icon(Icons.menu),
-                    onPressed: () => Scaffold.of(context).openDrawer(),
-                  );
-                }),
-                const AvatarView(),
-                // const BadgeView(),
-                const SizedBox(height: screenLargePadding * 2),
-                const ModeView(),
-                const SizedBox(height: screenLargePadding),
-                const ClearDataView(),
-                const SizedBox(height: screenLargePadding),
-                const SignOutView(),
-              ],
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Builder(builder: (context) {
+                return IconButton(
+                  tooltip: openDrawerButton,
+                  color: darkGrey,
+                  icon: const Icon(Icons.menu),
+                  onPressed: () => Scaffold.of(context).openDrawer(),
+                );
+              }),
+              const AvatarView(),
+              const SizedBox(height: screenLargePadding),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: screenLargePadding),
+                child: ClearDataView(),
+              ),
+              const SizedBox(height: screenLargePadding),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: screenLargePadding),
+                child: SignOutView(),
+              ),
+            ],
           ),
         ),
       ),
