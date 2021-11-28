@@ -35,9 +35,7 @@ class AreaDropdown extends StatelessWidget {
                 dropdownColor: dropdownButtonColor,
                 iconEnabledColor: white,
                 onChanged: (value) {
-                  if (value != null) {
-                    _onDropdownItemSelected(context, value);
-                  }
+                  _onDropdownItemSelected(context, value);
                 },
                 value: currentState.selectedAreaName,
                 items: currentState.areaList
