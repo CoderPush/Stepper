@@ -27,7 +27,7 @@ class TabBarItem extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       width: double.infinity,
-      height: 30.0,
+      height: buttonHeight,
       decoration: BoxDecoration(
         color: isSelected ? _getTabColor() : darkPurple,
         borderRadius: BorderRadius.circular(extraLargeBorderRadius),

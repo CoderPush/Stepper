@@ -15,7 +15,7 @@ class AreaDropdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 30.0,
+      height: buttonHeight,
       decoration: BoxDecoration(
         color: dropdownButtonColor,
         borderRadius: BorderRadius.circular(extraLargeBorderRadius),

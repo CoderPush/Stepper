@@ -83,6 +83,7 @@ class _WriteUpdateViewState extends State<WriteUpdateView> {
                 child: TextFormField(
                   controller: _controller,
                   keyboardType: TextInputType.multiline,
+                  textInputAction: TextInputAction.done,
                   maxLines: null,
                   decoration: const InputDecoration(
                     border: InputBorder.none,
@@ -97,7 +98,7 @@ class _WriteUpdateViewState extends State<WriteUpdateView> {
               ),
             ),
             SizedBox(
-              height: 30.0,
+              height: buttonHeight,
               width: double.infinity,
               child: ElevatedButton(
                 key: const Key(postButton),
