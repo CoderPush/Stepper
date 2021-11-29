@@ -19,6 +19,9 @@ const double mediumBorderRadius = 5.0;
 const double largeBorderRadius = 10.0;
 const double extraLargeBorderRadius = 20.0;
 
+// Button
+const double buttonHeight = 33.0;
+
 // Month names
 List<String> monthNames = [
   'January',
@@ -41,7 +44,13 @@ final List<String> professionList = [
   'QA',
 ];
 
-final List<String> bandList = ['Band 1', 'Band 2', 'Band 3', 'Band 4', 'Band 5'];
+final List<String> bandList = [
+  'Band 1',
+  'Band 2',
+  'Band 3',
+  'Band 4',
+  'Band 5'
+];
 
 // Slider values
 List<String> sliderValues = ['No progress', 'Good', 'Excellent', 'Outstanding'];
