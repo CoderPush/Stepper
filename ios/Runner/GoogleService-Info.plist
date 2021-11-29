@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>865301344354-l3qj8o6o64b4tj5helusel64gvptbf78.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.865301344354-l3qj8o6o64b4tj5helusel64gvptbf78</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDFX1EIOPoBiJqcGuYDwWdudF1ZDGHtdHQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>865301344354</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.coderpush.stepper</string>
+	<key>PROJECT_ID</key>
+	<string>stepper-577e8</string>
+	<key>STORAGE_BUCKET</key>
+	<string>stepper-577e8.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:865301344354:ios:476b37e99f403dc9dbe13b</string>
+</dict>
+</plist>
