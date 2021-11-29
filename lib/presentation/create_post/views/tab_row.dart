@@ -13,6 +13,8 @@ class TabRow extends StatelessWidget {
     return DefaultTabController(
       length: 3,
       child: TabBar(
+        physics: const NeverScrollableScrollPhysics(),
+        labelPadding: const EdgeInsets.all(0.0),
         onTap: (index) {
           switch (index) {
             case 0:

@@ -12,7 +12,7 @@ class AvatarView extends StatelessWidget {
   const AvatarView({Key? key}) : super(key: key);
 
   void _onProfileUserEditScreenTap(BuildContext context) {
-    Navigator.pushNamed(context, RouteNames.profileUserEdit);
+    Navigator.pushReplacementNamed(context, RouteNames.profileUserEdit);
   }
 
   @override
@@ -58,10 +58,7 @@ class AvatarView extends StatelessWidget {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    LabelView(
-                      labelText: state.selectedProfession,
-                      labelWidth: oneHundredSixty,
-                    ),
+                    LabelView(labelText: state.selectedProfession),
                     Container(
                       height: four,
                       width: four,
@@ -72,10 +69,7 @@ class AvatarView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(largeBorderRadius),
                       ),
                     ),
-                    LabelView(
-                      labelText: state.selectedBand.bandName,
-                      labelWidth: seventy,
-                    ),
+                    LabelView(labelText: state.selectedBand.bandName),
                   ],
                 );
               }

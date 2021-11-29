@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
+import 'package:stepper/presentation/common/commons.dart';
 import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
 
 class AreaDropdown extends StatelessWidget {
@@ -26,13 +27,15 @@ class AreaDropdown extends StatelessWidget {
             child: ButtonTheme(
               buttonColor: white,
               alignedDropdown: true,
-              child: DropdownButton<String>(
+              child: CustomDropdownButton<String>(
+                icon: const Icon(
+                  Icons.arrow_drop_down,
+                  color: white,
+                ),
                 dropdownColor: dropdownButtonColor,
                 iconEnabledColor: white,
                 onChanged: (value) {
-                  if (value != null) {
-                    _onDropdownItemSelected(context, value);
-                  }
+                  _onDropdownItemSelected(context, value);
                 },
                 value: currentState.selectedAreaName,
                 items: currentState.areaList

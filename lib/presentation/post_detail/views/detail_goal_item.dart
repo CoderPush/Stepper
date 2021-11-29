@@ -16,7 +16,7 @@ class DetailGoalItem extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: screenSmallPadding),
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(mediumBorderRadius),
+          borderRadius: BorderRadius.circular(largeBorderRadius),
           color: darkGrey,
         ),
         child: Row(

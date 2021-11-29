@@ -37,7 +37,7 @@ class AreaWithDescriptionItem extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             color: darkGrey,
-            borderRadius: BorderRadius.circular(mediumBorderRadius),
+            borderRadius: BorderRadius.circular(largeBorderRadius),
           ),
           width: itemWidth,
           child: Column(

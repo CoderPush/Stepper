@@ -33,7 +33,7 @@ class AreaItem extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             color: darkGrey,
-            borderRadius: BorderRadius.circular(mediumBorderRadius),
+            borderRadius: BorderRadius.circular(largeBorderRadius),
           ),
           width: itemWidth,
           height: screenSize.width * 0.15,

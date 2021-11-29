@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/numbers.dart';
 import 'package:stepper/common/palette.dart';
+import 'package:stepper/presentation/common/commons.dart';
 
 class RowLevelView extends StatelessWidget {
   final String titleText;
@@ -33,6 +34,7 @@ class RowLevelView extends StatelessWidget {
           ),
         ),
         Flexible(
+          fit: FlexFit.tight,
           flex: 2,
           child: Container(
             height: fortyTwo,
@@ -45,13 +47,11 @@ class RowLevelView extends StatelessWidget {
               child: ButtonTheme(
                 buttonColor: white,
                 alignedDropdown: true,
-                child: DropdownButton<String>(
+                child: CustomDropdownButton<String>(
                   dropdownColor: dropdownButtonColor,
                   iconEnabledColor: white,
                   onChanged: (value) {
-                    if (value != null) {
-                      onChanged(value);
-                    }
+                    onChanged(value);
                   },
                   value: value,
                   items: list.map(

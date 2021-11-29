@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
+import 'package:stepper/config/routes/routes.dart';
 import 'package:stepper/presentation/profile_user_edit/views/avatar_view.dart';
 import 'package:stepper/presentation/profile_user_edit/views/user_level_view.dart';
 import 'package:stepper/presentation/profile_user_edit/views/user_information_view.dart';
@@ -15,7 +16,7 @@ class ProfileUserEditScreen extends StatelessWidget {
         backgroundColor: scaffoldColor,
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.pushReplacementNamed(context, RouteNames.profileUser);
           },
           icon: const Icon(Icons.arrow_back_ios),
         ),

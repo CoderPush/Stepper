@@ -14,7 +14,7 @@ class AreaSection extends StatelessWidget {
       padding: const EdgeInsets.all(screenMediumPadding),
       decoration: BoxDecoration(
         color: blueGrey,
-        borderRadius: BorderRadius.circular(mediumBorderRadius),
+        borderRadius: BorderRadius.circular(largeBorderRadius),
       ),
       child: Column(
         children: [

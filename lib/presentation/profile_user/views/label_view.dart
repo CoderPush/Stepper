@@ -5,29 +5,29 @@ import 'package:stepper/common/palette.dart';
 
 class LabelView extends StatelessWidget {
   final String labelText;
-  final double labelWidth;
 
   const LabelView({
     required this.labelText,
-    required this.labelWidth,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-
-    return Container(
-      height: screenSize.width * 0.06,
-      width: labelWidth,
-      decoration: BoxDecoration(
-        color: sliderInactiveColor,
-        borderRadius: BorderRadius.circular(largeBorderRadius),
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        minWidth: 100.0,
       ),
-      child: Center(
-        child: Text(
-          labelText,
-          style: const TextStyle(fontSize: fifteen),
+      child: Container(
+        padding: const EdgeInsets.all(screenSmallPadding),
+        decoration: BoxDecoration(
+          color: sliderInactiveColor,
+          borderRadius: BorderRadius.circular(extraLargeBorderRadius),
+        ),
+        child: Center(
+          child: Text(
+            labelText,
+            style: const TextStyle(fontSize: fifteen),
+          ),
         ),
       ),
     );

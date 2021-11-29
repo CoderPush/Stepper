@@ -17,8 +17,6 @@ class SignOutView extends StatelessWidget {
         ));
       },
       child: Container(
-        margin:
-            const EdgeInsets.only(left: twenty, right: twenty, bottom: twenty),
         padding: const EdgeInsets.symmetric(vertical: twelve),
         width: double.infinity,
         decoration: BoxDecoration(
