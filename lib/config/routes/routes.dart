@@ -7,4 +7,5 @@ class RouteNames {
   static const String profileUser = '/profileUser';
   static const String profileUserEdit = '/profileUserEdit';
   static const String calendar = '/calendar';
+  static const String auth = '/auth';
 }

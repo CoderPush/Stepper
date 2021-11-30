@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/config/routes/app_routes.dart';
 import 'package:stepper/injection_container.dart';
+import 'package:stepper/presentation/authentication/cubit/authentication_cubit.dart';
 import 'package:stepper/presentation/common/drawer/drawer.dart';
 import 'package:stepper/config/routes/routes.dart';
 import 'package:stepper/presentation/profile_user_edit/cubit/profile_user_edit_cubit.dart';
@@ -30,29 +31,41 @@ class MyApp extends StatelessWidget {
             professionRepository: sl(),
             bandRepository: sl(),
           ),
+        ),
+        BlocProvider(
+          create: (context) => AuthenticationCubit(
+            userRepository: sl(),
+          ),
         )
       ],
-      child: BlocBuilder<ProfileUserEditCubit, ProfileUserEditState>(
+      child: BlocBuilder<AuthenticationCubit, AuthenticationState>(
         builder: (context, state) {
-          if (state is ProfileUserEditInProgress) {
+          if (state is AuthenticationInitial) {
             return const Center(
               child: CircularProgressIndicator(),
             );
+          } else {
+            return MaterialApp(
+              key: UniqueKey(),
+              debugShowCheckedModeBanner: false,
+              title: 'Stepper',
+              theme: ThemeData(
+                scaffoldBackgroundColor: scaffoldColor,
+                primarySwatch: Colors.blue,
+                textSelectionTheme: const TextSelectionThemeData(
+                  cursorColor: white,
+                ),
+                textTheme: Theme.of(context).textTheme.apply(
+                      bodyColor: textColor,
+                      displayColor: textColor,
+                    ),
+              ),
+              initialRoute: state is AuthenticatedState
+                  ? RouteNames.home
+                  : RouteNames.auth,
+              onGenerateRoute: AppRoutes.onGenerateRoutes,
+            );
           }
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Stepper',
-            theme: ThemeData(
-              scaffoldBackgroundColor: scaffoldColor,
-              primarySwatch: Colors.blue,
-              textTheme: Theme.of(context).textTheme.apply(
-                    bodyColor: textColor,
-                    displayColor: textColor,
-                  ),
-            ),
-            initialRoute: RouteNames.home,
-            onGenerateRoute: AppRoutes.onGenerateRoutes,
-          );
         },
       ),
     );

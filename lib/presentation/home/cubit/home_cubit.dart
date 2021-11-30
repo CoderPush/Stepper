@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:stepper/data/model/models.dart';
-import 'package:stepper/data/repositories/repositories.dart';
+import 'package:stepper/data/repositories/repositories_impl.dart';
 import 'package:stepper/domain/repositories/repositories.dart';
 
 part 'home_state.dart';

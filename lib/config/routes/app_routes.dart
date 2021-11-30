@@ -3,6 +3,7 @@ import 'package:stepper/config/routes/routes.dart';
 import 'package:stepper/config/extensions/string_extensions.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/presentation/area/area_screen.dart';
+import 'package:stepper/presentation/authentication/authentication_screen.dart';
 import 'package:stepper/presentation/calendar/calendar_screen.dart';
 import 'package:stepper/presentation/common/arguments/screen_arguments.dart';
 import 'package:stepper/presentation/create_post/create_post_screen.dart';
@@ -46,6 +47,8 @@ class AppRoutes {
         return _materialRoute(const ProfileUserScreen(), settings);
       case RouteNames.profileUserEdit:
         return _materialRoute(const ProfileUserEditScreen(), settings);
+      case RouteNames.auth:
+        return _materialRoute(const AuthenticationScreen(), settings);
       default:
         return _errorRoute();
     }

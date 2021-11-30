@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stepper/data/model/models.dart';
@@ -5,11 +6,10 @@ import 'package:stepper/data/datasources/local/databases.dart';
 import 'package:stepper/data/datasources/remote/area_service.dart';
 import 'package:stepper/data/datasources/remote/band_service.dart';
 import 'package:stepper/data/datasources/remote/profession_service.dart';
-import 'package:stepper/data/repositories/profession_repository_impl.dart';
 import 'package:stepper/domain/repositories/band_repository.dart';
 import 'package:stepper/domain/repositories/profession_repository.dart';
 import 'package:stepper/domain/repositories/repositories.dart';
-import 'package:stepper/data/repositories/repositories.dart';
+import 'package:stepper/data/repositories/repositories_impl.dart';
 
 final sl = GetIt.instance;
 
@@ -35,6 +35,9 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<PostRepository>(
       () => FakePostRepositoryImpl(postDatabase: sl()));
 
+  sl.registerLazySingleton<UserRepository>(
+      () => UserRepositoryImpl(firebaseAuth: sl()));
+
   sl.registerLazySingleton<PostDatabase>(() => PostDatabase());
 
   sl.registerLazySingleton<GoalDatabase>(() => GoalDatabase());
@@ -48,6 +51,8 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<ProfessionService>(() => ProfessionService());
 
   sl.registerLazySingleton<BandService>(() => BandService());
+
+  sl.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
 
   // Databases
   await initializeDatabase();
