@@ -9,7 +9,7 @@ import 'package:stepper/data/repositories/profession_repository_impl.dart';
 import 'package:stepper/domain/repositories/band_repository.dart';
 import 'package:stepper/domain/repositories/profession_repository.dart';
 import 'package:stepper/domain/repositories/repositories.dart';
-import 'package:stepper/data/repositories/fake_repos.dart';
+import 'package:stepper/data/repositories/repositories.dart';
 
 final sl = GetIt.instance;
 
