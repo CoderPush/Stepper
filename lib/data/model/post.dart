@@ -12,15 +12,12 @@ class Post {
   final String description;
   @HiveField(3)
   final String areaName;
-  @HiveField(4)
-  final DateTime? updatedTime;
 
   const Post({
     required this.postId,
     required this.areaName,
     required this.postedTime,
     required this.description,
-    this.updatedTime,
   });
 
   Post copyWith({
@@ -28,14 +25,13 @@ class Post {
     DateTime? postedTime,
     String? description,
     String? areaName,
-    DateTime? updatedTime,
   }) {
     return Post(
-        areaName: areaName ?? this.areaName,
-        description: description ?? this.description,
-        postId: postId ?? this.postId,
-        postedTime: postedTime ?? this.postedTime,
-        updatedTime: updatedTime);
+      areaName: areaName ?? this.areaName,
+      description: description ?? this.description,
+      postId: postId ?? this.postId,
+      postedTime: postedTime ?? this.postedTime,
+    );
   }
 
   Map<String, dynamic> toJson() => _postToJson(this);
@@ -44,7 +40,6 @@ class Post {
         'areaName': post.areaName,
         'postedTime': post.postedTime,
         'description': post.description,
-        'updatedTime': post.updatedTime,
       };
 }
 

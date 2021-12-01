@@ -21,14 +21,13 @@ class PostAdapter extends TypeAdapter<Post> {
       areaName: fields[3] as String,
       postedTime: fields[1] as DateTime,
       description: fields[2] as String,
-      updatedTime: fields[4] as DateTime?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Post obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.postId)
       ..writeByte(1)
@@ -36,9 +35,7 @@ class PostAdapter extends TypeAdapter<Post> {
       ..writeByte(2)
       ..write(obj.description)
       ..writeByte(3)
-      ..write(obj.areaName)
-      ..writeByte(4)
-      ..write(obj.updatedTime);
+      ..write(obj.areaName);
   }
 
   @override
