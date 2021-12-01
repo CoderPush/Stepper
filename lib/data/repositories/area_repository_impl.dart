@@ -3,14 +3,14 @@ import 'package:stepper/data/datasources/remote/services.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/domain/repositories/repositories.dart';
 
-class FakeAreaRepositoryImpl extends AreaRepository {
+class AreaRepositoryImpl extends AreaRepository {
   final AreaDatabase areaDatabase;
   final PostDatabase postDatabase;
   final SettingDatabase settingDatabase;
   final AreaService areaService;
   final BandService bandService;
 
-  FakeAreaRepositoryImpl({
+  AreaRepositoryImpl({
     required this.areaDatabase,
     required this.postDatabase,
     required this.settingDatabase,

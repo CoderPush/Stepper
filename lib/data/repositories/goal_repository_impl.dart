@@ -2,10 +2,10 @@ import 'package:stepper/data/datasources/local/databases.dart';
 import 'package:stepper/data/model/goal.dart';
 import 'package:stepper/domain/repositories/goal_repository.dart';
 
-class FakeGoalRepositoryImpl extends GoalRepository {
+class GoalRepositoryImpl extends GoalRepository {
   final GoalDatabase goalDatabase;
 
-  FakeGoalRepositoryImpl({required this.goalDatabase}) : super();
+  GoalRepositoryImpl({required this.goalDatabase}) : super();
 
   @override
   Future<void> setGoals(List<Goal> goals) async {

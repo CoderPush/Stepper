@@ -2,10 +2,10 @@ import 'package:stepper/data/datasources/local/post_database.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/domain/repositories/post_repository.dart';
 
-class FakePostRepositoryImpl extends PostRepository {
+class PostRepositoryImpl extends PostRepository {
   final PostDatabase postDatabase;
 
-  FakePostRepositoryImpl({required this.postDatabase}) : super();
+  PostRepositoryImpl({required this.postDatabase}) : super();
 
   @override
   Future<void> savePost(Post post) async {

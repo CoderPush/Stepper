@@ -15,7 +15,7 @@ final sl = GetIt.instance;
 
 Future<void> initializeDependencies() async {
   // Features
-  sl.registerLazySingleton<AreaRepository>(() => FakeAreaRepositoryImpl(
+  sl.registerLazySingleton<AreaRepository>(() => AreaRepositoryImpl(
         areaService: sl(),
         bandService: sl(),
         areaDatabase: sl(),
@@ -30,10 +30,10 @@ Future<void> initializeDependencies() async {
       () => BandRepositoryImpl(bandService: sl(), settingDatabase: sl()));
 
   sl.registerLazySingleton<GoalRepository>(
-      () => FakeGoalRepositoryImpl(goalDatabase: sl()));
+      () => GoalRepositoryImpl(goalDatabase: sl()));
 
   sl.registerLazySingleton<PostRepository>(
-      () => FakePostRepositoryImpl(postDatabase: sl()));
+      () => PostRepositoryImpl(postDatabase: sl()));
 
   sl.registerLazySingleton<UserRepository>(
       () => UserRepositoryImpl(firebaseAuth: sl()));
