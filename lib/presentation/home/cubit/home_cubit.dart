@@ -8,12 +8,8 @@ part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   final AreaRepository areaRepository;
-  final GoalRepository goalRepository;
 
-  HomeCubit({
-    required this.areaRepository,
-    required this.goalRepository,
-  }) : super(HomeInitialState()) {
+  HomeCubit({required this.areaRepository}) : super(HomeInitialState()) {
     loadHomeScreen();
   }
 
@@ -22,11 +18,7 @@ class HomeCubit extends Cubit<HomeState> {
       emit(HomeLoadingState());
       final recentlyUpdatedAreas =
           await areaRepository.fetchRecentlyUpdatedAreas();
-      final priorityGoalList = await goalRepository.getPriorityGoals();
-      emit(HomeLoadedState(
-        recentlyUpdatedAreas: recentlyUpdatedAreas,
-        priorityGoalList: priorityGoalList,
-      ));
+      emit(HomeLoadedState(recentlyUpdatedAreas: recentlyUpdatedAreas));
     } on NetworkException {
       emit(const HomeErrorState(errorMessage: 'Network error'));
     }

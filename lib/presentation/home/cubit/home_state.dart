@@ -13,14 +13,10 @@ class HomeLoadingState extends HomeState {}
 
 class HomeLoadedState extends HomeState {
   final List<Area> recentlyUpdatedAreas;
-  final List<Goal> priorityGoalList;
-  const HomeLoadedState({
-    required this.recentlyUpdatedAreas,
-    required this.priorityGoalList,
-  });
+  const HomeLoadedState({required this.recentlyUpdatedAreas});
 
   @override
-  List<Object> get props => [recentlyUpdatedAreas, priorityGoalList];
+  List<Object> get props => [recentlyUpdatedAreas];
 }
 
 class HomeErrorState extends HomeState {

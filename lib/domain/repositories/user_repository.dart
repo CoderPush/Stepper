@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 abstract class UserRepository {
   Future<void> registerWithEmailAndPassword({
     required String emailAddress,
@@ -12,4 +14,6 @@ abstract class UserRepository {
   Future<void> signOut();
 
   Future<bool> isSignedIn();
+
+  User? getSignedInUser();
 }

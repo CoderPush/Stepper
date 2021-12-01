@@ -23,8 +23,6 @@ class UserRepositoryImpl extends UserRepository {
         authError = 'Network error';
       }
       throw AuthException(authError);
-    } catch (e) {
-      print(e);
     }
   }
 
@@ -56,5 +54,10 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<bool> isSignedIn() async {
     return firebaseAuth.currentUser != null;
+  }
+
+  @override
+  User? getSignedInUser() {
+    return firebaseAuth.currentUser;
   }
 }

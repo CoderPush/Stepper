@@ -21,10 +21,7 @@ class HomeScreen extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
 
     return BlocProvider(
-      create: (context) => HomeCubit(
-        areaRepository: sl(),
-        goalRepository: sl(),
-      ),
+      create: (context) => HomeCubit(areaRepository: sl()),
       child: Scaffold(
         drawer: SizedBox(
           child: MainDrawer(),
