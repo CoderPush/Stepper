@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:stepper/data/model/models.dart';
-import 'package:stepper/data/repositories/fake_repos.dart';
+import 'package:stepper/data/repositories/repositories_impl.dart';
 import 'package:stepper/domain/repositories/repositories.dart';
 import 'package:stepper/presentation/common/arguments/screen_arguments.dart';
 import 'package:stepper/presentation/utils.dart';
@@ -13,14 +13,12 @@ part 'create_post_state.dart';
 class CreatePostCubit extends Cubit<CreatePostState> {
   final AreaRepository areaRepository;
   final PostRepository postRepository;
-  final GoalRepository goalRepository;
   final BandRepository bandRepository;
   final CreatePostScreenArgument createPostScreenArgument;
 
   CreatePostCubit({
     required this.areaRepository,
     required this.postRepository,
-    required this.goalRepository,
     required this.bandRepository,
     required this.createPostScreenArgument,
   }) : super(const CreatePostInitialState(selectedAreaType: AreaType.scope)) {
@@ -206,20 +204,6 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     emit(currentState.copyWith(createPostMode: createPostMode));
   }
 
-  void onNewGoalAdded(Goal goal) {
-    final currentState = state as CreatePostLoadedState;
-    emit(currentState.copyWith(
-      newlyAddedGoals: List.from(currentState.newlyAddedGoals)..add(goal),
-    ));
-  }
-
-  void onNewGoalDeleted(int index) {
-    final currentState = state as CreatePostLoadedState;
-    emit(currentState.copyWith(
-      newlyAddedGoals: List.from(currentState.newlyAddedGoals)..removeAt(index),
-    ));
-  }
-
   Future<void> onPublishUpdate(String postDescription) async {
     final currentState = state as CreatePostLoadedState;
     if (postDescription.isEmpty) {
@@ -238,8 +222,6 @@ class CreatePostCubit extends Cubit<CreatePostState> {
       areaName: currentState.selectedAreaName,
       postedTime: currentTime,
       description: postDescription,
-      // TODO: tag a goal here
-      taggedGoalIds: [],
     );
     await postRepository.savePost(addedPost);
     // delete draft post
@@ -248,26 +230,6 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     await areaRepository
         .updateAreaWhenAddNewPost(currentState.selectedAreaName);
     emit(CreateUpdateSuccessState(selectedAreaType: state.selectedAreaType));
-  }
-
-  Future<void> onPublishGoals() async {
-    final currentState = state as CreatePostLoadedState;
-    if (currentState.newlyAddedGoals.isNotEmpty) {
-      await goalRepository.setGoals(currentState.newlyAddedGoals.map(
-        (goal) {
-          final createdTime = DateTime.now();
-          return Goal(
-            goalId: createdTime.toString(),
-            goalDescription: goal.goalDescription,
-            areaName: currentState.selectedAreaName,
-            createdTime: createdTime,
-            achieved: false,
-            isPrioritized: false,
-          );
-        },
-      ).toList());
-    }
-    emit(CreateGoalSuccessState(selectedAreaType: state.selectedAreaType));
   }
 
   Future<void> onUserWriteUpdate(String update) async {
@@ -283,7 +245,6 @@ class CreatePostCubit extends Cubit<CreatePostState> {
         areaName: currentState.selectedAreaName,
         postedTime: DateTime.now(),
         description: update,
-        taggedGoalIds: [],
       );
       await postRepository.savePost(post);
     }

@@ -3,7 +3,6 @@ import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/data/model/models.dart';
-import 'package:stepper/dummy_data.dart';
 import 'package:stepper/presentation/common/commons.dart';
 
 class PostDetailScreen extends StatelessWidget {
@@ -16,9 +15,6 @@ class PostDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Goal> taggedGoals = [];
-    for (var id in selectedPost.taggedGoalIds) {
-      taggedGoals.add(goalList.firstWhere((goal) => goal.goalId == id));
-    }
 
     return Scaffold(
       appBar: AppBar(

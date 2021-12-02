@@ -36,6 +36,11 @@ const String engineer = 'Engineer';
 const String noUpdate = 'You have no item updated recently';
 const String noPost = 'You have no post. Use "+" button to create post';
 const String incomingFeature = 'Incoming feature';
+const String continueText = 'Continue';
+const String logIn = "Login instead";
+const String signUp = "Signup instead";
+const String signIn = "Sign in";
+const String createAnAccount = "Create and account";
 
 // Testing
 const String writeUpdateText = "Today i will integration test code in flutter";

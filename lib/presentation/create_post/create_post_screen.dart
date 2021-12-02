@@ -30,7 +30,6 @@ class CreatePostScreen extends StatelessWidget {
       create: (context) => CreatePostCubit(
         areaRepository: sl(),
         postRepository: sl(),
-        goalRepository: sl(),
         bandRepository: sl(),
         createPostScreenArgument: argument,
       ),
