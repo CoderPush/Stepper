@@ -5,7 +5,7 @@ import 'package:stepper/common/texts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/presentation/authentication/cubit/authentication_cubit.dart';
 
-enum AuthMode { Signup, Signin }
+enum AuthMode { signUp, signIn }
 
 class AuthCard extends StatefulWidget {
   const AuthCard({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class AuthCard extends StatefulWidget {
 
 class _AuthCardState extends State<AuthCard>
     with SingleTickerProviderStateMixin {
-  AuthMode _authMode = AuthMode.Signin;
+  AuthMode _authMode = AuthMode.signIn;
   final Map<String, String> _authData = {
     'email': '',
     'password': '',
@@ -45,14 +45,14 @@ class _AuthCardState extends State<AuthCard>
   }
 
   void _switchAuthMode() {
-    if (_authMode == AuthMode.Signin) {
+    if (_authMode == AuthMode.signIn) {
       setState(() {
-        _authMode = AuthMode.Signup;
+        _authMode = AuthMode.signUp;
       });
       _animationController.forward();
     } else {
       setState(() {
-        _authMode = AuthMode.Signin;
+        _authMode = AuthMode.signIn;
       });
       _animationController.reverse();
     }
@@ -67,7 +67,7 @@ class _AuthCardState extends State<AuthCard>
     });
 
     final authenticationCubit = context.read<AuthenticationCubit>();
-    if (_authMode == AuthMode.Signin) {
+    if (_authMode == AuthMode.signIn) {
       authenticationCubit.signInWithEmailAndPassword(
           _authData['email']!, _authData['password']!);
     } else {
@@ -86,7 +86,7 @@ class _AuthCardState extends State<AuthCard>
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Text(
-          _authMode == AuthMode.Signin ? signIn : createAnAccount,
+          _authMode == AuthMode.signIn ? signIn : createAnAccount,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 30,
@@ -200,7 +200,7 @@ class _AuthCardState extends State<AuthCard>
               const SizedBox(
                 height: 8,
               ),
-              _authMode == AuthMode.Signin
+              _authMode == AuthMode.signIn
                   ? const SizedBox()
                   : FadeTransition(
                       opacity: _fadeAnimation,
@@ -283,7 +283,7 @@ class _AuthCardState extends State<AuthCard>
         ),
         TextButton(
           onPressed: _switchAuthMode,
-          child: Text(_authMode == AuthMode.Signin ? signUp : logIn),
+          child: Text(_authMode == AuthMode.signIn ? signUp : logIn),
         ),
       ],
     );
