@@ -10,15 +10,18 @@ class AuthenticationScreen extends StatelessWidget {
     final deviceSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            width: double.infinity,
-            margin: EdgeInsets.symmetric(
-              vertical: deviceSize.height / 4,
-              horizontal: screenLargePadding * 2,
+      body: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Container(
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(
+                vertical: deviceSize.height / 4,
+                horizontal: screenLargePadding * 2,
+              ),
+              child: const AuthCard(),
             ),
-            child: const AuthCard(),
           ),
         ),
       ),
