@@ -10,4 +10,6 @@ abstract class PostRepository {
   Future<Post?> getDraftPostByAreaName(String areaName);
 
   Future<void> deletePost(String postId);
+
+  Stream<List<Post>> watchAllPosts();
 }

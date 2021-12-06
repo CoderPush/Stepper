@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:stepper/presentation/utils.dart';
 
 part 'post.g.dart';
 
@@ -40,7 +41,15 @@ class Post {
         'areaName': post.areaName,
         'postedTime': post.postedTime,
         'description': post.description,
+        'postId': post.postId,
       };
+
+  factory Post.fromJson(Map<String, dynamic> json) => Post(
+        areaName: json['areaName'],
+        description: json['description'],
+        postId: json['postId'],
+        postedTime: parseTime(json['postedTime']),
+      );
 }
 
 enum CreatePostMode { writeUpdate, setGoal }
