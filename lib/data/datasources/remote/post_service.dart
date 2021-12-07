@@ -29,9 +29,12 @@ class PostService {
   // listen to all post of a user
   Stream<List<Post>> watchAllPost() async* {
     final userDoc = await firestore.userDocument();
-    yield* userDoc.postCollection.snapshots().map((snapshot) => snapshot.docs
-        .map((doc) => Post.fromJson(doc.data() as Map<String, dynamic>))
-        .toList());
+    yield* userDoc.postCollection
+        .orderBy("postedTime", descending: true)
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+            .map((doc) => Post.fromJson(doc.data() as Map<String, dynamic>))
+            .toList());
   }
 
   // get post by Id
