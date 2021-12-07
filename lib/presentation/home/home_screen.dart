@@ -5,7 +5,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
-import 'package:stepper/data/model/models.dart';
 import 'package:stepper/injection_container.dart';
 import 'package:stepper/presentation/common/custom_floating_button.dart';
 import 'package:stepper/presentation/common/drawer/drawer.dart';
@@ -21,7 +20,8 @@ class HomeScreen extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
 
     return BlocProvider(
-      create: (context) => HomeCubit(areaRepository: sl()),
+      create: (context) =>
+          HomeCubit(areaRepository: sl(), postRepository: sl()),
       child: Scaffold(
         drawer: SizedBox(
           child: MainDrawer(),
@@ -33,6 +33,14 @@ class HomeScreen extends StatelessWidget {
               if (state is HomeLoadingState) {
                 return const Center(child: CircularProgressIndicator());
               } else if (state is HomeLoadedState) {
+                final areaNames =
+                    (Hive.box<dynamic>('Setting').get('area') as List<String>);
+                final postList = state.yourPosts
+                    .where((post) => areaNames.contains(post.areaName))
+                    .toList()
+                  ..sort((first, next) =>
+                      next.postedTime.compareTo(first.postedTime));
+
                 return SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,27 +99,12 @@ class HomeScreen extends StatelessWidget {
                           screenMediumPadding,
                           screenMediumPadding,
                         ),
-                        child: ValueListenableBuilder<Box<Post>>(
-                          valueListenable: Hive.box<Post>('Post').listenable(),
-                          builder: (context, postBox, widget) {
-                            final areaNames = (Hive.box<dynamic>('Setting')
-                                .get('area') as List<String>);
-                            final postList = postBox.values
-                                .where(
-                                    (post) => areaNames.contains(post.areaName))
-                                .toList()
-                              ..sort((first, next) =>
-                                  next.postedTime.compareTo(first.postedTime));
-                            if (postList.isEmpty) {
-                              return const Text(noPost);
-                            } else {
-                              return PostList(
+                        child: postList.isEmpty
+                            ? const Text(noPost)
+                            : PostList(
                                 hasAreaName: true,
                                 postList: postList,
-                              );
-                            }
-                          },
-                        ),
+                              ),
                       ),
                     ],
                   ),

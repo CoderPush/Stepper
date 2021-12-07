@@ -14,7 +14,6 @@ class PostRepositoryImpl extends PostRepository {
   @override
   Future<void> savePost(Post post) async {
     await postService.savePost(post);
-    await postDatabase.addPost(post);
   }
 
   @override
@@ -24,18 +23,22 @@ class PostRepositoryImpl extends PostRepository {
 
   @override
   Future<Post?> getDraftPostByAreaName(String areaName) async {
-    return await postDatabase.getDraftPostByAreaName(areaName);
+    return await postService.getDraftPostByAreaName(areaName);
   }
 
   @override
   Future<void> deletePost(String postId) async {
     await postService.deletePost(postId);
-    await postDatabase.deletePost(postId);
   }
 
   @override
   Future<Post?> getPostById(String? postId) async {
     if (postId == null) return null;
-    return await postDatabase.getPostById(postId);
+    return await postService.getPostById(postId);
+  }
+
+  @override
+  Stream<List<Post>> watchAllPosts() async* {
+    yield* postService.watchAllPost();
   }
 }

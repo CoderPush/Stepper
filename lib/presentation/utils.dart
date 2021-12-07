@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/data/model/models.dart';
@@ -30,4 +31,9 @@ List<Area> sortAreasInOrder(List<Area> areaList) {
         .substring(1)
         .padLeft(3, '0')
         .compareTo(next.areaName.substring(1).padLeft(3, '0')));
+}
+
+// Parse timestamp from Firestore
+DateTime parseTime(dynamic date) {
+  return (date as Timestamp).toDate();
 }

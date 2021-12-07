@@ -60,6 +60,8 @@ class _AuthCardState extends State<AuthCard>
   }
 
   void _submit(BuildContext context) async {
+    // Unfocus soft keyboard when pressing login/register button
+    FocusManager.instance.primaryFocus?.unfocus();
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
 
@@ -154,9 +156,7 @@ class _AuthCardState extends State<AuthCard>
                       return null;
                     },
                   ),
-                  const SizedBox(
-                    height: 8,
-                  ),
+                  const SizedBox(height: screenMediumPadding),
                   TextFormField(
                     controller: _passwordController,
                     decoration: InputDecoration(
@@ -206,77 +206,79 @@ class _AuthCardState extends State<AuthCard>
                       return null;
                     },
                   ),
-                  const SizedBox(
-                    height: 8,
-                  ),
                   _authMode == AuthMode.signIn
                       ? const SizedBox()
-                      : FadeTransition(
-                          opacity: _fadeAnimation,
-                          child: SlideTransition(
-                            position: _slideAnimation,
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    const EdgeInsets.all(screenMediumPadding),
-                                hintText: "Re-enter your password here",
-                                hintStyle: const TextStyle(color: mediumGrey),
-                                fillColor: scaffoldColor,
-                                filled: true,
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(
-                                      extraLargeBorderRadius * 2),
-                                  borderSide: const BorderSide(
-                                    color: white,
+                      : Container(
+                          padding:
+                              const EdgeInsets.only(top: screenMediumPadding),
+                          child: FadeTransition(
+                            opacity: _fadeAnimation,
+                            child: SlideTransition(
+                              position: _slideAnimation,
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  contentPadding:
+                                      const EdgeInsets.all(screenMediumPadding),
+                                  hintText: "Re-enter your password here",
+                                  hintStyle: const TextStyle(color: mediumGrey),
+                                  fillColor: scaffoldColor,
+                                  filled: true,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        extraLargeBorderRadius * 2),
+                                    borderSide: const BorderSide(
+                                      color: white,
+                                    ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        extraLargeBorderRadius * 2),
+                                    borderSide: const BorderSide(
+                                      color: white,
+                                    ),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        extraLargeBorderRadius * 2),
+                                    borderSide: const BorderSide(
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        extraLargeBorderRadius * 2),
+                                    borderSide: const BorderSide(
+                                      color: Colors.red,
+                                    ),
                                   ),
                                 ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(
-                                      extraLargeBorderRadius * 2),
-                                  borderSide: const BorderSide(
-                                    color: white,
-                                  ),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(
-                                      extraLargeBorderRadius * 2),
-                                  borderSide: const BorderSide(
-                                    color: Colors.red,
-                                  ),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(
-                                      extraLargeBorderRadius * 2),
-                                  borderSide: const BorderSide(
-                                    color: Colors.red,
-                                  ),
-                                ),
+                                obscureText: true,
+                                validator: (repassword) {
+                                  if (repassword != _passwordController.text) {
+                                    return 'Passwords do not match!';
+                                  }
+                                  return null;
+                                },
                               ),
-                              obscureText: true,
-                              validator: (repassword) {
-                                if (repassword != _passwordController.text) {
-                                  return 'Passwords do not match!';
-                                }
-                                return null;
-                              },
                             ),
                           ),
                         ),
                 ],
               ),
             ),
-            const SizedBox(
-              height: screenSmallPadding,
-            ),
             (state is AuthenticationError)
                 ? Padding(
-                    padding: const EdgeInsets.only(bottom: screenSmallPadding),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: screenMediumPadding,
+                    ),
                     child: Text(
                       state.errorMessage,
                       style: const TextStyle(color: Colors.red),
                     ),
                   )
-                : const SizedBox.shrink(),
+                : const SizedBox(
+                    height: screenMediumPadding,
+                  ),
             _isLoading
                 ? const CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
@@ -286,7 +288,8 @@ class _AuthCardState extends State<AuthCard>
                     height: 45.0,
                     child: ElevatedButton(
                       onPressed: () => _submit(context),
-                      child: const Text(continueText),
+                      child:
+                          Text(_authMode == AuthMode.signIn ? signIn : signUp),
                       style: ElevatedButton.styleFrom(
                         primary: orange,
                         shape: RoundedRectangleBorder(
@@ -296,12 +299,10 @@ class _AuthCardState extends State<AuthCard>
                       ),
                     ),
                   ),
-            const SizedBox(
-              height: 4,
-            ),
             TextButton(
               onPressed: _switchAuthMode,
-              child: Text(_authMode == AuthMode.signIn ? signUp : logIn),
+              child: Text(
+                  _authMode == AuthMode.signIn ? signUpInstead : logInInstead),
             ),
           ],
         );

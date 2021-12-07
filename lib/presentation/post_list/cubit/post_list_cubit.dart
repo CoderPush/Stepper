@@ -1,40 +1,34 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/data/repositories/repositories_impl.dart';
 import 'package:stepper/domain/repositories/repositories.dart';
 
-part 'home_state.dart';
+part 'post_list_state.dart';
 
-class HomeCubit extends Cubit<HomeState> {
-  final AreaRepository areaRepository;
+class PostListCubit extends Cubit<PostListState> {
   final PostRepository postRepository;
+  final Area area;
   StreamSubscription<List<Post>>? _postStreamSubscription;
 
-  HomeCubit({
-    required this.areaRepository,
-    required this.postRepository,
-  }) : super(HomeInitialState()) {
-    loadHomeScreen();
+  PostListCubit({required this.postRepository, required this.area})
+      : super(PostListInitialState(area: area)) {
+    loadPostListScreen();
   }
 
-  Future<void> loadHomeScreen() async {
+  Future<void> loadPostListScreen() async {
     try {
-      emit(HomeLoadingState());
-      final recentlyUpdatedAreas =
-          await areaRepository.fetchRecentlyUpdatedAreas();
+      emit(PostListLoadingState(area: area));
       _postStreamSubscription =
           postRepository.watchAllPosts().listen((postList) {
-        emit(HomeLoadedState(
-          recentlyUpdatedAreas: recentlyUpdatedAreas,
-          yourPosts: postList,
-        ));
+        final postListByArea =
+            postList.where((post) => post.areaName == area.areaName).toList();
+        emit(PostListLoadedState(postList: postListByArea, area: area));
       });
     } on NetworkException {
-      emit(const HomeErrorState(errorMessage: 'Network error'));
+      emit(PostListErrorState(errorMessage: 'Network error', area: area));
     }
   }
 
