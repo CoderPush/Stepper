@@ -42,6 +42,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     try {
       await userRepository.registerWithEmailAndPassword(
           emailAddress: emailAddress, password: password);
+      await userRepository.prepopulateUserData();
       emit(AuthenticatedState());
     } on AuthException catch (e) {
       emit(AuthenticationError(e.toString()));

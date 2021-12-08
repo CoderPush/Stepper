@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:uuid/uuid.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/data/repositories/repositories_impl.dart';
 import 'package:stepper/domain/repositories/repositories.dart';
@@ -218,7 +218,7 @@ class CreatePostCubit extends Cubit<CreatePostState> {
               editedPost.areaName == currentState.selectedAreaName &&
               !createPostScreenArgument.preSelectedPostId!.startsWith('draft')
           ? createPostScreenArgument.preSelectedPostId!
-          : currentTime.toString(),
+          : const Uuid().v1(),
       areaName: currentState.selectedAreaName,
       postedTime: currentTime,
       description: postDescription,

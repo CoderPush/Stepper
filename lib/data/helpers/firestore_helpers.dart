@@ -15,4 +15,6 @@ extension FirestoreX on FirebaseFirestore {
 
 extension DocumentReferenceX on DocumentReference {
   CollectionReference get postCollection => collection('posts');
+
+  CollectionReference get areaCollection => collection('areas');
 }

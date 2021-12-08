@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:stepper/data/helpers/firestore_helpers.dart';
 import 'package:stepper/data/model/models.dart';
 
-class PostService {
+class PostFirebaseService {
   final FirebaseFirestore firestore;
 
-  PostService({required this.firestore});
+  PostFirebaseService({required this.firestore});
 
   // save post to Firestore
   Future<void> savePost(Post post) async {
@@ -54,5 +54,16 @@ class PostService {
     } else {
       return null;
     }
+  }
+
+  // get posts by area name
+  Future<List<Post>> getPostsByAreaName(String areaName) async {
+    final userDoc = await firestore.userDocument();
+    final postsSnapshot = await userDoc.postCollection
+        .where('areaName', isEqualTo: areaName)
+        .get();
+    return postsSnapshot.docs
+        .map((doc) => Post.fromJson(doc.data() as Map<String, dynamic>))
+        .toList();
   }
 }

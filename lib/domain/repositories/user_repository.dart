@@ -16,4 +16,6 @@ abstract class UserRepository {
   Future<bool> isSignedIn();
 
   User? getSignedInUser();
+
+  Future<void> prepopulateUserData();
 }

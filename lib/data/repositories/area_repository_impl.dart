@@ -5,14 +5,16 @@ import 'package:stepper/domain/repositories/repositories.dart';
 
 class AreaRepositoryImpl extends AreaRepository {
   final AreaDatabase areaDatabase;
-  final PostDatabase postDatabase;
+  final PostFirebaseService postFirebaseService;
+  final AreaFirebaseService areaFirebaseService;
   final SettingDatabase settingDatabase;
   final AreaService areaService;
   final BandService bandService;
 
   AreaRepositoryImpl({
     required this.areaDatabase,
-    required this.postDatabase,
+    required this.postFirebaseService,
+    required this.areaFirebaseService,
     required this.settingDatabase,
     required this.areaService,
     required this.bandService,
@@ -47,21 +49,21 @@ class AreaRepositoryImpl extends AreaRepository {
 
   @override
   Future<void> updateAreaWhenAddNewPost(String areaName) async {
-    final posts = await postDatabase.getPostsByAreaName(areaName);
-    final area = await areaDatabase.getAreaByName(areaName);
-    await areaDatabase.updateArea(area.copyWith(
-      updatedTime: DateTime.now(),
-      numberOfUpdate: posts.length,
-    ));
+    final posts = await postFirebaseService.getPostsByAreaName(areaName);
+    final updatedFields = {
+      'updatedTime': DateTime.now(),
+      'numberOfUpdate': posts.length,
+    };
+    await areaFirebaseService.updateArea(areaName, updatedFields);
   }
 
   @override
   Future<void> rateArea(String areaName, int rating) async {
-    final area = await areaDatabase.getAreaByName(areaName);
-    await areaDatabase.updateArea(area.copyWith(
-      updatedTime: DateTime.now(),
-      rating: rating,
-    ));
+    final updatedFields = {
+      'updatedTime': DateTime.now(),
+      'rating': rating,
+    };
+    await areaFirebaseService.updateArea(areaName, updatedFields);
   }
 
   @override

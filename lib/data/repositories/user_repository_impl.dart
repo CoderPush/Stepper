@@ -1,12 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:stepper/data/datasources/remote/services.dart';
 import 'package:stepper/data/helpers/errors.dart';
 import 'package:stepper/domain/exceptions/exceptions.dart';
 import 'package:stepper/domain/repositories/repositories.dart';
 
 class UserRepositoryImpl extends UserRepository {
   final FirebaseAuth firebaseAuth;
+  final AreaService areaService;
+  final AreaFirebaseService areaFirebaseService;
 
-  UserRepositoryImpl({required this.firebaseAuth});
+  UserRepositoryImpl({
+    required this.firebaseAuth,
+    required this.areaService,
+    required this.areaFirebaseService,
+  });
 
   @override
   Future<void> registerWithEmailAndPassword({
@@ -60,5 +67,13 @@ class UserRepositoryImpl extends UserRepository {
   @override
   User? getSignedInUser() {
     return firebaseAuth.currentUser;
+  }
+
+  @override
+  Future<void> prepopulateUserData() async {
+    final areaList = await areaService.getAllAreas();
+    for (var area in areaList) {
+      await areaFirebaseService.addArea(area);
+    }
   }
 }

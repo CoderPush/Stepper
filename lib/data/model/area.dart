@@ -44,7 +44,16 @@ class Area {
     );
   }
 
+  Map<String, dynamic> toJson() => _areaToJson(this);
 
+  Map<String, dynamic> _areaToJson(Area area) => <String, dynamic>{
+        'areaName': area.areaName,
+        'numberOfUpdate': area.numberOfUpdate,
+        'rating': area.rating,
+        'areaType': area.areaType.toString(),
+        'areaDescription': area.areaDescription,
+        'updatedTime': area.updatedTime,
+      };
 }
 
 @HiveType(typeId: 4)

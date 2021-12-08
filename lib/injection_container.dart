@@ -5,8 +5,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stepper/data/datasources/remote/services.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/data/datasources/local/databases.dart';
-import 'package:stepper/data/datasources/remote/area_service.dart';
-import 'package:stepper/data/datasources/remote/band_service.dart';
 import 'package:stepper/data/datasources/remote/profession_service.dart';
 import 'package:stepper/domain/repositories/band_repository.dart';
 import 'package:stepper/domain/repositories/profession_repository.dart';
@@ -22,7 +20,8 @@ Future<void> initializeDependencies() async {
         bandService: sl(),
         areaDatabase: sl(),
         settingDatabase: sl(),
-        postDatabase: sl(),
+        postFirebaseService: sl(),
+        areaFirebaseService: sl(),
       ));
 
   sl.registerLazySingleton<ProfessionRepository>(() =>
@@ -35,10 +34,13 @@ Future<void> initializeDependencies() async {
       () => GoalRepositoryImpl(goalDatabase: sl()));
 
   sl.registerLazySingleton<PostRepository>(
-      () => PostRepositoryImpl(postDatabase: sl(), postService: sl()));
+      () => PostRepositoryImpl(postFirebaseService: sl()));
 
-  sl.registerLazySingleton<UserRepository>(
-      () => UserRepositoryImpl(firebaseAuth: sl()));
+  sl.registerLazySingleton<UserRepository>(() => UserRepositoryImpl(
+        firebaseAuth: sl(),
+        areaFirebaseService: sl(),
+        areaService: sl(),
+      ));
 
   sl.registerLazySingleton<PostDatabase>(() => PostDatabase());
 
@@ -54,7 +56,11 @@ Future<void> initializeDependencies() async {
 
   sl.registerLazySingleton<BandService>(() => BandService());
 
-  sl.registerLazySingleton<PostService>(() => PostService(firestore: sl()));
+  sl.registerLazySingleton<PostFirebaseService>(
+      () => PostFirebaseService(firestore: sl()));
+
+  sl.registerLazySingleton<AreaFirebaseService>(
+      () => AreaFirebaseService(firestore: sl()));
 
   sl.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
 
