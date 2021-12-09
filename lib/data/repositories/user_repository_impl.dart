@@ -68,12 +68,4 @@ class UserRepositoryImpl extends UserRepository {
   User? getSignedInUser() {
     return firebaseAuth.currentUser;
   }
-
-  @override
-  Future<void> prepopulateUserData() async {
-    final areaList = await areaService.getAllAreas();
-    for (var area in areaList) {
-      await areaFirebaseService.addArea(area);
-    }
-  }
 }
