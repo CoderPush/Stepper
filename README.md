@@ -24,7 +24,7 @@ To run the project, here are the steps:
 
 - Open the project in VsCode (or Android Studio), click Run tab -> Start Debugging (make sure you have your simulator on)
 
-## Release a new version of Stepper (both Android and iOS)
+## Release a new version of Stepper (both Android and iOS) (update with Codemagic)
 
 When release a new version of the app, please follow these steps:
 
@@ -32,12 +32,16 @@ When release a new version of the app, please follow these steps:
 
   For example: current `version` is "1.0.0+1" --> new release `version` is "1.0.1+2" --> next release will be "1.0.2+3"
 
+- Merge new change to "main" branch
+
+- Merge "main" branch to "prod" branch, this will trigger auto-deployment in Codemagic
+
+- Login to Codemagic with email stepper@coderpush.com and wait for newly-triggered workflow to finish
+
 - **For Android**:
-  + run command `flutter build appbundle` to create a new appbundle
-  + go to *build/app/outputs/bundle/release* to get the "app-release-aab" file for uploading to Google Play Console
+  + check in google play console new release version has been published
 
 + **For iOS**:
-  + run command `flutter build ipa`
-  + open *build/ios/archive/MyApp.xcarchive* in Xcode.
-  + click the Validate App button
-  + after the archive has been successfully validated, click Distribute App
+  + create new release
+  + choose the new app version which has been published by Codemagic
+  + fill in other information (release note, etc) then submit
