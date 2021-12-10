@@ -4,26 +4,22 @@ import 'package:stepper/data/model/models.dart';
 import 'package:stepper/domain/repositories/repositories.dart';
 
 class AreaRepositoryImpl extends AreaRepository {
-  final AreaDatabase areaDatabase;
   final PostFirebaseService postFirebaseService;
   final AreaFirebaseService areaFirebaseService;
   final SettingDatabase settingDatabase;
-  final AreaService areaService;
   final BandService bandService;
 
   AreaRepositoryImpl({
-    required this.areaDatabase,
     required this.postFirebaseService,
     required this.areaFirebaseService,
     required this.settingDatabase,
-    required this.areaService,
     required this.bandService,
   });
 
   @override
   Future<List<Area>> fetchAreasByType(AreaType areaType) async {
     final areaNamesList = (await settingDatabase.getSelectedBand())!.areaNames;
-    return (await areaDatabase.getAllAreas())
+    return (await areaFirebaseService.getAllAreas())
         .where(
           (area) =>
               areaNamesList.contains(area.areaName) &&
@@ -35,7 +31,7 @@ class AreaRepositoryImpl extends AreaRepository {
   @override
   Future<List<Area>> fetchRecentlyUpdatedAreas() async {
     final areaNamesList = await settingDatabase.getParentAndChildrenAreaNames();
-    final updatedAreaList = (await areaDatabase.getAllAreas())
+    final updatedAreaList = (await areaFirebaseService.getAllAreas())
         .where((area) => areaNamesList.contains(area.areaName))
         .where((area) => area.updatedTime != null)
         .toList()
@@ -68,8 +64,7 @@ class AreaRepositoryImpl extends AreaRepository {
 
   @override
   Future<Area> fetchAreaByAreaName(String areaName) async {
-    final area = await areaDatabase.getAreaByName(areaName);
-    return area;
+    return await areaFirebaseService.getAreaByAreaName(areaName);
   }
 
   @override
@@ -77,7 +72,7 @@ class AreaRepositoryImpl extends AreaRepository {
     String bandName,
     AreaType areaType,
   ) async {
-    final areasWithType = (await areaDatabase.getAllAreas())
+    final areasWithType = (await areaFirebaseService.getAllAreas())
         .where((area) => area.areaType == areaType)
         .toList();
     final areaNames = (await bandService.getBandByName(bandName)).areaNames;

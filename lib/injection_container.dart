@@ -16,9 +16,7 @@ final sl = GetIt.instance;
 Future<void> initializeDependencies() async {
   // Features
   sl.registerLazySingleton<AreaRepository>(() => AreaRepositoryImpl(
-        areaService: sl(),
         bandService: sl(),
-        areaDatabase: sl(),
         settingDatabase: sl(),
         postFirebaseService: sl(),
         areaFirebaseService: sl(),

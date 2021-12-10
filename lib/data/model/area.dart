@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:stepper/presentation/utils.dart';
 
 part 'area.g.dart';
 
@@ -54,6 +55,14 @@ class Area {
         'areaDescription': area.areaDescription,
         'updatedTime': area.updatedTime,
       };
+
+  factory Area.fromJson(Map<String, dynamic> commonAreaJson) => Area(
+        areaName: commonAreaJson['areaName'],
+        numberOfUpdate: 0,
+        rating: 0,
+        areaType: convertAreaTypeString(commonAreaJson['areaType']),
+        areaDescription: commonAreaJson['areaDescription'],
+      );
 }
 
 @HiveType(typeId: 4)

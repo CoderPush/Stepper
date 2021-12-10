@@ -11,6 +11,10 @@ extension FirestoreX on FirebaseFirestore {
     }
     return FirebaseFirestore.instance.collection('users').doc(user.uid);
   }
+
+  Future<DocumentReference> commonAreaDocument(String areaName) async {
+    return FirebaseFirestore.instance.collection('areas').doc(areaName);
+  }
 }
 
 extension DocumentReferenceX on DocumentReference {
