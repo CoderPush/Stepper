@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<DrawerCubit>(create: (context) => DrawerCubit()),
         BlocProvider<ProfileUserEditCubit>(
-          lazy: false,
           create: (context) => ProfileUserEditCubit(
             professionRepository: sl(),
             bandRepository: sl(),
@@ -35,6 +34,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => AuthenticationCubit(
             userRepository: sl(),
+            bandRepository: sl(),
+            professionRepository: sl(),
           ),
         )
       ],

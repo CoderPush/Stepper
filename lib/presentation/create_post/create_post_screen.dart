@@ -6,7 +6,6 @@ import 'package:stepper/common/texts.dart';
 import 'package:stepper/injection_container.dart';
 import 'package:stepper/presentation/common/arguments/screen_arguments.dart';
 import 'package:stepper/presentation/common/commons.dart';
-import 'package:stepper/presentation/common/drawer/cubit/drawer_cubit.dart';
 import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
 import 'package:stepper/presentation/create_post/views/area_section.dart';
 import 'package:stepper/presentation/create_post/views/post_section.dart';

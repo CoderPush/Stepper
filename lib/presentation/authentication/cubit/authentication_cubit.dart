@@ -7,9 +7,14 @@ part 'authentication_state.dart';
 
 class AuthenticationCubit extends Cubit<AuthenticationState> {
   final UserRepository userRepository;
+  final ProfessionRepository professionRepository;
+  final BandRepository bandRepository;
 
-  AuthenticationCubit({required this.userRepository})
-      : super(AuthenticationInitial()) {
+  AuthenticationCubit({
+    required this.userRepository,
+    required this.professionRepository,
+    required this.bandRepository,
+  }) : super(AuthenticationInitial()) {
     startApp();
   }
 
@@ -42,9 +47,26 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     try {
       await userRepository.registerWithEmailAndPassword(
           emailAddress: emailAddress, password: password);
+      await _setupUserSettings();
       emit(AuthenticatedState());
     } on AuthException catch (e) {
       emit(AuthenticationError(e.toString()));
     }
+  }
+
+  Future<void> _setupUserSettings() async {
+    final professionList =
+        (await professionRepository.getProfessions()).professions;
+
+    // save selected profession
+    await professionRepository
+        .saveSelectedProfession(professionList[0].professionName);
+
+    final bandList = await bandRepository.getBandsWithProfession(
+        professionList.firstWhere((profession) =>
+            profession.professionName == professionList[0].professionName));
+
+    // save selectedBand
+    await bandRepository.saveSelectedBand(bandList[0]);
   }
 }
