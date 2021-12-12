@@ -1,4 +1,3 @@
-import 'package:stepper/data/datasources/local/databases.dart';
 import 'package:stepper/data/datasources/remote/services.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/domain/repositories/repositories.dart';
@@ -6,19 +5,19 @@ import 'package:stepper/domain/repositories/repositories.dart';
 class AreaRepositoryImpl extends AreaRepository {
   final PostFirebaseService postFirebaseService;
   final AreaFirebaseService areaFirebaseService;
-  final SettingDatabase settingDatabase;
+  final SettingFirebaseService settingFirebaseService;
   final BandService bandService;
 
   AreaRepositoryImpl({
     required this.postFirebaseService,
     required this.areaFirebaseService,
-    required this.settingDatabase,
+    required this.settingFirebaseService,
     required this.bandService,
   });
 
   @override
   Future<List<Area>> fetchAreasByType(AreaType areaType) async {
-    final areaNamesList = (await settingDatabase.getSelectedBand())!.areaNames;
+    final areaNamesList = (await settingFirebaseService.getSelectedBand()).areaNames;
     return (await areaFirebaseService.getAllAreas())
         .where(
           (area) =>
@@ -30,7 +29,7 @@ class AreaRepositoryImpl extends AreaRepository {
 
   @override
   Future<List<Area>> fetchRecentlyUpdatedAreas() async {
-    final areaNamesList = await settingDatabase.getParentAndChildrenAreaNames();
+    final areaNamesList = await settingFirebaseService.getParentAndChildrenAreaNames();
     final updatedAreaList = (await areaFirebaseService.getAllAreas())
         .where((area) => areaNamesList.contains(area.areaName))
         .where((area) => area.updatedTime != null)

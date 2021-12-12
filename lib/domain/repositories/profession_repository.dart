@@ -6,7 +6,7 @@ abstract class ProfessionRepository {
 
   Future<ProfessionItemModel> getProfessionByName(String professionName);
 
-  Future<String?> getSelectedProfession();
+  Future<String> getSelectedProfession();
 
   Future<void> saveSelectedProfession(String professionName);
 }

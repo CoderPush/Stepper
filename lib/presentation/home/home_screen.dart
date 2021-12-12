@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
@@ -20,8 +18,10 @@ class HomeScreen extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
 
     return BlocProvider(
-      create: (context) =>
-          HomeCubit(areaRepository: sl(), postRepository: sl()),
+      create: (context) => HomeCubit(
+          areaRepository: sl(),
+          postRepository: sl(),
+          settingFirebaseService: sl()),
       child: Scaffold(
         drawer: SizedBox(
           child: MainDrawer(),
@@ -33,14 +33,6 @@ class HomeScreen extends StatelessWidget {
               if (state is HomeLoadingState) {
                 return const Center(child: CircularProgressIndicator());
               } else if (state is HomeLoadedState) {
-                final areaNames =
-                    (Hive.box<dynamic>('Setting').get('area') as List<String>);
-                final postList = state.yourPosts
-                    .where((post) => areaNames.contains(post.areaName))
-                    .toList()
-                  ..sort((first, next) =>
-                      next.postedTime.compareTo(first.postedTime));
-
                 return SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,11 +91,11 @@ class HomeScreen extends StatelessWidget {
                           screenMediumPadding,
                           screenMediumPadding,
                         ),
-                        child: postList.isEmpty
+                        child: state.yourPosts.isEmpty
                             ? const Text(noPost)
                             : PostList(
                                 hasAreaName: true,
-                                postList: postList,
+                                postList: state.yourPosts,
                               ),
                       ),
                     ],

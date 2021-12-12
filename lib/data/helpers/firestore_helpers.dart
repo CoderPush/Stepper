@@ -9,7 +9,7 @@ extension FirestoreX on FirebaseFirestore {
     if (user == null) {
       throw const AuthException('Not authenticated');
     }
-    return FirebaseFirestore.instance.collection('users').doc(user.uid);
+    return FirebaseFirestore.instance.collection('users').doc(user.email);
   }
 
   Future<DocumentReference> commonAreaDocument(String areaName) async {
@@ -21,4 +21,6 @@ extension DocumentReferenceX on DocumentReference {
   CollectionReference get postCollection => collection('posts');
 
   CollectionReference get areaCollection => collection('areas');
+
+  CollectionReference get settingCollection => collection('settings');
 }

@@ -26,24 +26,17 @@ class ProfileUserEditCubit extends Cubit<ProfileUserEditState> {
       final professionList =
           (await professionRepository.getProfessions()).professions;
 
-      // check current selected profession
+      // get current selected profession
       var selectedProfession =
           await professionRepository.getSelectedProfession();
-      selectedProfession ??= professionList[0].professionName;
-
-      // save selected profession
-      professionRepository.saveSelectedProfession(selectedProfession);
 
       final bandList = await bandRepository.getBandsWithProfession(
           professionList.firstWhere(
               (profession) => profession.professionName == selectedProfession));
 
-      // check current selected band
+      // get current selected band
       var selectedBand = await bandRepository.getSelectedBand();
       selectedBand ??= bandList[0];
-
-      // save selectedBand
-      bandRepository.saveSelectedBand(selectedBand);
 
       emit(ProfileUserEditInSuccess(
         professionList: professionList,

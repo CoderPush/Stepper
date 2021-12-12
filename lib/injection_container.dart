@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stepper/data/datasources/remote/services.dart';
-import 'package:stepper/data/model/models.dart';
 import 'package:stepper/data/datasources/local/databases.dart';
 import 'package:stepper/data/datasources/remote/profession_service.dart';
 import 'package:stepper/domain/repositories/band_repository.dart';
@@ -17,16 +16,19 @@ Future<void> initializeDependencies() async {
   // Features
   sl.registerLazySingleton<AreaRepository>(() => AreaRepositoryImpl(
         bandService: sl(),
-        settingDatabase: sl(),
+        settingFirebaseService: sl(),
         postFirebaseService: sl(),
         areaFirebaseService: sl(),
       ));
 
-  sl.registerLazySingleton<ProfessionRepository>(() =>
-      ProfessionRepositoryImpl(professionService: sl(), settingDatabase: sl()));
+  sl.registerLazySingleton<ProfessionRepository>(() => ProfessionRepositoryImpl(
+        professionService: sl(),
+        settingDatabase: sl(),
+        settingFirebaseService: sl(),
+      ));
 
-  sl.registerLazySingleton<BandRepository>(
-      () => BandRepositoryImpl(bandService: sl(), settingDatabase: sl()));
+  sl.registerLazySingleton<BandRepository>(() =>
+      BandRepositoryImpl(bandService: sl(), settingFirebaseService: sl()));
 
   sl.registerLazySingleton<GoalRepository>(
       () => GoalRepositoryImpl(goalDatabase: sl()));
@@ -60,6 +62,9 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<AreaFirebaseService>(
       () => AreaFirebaseService(firestore: sl()));
 
+  sl.registerLazySingleton<SettingFirebaseService>(
+      () => SettingFirebaseService(firestore: sl()));
+
   sl.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
 
   sl.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);
@@ -70,31 +75,7 @@ Future<void> initializeDependencies() async {
 
 Future<void> initializeDatabase() async {
   const setting = 'Setting';
-  const post = 'Post';
-  const goal = 'Goal';
-  const area = 'Area';
 
   await Hive.initFlutter();
-  Hive.openBox<Post>(post);
-  Hive.openBox<Goal>(goal);
   Hive.openBox<dynamic>(setting);
-  Hive.registerAdapter<Post>(PostAdapter());
-  Hive.registerAdapter<Goal>(GoalAdapter());
-  Hive.registerAdapter<BandItemModel>(BandItemModelAdapter());
-  Hive.registerAdapter<Area>(AreaAdapter());
-  Hive.registerAdapter<AreaType>(AreaTypeAdapter());
-
-  if (!await Hive.boxExists(area)) {
-    prepopulateAreaDatabase();
-  }
-}
-
-Future<void> prepopulateAreaDatabase() async {
-  const area = 'Area';
-
-  Hive.openBox<Area>(area);
-  final areaList = await sl<AreaService>().getAllAreas();
-  for (var area in areaList) {
-    await sl<AreaDatabase>().addArea(area);
-  }
 }

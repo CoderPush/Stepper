@@ -1,15 +1,15 @@
-import 'package:stepper/data/datasources/local/databases.dart';
+import 'package:stepper/data/datasources/remote/services.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/domain/repositories/band_repository.dart';
 import 'package:stepper/data/datasources/remote/band_service.dart';
 
 class BandRepositoryImpl implements BandRepository {
   final BandService bandService;
-  final SettingDatabase settingDatabase;
+  final SettingFirebaseService settingFirebaseService;
 
   BandRepositoryImpl({
     required this.bandService,
-    required this.settingDatabase,
+    required this.settingFirebaseService,
   });
 
   @override
@@ -20,14 +20,14 @@ class BandRepositoryImpl implements BandRepository {
 
   @override
   Future<BandItemModel?> getSelectedBand() async {
-    return await settingDatabase.getSelectedBand();
+    return await settingFirebaseService.getSelectedBand();
   }
 
   @override
   Future<void> saveSelectedBand(BandItemModel band) async {
-    await settingDatabase.saveSelectedBand(band);
+    await settingFirebaseService.saveSelectedBand(band);
     final areas = await getAllAreasOfABand();
-    await settingDatabase.saveParentAndChildrenAreaNames(areas);
+    await settingFirebaseService.saveParentAndChildrenAreaNames(areas);
   }
 
   @override
