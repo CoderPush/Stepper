@@ -26,7 +26,7 @@ const String bandText = 'Level';
 const String professionText = 'Profession';
 const String myBadge = 'My Badge';
 const String darkMode = 'Dark Mode';
-const String name = "Name";
+const String name = 'Name';
 const String email = 'Email';
 const String johnDoe = 'John Doe';
 const String johnDoeEmail = 'johndoe@gmail.com';
@@ -34,16 +34,20 @@ const String clearData = 'Clear data';
 const String signOut = 'Sign out';
 const String engineer = 'Engineer';
 const String noUpdate = 'You have no item updated recently';
-const String noPost = 'You have no post. Use "+" button to create post';
+const String noPost = 'You have no post. Use '+' button to create post';
 const String incomingFeature = 'Incoming feature';
-const String logInInstead = "Login instead";
-const String signUpInstead = "Signup instead";
-const String signUp = "Sign up";
-const String signIn = "Sign in";
-const String createAnAccount = "Create and account";
+const String logInInstead = 'Login instead';
+const String signUpInstead = 'Signup instead';
+const String signUp = 'Sign up';
+const String signIn = 'Sign in';
+const String createAnAccount = 'Create and account';
+const String confirmation = 'Confirmation';
+const String logoutConfirmationText = 'Are you sure you want to sign out?';
+const String cancel = 'Cancel';
+const String confirm = 'Confirm';
 
 // Testing
-const String writeUpdateText = "Today i will integration test code in flutter";
+const String writeUpdateText = 'Today i will integration test code in flutter';
 
 // Error message
 const String achieveGoalError =

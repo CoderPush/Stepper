@@ -47,6 +47,7 @@ class MyApp extends StatelessWidget {
             );
           } else {
             return MaterialApp(
+              key: UniqueKey(),
               debugShowCheckedModeBanner: false,
               title: 'Stepper',
               theme: ThemeData(

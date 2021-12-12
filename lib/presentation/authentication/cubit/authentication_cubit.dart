@@ -54,6 +54,16 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     }
   }
 
+  Future<void> onUserSignOut() async {
+    try {
+      emit(AuthenticationInitial());
+      await userRepository.signOut();
+      emit(UnauthenticatedState());
+    } on AuthException catch (e) {
+      emit(AuthenticationError(e.toString()));
+    }
+  }
+
   Future<void> _setupUserSettings() async {
     final professionList =
         (await professionRepository.getProfessions()).professions;
