@@ -4,8 +4,6 @@ import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/injection_container.dart';
-import 'package:stepper/presentation/common/custom_floating_button.dart';
-import 'package:stepper/presentation/common/drawer/drawer.dart';
 import 'package:stepper/presentation/common/commons.dart';
 import 'package:stepper/presentation/home/cubit/home_cubit.dart';
 import 'package:stepper/presentation/home/views/horizontal_area_list.dart';

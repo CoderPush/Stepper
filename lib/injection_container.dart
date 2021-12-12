@@ -4,9 +4,6 @@ import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stepper/data/datasources/remote/services.dart';
 import 'package:stepper/data/datasources/local/databases.dart';
-import 'package:stepper/data/datasources/remote/profession_service.dart';
-import 'package:stepper/domain/repositories/band_repository.dart';
-import 'package:stepper/domain/repositories/profession_repository.dart';
 import 'package:stepper/domain/repositories/repositories.dart';
 import 'package:stepper/data/repositories/repositories_impl.dart';
 
@@ -23,7 +20,6 @@ Future<void> initializeDependencies() async {
 
   sl.registerLazySingleton<ProfessionRepository>(() => ProfessionRepositoryImpl(
         professionService: sl(),
-        settingDatabase: sl(),
         settingFirebaseService: sl(),
       ));
 

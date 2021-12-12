@@ -1,7 +1,6 @@
 import 'package:stepper/data/datasources/remote/services.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/domain/repositories/band_repository.dart';
-import 'package:stepper/data/datasources/remote/band_service.dart';
 
 class BandRepositoryImpl implements BandRepository {
   final BandService bandService;
