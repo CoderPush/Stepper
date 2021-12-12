@@ -5,8 +5,6 @@ import 'package:stepper/common/palette.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/injection_container.dart';
 import 'package:stepper/presentation/common/commons.dart';
-import 'package:stepper/presentation/common/custom_floating_button.dart';
-import 'package:stepper/presentation/common/drawer/drawer.dart';
 import 'package:stepper/presentation/post_list/cubit/post_list_cubit.dart';
 import 'package:stepper/presentation/post_list/views/area_main_card.dart';
 
