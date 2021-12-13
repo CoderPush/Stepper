@@ -43,30 +43,12 @@ class RowLevelView extends StatelessWidget {
               color: darkBlue,
               borderRadius: BorderRadius.circular(largeBorderRadius),
             ),
-            child: DropdownButtonHideUnderline(
-              child: ButtonTheme(
-                buttonColor: white,
-                alignedDropdown: true,
-                child: CustomDropdownButton<String>(
-                  dropdownColor: dropdownButtonColor,
-                  iconEnabledColor: white,
-                  onChanged: (value) {
-                    onChanged(value);
-                  },
-                  value: value,
-                  items: list.map(
-                    (item) {
-                      return DropdownMenuItem(
-                        child: FittedBox(
-                          child: Text(item,
-                              style: const TextStyle(fontSize: seventeen)),
-                        ),
-                        value: item,
-                      );
-                    },
-                  ).toList(),
-                ),
-              ),
+            child: CustomDropdown(
+              onChanged: (value) {
+                onChanged(value);
+              },
+              value: value,
+              items: list,
             ),
           ),
         ),

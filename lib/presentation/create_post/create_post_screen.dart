@@ -55,21 +55,13 @@ class CreatePostScreen extends StatelessWidget {
                   title: const Text(createPost),
                   centerTitle: true,
                   actions: [
-                    DropdownButtonHideUnderline(
-                      child: CustomDropdownButton<String>(
-                        dropdownColor: dropdownButtonColor,
-                        value: state.selectedBandName,
-                        onChanged: (bandName) {
-                          _onBandChange(context, bandName);
-                        },
-                        items: state.bandList
-                            .map((band) => DropdownMenuItem(
-                                  child: Text(band),
-                                  value: band,
-                                ))
-                            .toList(),
-                      ),
-                    )
+                    CustomDropdown(
+                      value: state.selectedBandName,
+                      onChanged: (bandName) {
+                        _onBandChange(context, bandName);
+                      },
+                      items: state.bandList,
+                    ),
                   ],
                 ),
                 body: const Padding(
