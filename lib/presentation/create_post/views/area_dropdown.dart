@@ -23,31 +23,12 @@ class AreaDropdown extends StatelessWidget {
       child: BlocBuilder<CreatePostCubit, CreatePostState>(
         builder: (context, state) {
           final currentState = state as CreatePostLoadedState;
-          return DropdownButtonHideUnderline(
-            child: ButtonTheme(
-              buttonColor: white,
-              alignedDropdown: true,
-              child: CustomDropdownButton<String>(
-                icon: const Icon(
-                  Icons.arrow_drop_down,
-                  color: white,
-                ),
-                dropdownColor: dropdownButtonColor,
-                iconEnabledColor: white,
-                onChanged: (value) {
-                  _onDropdownItemSelected(context, value);
-                },
-                value: currentState.selectedAreaName,
-                items: currentState.areaList
-                    .map(
-                      (area) => DropdownMenuItem(
-                        child: Text(area.areaName),
-                        value: area.areaName,
-                      ),
-                    )
-                    .toList(),
-              ),
-            ),
+          return CustomDropdown(
+            onChanged: (value) {
+              _onDropdownItemSelected(context, value);
+            },
+            value: currentState.selectedAreaName,
+            items: currentState.areaList.map((area) => area.areaName).toList(),
           );
         },
       ),

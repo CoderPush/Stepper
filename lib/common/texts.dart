@@ -45,6 +45,18 @@ const String confirmation = 'Confirmation';
 const String logoutConfirmationText = 'Are you sure you want to sign out?';
 const String cancel = 'Cancel';
 const String confirm = 'Confirm';
+const String about = 'About';
+const String stepper = 'Stepper';
+const String coderpush = 'Coderpush inc.';
+const String version = 'Version';
+const String developer = 'Developer';
+const String productDesigner = 'Product Designer';
+const String developerName = 'Hung Nguyen';
+const String designerName = 'Tien Le';
+const String aboutText =
+    'with help from Ha Pham, Anh Phan, Harley Trung, and Long Vu';
+const String aboutStepper = 'About Stepper';
+const String appVersion = '1.0.3';
 
 // Testing
 const String writeUpdateText = 'Today i will integration test code in flutter';

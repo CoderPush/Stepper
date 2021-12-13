@@ -32,6 +32,7 @@ class RowInformationView extends StatelessWidget {
           fit: FlexFit.tight,
           child: Text(
             secondText,
+            overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.left,
             style: const TextStyle(
               fontSize: seventeen,

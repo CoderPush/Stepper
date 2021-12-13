@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:stepper/config/extensions/string_extensions.dart';
 import 'package:stepper/domain/exceptions/exceptions.dart';
 import 'package:stepper/domain/repositories/repositories.dart';
 
@@ -22,7 +23,10 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     try {
       final isSignedIn = await userRepository.isSignedIn();
       if (isSignedIn) {
-        emit(AuthenticatedState());
+        emit(AuthenticatedState(
+          userEmail: userRepository.getSignedInUser()!.email!,
+          userName: userRepository.getSignedInUser()!.email!.split('@')[0].capitalizeFirstLetter(),
+        ));
       } else {
         emit(UnauthenticatedState());
       }
@@ -36,7 +40,10 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     try {
       await userRepository.signInWithEmailAndPassword(
           emailAddress: emailAddress, password: password);
-      emit(AuthenticatedState());
+      emit(AuthenticatedState(
+        userEmail: emailAddress,
+        userName: emailAddress.split('@')[0].capitalizeFirstLetter(),
+      ));
     } on AuthException catch (e) {
       emit(AuthenticationError(e.toString()));
     }
@@ -48,7 +55,10 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       await userRepository.registerWithEmailAndPassword(
           emailAddress: emailAddress, password: password);
       await _setupUserSettings();
-      emit(AuthenticatedState());
+      emit(AuthenticatedState(
+        userEmail: emailAddress,
+        userName: emailAddress.split('@')[0].capitalizeFirstLetter(),
+      ));
     } on AuthException catch (e) {
       emit(AuthenticationError(e.toString()));
     }

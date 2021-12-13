@@ -18,7 +18,7 @@ class BandRepositoryImpl implements BandRepository {
   }
 
   @override
-  Future<BandItemModel?> getSelectedBand() async {
+  Future<BandItemModel> getSelectedBand() async {
     return await settingFirebaseService.getSelectedBand();
   }
 
@@ -33,7 +33,7 @@ class BandRepositoryImpl implements BandRepository {
   Future<List<String>> getBandWithChildBand() async {
     final selectedBand = await getSelectedBand();
     final List<String> bandList = [];
-    for (var i = 0; i < selectedBand!.childBands.length; i++) {
+    for (var i = 0; i < selectedBand.childBands.length; i++) {
       final band = await bandService.getBandById(selectedBand.childBands[i]);
       bandList.add(band.bandName);
     }
@@ -44,7 +44,7 @@ class BandRepositoryImpl implements BandRepository {
   Future<List<String>> getAllAreasOfABand() async {
     final selectedBand = await getSelectedBand();
     final List<String> areaList = [];
-    for (var i = 0; i < selectedBand!.childBands.length; i++) {
+    for (var i = 0; i < selectedBand.childBands.length; i++) {
       final band = await bandService.getBandById(selectedBand.childBands[i]);
       areaList.addAll(band.areaNames);
     }

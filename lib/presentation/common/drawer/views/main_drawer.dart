@@ -4,6 +4,7 @@ import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/dummy_data.dart';
+import 'package:stepper/presentation/authentication/cubit/authentication_cubit.dart';
 import 'package:stepper/presentation/common/drawer/cubit/drawer_cubit.dart';
 import 'package:stepper/presentation/common/drawer/views/drawer_item.dart';
 import 'package:stepper/config/routes/routes.dart';
@@ -82,6 +83,10 @@ class MainDrawer extends StatelessWidget {
     );
   }
 
+  void _onAboutButtonTap(BuildContext context) {
+    Navigator.pushNamed(context, RouteNames.about);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<DrawerCubit, DrawerState>(
@@ -101,29 +106,50 @@ class MainDrawer extends StatelessWidget {
           child: Container(
             color: darkBlue,
             child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: screenMediumPadding,
-                  ),
-                  child: ListTile(
-                    leading: const CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        avatarProfileUrl,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: screenMediumPadding,
+                      ),
+                      child: ListTile(
+                        leading: const CircleAvatar(
+                          backgroundImage: NetworkImage(
+                            avatarProfileUrl,
+                          ),
+                        ),
+                        title: BlocBuilder<AuthenticationCubit,
+                            AuthenticationState>(
+                          builder: (context, state) {
+                            return Text((state as AuthenticatedState).userName);
+                          },
+                        ),
+                        trailing: IconButton(
+                          tooltip: closeDrawerButton,
+                          onPressed: () => _onDrawerClosed(context),
+                          icon: const Icon(Icons.arrow_back_ios, color: orange),
+                        ),
+                        onTap: () => context
+                            .read<DrawerCubit>()
+                            .selectDrawerItem(DrawerType.profile),
                       ),
                     ),
-                    title: const Text('John Doe'),
-                    trailing: IconButton(
-                      tooltip: closeDrawerButton,
-                      onPressed: () => _onDrawerClosed(context),
-                      icon: const Icon(Icons.arrow_back_ios, color: orange),
-                    ),
-                    onTap: () => context
-                        .read<DrawerCubit>()
-                        .selectDrawerItem(DrawerType.profile),
-                  ),
+                    ..._buildDrawerItems(context),
+                  ],
                 ),
-                ..._buildDrawerItems(context),
+                Padding(
+                  padding: const EdgeInsets.only(right: screenMediumPadding),
+                  child: TextButton(
+                    child: const Text(
+                      aboutStepper,
+                      style: TextStyle(color: white),
+                    ),
+                    onPressed: () => _onAboutButtonTap(context),
+                  ),
+                )
               ],
             ),
           ),

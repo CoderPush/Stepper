@@ -8,4 +8,8 @@ extension StringExtension on String {
       queryParameter: uriData.queryParameters,
     );
   }
+
+  String capitalizeFirstLetter() {
+    return '${this[0].toUpperCase()}${substring(1)}';
+  }
 }
