@@ -7,7 +7,6 @@ import 'package:stepper/injection_container.dart';
 import 'package:stepper/presentation/authentication/cubit/authentication_cubit.dart';
 import 'package:stepper/presentation/common/drawer/drawer.dart';
 import 'package:stepper/config/routes/routes.dart';
-import 'package:stepper/presentation/profile_user_edit/cubit/profile_user_edit_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,12 +24,6 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<DrawerCubit>(create: (context) => DrawerCubit()),
-        BlocProvider<ProfileUserEditCubit>(
-          create: (context) => ProfileUserEditCubit(
-            professionRepository: sl(),
-            bandRepository: sl(),
-          ),
-        ),
         BlocProvider(
           create: (context) => AuthenticationCubit(
             userRepository: sl(),

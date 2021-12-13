@@ -4,7 +4,7 @@ abstract class BandRepository {
   Future<List<BandItemModel>> getBandsWithProfession(
       ProfessionItemModel professionItemModel);
 
-  Future<BandItemModel?> getSelectedBand();
+  Future<BandItemModel> getSelectedBand();
 
   Future<List<String>> getBandWithChildBand();
 

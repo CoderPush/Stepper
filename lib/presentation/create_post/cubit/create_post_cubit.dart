@@ -90,7 +90,7 @@ class CreatePostCubit extends Cubit<CreatePostState> {
 
       // fetch selectedBand
       final selectedBandName =
-          (await bandRepository.getSelectedBand())!.bandName;
+          (await bandRepository.getSelectedBand()).bandName;
 
       // get area list for drop down
       var areaList = await areaRepository.fetchAreasWithBandAndType(

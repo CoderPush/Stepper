@@ -4,9 +4,9 @@ import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/numbers.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/dummy_data.dart';
+import 'package:stepper/presentation/profile_user/cubit/profile_user_cubit.dart';
 import 'package:stepper/presentation/profile_user/views/label_view.dart';
 import 'package:stepper/config/routes/routes.dart';
-import 'package:stepper/presentation/profile_user_edit/cubit/profile_user_edit_cubit.dart';
 
 class AvatarView extends StatelessWidget {
   const AvatarView({Key? key}) : super(key: key);
@@ -52,13 +52,13 @@ class AvatarView extends StatelessWidget {
         ),
         Container(
           padding: const EdgeInsets.only(bottom: fifty),
-          child: BlocBuilder<ProfileUserEditCubit, ProfileUserEditState>(
+          child: BlocBuilder<ProfileUserCubit, ProfileUserState>(
             builder: (context, state) {
-              if (state is ProfileUserEditInSuccess) {
+              if (state is ProfileUserLoadedState) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    LabelView(labelText: state.selectedProfession),
+                    LabelView(labelText: state.currentProfession),
                     Container(
                       height: four,
                       width: four,
@@ -69,7 +69,7 @@ class AvatarView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(largeBorderRadius),
                       ),
                     ),
-                    LabelView(labelText: state.selectedBand.bandName),
+                    LabelView(labelText: state.currentBand),
                   ],
                 );
               }
