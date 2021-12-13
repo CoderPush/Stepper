@@ -4,6 +4,7 @@ import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/dummy_data.dart';
+import 'package:stepper/presentation/authentication/cubit/authentication_cubit.dart';
 import 'package:stepper/presentation/common/drawer/cubit/drawer_cubit.dart';
 import 'package:stepper/presentation/common/drawer/views/drawer_item.dart';
 import 'package:stepper/config/routes/routes.dart';
@@ -112,7 +113,12 @@ class MainDrawer extends StatelessWidget {
                         avatarProfileUrl,
                       ),
                     ),
-                    title: const Text('John Doe'),
+                    title:
+                        BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                      builder: (context, state) {
+                        return Text((state as AuthenticatedState).userName);
+                      },
+                    ),
                     trailing: IconButton(
                       tooltip: closeDrawerButton,
                       onPressed: () => _onDrawerClosed(context),

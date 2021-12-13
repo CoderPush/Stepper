@@ -4,6 +4,7 @@ import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/numbers.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/dummy_data.dart';
+import 'package:stepper/presentation/authentication/cubit/authentication_cubit.dart';
 import 'package:stepper/presentation/profile_user/cubit/profile_user_cubit.dart';
 import 'package:stepper/presentation/profile_user/views/label_view.dart';
 import 'package:stepper/config/routes/routes.dart';
@@ -33,12 +34,16 @@ class AvatarView extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                'John Doe',
-                style: TextStyle(
-                  fontSize: seventeen,
-                  color: white,
-                ),
+              BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                builder: (context, state) {
+                  return Text(
+                    (state as AuthenticatedState).userName,
+                    style: const TextStyle(
+                      fontSize: seventeen,
+                      color: white,
+                    ),
+                  );
+                },
               ),
               IconButton(
                 onPressed: () => _onProfileUserEditScreenTap(context),

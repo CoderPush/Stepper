@@ -9,7 +9,14 @@ abstract class AuthenticationState extends Equatable {
 
 class AuthenticationInitial extends AuthenticationState {}
 
-class AuthenticatedState extends AuthenticationState {}
+class AuthenticatedState extends AuthenticationState {
+  final String userEmail;
+  final String userName;
+  const AuthenticatedState({
+    required this.userEmail,
+    required this.userName,
+  });
+}
 
 class UnauthenticatedState extends AuthenticationState {}
 

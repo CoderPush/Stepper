@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/numbers.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
+import 'package:stepper/presentation/authentication/cubit/authentication_cubit.dart';
 import 'package:stepper/presentation/profile_user_edit/views/row_information_view.dart';
 
 class UserInformationView extends StatelessWidget {
@@ -25,13 +27,20 @@ class UserInformationView extends StatelessWidget {
         color: blueGrey,
         borderRadius: BorderRadius.circular(largeBorderRadius),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const [
-          RowInformationView(firstText: name, secondText: johnDoe),
-          SizedBox(height: twenty),
-          RowInformationView(firstText: email, secondText: johnDoeEmail),
-        ],
+      child: BlocBuilder<AuthenticationCubit, AuthenticationState>(
+        builder: (context, state) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              RowInformationView(
+                  firstText: name,
+                  secondText: (state as AuthenticatedState).userName),
+              const SizedBox(height: twenty),
+              RowInformationView(
+                  firstText: email, secondText: (state).userEmail),
+            ],
+          );
+        },
       ),
     );
   }
