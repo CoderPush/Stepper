@@ -33,11 +33,14 @@ class UserInformationView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               RowInformationView(
-                  firstText: name,
-                  secondText: (state as AuthenticatedState).userName),
+                firstText: name,
+                secondText: (state as AuthenticatedState).userName,
+              ),
               const SizedBox(height: twenty),
               RowInformationView(
-                  firstText: email, secondText: (state).userEmail),
+                firstText: email,
+                secondText: (state).userEmail,
+              ),
             ],
           );
         },

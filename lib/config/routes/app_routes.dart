@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stepper/config/routes/routes.dart';
 import 'package:stepper/config/extensions/string_extensions.dart';
 import 'package:stepper/data/model/models.dart';
+import 'package:stepper/presentation/about/about_screen.dart';
 import 'package:stepper/presentation/area/area_screen.dart';
 import 'package:stepper/presentation/authentication/authentication_screen.dart';
 import 'package:stepper/presentation/calendar/calendar_screen.dart';
@@ -49,6 +50,8 @@ class AppRoutes {
         return _materialRoute(const ProfileUserEditScreen(), settings);
       case RouteNames.auth:
         return _materialRoute(const AuthenticationScreen(), settings);
+      case RouteNames.about:
+        return _materialRoute(const AboutScreen(), settings);
       default:
         return _errorRoute();
     }

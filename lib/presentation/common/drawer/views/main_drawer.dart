@@ -83,6 +83,10 @@ class MainDrawer extends StatelessWidget {
     );
   }
 
+  void _onAboutButtonTap(BuildContext context) {
+    Navigator.pushNamed(context, RouteNames.about);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<DrawerCubit, DrawerState>(
@@ -102,34 +106,50 @@ class MainDrawer extends StatelessWidget {
           child: Container(
             color: darkBlue,
             child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: screenMediumPadding,
-                  ),
-                  child: ListTile(
-                    leading: const CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        avatarProfileUrl,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: screenMediumPadding,
+                      ),
+                      child: ListTile(
+                        leading: const CircleAvatar(
+                          backgroundImage: NetworkImage(
+                            avatarProfileUrl,
+                          ),
+                        ),
+                        title: BlocBuilder<AuthenticationCubit,
+                            AuthenticationState>(
+                          builder: (context, state) {
+                            return Text((state as AuthenticatedState).userName);
+                          },
+                        ),
+                        trailing: IconButton(
+                          tooltip: closeDrawerButton,
+                          onPressed: () => _onDrawerClosed(context),
+                          icon: const Icon(Icons.arrow_back_ios, color: orange),
+                        ),
+                        onTap: () => context
+                            .read<DrawerCubit>()
+                            .selectDrawerItem(DrawerType.profile),
                       ),
                     ),
-                    title:
-                        BlocBuilder<AuthenticationCubit, AuthenticationState>(
-                      builder: (context, state) {
-                        return Text((state as AuthenticatedState).userName);
-                      },
-                    ),
-                    trailing: IconButton(
-                      tooltip: closeDrawerButton,
-                      onPressed: () => _onDrawerClosed(context),
-                      icon: const Icon(Icons.arrow_back_ios, color: orange),
-                    ),
-                    onTap: () => context
-                        .read<DrawerCubit>()
-                        .selectDrawerItem(DrawerType.profile),
-                  ),
+                    ..._buildDrawerItems(context),
+                  ],
                 ),
-                ..._buildDrawerItems(context),
+                Padding(
+                  padding: const EdgeInsets.only(right: screenMediumPadding),
+                  child: TextButton(
+                    child: const Text(
+                      aboutStepper,
+                      style: TextStyle(color: white),
+                    ),
+                    onPressed: () => _onAboutButtonTap(context),
+                  ),
+                )
               ],
             ),
           ),

@@ -46,6 +46,8 @@ class AvatarView extends StatelessWidget {
                 },
               ),
               IconButton(
+                padding: const EdgeInsets.only(left: screenSmallPadding),
+                constraints: const BoxConstraints(),
                 onPressed: () => _onProfileUserEditScreenTap(context),
                 icon: const Icon(
                   Icons.arrow_forward_ios,
