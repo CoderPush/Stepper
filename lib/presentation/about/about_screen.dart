@@ -44,7 +44,7 @@ class AboutScreen extends StatelessWidget {
                   children: const [
                     Text(version),
                     Text(
-                      '1.0.1',
+                      appVersion,
                       style: TextStyle(color: moreIconColor),
                     ),
                   ],
