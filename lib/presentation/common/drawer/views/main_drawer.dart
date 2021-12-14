@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/common/consts.dart';
-import 'package:stepper/dummy_data.dart';
 import 'package:stepper/presentation/authentication/cubit/authentication_cubit.dart';
 import 'package:stepper/presentation/common/drawer/cubit/drawer_cubit.dart';
 import 'package:stepper/presentation/common/drawer/views/drawer_item.dart';
@@ -112,14 +111,14 @@ class MainDrawer extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: screenMediumPadding,
+                      padding: const EdgeInsets.only(
+                        top: screenMediumPadding,
+                        left: screenSmallPadding,
                       ),
                       child: ListTile(
-                        leading: const CircleAvatar(
-                          backgroundImage: NetworkImage(
-                            avatarProfileUrl,
-                          ),
+                        leading: CircleAvatar(
+                          backgroundColor: darkGrey,
+                          child: Image.asset('assets/images/avatar.png'),
                         ),
                         title: BlocBuilder<AuthenticationCubit,
                             AuthenticationState>(

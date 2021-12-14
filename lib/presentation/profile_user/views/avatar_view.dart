@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/numbers.dart';
 import 'package:stepper/common/palette.dart';
-import 'package:stepper/dummy_data.dart';
 import 'package:stepper/presentation/authentication/cubit/authentication_cubit.dart';
 import 'package:stepper/presentation/profile_user/cubit/profile_user_cubit.dart';
 import 'package:stepper/presentation/profile_user/views/label_view.dart';
@@ -23,14 +22,17 @@ class AvatarView extends StatelessWidget {
       children: [
         Container(
           margin: const EdgeInsets.only(top: fortyFour),
-          child: const CircleAvatar(
+          child: CircleAvatar(
             radius: fortyFour,
-            backgroundColor: darkGrey,
-            backgroundImage: NetworkImage(avatarProfileUrl),
+            backgroundColor: darkBlue,
+            child: Image.asset('assets/images/avatar.png'),
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(bottom: eighteen),
+          margin: const EdgeInsets.only(
+            bottom: eighteen,
+            top: screenLargePadding,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
