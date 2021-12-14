@@ -61,6 +61,7 @@ class AboutScreen extends StatelessWidget {
                   color: blueGrey,
                 ),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
