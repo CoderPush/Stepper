@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stepper/data/datasources/remote/services.dart';
-import 'package:stepper/data/datasources/local/databases.dart';
 import 'package:stepper/domain/repositories/repositories.dart';
 import 'package:stepper/data/repositories/repositories_impl.dart';
 
@@ -38,14 +36,6 @@ Future<void> initializeDependencies() async {
         areaService: sl(),
       ));
 
-  sl.registerLazySingleton<PostDatabase>(() => PostDatabase());
-
-  sl.registerLazySingleton<GoalDatabase>(() => GoalDatabase());
-
-  sl.registerLazySingleton<AreaDatabase>(() => AreaDatabase());
-
-  sl.registerLazySingleton<SettingDatabase>(() => SettingDatabase());
-
   sl.registerLazySingleton<AreaService>(() => AreaService());
 
   sl.registerLazySingleton<ProfessionService>(() => ProfessionService());
@@ -64,14 +54,4 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
 
   sl.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);
-
-  // Databases
-  await initializeDatabase();
-}
-
-Future<void> initializeDatabase() async {
-  const setting = 'Setting';
-
-  await Hive.initFlutter();
-  Hive.openBox<dynamic>(setting);
 }
