@@ -8,11 +8,13 @@ class UserRepositoryImpl extends UserRepository {
   final FirebaseAuth firebaseAuth;
   final AreaService areaService;
   final AreaFirebaseService areaFirebaseService;
+  final SettingFirebaseService settingFirebaseService;
 
   UserRepositoryImpl({
     required this.firebaseAuth,
     required this.areaService,
     required this.areaFirebaseService,
+    required this.settingFirebaseService,
   });
 
   @override
@@ -23,6 +25,7 @@ class UserRepositoryImpl extends UserRepository {
     try {
       await firebaseAuth.createUserWithEmailAndPassword(
           email: emailAddress, password: password);
+      await settingFirebaseService.saveEmailFieldForCMS(emailAddress);
     } on FirebaseAuthException catch (e) {
       String authError = "";
       if (e.code == ErrorCodes.ERROR_CODE_EMAIL_ALREADY_IN_USE) {

@@ -16,6 +16,9 @@ class AuthenticatedState extends AuthenticationState {
     required this.userEmail,
     required this.userName,
   });
+
+  @override
+  List<Object> get props => [userEmail, userName];
 }
 
 class UnauthenticatedState extends AuthenticationState {}

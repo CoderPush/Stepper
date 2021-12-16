@@ -42,4 +42,9 @@ class SettingFirebaseService {
     final areaList = (areaSnapshot.data() as Map<String, dynamic>)['areas'];
     return (areaList as List<dynamic>).map((area) => area.toString()).toList();
   }
+
+  Future<void> saveEmailFieldForCMS(String userEmail) async {
+    final userDoc = await firestore.userDocument();
+    await userDoc.set({'name': userEmail});
+  }
 }

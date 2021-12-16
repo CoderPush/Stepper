@@ -34,6 +34,7 @@ Future<void> initializeDependencies() async {
         firebaseAuth: sl(),
         areaFirebaseService: sl(),
         areaService: sl(),
+        settingFirebaseService: sl(),
       ));
 
   sl.registerLazySingleton<AreaService>(() => AreaService());
