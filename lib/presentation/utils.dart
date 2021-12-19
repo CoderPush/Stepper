@@ -25,8 +25,8 @@ AreaType getAreaType(String areaName) {
   }
 }
 
-AreaType convertAreaTypeString(String areaType) => AreaType.values
-    .firstWhere((type) => type.toString() == areaType);
+AreaType convertAreaTypeString(String areaType) => AreaType.values.firstWhere(
+    (type) => type.toString().split('.')[1] == areaType.toLowerCase());
 
 List<Area> sortAreasInOrder(List<Area> areaList) {
   return areaList
