@@ -9,15 +9,16 @@ class SettingFirebaseService {
 
   Future<String> getSelectedProfession() async {
     final userDoc = await firestore.userDocument();
-    final profession = await userDoc.settingCollection.doc('profession').get();
-    return (profession.data() as Map<String, dynamic>)['currentProfession'];
+    final userSnapshot = await userDoc.get();
+    return (userSnapshot.data() as Map<String, dynamic>)['currentProfession'];
   }
 
   Future<void> saveSelectedProfession(String professionName) async {
     final userDoc = await firestore.userDocument();
-    await userDoc.settingCollection
-        .doc('profession')
-        .set({'currentProfession': professionName});
+    await userDoc.set(
+      {'currentProfession': professionName},
+      SetOptions(merge: true),
+    );
   }
 
   Future<BandItemModel> getSelectedBand() async {
@@ -29,6 +30,8 @@ class SettingFirebaseService {
   Future<void> saveSelectedBand(BandItemModel band) async {
     final userDoc = await firestore.userDocument();
     await userDoc.settingCollection.doc('band').set(band.toJson());
+    // Save bandName for CMS table display
+    await userDoc.set({'bandName': band.bandName}, SetOptions(merge: true));
   }
 
   Future<void> saveParentAndChildrenAreaNames(List<String> areas) async {
@@ -45,6 +48,6 @@ class SettingFirebaseService {
 
   Future<void> saveEmailFieldForCMS(String userEmail) async {
     final userDoc = await firestore.userDocument();
-    await userDoc.set({'name': userEmail});
+    await userDoc.set({'name': userEmail}, SetOptions(merge: true));
   }
 }
