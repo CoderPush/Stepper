@@ -26,7 +26,7 @@ class PostListCubit extends Cubit<PostListState> {
         final postListByArea =
             postList.where((post) => post.areaName == area.areaName).toList();
         emit(PostListLoadedState(postList: postListByArea, area: area));
-      });
+      }, cancelOnError: true);
     } on NetworkException {
       emit(PostListErrorState(errorMessage: 'Network error', area: area));
     }

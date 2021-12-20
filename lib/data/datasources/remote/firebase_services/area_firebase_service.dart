@@ -12,20 +12,19 @@ class AreaFirebaseService {
   Future<void> updateArea(
       String areaName, Map<String, dynamic> updatedFields) async {
     final userDoc = await firestore.userDocument();
-    await userDoc.areaCollection
+    userDoc.areaCollection
         .doc(areaName)
         .set(updatedFields, SetOptions(merge: true));
   }
 
   // get area by name
   Future<Area> getAreaByAreaName(String areaName) async {
-    final userDoc = await firestore.userDocument();
     final commonAreaDoc = await firestore.commonAreaDocument(areaName);
     final commonAreaSnapshot = await commonAreaDoc.get();
-    final areaSnapshot = await userDoc.areaCollection.doc(areaName).get();
+    final areaSnapshot = await _getUserAreaSnapshot(areaName);
     final area =
         Area.fromJson(commonAreaSnapshot.data() as Map<String, dynamic>);
-    if (areaSnapshot.data() != null) {
+    if (areaSnapshot != null && areaSnapshot.data() != null) {
       final areaJson = areaSnapshot.data() as Map<String, dynamic>;
       return area.copyWith(
         numberOfUpdate: areaJson['numberOfUpdate'],
@@ -33,6 +32,15 @@ class AreaFirebaseService {
       );
     } else {
       return area;
+    }
+  }
+
+  Future<DocumentSnapshot?> _getUserAreaSnapshot(String areaName) async {
+    final userDoc = await firestore.userDocument();
+    try {
+      return await userDoc.areaCollection.doc(areaName).get();
+    } catch (e) {
+      return null;
     }
   }
 

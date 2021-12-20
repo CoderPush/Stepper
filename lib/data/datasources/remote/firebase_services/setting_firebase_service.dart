@@ -15,7 +15,7 @@ class SettingFirebaseService {
 
   Future<void> saveSelectedProfession(String professionName) async {
     final userDoc = await firestore.userDocument();
-    await userDoc.set(
+    userDoc.set(
       {'currentProfession': professionName},
       SetOptions(merge: true),
     );
@@ -29,14 +29,14 @@ class SettingFirebaseService {
 
   Future<void> saveSelectedBand(BandItemModel band) async {
     final userDoc = await firestore.userDocument();
-    await userDoc.settingCollection.doc('band').set(band.toJson());
+    userDoc.settingCollection.doc('band').set(band.toJson());
     // Save bandName for CMS table display
-    await userDoc.set({'bandName': band.bandName}, SetOptions(merge: true));
+    userDoc.set({'bandName': band.bandName}, SetOptions(merge: true));
   }
 
   Future<void> saveParentAndChildrenAreaNames(List<String> areas) async {
     final userDoc = await firestore.userDocument();
-    await userDoc.settingCollection.doc('areas').set({'areas': areas});
+    userDoc.settingCollection.doc('areas').set({'areas': areas});
   }
 
   Future<List<String>> getParentAndChildrenAreaNames() async {

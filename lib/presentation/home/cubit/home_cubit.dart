@@ -41,7 +41,7 @@ class HomeCubit extends Cubit<HomeState> {
           recentlyUpdatedAreas: recentlyUpdatedAreas,
           yourPosts: yourPost,
         ));
-      });
+      }, cancelOnError: true);
     } on NetworkException {
       emit(const HomeErrorState(errorMessage: 'Network error'));
     }
