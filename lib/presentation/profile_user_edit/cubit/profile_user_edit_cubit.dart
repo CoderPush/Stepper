@@ -62,7 +62,7 @@ class ProfileUserEditCubit extends Cubit<ProfileUserEditState> {
 
     // save first band as selected band
     final selectedBand = bandList[0];
-    await bandRepository.saveSelectedBand(selectedBand);
+    bandRepository.saveSelectedBand(selectedBand);
 
     emit(currentState.copyWith(
       bandList: bandList,
@@ -77,7 +77,7 @@ class ProfileUserEditCubit extends Cubit<ProfileUserEditState> {
         currentState.bandList.firstWhere((band) => band.bandName == bandName);
 
     // save bandName to setting database
-    await bandRepository.saveSelectedBand(selectedBand);
+    bandRepository.saveSelectedBand(selectedBand);
 
     emit(currentState.copyWith(selectedBand: selectedBand));
   }

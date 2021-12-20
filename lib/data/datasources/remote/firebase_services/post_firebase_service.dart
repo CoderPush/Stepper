@@ -10,13 +10,13 @@ class PostFirebaseService {
   // save post to Firestore
   Future<void> savePost(Post post) async {
     final userDoc = await firestore.userDocument();
-    await userDoc.postCollection.doc(post.postId).set(post.toJson());
+    userDoc.postCollection.doc(post.postId).set(post.toJson());
   }
 
   // delete a post by Id
   Future<void> deletePost(String postId) async {
     final userDoc = await firestore.userDocument();
-    await userDoc.postCollection.doc(postId).delete();
+    userDoc.postCollection.doc(postId).delete();
   }
 
   // check if post exists by post Id
@@ -46,12 +46,16 @@ class PostFirebaseService {
 
   // get draft post by area name
   Future<Post?> getDraftPostByAreaName(String areaName) async {
-    final userDoc = await firestore.userDocument();
-    final draftPostSnapshot =
-        await userDoc.postCollection.doc('draft_$areaName').get();
-    if (draftPostSnapshot.exists) {
-      return Post.fromJson(draftPostSnapshot.data() as Map<String, dynamic>);
-    } else {
+    try {
+      final userDoc = await firestore.userDocument();
+      final draftPostSnapshot =
+          await userDoc.postCollection.doc('draft_$areaName').get();
+      if (draftPostSnapshot.exists) {
+        return Post.fromJson(draftPostSnapshot.data() as Map<String, dynamic>);
+      } else {
+        return null;
+      }
+    } catch (e) {
       return null;
     }
   }
