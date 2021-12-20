@@ -19,7 +19,6 @@ class AreaFirebaseService {
 
   // get area by name
   Future<Area> getAreaByAreaName(String areaName) async {
-    final userDoc = await firestore.userDocument();
     final commonAreaDoc = await firestore.commonAreaDocument(areaName);
     final commonAreaSnapshot = await commonAreaDoc.get();
     final areaSnapshot = await _getUserAreaSnapshot(areaName);
@@ -39,7 +38,7 @@ class AreaFirebaseService {
   Future<DocumentSnapshot?> _getUserAreaSnapshot(String areaName) async {
     final userDoc = await firestore.userDocument();
     try {
-      final areaSnapshot = await userDoc.areaCollection.doc(areaName).get();
+      return await userDoc.areaCollection.doc(areaName).get();
     } catch (e) {
       return null;
     }
