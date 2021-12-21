@@ -64,6 +64,10 @@ const String writeUpdateText = 'Today i will integration test code in flutter';
 // Error message
 const String achieveGoalError =
     'Error when achieving a goal. Please try again later';
+const String internetRequireToChangeBand =
+    'Internet connection is required to change level. Please connect to internet and try again';
+const String internetRequireToChangeProfession =
+    'Internet connection is required to change profession. Please connect to internet and try again';
 
 // Success message
 const String markGoalAsDone = 'Goal is marked as done';

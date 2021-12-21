@@ -17,7 +17,8 @@ class AreaRepositoryImpl extends AreaRepository {
 
   @override
   Future<List<Area>> fetchAreasByType(AreaType areaType) async {
-    final areaNamesList = (await settingFirebaseService.getSelectedBand()).areaNames;
+    final areaNamesList =
+        (await settingFirebaseService.getSelectedBand()).areaNames;
     return (await areaFirebaseService.getAllAreas())
         .where(
           (area) =>
@@ -29,7 +30,8 @@ class AreaRepositoryImpl extends AreaRepository {
 
   @override
   Future<List<Area>> fetchRecentlyUpdatedAreas() async {
-    final areaNamesList = await settingFirebaseService.getParentAndChildrenAreaNames();
+    final areaNamesList =
+        await settingFirebaseService.getParentAndChildrenAreaNames();
     final updatedAreaList = (await areaFirebaseService.getAllAreas())
         .where((area) => areaNamesList.contains(area.areaName))
         .where((area) => area.updatedTime != null)

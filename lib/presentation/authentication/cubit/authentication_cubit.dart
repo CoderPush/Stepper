@@ -25,7 +25,11 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       if (isSignedIn) {
         emit(AuthenticatedState(
           userEmail: userRepository.getSignedInUser()!.email!,
-          userName: userRepository.getSignedInUser()!.email!.split('@')[0].capitalizeFirstLetter(),
+          userName: userRepository
+              .getSignedInUser()!
+              .email!
+              .split('@')[0]
+              .capitalizeFirstLetter(),
         ));
       } else {
         emit(UnauthenticatedState());
@@ -40,6 +44,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     try {
       await userRepository.signInWithEmailAndPassword(
           emailAddress: emailAddress, password: password);
+      await _getUserSettings();
       emit(AuthenticatedState(
         userEmail: emailAddress,
         userName: emailAddress.split('@')[0].capitalizeFirstLetter(),
@@ -75,6 +80,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     }
   }
 
+  // this function is to setup user data when user signs up
   Future<void> _setupUserSettings() async {
     final professionList =
         (await professionRepository.getProfessions()).professions;
@@ -89,5 +95,11 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
     // save selectedBand
     await bandRepository.saveSelectedBand(bandList[0]);
+  }
+
+  // this function is to pre-load setting data locally
+  Future<void> _getUserSettings() async {
+    await professionRepository.getSelectedProfession();
+    await bandRepository.getSelectedBand();
   }
 }
