@@ -33,10 +33,15 @@ class HomeCubit extends Cubit<HomeState> {
           postRepository.watchAllPosts().listen((postList) async {
         final areaNames =
             await settingFirebaseService.getParentAndChildrenAreaNames();
-        final yourPost = postList
-            .where((post) => areaNames.contains(post.areaName))
-            .toList()
-          ..sort((first, next) => next.postedTime.compareTo(first.postedTime));
+        final yourPost =
+            postList.where((post) => areaNames.contains(post.areaName)).toList()
+              ..sort((first, next) => first.postedTime == null
+                  ? next.postedTime == null
+                      ? 0
+                      : 1
+                  : next.postedTime == null
+                      ? 0
+                      : next.postedTime!.compareTo(first.postedTime!));
         emit(HomeLoadedState(
           recentlyUpdatedAreas: recentlyUpdatedAreas,
           yourPosts: yourPost,

@@ -28,9 +28,13 @@ class PostItem extends StatelessWidget {
 
   String _getPostTitleText() {
     if (hasAreaName) {
-      return ' ${post.postedTime.day.toString()} ${monthNames[post.postedTime.month - 1].substring(0, 3)} ${post.postedTime.year}';
+      return post.postedTime == null
+          ? ''
+          : ' ${post.postedTime!.day.toString()} ${monthNames[post.postedTime!.month - 1].substring(0, 3)} ${post.postedTime!.year}';
     } else {
-      return ' ${monthNames[post.postedTime.month - 1]} ${post.postedTime.year}';
+      return post.postedTime == null
+          ? ''
+          : ' ${monthNames[post.postedTime!.month - 1]} ${post.postedTime!.year}';
     }
   }
 
@@ -54,7 +58,9 @@ class PostItem extends StatelessWidget {
                   text: TextSpan(
                     text: hasAreaName
                         ? post.areaName
-                        : post.postedTime.day.toString(),
+                        : post.postedTime == null
+                            ? post.areaName
+                            : post.postedTime!.day.toString(),
                     style: TextStyle(
                       fontSize: largeFontSize,
                       fontWeight: FontWeight.bold,
