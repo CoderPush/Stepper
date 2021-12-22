@@ -8,7 +8,7 @@ class Post {
   @HiveField(0)
   final String postId;
   @HiveField(1)
-  final DateTime postedTime;
+  final DateTime? postedTime;
   @HiveField(2)
   final String description;
   @HiveField(3)
@@ -48,7 +48,8 @@ class Post {
         areaName: json['areaName'],
         description: json['description'],
         postId: json['postId'],
-        postedTime: parseTime(json['postedTime']),
+        postedTime:
+            json['postedTime'] != null ? parseTime(json['postedTime']) : null,
       );
 }
 

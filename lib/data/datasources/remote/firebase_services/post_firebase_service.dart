@@ -32,16 +32,20 @@ class PostFirebaseService {
     yield* userDoc.postCollection
         .orderBy("postedTime", descending: true)
         .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => Post.fromJson(doc.data() as Map<String, dynamic>))
-            .toList());
+        .map((snapshot) => snapshot.docs.map((doc) {
+              final docMap = doc.data() as Map<String, dynamic>;
+              docMap['postId'] = doc.id;
+              return Post.fromJson(docMap);
+            }).toList());
   }
 
   // get post by Id
   Future<Post> getPostById(String postId) async {
     final userDoc = await firestore.userDocument();
     final postSnapshot = await userDoc.postCollection.doc(postId).get();
-    return Post.fromJson(postSnapshot.data() as Map<String, dynamic>);
+    final postMap = postSnapshot.data() as Map<String, dynamic>;
+    postMap['postId'] = postId;
+    return Post.fromJson(postMap);
   }
 
   // get draft post by area name
@@ -51,7 +55,9 @@ class PostFirebaseService {
       final draftPostSnapshot =
           await userDoc.postCollection.doc('draft_$areaName').get();
       if (draftPostSnapshot.exists) {
-        return Post.fromJson(draftPostSnapshot.data() as Map<String, dynamic>);
+        final draftPostMap = draftPostSnapshot.data() as Map<String, dynamic>;
+        draftPostMap['postId'] = 'draft_$areaName';
+        return Post.fromJson(draftPostMap);
       } else {
         return null;
       }
@@ -66,8 +72,10 @@ class PostFirebaseService {
     final postsSnapshot = await userDoc.postCollection
         .where('areaName', isEqualTo: areaName)
         .get();
-    return postsSnapshot.docs
-        .map((doc) => Post.fromJson(doc.data() as Map<String, dynamic>))
-        .toList();
+    return postsSnapshot.docs.map((doc) {
+      final docMap = doc.data() as Map<String, dynamic>;
+      docMap['postId'] = doc.id;
+      return Post.fromJson(docMap);
+    }).toList();
   }
 }

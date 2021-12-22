@@ -37,6 +37,11 @@ List<Area> sortAreasInOrder(List<Area> areaList) {
 }
 
 // Parse timestamp from Firestore
-DateTime parseTime(dynamic date) {
-  return (date as Timestamp).toDate();
+DateTime? parseTime(dynamic date) {
+  if (date is int) {
+    return DateTime.fromMicrosecondsSinceEpoch(date);
+  } else if (date is Timestamp) {
+    return (date).toDate();
+  }
+  return null;
 }

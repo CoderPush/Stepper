@@ -19,7 +19,7 @@ class PostAdapter extends TypeAdapter<Post> {
     return Post(
       postId: fields[0] as String,
       areaName: fields[3] as String,
-      postedTime: fields[1] as DateTime,
+      postedTime: fields[1] as DateTime?,
       description: fields[2] as String,
     );
   }
