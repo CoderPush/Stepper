@@ -1,11 +1,19 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:stepper/data/helpers/firestore_helpers.dart';
 import 'package:stepper/data/model/models.dart';
+import 'package:path/path.dart';
 
 class PostFirebaseService {
   final FirebaseFirestore firestore;
+  final FirebaseStorage firebaseStorage;
 
-  PostFirebaseService({required this.firestore});
+  PostFirebaseService({
+    required this.firestore,
+    required this.firebaseStorage,
+  });
 
   // save post to Firestore
   Future<void> savePost(Post post) async {
@@ -77,5 +85,16 @@ class PostFirebaseService {
       docMap['postId'] = doc.id;
       return Post.fromJson(docMap);
     }).toList();
+  }
+
+  // Upload image file to Firebase storage
+  Future<UploadTask?> uploadFile(File file) async {
+    try {
+      final fileName = basename(file.path);
+      final ref = firebaseStorage.ref('file/$fileName');
+      return ref.putFile(file);
+    } catch (error) {
+      return null;
+    }
   }
 }

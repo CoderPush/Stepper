@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:uuid/uuid.dart';
 import 'package:equatable/equatable.dart';
@@ -204,11 +206,22 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     emit(currentState.copyWith(createPostMode: createPostMode));
   }
 
-  Future<void> onPublishUpdate(String postDescription) async {
+  Future<void> onPublishUpdate(String postDescription, File? imageFile) async {
     final currentState = state as CreatePostLoadedState;
+    String? imageUrl;
     if (postDescription.isEmpty) {
       return;
     }
+
+    // upload image if exists
+    if (imageFile != null) {
+      final uploadTask = await postRepository.uploadImage(imageFile);
+      if (uploadTask != null) {
+        final taskSnapshot = await uploadTask.whenComplete(() {});
+        imageUrl = await taskSnapshot.ref.getDownloadURL();
+      }
+    }
+
     final currentTime = DateTime.now();
     final editedPost = await postRepository
         .getPostById(createPostScreenArgument.preSelectedPostId);
@@ -222,7 +235,9 @@ class CreatePostCubit extends Cubit<CreatePostState> {
       areaName: currentState.selectedAreaName,
       postedTime: currentTime,
       description: postDescription,
+      imageUrl: imageUrl,
     );
+    // save new post
     await postRepository.savePost(addedPost);
     // delete draft post
     await postRepository.deletePost('draft_${currentState.selectedAreaName}');

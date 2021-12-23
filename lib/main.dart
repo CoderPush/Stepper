@@ -13,12 +13,16 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
-  await Firebase.initializeApp();
 
   // enable data persistence on Flutter web
   if (kIsWeb) {
-    FirebaseFirestore.instance
-        .enablePersistence(const PersistenceSettings(synchronizeTabs: true));
+    try {
+      await FirebaseFirestore.instance
+          .enablePersistence(const PersistenceSettings(synchronizeTabs: true));
+      // ignore: empty_catches
+    } catch (e) {}
+  } else {
+    await Firebase.initializeApp();
   }
   runApp(const MyApp());
 }

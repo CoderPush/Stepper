@@ -1,7 +1,12 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:stepper/data/model/models.dart';
 
 abstract class PostRepository {
   Future<void> savePost(Post post);
+
+  Future<UploadTask?> uploadImage(File file);
 
   Future<List<Post>> getPostsByAreaName(String areaName);
 
