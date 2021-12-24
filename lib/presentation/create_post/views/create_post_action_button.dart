@@ -20,7 +20,7 @@ class CreatePostActionButton extends StatelessWidget {
         onPressed: onTap,
         icon: Icon(
           iconData,
-          color: white,
+          color: actionButtonColor,
         ),
       ),
     );

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:stepper/data/datasources/remote/services.dart';
 import 'package:stepper/data/model/models.dart';
 import 'package:stepper/domain/repositories/post_repository.dart';
@@ -37,5 +40,10 @@ class PostRepositoryImpl extends PostRepository {
   @override
   Stream<List<Post>> watchAllPosts() async* {
     yield* postFirebaseService.watchAllPost();
+  }
+
+  @override
+  Future<UploadTask?> uploadImage(File file) async {
+    return postFirebaseService.uploadFile(file);
   }
 }

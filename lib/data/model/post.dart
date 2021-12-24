@@ -13,12 +13,14 @@ class Post {
   final String description;
   @HiveField(3)
   final String areaName;
+  final String? imageUrl;
 
   const Post({
     required this.postId,
     required this.areaName,
     required this.postedTime,
     required this.description,
+    this.imageUrl,
   });
 
   Post copyWith({
@@ -26,12 +28,14 @@ class Post {
     DateTime? postedTime,
     String? description,
     String? areaName,
+    String? imageUrl,
   }) {
     return Post(
       areaName: areaName ?? this.areaName,
       description: description ?? this.description,
       postId: postId ?? this.postId,
       postedTime: postedTime ?? this.postedTime,
+      imageUrl: imageUrl ?? imageUrl,
     );
   }
 
@@ -42,6 +46,7 @@ class Post {
         'postedTime': post.postedTime,
         'description': post.description,
         'postId': post.postId,
+        'imageUrl': post.imageUrl
       };
 
   factory Post.fromJson(Map<String, dynamic> json) => Post(
@@ -50,6 +55,7 @@ class Post {
         postId: json['postId'],
         postedTime:
             json['postedTime'] != null ? parseTime(json['postedTime']) : null,
+        imageUrl: json['imageUrl'],
       );
 }
 

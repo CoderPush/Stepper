@@ -95,7 +95,22 @@ class PostItem extends StatelessWidget {
               trimCollapsedText: seeMore,
               trimExpandedText: seeLess,
               style: const TextStyle(color: textColor),
-            )
+            ),
+            post.imageUrl != null
+                ? Container(
+                    height: 150.0,
+                    width: double.infinity,
+                    padding: const EdgeInsets.only(top: screenMediumPadding),
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                          Radius.circular(mediumBorderRadius)),
+                      child: Image(
+                        image: NetworkImage(post.imageUrl!),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  )
+                : const SizedBox.shrink()
           ],
         ),
       ),
