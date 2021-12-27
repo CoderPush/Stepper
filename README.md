@@ -58,27 +58,7 @@ To run the project, here are the steps:
 
 Stepper is using [CodeMagic](https://flutterci.com/), a tool supports Flutter applications continuous integration and delivery, to automate releasing process, both for Android and iOS platforms.
 
-If you want to set up your own workflow for automating release process, please refer to this documentation for more info: https://docs.codemagic.io/flutter-configuration/flutter-projects/
-
-Current for Stepper, when release a new version of the app, please follow these steps:
-
-- In pubspec.yaml file, increase the `version` number, both `versionName` and `versionCode`:
-
-  For example: current `version` is "1.0.0+1" --> new release `version` is "1.0.1+2" --> next release will be "1.0.2+3"
-
-- Merge new change to "main" branch
-
-- Merge "main" branch to "prod" branch, this will trigger auto-deployment workflow in Codemagic
-
-- Login to Codemagic with email stepper@coderpush.com and wait for newly-triggered workflow to finish
-
-- **For Android**:
-  + check in google play console new release version has been published
-
-+ **For iOS**:
-  + create new release
-  + choose the new app version which has been published by Codemagic
-  + fill in other information (release note, etc) then submit
+If you want to set up your own workflow for automating release process, please refer to this documentation for more info: https://docs.codemagic.io/flutter-configuration/flutter-projects/. In this document, there are instructions on how to setup workflow for building Android app bundles and iOS ipa (providing code signing), so that CodeMagic will auto-trigger a workflow and release your new app version to Google Play/App store.
 
 ## **CMS tool with ROWY**
 
@@ -94,10 +74,46 @@ To setup Rowy for your own project, please follow this document: https://docs.ro
 - At the end of the setup, remember to sign in with the admin account to start creating tables, by clicking to the link in the image below:
 ![image](https://i.ibb.co/hV0C2YN/setup.png)
 
+## **Application demo**
 
-With current Stepper, Rowy is set up here https://stepper-577e8.rowy.app/. To have access to this, please contact through this email stepper@coderpush.com or our Contributors
+Sign up / Sign in:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Post options:
 
-## **Contributors
+<a href="https://imgflip.com/gif/5z7wjh"><img src="https://i.imgflip.com/5z7wjh.gif" title="Sign in/ Register"/></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://imgflip.com/gif/5z7x7c
+"><img src="https://i.imgflip.com/5z7x7c.gif" title="Post options"/></a>
+
+Create new post:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Edit post:
+
+<a href="https://imgflip.com/gif/5z7xeg
+"><img src="https://i.imgflip.com/5z7xeg.gif" title="Create new post"/></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://imgflip.com/gif/5z7xls
+"><img src="https://i.imgflip.com/5z7xls.gif" title="Edit post"/></a>
+
+Area screen:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+User profile:
+
+<a href="https://imgflip.com/gif/5z7xx8
+"><img src="https://i.imgflip.com/5z7xx8.gif" title="Edit post"/></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://imgflip.com/gif/5z7y68
+"><img src="https://i.imgflip.com/5z7y68.gif" title="Edit post"/></a>
+
+Log out:
+
+<a href="https://imgflip.com/gif/5z7y9m
+"><img src="https://i.imgflip.com/5z7y9m.gif" title="Edit post"/></a>
+
+## **Internal development**
+Regarding internal development for Stepper, please refer to [STEPPER.md](./docs/STEPPER.md) for more info.
+
+## **Contributors**
 Many thanks to the contributors:
 - Harley Trung: harley@coderpush.com
 - Long Vu: long@coderpush.com
