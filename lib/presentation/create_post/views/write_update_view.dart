@@ -32,6 +32,13 @@ class _WriteUpdateViewState extends State<WriteUpdateView> {
   @override
   void initState() {
     super.initState();
+    _controller =
+        TextEditingController(text: widget.initialPostDescription ?? '');
+    _controller.addListener(() {
+      if (_controller.text.isNotEmpty) {
+        context.read<CreatePostCubit>().onUserWriteUpdate(_controller.text);
+      }
+    });
   }
 
   @override
@@ -60,14 +67,6 @@ class _WriteUpdateViewState extends State<WriteUpdateView> {
 
   @override
   Widget build(BuildContext context) {
-    _controller =
-        TextEditingController(text: widget.initialPostDescription ?? '');
-    _controller.addListener(() async {
-      if (_controller.text.isNotEmpty) {
-        context.read<CreatePostCubit>().onUserWriteUpdate(_controller.text);
-      }
-    });
-
     return BlocConsumer<CreatePostCubit, CreatePostState>(
       listener: (context, state) {
         if (state is CreateUpdateSuccessState) {
