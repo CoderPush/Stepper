@@ -16,12 +16,14 @@ class CreatePostCubit extends Cubit<CreatePostState> {
   final AreaRepository areaRepository;
   final PostRepository postRepository;
   final BandRepository bandRepository;
+  final UserRepository userRepository;
   final CreatePostScreenArgument createPostScreenArgument;
 
   CreatePostCubit({
     required this.areaRepository,
     required this.postRepository,
     required this.bandRepository,
+    required this.userRepository,
     required this.createPostScreenArgument,
   }) : super(const CreatePostInitialState(selectedAreaType: AreaType.scope)) {
     if (createPostScreenArgument.preSelectedPostId != null) {
@@ -236,6 +238,7 @@ class CreatePostCubit extends Cubit<CreatePostState> {
       postedTime: currentTime,
       description: postDescription,
       imageUrl: imageUrl,
+      createdBy: userRepository.getSignedInUser()?.email ?? '',
     );
     // save new post
     await postRepository.savePost(addedPost);
@@ -260,6 +263,7 @@ class CreatePostCubit extends Cubit<CreatePostState> {
         areaName: currentState.selectedAreaName,
         postedTime: DateTime.now(),
         description: update,
+        createdBy: userRepository.getSignedInUser()?.email ?? '',
       );
       await postRepository.savePost(post);
     }
