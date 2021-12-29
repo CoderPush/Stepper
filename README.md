@@ -54,6 +54,22 @@ To run the project, here are the steps:
     };
   ```
 
+- When Firebase is setup for your local project, please enable these services:
+  - Authentication: Enable Firebase Authentication with email/password sign-in provider, see image below:
+  <br><br>
+  ![image](https://i.ibb.co/PDJQp3z/Screenshot-2021-12-29-at-12-55-10.png)
+  - Firestore Database: go to [Goolgle Cloud Shell](https://cloud.google.com/shell), in cloud shell terminal, run this command line to import Firebase 'commonAreas' collection from shared `stepper_export_bucket`. Make sure you have your project linked with a billing account:
+
+    ```
+    gcloud firestore import gs://stepper_export_bucket/2021-12-29T10:44:41_452 --async
+    ```
+    <br>
+
+    ![image](https://i.ibb.co/vVY0JvN/Screenshot-2021-12-29-at-13-05-50.png)
+
+    This command line will populate the inital data for `commonAreas` collections
+    ![image](https://i.ibb.co/k0V84KR/Screenshot-2021-12-29-at-13-09-01.png)
+
 ## **Auto-release with CodeMagic**
 
 Stepper is using [CodeMagic](https://flutterci.com/), a tool supports Flutter applications continuous integration and delivery, to automate releasing process, both for Android and iOS platforms.

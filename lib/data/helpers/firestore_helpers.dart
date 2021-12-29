@@ -13,7 +13,7 @@ extension FirestoreX on FirebaseFirestore {
   }
 
   Future<DocumentReference> commonAreaDocument(String areaName) async {
-    return FirebaseFirestore.instance.collection('areas').doc(areaName);
+    return FirebaseFirestore.instance.collection('commonAreas').doc(areaName);
   }
 }
 
