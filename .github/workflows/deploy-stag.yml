@@ -21,8 +21,8 @@ jobs:
     # - uses: subosito/flutter-action@v1
     #   with:
     #     channel: "stable"
-    # - name: flutter pub get
-    #   run: flutter pub get
+    - name: flutter pub get
+      run: flutter pub get
     # - name: flutter build web --release
     #   run: flutter build web --release
 
