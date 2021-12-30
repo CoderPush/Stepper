@@ -5,11 +5,10 @@ on:
     branches:
       - main
       - setup-deploy/setup-deploy
-      - harrison/github_action_env
-    # paths:
-    #   - 'lib/**'
-    #   - 'web/**'
-    #   - 'pubspec.*'
+    paths:
+      - 'lib/**'
+      - 'web/**'
+      - 'pubspec.*'
   workflow_dispatch:
 
 jobs:
@@ -38,12 +37,6 @@ jobs:
         channel: "stable"
     - name: flutter pub get
       run: flutter pub get
-
-    - name: echo file .env
-      run: |
-        echo "ls -a ."
-        ls -a .
-      shell: bash
 
     - name: flutter build web --release
       run: flutter build web --release
