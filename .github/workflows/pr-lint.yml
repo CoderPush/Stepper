@@ -12,9 +12,6 @@ jobs:
   lint:
     name: flutter analyze
     runs-on: ubuntu-latest
-    env:
-      JAVA_VERSION: "12.0.2"
-      FLUTTER_VERSION: "2.5.2"
     steps:
       - name: set up repository
         uses: actions/checkout@v1
@@ -25,6 +22,7 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: "stable"
+          flutter-version: '2.5.2'
       - name: flutter pub get
         run: flutter pub get
       - name: flutter analyze

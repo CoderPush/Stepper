@@ -40,19 +40,17 @@ To run the project, here are the steps:
   - For Android: https://firebase.google.com/docs/flutter/setup?platform=android. <br>
     Remember to download and copy *google-services.json* file into *android/app* folder.
   - For web: https://firebase.google.com/docs/web/setup. <br>
-    In index.html file, **firebaseConfig** const has to be replaced with your project specific config:
+    In your current project folder, create an .env file and add your Firebase configs which are taken from Firebase setup. For example:
 
-  ```html
-    const firebaseConfig = {
-      apiKey: "XXXXX",
-      authDomain: "XXXXX",
-      projectId: "XXXXX",
-      storageBucket: "XXXXX",
-      messagingSenderId: "XXXXX",
-      appId: "XXXXX",
-      measurementId: "XXXXX"
-    };
-  ```
+    ```
+      APIKEY=YOUR_API_KEY
+      AUTHDOMAIN=YOUR_AUTH_DOMAIN
+      PROJETID=YOUR_PROJECT_ID
+      STORAGEBUCKET=YOUR_STORAGE_BUCKET
+      MESSAGINGSENDERID=YOUR_MESSAGING_SENDER_ID
+      APPID=YOUR_APP_ID
+      MEASUREMENTID=YOUR_MEASUREMENT_ID
+    ```
 
 - When Firebase is setup for your local project, please enable these services:
   - Authentication: Enable Firebase Authentication with email/password sign-in provider, see image below:
@@ -128,6 +126,15 @@ Log out:
 
 ## **Internal development**
 Regarding internal development for Stepper, please refer to [STEPPER.md](./docs/STEPPER.md) for more info.
+
+## **Application architecture**
+Please refer to this doc: [app_architecture.md](./docs/app_architecture.md) for more info.
+
+## **Application download**
+
+Stepper can be download add: http://onelink.to/3nr8qa <br/><br/>
+QR code:<br/><br/>
+<img src="https://i.ibb.co/C5B4kn3/Image-Pasted-at-2021-12-27-13-50.jpg" width="150">
 
 ## **Contributors**
 Many thanks to the contributors:
