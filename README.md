@@ -127,6 +127,15 @@ Log out:
 ## **Internal development**
 Regarding internal development for Stepper, please refer to [STEPPER.md](./docs/STEPPER.md) for more info.
 
+## **Application architecture**
+Please refer to this doc: [app_architecture.md](./docs/app_architecture.md) for more info.
+
+## **Application download**
+
+Stepper can be download add: http://onelink.to/3nr8qa <br/><br/>
+QR code:<br/><br/>
+<img src="https://i.ibb.co/C5B4kn3/Image-Pasted-at-2021-12-27-13-50.jpg" width="150">
+
 ## **Contributors**
 Many thanks to the contributors:
 - Harley Trung: harley@coderpush.com
