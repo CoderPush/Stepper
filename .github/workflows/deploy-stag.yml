@@ -17,15 +17,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # - uses: actions/checkout@v2
-    # - uses: subosito/flutter-action@v1
-    #   with:
-    #     channel: "stable"
-    - name: flutter pub get
-      run: flutter pub get
-    # - name: flutter build web --release
-    #   run: flutter build web --release
-
     - name: Make .env file
       uses: SpicyPizza/create-envfile@master
       with:
@@ -38,6 +29,14 @@ jobs:
         envkey_MEASUREMENTID: ${{ secrets.FIREBASE_MEASUREMENTID }}
         directory: ./
         file_name: .env
+    # - uses: actions/checkout@v2
+    # - uses: subosito/flutter-action@v1
+    #   with:
+    #     channel: "stable"
+    - name: flutter pub get
+      run: flutter pub get
+    # - name: flutter build web --release
+    #   run: flutter build web --release
 
     # - name: Deploy to S3
     #   uses: jakejarvis/s3-sync-action@master
