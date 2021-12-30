@@ -6,10 +6,10 @@ on:
       - main
       - setup-deploy/setup-deploy
       - harrison/github_action_env
-    paths:
-      - 'lib/**'
-      - 'web/**'
-      - 'pubspec.*'
+    # paths:
+    #   - 'lib/**'
+    #   - 'web/**'
+    #   - 'pubspec.*'
   workflow_dispatch:
 
 jobs:
