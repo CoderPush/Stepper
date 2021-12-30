@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:uuid/uuid.dart';
 import 'package:equatable/equatable.dart';
@@ -14,12 +16,14 @@ class CreatePostCubit extends Cubit<CreatePostState> {
   final AreaRepository areaRepository;
   final PostRepository postRepository;
   final BandRepository bandRepository;
+  final UserRepository userRepository;
   final CreatePostScreenArgument createPostScreenArgument;
 
   CreatePostCubit({
     required this.areaRepository,
     required this.postRepository,
     required this.bandRepository,
+    required this.userRepository,
     required this.createPostScreenArgument,
   }) : super(const CreatePostInitialState(selectedAreaType: AreaType.scope)) {
     if (createPostScreenArgument.preSelectedPostId != null) {
@@ -204,11 +208,22 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     emit(currentState.copyWith(createPostMode: createPostMode));
   }
 
-  Future<void> onPublishUpdate(String postDescription) async {
+  Future<void> onPublishUpdate(String postDescription, File? imageFile) async {
     final currentState = state as CreatePostLoadedState;
+    String? imageUrl;
     if (postDescription.isEmpty) {
       return;
     }
+
+    // upload image if exists
+    if (imageFile != null) {
+      final uploadTask = await postRepository.uploadImage(imageFile);
+      if (uploadTask != null) {
+        final taskSnapshot = await uploadTask.whenComplete(() {});
+        imageUrl = await taskSnapshot.ref.getDownloadURL();
+      }
+    }
+
     final currentTime = DateTime.now();
     final editedPost = await postRepository
         .getPostById(createPostScreenArgument.preSelectedPostId);
@@ -222,7 +237,10 @@ class CreatePostCubit extends Cubit<CreatePostState> {
       areaName: currentState.selectedAreaName,
       postedTime: currentTime,
       description: postDescription,
+      imageUrl: imageUrl,
+      createdBy: userRepository.getSignedInUser()?.email ?? '',
     );
+    // save new post
     await postRepository.savePost(addedPost);
     // delete draft post
     await postRepository.deletePost('draft_${currentState.selectedAreaName}');
@@ -245,6 +263,7 @@ class CreatePostCubit extends Cubit<CreatePostState> {
         areaName: currentState.selectedAreaName,
         postedTime: DateTime.now(),
         description: update,
+        createdBy: userRepository.getSignedInUser()?.email ?? '',
       );
       await postRepository.savePost(post);
     }

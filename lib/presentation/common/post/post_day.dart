@@ -13,7 +13,7 @@ class PostDay extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
-        text: post.postedTime.day.toString(),
+        text: post.postedTime == null ? '' : post.postedTime!.day.toString(),
         style: const TextStyle(
           fontSize: largeFontSize,
           fontWeight: FontWeight.bold,
@@ -24,8 +24,9 @@ class PostDay extends StatelessWidget {
               fontSize: smallFontSize,
               fontWeight: FontWeight.normal,
             ),
-            text:
-                ' ${monthNames[post.postedTime.month - 1]} ${post.postedTime.year}',
+            text: post.postedTime == null
+                ? ''
+                : ' ${monthNames[post.postedTime!.month - 1]} ${post.postedTime!.year}',
           )
         ],
       ),

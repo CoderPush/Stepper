@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:stepper/data/datasources/remote/services.dart';
 import 'package:stepper/domain/repositories/repositories.dart';
@@ -44,7 +45,7 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<BandService>(() => BandService());
 
   sl.registerLazySingleton<PostFirebaseService>(
-      () => PostFirebaseService(firestore: sl()));
+      () => PostFirebaseService(firestore: sl(), firebaseStorage: sl()));
 
   sl.registerLazySingleton<AreaFirebaseService>(
       () => AreaFirebaseService(firestore: sl()));
@@ -55,4 +56,6 @@ Future<void> initializeDependencies() async {
   sl.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
 
   sl.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);
+
+  sl.registerLazySingleton<FirebaseStorage>(() => FirebaseStorage.instance);
 }

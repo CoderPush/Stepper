@@ -30,6 +30,7 @@ class CreatePostScreen extends StatelessWidget {
         areaRepository: sl(),
         postRepository: sl(),
         bandRepository: sl(),
+        userRepository: sl(),
         createPostScreenArgument: argument,
       ),
       child: GestureDetector(

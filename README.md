@@ -1,8 +1,12 @@
-# Stepper
+# **Stepper**
 
-Flutter project for level up employees (engineers, designers, etc) in CoderPush.
+Flutter open-source project for level up employees (engineers, designers, etc). Any company can use this application for assessing their employees, keeping employees' progress updated and provide a way to visualize their performance.
 
-## Development setup
+## **Getting Started**
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment section for notes on how to deploy the project on a live system.
+
+### **Development setup**
 
 To run the project, here are the steps:
 
@@ -14,7 +18,9 @@ To run the project, here are the steps:
   - For Android users, make sure you have install Android Studio to create an Android emulator:
   https://developer.android.com/studio
 
-- Install VsCode (optional for Android user): https://code.visualstudio.com/download
+  - For running on web, make sure you follow the [Firebase setup](#firebase-setup) section (for web) to add **firebaseConfig** before running the application on web
+
+- Install VsCode (optional for running only on Android): https://code.visualstudio.com/download
 
 - Run command in your project terminal to fetch all dependencies:
 
@@ -22,26 +28,114 @@ To run the project, here are the steps:
   flutter pub get
   ```
 
-- Open the project in VsCode (or Android Studio), click Run tab -> Start Debugging (make sure you have your simulator on)
+- Open the project in VsCode (or Android Studio), click Run tab -> Start Debugging (make sure you have chosen an Android/iOS simulator or Chrome (for web) for targeted device).
 
-## Release a new version of Stepper (both Android and iOS) (update with Codemagic)
+### **Firebase setup**
 
-When release a new version of the app, please follow these steps:
+- Stepper's back-end utilizes Firebase authentication for registering/signing in users, Firestore for  storing user's data, and Firebase storage for saving user's uploading images.
 
-- In pubspec.yaml file, increase the `version` number, both `versionName` and `versionCode`:
+- Please follow this guide to add Firebase to your local project:
+  - For iOS: https://firebase.google.com/docs/flutter/setup?platform=ios. <br>
+    Remember to download and copy *GoogleService-Info.plist* file into *iOS/Runner* folder, and add it to the Runner target in Xcode.
+  - For Android: https://firebase.google.com/docs/flutter/setup?platform=android. <br>
+    Remember to download and copy *google-services.json* file into *android/app* folder.
+  - For web: https://firebase.google.com/docs/web/setup. <br>
+    In index.html file, **firebaseConfig** const has to be replaced with your project specific config:
 
-  For example: current `version` is "1.0.0+1" --> new release `version` is "1.0.1+2" --> next release will be "1.0.2+3"
+  ```html
+    const firebaseConfig = {
+      apiKey: "XXXXX",
+      authDomain: "XXXXX",
+      projectId: "XXXXX",
+      storageBucket: "XXXXX",
+      messagingSenderId: "XXXXX",
+      appId: "XXXXX",
+      measurementId: "XXXXX"
+    };
+  ```
 
-- Merge new change to "main" branch
+- When Firebase is setup for your local project, please enable these services:
+  - Authentication: Enable Firebase Authentication with email/password sign-in provider, see image below:
+  <br><br>
+  ![image](https://i.ibb.co/PDJQp3z/Screenshot-2021-12-29-at-12-55-10.png)
+  - Firestore Database: go to [Goolgle Cloud Shell](https://cloud.google.com/shell), in cloud shell terminal, run this command line to import Firebase 'commonAreas' collection from shared `stepper_export_bucket`. Make sure you have your project linked with a billing account:
 
-- Merge "main" branch to "prod" branch, this will trigger auto-deployment in Codemagic
+    ```
+    gcloud firestore import gs://stepper_export_bucket/2021-12-29T10:44:41_452 --async
+    ```
+    <br>
 
-- Login to Codemagic with email stepper@coderpush.com and wait for newly-triggered workflow to finish
+    ![image](https://i.ibb.co/vVY0JvN/Screenshot-2021-12-29-at-13-05-50.png)
 
-- **For Android**:
-  + check in google play console new release version has been published
+    This command line will populate the inital data for `commonAreas` collections
+    ![image](https://i.ibb.co/k0V84KR/Screenshot-2021-12-29-at-13-09-01.png)
 
-+ **For iOS**:
-  + create new release
-  + choose the new app version which has been published by Codemagic
-  + fill in other information (release note, etc) then submit
+## **Auto-release with CodeMagic**
+
+Stepper is using [CodeMagic](https://flutterci.com/), a tool supports Flutter applications continuous integration and delivery, to automate releasing process, both for Android and iOS platforms.
+
+If you want to set up your own workflow for automating release process, please refer to this documentation for more info: https://docs.codemagic.io/flutter-configuration/flutter-projects/. In this document, there are instructions on how to setup workflow for building Android app bundles and iOS ipa (providing code signing), so that CodeMagic will auto-trigger a workflow and release your new app version to Google Play/App store.
+
+## **CMS tool with ROWY**
+
+[Rowy](https://www.rowy.io/) tool is used to display Stepper's Firestore data in the most intuitive, simple way. With Firebase setup already for Stepper, user's entries will be perfectly visualized in Rowy tables, and any modification in Rowy will affect directly to Stepper's Firestore data.
+
+To setup Rowy for your own project, please follow this document: https://docs.rowy.io/ (recommend quick deployment option) or follow these steps:
+
+- Make sure you have setup Firebase for Stepper as [here](#firebase-setup)
+- Navigate to https://github.com/rowyio/rowy, click "Run on Google Cloud" button (quick deploy)
+- Trust Rowy repo, open and authorize Google cloud shell
+- Choose your project in the list of available projects in your GCP account
+- Choose region to deploy and let cloud console to finish the set up
+- At the end of the setup, remember to sign in with the admin account to start creating tables, by clicking to the link in the image below:
+![image](https://i.ibb.co/hV0C2YN/setup.png)
+
+## **Application demo**
+
+Sign up / Sign in:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Post options:
+
+<a href="https://imgflip.com/gif/5z7wjh"><img src="https://i.imgflip.com/5z7wjh.gif" title="Sign in/ Register"/></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://imgflip.com/gif/5z7x7c
+"><img src="https://i.imgflip.com/5z7x7c.gif" title="Post options"/></a>
+
+Create new post:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Edit post:
+
+<a href="https://imgflip.com/gif/5z7xeg
+"><img src="https://i.imgflip.com/5z7xeg.gif" title="Create new post"/></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://imgflip.com/gif/5z7xls
+"><img src="https://i.imgflip.com/5z7xls.gif" title="Edit post"/></a>
+
+Area screen:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+User profile:
+
+<a href="https://imgflip.com/gif/5z7xx8
+"><img src="https://i.imgflip.com/5z7xx8.gif" title="Edit post"/></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://imgflip.com/gif/5z7y68
+"><img src="https://i.imgflip.com/5z7y68.gif" title="Edit post"/></a>
+
+Log out:
+
+<a href="https://imgflip.com/gif/5z7y9m
+"><img src="https://i.imgflip.com/5z7y9m.gif" title="Edit post"/></a>
+
+## **Internal development**
+Regarding internal development for Stepper, please refer to [STEPPER.md](./docs/STEPPER.md) for more info.
+
+## **Contributors**
+Many thanks to the contributors:
+- Harley Trung: harley@coderpush.com
+- Long Vu: long@coderpush.com
+- Hung Nguyen: harrison@coderpush.com
+- Tien Le: tien@coderpush.com
+- Kim Long: kimlong@coderpush.com
+
+## License
+This project is licensed under the GNU License - see the [LICENSE.md](docs/LICENSE.md) file for details

@@ -49,7 +49,7 @@ class AreaFirebaseService {
     final userDoc = await firestore.userDocument();
     final areaSnapshot = await userDoc.areaCollection.get();
     final commonAreasSnapshot =
-        await FirebaseFirestore.instance.collection('areas').get();
+        await FirebaseFirestore.instance.collection('commonAreas').get();
     var listOfAreas = commonAreasSnapshot.docs
         .map((doc) => Area.fromJson(doc.data()))
         .toList();

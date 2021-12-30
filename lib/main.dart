@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,11 +8,22 @@ import 'package:stepper/injection_container.dart';
 import 'package:stepper/presentation/authentication/cubit/authentication_cubit.dart';
 import 'package:stepper/presentation/common/drawer/drawer.dart';
 import 'package:stepper/config/routes/routes.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
-  await Firebase.initializeApp();
+
+  // enable data persistence on Flutter web
+  if (kIsWeb) {
+    try {
+      await FirebaseFirestore.instance
+          .enablePersistence(const PersistenceSettings(synchronizeTabs: true));
+      // ignore: empty_catches
+    } catch (e) {}
+  } else {
+    await Firebase.initializeApp();
+  }
   runApp(const MyApp());
 }
 
