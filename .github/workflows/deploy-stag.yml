@@ -27,7 +27,7 @@ jobs:
       run: flutter build web --release
 
     - name: Make .env file
-      uses: SpicyPizza/create-envfile@v1
+      uses: SpicyPizza/create-envfile@master
       with:
         envkey_APIKEY: ${{ secrets.FIREBASE_APIKEY }}
         envkey_AUTHDOMAIN: ${{ secrets.FIREBASE_AUTHDOMAIN }}
@@ -57,3 +57,11 @@ jobs:
         AWS_REGION: 'ap-southeast-1'
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    - name: Read .env
+      id: env
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: ./.env
+    - name: Echo .env
+      run: echo "${{ steps.env.outputs.content }}"
