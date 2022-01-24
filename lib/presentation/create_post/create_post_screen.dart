@@ -38,8 +38,11 @@ class CreatePostScreen extends StatelessWidget {
         child: BlocBuilder<CreatePostCubit, CreatePostState>(
           builder: (context, state) {
             if (state is CreatePostLoadingState) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is CreatePostLoadedState) {
+              return const Scaffold(
+                  body: Center(child: CircularProgressIndicator()));
+            }
+
+            if (state is CreatePostLoadedState) {
               return Scaffold(
                 appBar: AppBar(
                   backgroundColor: scaffoldColor,
@@ -93,7 +96,7 @@ class CreatePostScreen extends StatelessWidget {
                 ),
               );
             }
-            return Container();
+            return const Scaffold();
           },
         ),
       ),
