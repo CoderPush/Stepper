@@ -20,7 +20,7 @@ class PostsCubit extends Cubit<PostsState> {
 
   Future<void> getPosts() async {
     try {
-      emit(state.copyWith(status: CubitStateStatus.loading));
+      emit(state.copyWith(status: StateStatus.loading));
 
       _postStreamSubscription =
           postRepository.watchAllPosts().listen((postList) async {
@@ -35,10 +35,10 @@ class PostsCubit extends Cubit<PostsState> {
                   : next.postedTime == null
                       ? 0
                       : next.postedTime!.compareTo(first.postedTime!));
-        emit(state.copyWith(status: CubitStateStatus.success, posts: posts));
+        emit(state.copyWith(status: StateStatus.success, posts: posts));
       });
     } on Exception {
-      emit(state.copyWith(status: CubitStateStatus.failure));
+      emit(state.copyWith(status: StateStatus.failure));
     }
   }
 

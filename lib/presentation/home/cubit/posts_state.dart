@@ -4,14 +4,14 @@ import 'package:stepper/enums/enums.dart';
 
 class PostsState extends Equatable {
   final List<Post> posts;
-  final CubitStateStatus status;
+  final StateStatus status;
 
   const PostsState({
-    this.status = CubitStateStatus.initial,
+    this.status = StateStatus.initial,
     this.posts = const [],
   });
 
-  PostsState copyWith({List<Post>? posts, CubitStateStatus? status}) =>
+  PostsState copyWith({List<Post>? posts, StateStatus? status}) =>
       PostsState(posts: posts ?? this.posts, status: status ?? this.status);
 
   @override

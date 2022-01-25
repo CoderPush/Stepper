@@ -1,1 +1,1 @@
-enum CubitStateStatus { initial, loading, success, failure }
+enum StateStatus { initial, loading, success, failure }
