@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/config/routes/app_routes.dart';
 import 'package:stepper/injection_container.dart';
@@ -13,10 +14,21 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
-
+  await dotenv.load(fileName: ".env");
   // enable data persistence on Flutter web
   if (kIsWeb) {
     try {
+      await Firebase.initializeApp(
+        options: FirebaseOptions(
+          apiKey: dotenv.env['APIKEY']!,
+          authDomain: dotenv.env['AUTHDOMAIN']!,
+          projectId: dotenv.env['PROJETID']!,
+          storageBucket: dotenv.env['STORAGEBUCKET']!,
+          messagingSenderId: dotenv.env['MESSAGINGSENDERID']!,
+          appId: dotenv.env['APPID']!,
+          measurementId: dotenv.env['MEASUREMENTID']!,
+        ),
+      );
       await FirebaseFirestore.instance
           .enablePersistence(const PersistenceSettings(synchronizeTabs: true));
       // ignore: empty_catches

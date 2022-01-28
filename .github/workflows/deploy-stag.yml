@@ -17,11 +17,27 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
+    # Create .env file with Firebase credentials
+    - name: Make .env file
+      uses: SpicyPizza/create-envfile@master
+      with:
+        envkey_APIKEY: ${{ secrets.FIREBASE_APIKEY }}
+        envkey_AUTHDOMAIN: ${{ secrets.FIREBASE_AUTHDOMAIN }}
+        envkey_PROJETID: ${{ secrets.FIREBASE_PROJETID }}
+        envkey_STORAGEBUCKET: ${{ secrets.FIREBASE_STORAGEBUCKET }}
+        envkey_MESSAGINGSENDERID: ${{ secrets.FIREBASE_MESSAGINGSENDERID }}
+        envkey_APPID: ${{ secrets.FIREBASE_APPID }}
+        envkey_MEASUREMENTID: ${{ secrets.FIREBASE_MEASUREMENTID }}
+        directory: ./
+        file_name: .env
+
     - uses: subosito/flutter-action@v1
       with:
         channel: "stable"
     - name: flutter pub get
       run: flutter pub get
+
     - name: flutter build web --release
       run: flutter build web --release
 
