@@ -14,10 +14,10 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
-  await dotenv.load(fileName: ".env");
   // enable data persistence on Flutter web
   if (kIsWeb) {
     try {
+      await dotenv.load(fileName: ".env");
       await Firebase.initializeApp(
         options: FirebaseOptions(
           apiKey: dotenv.env['APIKEY']!,
