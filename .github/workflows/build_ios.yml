@@ -56,7 +56,7 @@ jobs:
           path: build/ios/iphoneos
     
   distribute_to_firebase:
-    needs: buid-ios
+    needs: build-ios
     
     runs-on: ubuntu-latest 
     
