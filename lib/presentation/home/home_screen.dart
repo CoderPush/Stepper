@@ -95,7 +95,7 @@ class HomeScreen extends StatelessWidget {
                           //         hasAreaName: true,
                           //         postList: state.yourPosts,
                           //       ),
-                          child: Text('Test firebase distribution changed')),
+                          child: Text('Test firebase distribution changed 1')),
                     ],
                   ),
                 );
