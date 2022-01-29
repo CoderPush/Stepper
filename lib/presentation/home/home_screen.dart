@@ -82,20 +82,20 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(
-                          screenMediumPadding,
-                          screenSmallPadding,
-                          screenMediumPadding,
-                          screenMediumPadding,
-                        ),
-                        child: state.yourPosts.isEmpty
-                            ? const Text(noPost)
-                            : PostList(
-                                hasAreaName: true,
-                                postList: state.yourPosts,
-                              ),
-                      ),
+                      const Padding(
+                          padding: EdgeInsets.fromLTRB(
+                            screenMediumPadding,
+                            screenSmallPadding,
+                            screenMediumPadding,
+                            screenMediumPadding,
+                          ),
+                          // child: state.yourPosts.isEmpty
+                          //     ? const Text(noPost)
+                          //     : PostList(
+                          //         hasAreaName: true,
+                          //         postList: state.yourPosts,
+                          //       ),
+                          child: Text('Test firebase distribution changed')),
                     ],
                   ),
                 );
