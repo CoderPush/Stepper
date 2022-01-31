@@ -25,7 +25,7 @@ jobs:
           ruby-version: '2.7'
 
       - name: Install Gem (For Fastlane)
-        working-directory: $GITHUB_WORKSPACE/ios
+        working-directory: ./ios
         run: bundle install
             
       - name: Generate Google Service Plist
@@ -34,7 +34,7 @@ jobs:
         run: echo "$IOS_FIREBASE_CONFIG" | base64 --decode > $GITHUB_WORKSPACE/ios/Runner/GoogleService-Info.plist
 
       - name: Insert certificate and provisioning profile
-        working-directory: $GITHUB_WORKSPACE/ios
+        working-directory: ./ios
         env:
           APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
           APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
@@ -54,7 +54,7 @@ jobs:
         run: flutter build ipa --release --export-options-plist=$GITHUB_WORKSPACE/ios/ExportOptions.plist
 
       - name: Distribute to Firebase Distribution
-        working-directory: $GITHUB_WORKSPACE/ios
+        working-directory: ./ios
         env:
           FIREBASE_APP_ID_IOS: ${{ secrets.FIREBASE_APP_ID_IOS }}
           FIREBASE_CLI_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
