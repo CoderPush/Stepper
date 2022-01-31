@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Build iOS
+name: Build and deploy to Firebase Distribution iOS app
 
 # Controls when the workflow will run
 on:
@@ -19,52 +19,44 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
-      - name: Install Apple Certificate
-        uses: apple-actions/import-codesign-certs@v1
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          p12-file-base64: ${{ secrets.P12_BASE64 }}
-          p12-password: ${{ secrets.P12_PASSWORD }}
-      
-      - name: Install the provisioning profile
-        env:
-          PROVISIONING_CERTIFICATE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
-        run: |
-          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+          ruby-version: '2.7'
 
-          echo -n "$PROVISIONING_CERTIFICATE_BASE64" | base64 --decode --output $PP_PATH
-
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
-
-      - name: Generate Google Service 
+      - name: Install Gem (For Fastlane)
+        working-directory: $GITHUB_WORKSPACE/ios
+        run: bundle install
+            
+      - name: Generate Google Service Plist
         env:
           IOS_FIREBASE_CONFIG: ${{ secrets.IOS_FIREBASE_CONFIG }}
         run: echo "$IOS_FIREBASE_CONFIG" | base64 --decode > $GITHUB_WORKSPACE/ios/Runner/GoogleService-Info.plist
 
+      - name: Insert certificate and provisioning profile
+        working-directory: $GITHUB_WORKSPACE/ios
+        env:
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_KEY_CONTENT_BASE64: ${{ secrets.APP_STORE_KEY_CONTENT_BASE64 }}
+          TEMP_KEYCHAIN_USER: ${{ secrets.TEMP_KEYCHAIN_USER }}
+          TEMP_KEYCHAIN_PASSWORD: ${{ secrets.TEMP_KEYCHAIN_PASSWORD }}
+          MATCH_GIT_BASIC_AUTHORIZATION_BASE64: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION_BASE64 }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        run: bundle exec fastlane install_cert_and_profile
+          
       - uses: subosito/flutter-action@v2
       
       - name: Get pub 
         run: flutter pub get
 
       - name: Build ipa
-        run: flutter build ios --release --no-codesign
+        run: flutter build ipa --release --export-options-plist=$GITHUB_WORKSPACE/ios/ExportOptions.plist
 
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v2.3.1
-        with:
-          name: ios-build
-          path: build/ios/iphoneos
-    
-  distribute_to_firebase:
-    needs: build-ios
-    
-    runs-on: ubuntu-latest 
-    
-    steps:
-      - name: upload artifact to Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
-        with:
-          appId: ${{secrets.IOS_FIREBASE_APP_ID}}
-          token: ${{secrets.FIREBASE_TOKEN}}
-          groups: testers
-          file: build/ios/iphoneos/Runner.ipa
+      - name: Distribute to Firebase Distribution
+        working-directory: $GITHUB_WORKSPACE/ios
+        env:
+          FIREBASE_APP_ID_IOS: ${{ secrets.FIREBASE_APP_ID_IOS }}
+          FIREBASE_CLI_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: bundle exec fastlane distribute_to_firebase
+        
