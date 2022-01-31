@@ -56,7 +56,7 @@ jobs:
       - name: Distribute to Firebase Distribution
         working-directory: ./ios
         env:
-          FIREBASE_APP_ID_IOS: ${{ secrets.FIREBASE_APP_ID_IOS }}
-          FIREBASE_CLI_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          IOS_FIREBASE_APP_ID: ${{ secrets.IOS_FIREBASE_APP_ID }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         run: bundle exec fastlane distribute_to_firebase
         
