@@ -51,7 +51,6 @@ platform :ios do
         ensure_temp_keychain(keychain_name, keychain_password)
 
     match(
-      git_basic_authorization: Base64.encode64("mthinh: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"),
       type: 'adhoc',
       keychain_name: keychain_name,
       keychain_password: keychain_password,
