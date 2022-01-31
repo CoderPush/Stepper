@@ -1,4 +1,4 @@
-git_url("git@github.com:mthinh/stepper_certificates.git") #//TODO: Will change (For testing only)
+git_url("https://github.com/mthinh/stepper_certificates.git")
 
 storage_mode("git")
 
