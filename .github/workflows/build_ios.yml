@@ -51,7 +51,7 @@ jobs:
         run: flutter pub get
 
       - name: Build ipa
-        run: flutter build ipa --release --export-options-plist=$GITHUB_WORKSPACE/ios/ExportOptions.plists
+        run: flutter build ipa --release --export-options-plist=$GITHUB_WORKSPACE/ios/ExportOptions.plist
         
       - name: Distribute to Firebase Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
