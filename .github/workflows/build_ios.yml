@@ -22,7 +22,7 @@ jobs:
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.6.8p205'
+          ruby-version: '2.6.8'
 
       - name: Install Gem (For Fastlane)
         working-directory: ./ios
