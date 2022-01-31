@@ -60,7 +60,7 @@ jobs:
 
   distribute_to_firebase:
     runs-on: ubuntu-latest
-    
+
     needs: build-ios
     steps:
       - uses: actions/checkout@v2
@@ -68,6 +68,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name:  ipa
+          path: build/ios/ipa
 
       - name: Distribute to Firebase Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
