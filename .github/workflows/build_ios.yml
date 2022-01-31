@@ -52,11 +52,27 @@ jobs:
 
       - name: Build ipa
         run: flutter build ipa --release --export-options-plist=$GITHUB_WORKSPACE/ios/ExportOptions.plist
-        
+  
+      - uses: actions/upload-artifact@v2
+          with:
+          name: ipa
+          path: $GITHUB_WORKSPACE/build/ios/ipa/Stepper.ipa
+
+  distribute_to_firebase:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v2
+          with:
+          name:  ipa
+          path: $GITHUB_WORKSPACE/build-ipa
+
       - name: Distribute to Firebase Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
           appId: ${{secrets.IOS_FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: testers
-          file: $GITHUB_WORKSPACE/build/ios/ipa/Stepper.ipa
+          file: $GITHUB_WORKSPACE/build-ipa
