@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Build and deploy to Firebase Distribution iOS app
+name: 🚀 🙏 Build and deploy iOS app to Firebase
 
 # Controls when the workflow will run
 on:
@@ -22,7 +22,7 @@ jobs:
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.6.8'
+          ruby-version: '2.7'
 
       - name: Install Gem (For Fastlane)
         working-directory: ./ios
