@@ -1,0 +1,71 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+def delete_temp_keychain(name)
+    delete_keychain(
+      name: name
+    ) if File.exist? File.expand_path("~/Library/Keychains/#{name}-db")
+end
+
+def create_temp_keychain(name, password)
+    create_keychain(
+      name: name,
+      password: password,
+      unlock: false,
+      timeout: 0
+    )
+end
+
+def ensure_temp_keychain(name, password)
+    delete_temp_keychain(name)
+    create_temp_keychain(name, password)
+end
+
+
+platform :ios do
+  desc "Insert Cert and Provisioning profile"
+  lane :install_cert_and_profile do
+    api_key = app_store_connect_api_key(
+      key_id: ENV["APP_STORE_CONNECT_KEY_ID"],
+      issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"],
+      key_content: ENV["APP_STORE_KEY_CONTENT_BASE64"],
+      is_key_content_base64: true
+    )
+    
+     keychain_name = ENV["TEMP_KEYCHAIN_USER"]
+        keychain_password = ENV["TEMP_KEYCHAIN_PASSWORD"]
+        ensure_temp_keychain(keychain_name, keychain_password)
+
+    match(
+      type: 'adhoc',
+      git_basic_authorization: ENV["MATCH_GIT_BASIC_AUTHORIZATION_BASE64"],
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      api_key: api_key,
+    )
+  end
+
+    lane :distribute_to_firebase do
+      firebase_app_distribution(
+        app: ENV["IOS_FIREBASE_APP_ID"],
+        testers: "testers",
+        release_notes: "Test using fastlane using Github actions",
+        firebase_cli_token: ENV["FIREBASE_TOKEN"],
+        ipa_path: "../build/ios/ipa/Stepper.ipa"
+    )
+  end
+end
