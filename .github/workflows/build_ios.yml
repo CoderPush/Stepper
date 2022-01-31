@@ -41,7 +41,7 @@ jobs:
           APP_STORE_KEY_CONTENT_BASE64: ${{ secrets.APP_STORE_KEY_CONTENT_BASE64 }}
           TEMP_KEYCHAIN_USER: ${{ secrets.TEMP_KEYCHAIN_USER }}
           TEMP_KEYCHAIN_PASSWORD: ${{ secrets.TEMP_KEYCHAIN_PASSWORD }}
-          MATCH_GIT_BASIC_AUTHORIZATION_BASE64: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION_BASE64 }}
+          PRIVATE_GIT_URL: ${{ secrets.PRIVATE_GIT_URL }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
         run: bundle exec fastlane install_cert_and_profile
           
