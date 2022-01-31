@@ -51,12 +51,12 @@ jobs:
         run: flutter pub get
 
       - name: Build ipa
-        run: flutter build ipa --release --export-options-plist=$GITHUB_WORKSPACE/ios/ExportOptions.plist
-
-      - name: Distribute to Firebase Distribution
-        working-directory: ./ios
-        env:
-          IOS_FIREBASE_APP_ID: ${{ secrets.IOS_FIREBASE_APP_ID }}
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: bundle exec fastlane distribute_to_firebase
+        run: flutter build ipa --release --export-options-plist=$GITHUB_WORKSPACE/ios/ExportOptions.plists
         
+      - name: Distribute to Firebase Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{secrets.IOS_FIREBASE_APP_ID}}
+          token: ${{secrets.FIREBASE_TOKEN}}
+          groups: testers
+          file: $GITHUB_WORKSPACE/build/ios/ipa/Stepper.ipa
