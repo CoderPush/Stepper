@@ -60,7 +60,8 @@ jobs:
 
   distribute_to_firebase:
     runs-on: ubuntu-latest
-
+    
+    needs: build-ios
     steps:
       - uses: actions/checkout@v2
 
