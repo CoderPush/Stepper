@@ -54,7 +54,7 @@ jobs:
         run: flutter build ipa --release --export-options-plist=$GITHUB_WORKSPACE/ios/ExportOptions.plist
   
       - uses: actions/upload-artifact@v2
-          with:
+        with:
           name: ipa
           path: $GITHUB_WORKSPACE/build/ios/ipa/Stepper.ipa
 
