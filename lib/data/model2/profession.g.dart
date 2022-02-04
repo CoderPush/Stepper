@@ -7,7 +7,7 @@ part of 'profession.dart';
 // **************************************************************************
 
 abstract class _$ProfessionCWProxy {
-  Profession bandIds(List<Band> bandIds);
+  Profession bandIds(List<String> bandIds);
 
   Profession id(String id);
 
@@ -22,7 +22,7 @@ abstract class _$ProfessionCWProxy {
   /// Profession(...).copyWith(id: 12, name: "My name")
   /// ````
   Profession call({
-    List<Band>? bandIds,
+    List<String>? bandIds,
     String? id,
     String? name,
     String? type,
@@ -36,7 +36,7 @@ class _$ProfessionCWProxyImpl implements _$ProfessionCWProxy {
   const _$ProfessionCWProxyImpl(this._value);
 
   @override
-  Profession bandIds(List<Band> bandIds) => this(bandIds: bandIds);
+  Profession bandIds(List<String> bandIds) => this(bandIds: bandIds);
 
   @override
   Profession id(String id) => this(id: id);
@@ -65,7 +65,7 @@ class _$ProfessionCWProxyImpl implements _$ProfessionCWProxy {
       bandIds: bandIds == const $CopyWithPlaceholder() || bandIds == null
           ? _value.bandIds
           // ignore: cast_nullable_to_non_nullable
-          : bandIds as List<Band>,
+          : bandIds as List<String>,
       id: id == const $CopyWithPlaceholder() || id == null
           ? _value.id
           // ignore: cast_nullable_to_non_nullable
@@ -95,9 +95,8 @@ Profession _$ProfessionFromJson(Map<String, dynamic> json) => Profession(
       id: json['id'] as String,
       name: json['name'] as String,
       type: json['type'] as String,
-      bandIds: (json['band_ids'] as List<dynamic>)
-          .map((e) => Band.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      bandIds:
+          (json['band_ids'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$ProfessionToJson(Profession instance) =>

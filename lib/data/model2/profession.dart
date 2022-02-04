@@ -12,7 +12,7 @@ class Profession {
   String type;
 
   @JsonKey(name: 'band_ids')
-  List<Band> bandIds = [];
+  List<String> bandIds = [];
 
   Profession(
       {required this.id,
