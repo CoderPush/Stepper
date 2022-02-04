@@ -257,9 +257,9 @@ UserUpdatedArea _$UserUpdatedAreaFromJson(Map<String, dynamic> json) =>
       bandId: json['band_id'],
       numberOfPosts: json['number_of_posts'] as int,
       rating: json['rating'] as int,
-      updatedAt: json['updatedAt'] == null
+      updatedAt: json['updated_at'] == null
           ? null
-          : DateTime.parse(json['updatedAt'] as String),
+          : DateTime.parse(json['updated_at'] as String),
     );
 
 Map<String, dynamic> _$UserUpdatedAreaToJson(UserUpdatedArea instance) =>
@@ -271,5 +271,5 @@ Map<String, dynamic> _$UserUpdatedAreaToJson(UserUpdatedArea instance) =>
       'band_id': instance.bandId,
       'number_of_posts': instance.numberOfPosts,
       'rating': instance.rating,
-      'updatedAt': instance.updatedAt?.toIso8601String(),
+      'updated_at': instance.updatedAt?.toIso8601String(),
     };
