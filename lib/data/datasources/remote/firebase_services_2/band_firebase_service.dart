@@ -26,11 +26,12 @@ class BandFirebaseService {
     } catch (error) {}
   }
 
-  Future<List<Band>> getBandsByType({required String bandType}) async {
+  Future<List<Band>> getBandsByProfessionType(
+      {required String professionType}) async {
     try {
       final querySnapshot = await firestore
           .collection('bands')
-          .where('type', isEqualTo: bandType)
+          .where('type', isEqualTo: professionType)
           .get();
 
       return querySnapshot.docs
