@@ -10,7 +10,6 @@ import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
 import 'package:stepper/presentation/create_post/views/area_section.dart';
 import 'package:stepper/presentation/create_post/views/post_section.dart';
 import 'package:stepper/presentation/create_post/views/tab_row.dart';
-import 'package:stepper/config/routes/routes.dart';
 
 class CreatePostScreen extends StatelessWidget {
   final CreatePostScreenArgument argument;
@@ -49,7 +48,7 @@ class CreatePostScreen extends StatelessWidget {
                   leading: IconButton(
                     tooltip: "createPostBackButton",
                     onPressed: () {
-                      Navigator.pushNamed(context, RouteNames.home);
+                      Navigator.pop(context);
                       context
                           .read<DrawerCubit>()
                           .selectDrawerItem(DrawerType.home);
