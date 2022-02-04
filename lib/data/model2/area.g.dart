@@ -108,9 +108,9 @@ abstract class _$UserUpdatedAreaCWProxy {
 
   UserUpdatedArea name(dynamic name);
 
-  UserUpdatedArea numberOfPosts(int numberOfPosts);
+  UserUpdatedArea numberOfPosts(int? numberOfPosts);
 
-  UserUpdatedArea rating(int rating);
+  UserUpdatedArea rating(int? rating);
 
   UserUpdatedArea type(dynamic type);
 
@@ -154,11 +154,11 @@ class _$UserUpdatedAreaCWProxyImpl implements _$UserUpdatedAreaCWProxy {
   UserUpdatedArea name(dynamic name) => this(name: name);
 
   @override
-  UserUpdatedArea numberOfPosts(int numberOfPosts) =>
+  UserUpdatedArea numberOfPosts(int? numberOfPosts) =>
       this(numberOfPosts: numberOfPosts);
 
   @override
-  UserUpdatedArea rating(int rating) => this(rating: rating);
+  UserUpdatedArea rating(int? rating) => this(rating: rating);
 
   @override
   UserUpdatedArea type(dynamic type) => this(type: type);
@@ -202,15 +202,14 @@ class _$UserUpdatedAreaCWProxyImpl implements _$UserUpdatedAreaCWProxy {
           ? _value.name
           // ignore: cast_nullable_to_non_nullable
           : name as dynamic,
-      numberOfPosts:
-          numberOfPosts == const $CopyWithPlaceholder() || numberOfPosts == null
-              ? _value.numberOfPosts
-              // ignore: cast_nullable_to_non_nullable
-              : numberOfPosts as int,
-      rating: rating == const $CopyWithPlaceholder() || rating == null
+      numberOfPosts: numberOfPosts == const $CopyWithPlaceholder()
+          ? _value.numberOfPosts
+          // ignore: cast_nullable_to_non_nullable
+          : numberOfPosts as int?,
+      rating: rating == const $CopyWithPlaceholder()
           ? _value.rating
           // ignore: cast_nullable_to_non_nullable
-          : rating as int,
+          : rating as int?,
       type: type == const $CopyWithPlaceholder() || type == null
           ? _value.type
           // ignore: cast_nullable_to_non_nullable
@@ -255,8 +254,8 @@ UserUpdatedArea _$UserUpdatedAreaFromJson(Map<String, dynamic> json) =>
       type: json['type'],
       description: json['description'],
       bandId: json['band_id'],
-      numberOfPosts: json['number_of_posts'] as int,
-      rating: json['rating'] as int,
+      numberOfPosts: json['number_of_posts'] as int?,
+      rating: json['rating'] as int?,
       updatedAt: json['updated_at'] == null
           ? null
           : DateTime.parse(json['updated_at'] as String),

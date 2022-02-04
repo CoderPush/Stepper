@@ -30,8 +30,8 @@ class Area {
 @CopyWith()
 class UserUpdatedArea extends Area {
   @JsonKey(name: 'number_of_posts')
-  int numberOfPosts;
-  int rating;
+  int? numberOfPosts = 0;
+  int? rating = 0;
   @JsonKey(name: 'updated_at')
   DateTime? updatedAt;
 
@@ -41,8 +41,8 @@ class UserUpdatedArea extends Area {
       type,
       description,
       bandId,
-      required this.numberOfPosts,
-      required this.rating,
+      this.numberOfPosts,
+      this.rating,
       this.updatedAt})
       : super(
             id: id,
