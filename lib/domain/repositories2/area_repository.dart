@@ -4,5 +4,5 @@ abstract class AreaRepository {
   Future<List<Area>> getAllAreas();
 
   Future<List<Area>> getAreasByAreaTypeAndBandId(
-      {required String areaType, required String bandId});
+      {required AreaType areaType, required String bandId});
 }
