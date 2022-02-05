@@ -25,3 +25,5 @@ class Profession {
 
   Map<String, dynamic> toJson() => _$ProfessionToJson(this);
 }
+
+enum ProfessionType { engineer, qa, tech_lead }

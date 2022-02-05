@@ -55,3 +55,5 @@ class UserUpdatedArea extends Area {
 
   Map<String, dynamic> toJson() => _$UserUpdatedAreaToJson(this);
 }
+
+enum AreaType { scope, expertise, mindset }
