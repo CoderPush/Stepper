@@ -11,4 +11,10 @@ class ProfessionRepositoryImpl implements ProfessionRepository {
   Future<List<Profession>> getAllProfessions() async {
     return await professionFirebaseService.getAllProfessions();
   }
+
+  @override
+  Future<Profession?> getProfessionById({required String professionId}) async {
+    return await professionFirebaseService.getProfessionById(
+        professionId: professionId);
+  }
 }

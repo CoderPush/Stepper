@@ -13,4 +13,9 @@ class BandRepositoryImpl implements BandRepository {
     return await bandFirebaseService.getBandsByProfessionType(
         professionType: professionType);
   }
+
+  @override
+  Future<Band?> getBandById({required String bandId}) async {
+    return await bandFirebaseService.getBandById(bandId: bandId);
+  }
 }
