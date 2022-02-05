@@ -2,34 +2,29 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:stepper/config/extensions/string_extensions.dart';
 import 'package:stepper/domain/exceptions/exceptions.dart';
-import 'package:stepper/domain/repositories/repositories.dart';
+import 'package:stepper/domain/repositories2/repositories2.dart';
 
 part 'authentication_state.dart';
 
 class AuthenticationCubit extends Cubit<AuthenticationState> {
+  final AuthRepository authRepository;
   final UserRepository userRepository;
-  final ProfessionRepository professionRepository;
-  final BandRepository bandRepository;
 
   AuthenticationCubit({
+    required this.authRepository,
     required this.userRepository,
-    required this.professionRepository,
-    required this.bandRepository,
   }) : super(AuthenticationInitial()) {
     startApp();
   }
 
   Future<void> startApp() async {
     try {
-      final isSignedIn = await userRepository.isSignedIn();
+      final isSignedIn = authRepository.authUser != null;
       if (isSignedIn) {
+        var email = authRepository.authUser?.email;
         emit(AuthenticatedState(
-          userEmail: userRepository.getSignedInUser()!.email!,
-          userName: userRepository
-              .getSignedInUser()!
-              .email!
-              .split('@')[0]
-              .capitalizeFirstLetter(),
+          userEmail: email!,
+          userName: email.split('@')[0].capitalizeFirstLetter(),
         ));
       } else {
         emit(UnauthenticatedState());
@@ -42,9 +37,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   Future<void> signInWithEmailAndPassword(
       String emailAddress, String password) async {
     try {
-      await userRepository.signInWithEmailAndPassword(
-          emailAddress: emailAddress, password: password);
-      await _getUserSettings();
+      await authRepository.signIn(email: emailAddress, password: password);
       emit(AuthenticatedState(
         userEmail: emailAddress,
         userName: emailAddress.split('@')[0].capitalizeFirstLetter(),
@@ -57,9 +50,8 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   Future<void> registerWithEmailAndPassword(
       String emailAddress, String password) async {
     try {
-      await userRepository.registerWithEmailAndPassword(
-          emailAddress: emailAddress, password: password);
-      await _setupUserSettings();
+      await authRepository.signUp(email: emailAddress, password: password);
+      await _createInitialUserData();
       emit(AuthenticatedState(
         userEmail: emailAddress,
         userName: emailAddress.split('@')[0].capitalizeFirstLetter(),
@@ -69,37 +61,18 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     }
   }
 
+  _createInitialUserData() async {
+    await userRepository.createUser();
+  }
+
   Future<void> onUserSignOut() async {
     try {
       emit(AuthenticationInitial());
       await Future.delayed(const Duration(seconds: 1));
-      await userRepository.signOut();
+      await authRepository.signOut();
       emit(UnauthenticatedState());
     } on AuthException catch (e) {
       emit(AuthenticationError(e.toString()));
     }
-  }
-
-  // this function is to setup user data when user signs up
-  Future<void> _setupUserSettings() async {
-    final professionList =
-        (await professionRepository.getProfessions()).professions;
-
-    // save selected profession
-    await professionRepository
-        .saveSelectedProfession(professionList[0].professionName);
-
-    final bandList = await bandRepository.getBandsWithProfession(
-        professionList.firstWhere((profession) =>
-            profession.professionName == professionList[0].professionName));
-
-    // save selectedBand
-    await bandRepository.saveSelectedBand(bandList[0]);
-  }
-
-  // this function is to pre-load setting data locally
-  Future<void> _getUserSettings() async {
-    await professionRepository.getSelectedProfession();
-    await bandRepository.getSelectedBand();
   }
 }
