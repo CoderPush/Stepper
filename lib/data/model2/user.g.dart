@@ -19,8 +19,6 @@ abstract class _$UserCWProxy {
 
   User name(String name);
 
-  User updatedAreas(List<UserUpdatedArea>? updatedAreas);
-
   User updatedAt(String? updatedAt);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `User(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
@@ -36,7 +34,6 @@ abstract class _$UserCWProxy {
     String? email,
     String? id,
     String? name,
-    List<UserUpdatedArea>? updatedAreas,
     String? updatedAt,
   });
 }
@@ -67,10 +64,6 @@ class _$UserCWProxyImpl implements _$UserCWProxy {
   User name(String name) => this(name: name);
 
   @override
-  User updatedAreas(List<UserUpdatedArea>? updatedAreas) =>
-      this(updatedAreas: updatedAreas);
-
-  @override
   User updatedAt(String? updatedAt) => this(updatedAt: updatedAt);
 
   @override
@@ -88,7 +81,6 @@ class _$UserCWProxyImpl implements _$UserCWProxy {
     Object? email = const $CopyWithPlaceholder(),
     Object? id = const $CopyWithPlaceholder(),
     Object? name = const $CopyWithPlaceholder(),
-    Object? updatedAreas = const $CopyWithPlaceholder(),
     Object? updatedAt = const $CopyWithPlaceholder(),
   }) {
     return User(
@@ -118,10 +110,6 @@ class _$UserCWProxyImpl implements _$UserCWProxy {
           ? _value.name
           // ignore: cast_nullable_to_non_nullable
           : name as String,
-      updatedAreas: updatedAreas == const $CopyWithPlaceholder()
-          ? _value.updatedAreas
-          // ignore: cast_nullable_to_non_nullable
-          : updatedAreas as List<UserUpdatedArea>?,
       updatedAt: updatedAt == const $CopyWithPlaceholder()
           ? _value.updatedAt
           // ignore: cast_nullable_to_non_nullable
@@ -146,9 +134,6 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       currentProfession: Profession.fromJson(
           json['current_profession'] as Map<String, dynamic>),
       currentBand: Band.fromJson(json['current_band'] as Map<String, dynamic>),
-      updatedAreas: (json['updated_areas'] as List<dynamic>?)
-          ?.map((e) => UserUpdatedArea.fromJson(e as Map<String, dynamic>))
-          .toList(),
       createdAt: json['created_at'] as String?,
       updatedAt: json['updated_at'] as String?,
     );
@@ -157,9 +142,8 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'id': instance.id,
       'email': instance.email,
       'name': instance.name,
-      'current_profession': instance.currentProfession,
-      'current_band': instance.currentBand,
-      'updated_areas': instance.updatedAreas,
+      'current_profession': instance.currentProfession.toJson(),
+      'current_band': instance.currentBand.toJson(),
       'created_at': instance.createdAt,
       'updated_at': instance.updatedAt,
     };

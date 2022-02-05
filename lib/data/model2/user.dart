@@ -1,10 +1,10 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:stepper/data/model2/model.dart';
+import 'package:stepper/data/model2/models2.dart';
 
 part 'user.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 @CopyWith()
 class User {
   String id;
@@ -14,8 +14,6 @@ class User {
   Profession currentProfession;
   @JsonKey(name: 'current_band')
   Band currentBand;
-  @JsonKey(name: 'updated_areas')
-  List<UserUpdatedArea>? updatedAreas = [];
   @JsonKey(name: 'created_at')
   String? createdAt;
   @JsonKey(name: 'updated_at')
@@ -27,7 +25,6 @@ class User {
       required this.name,
       required this.currentProfession,
       required this.currentBand,
-      this.updatedAreas,
       this.createdAt,
       this.updatedAt});
 

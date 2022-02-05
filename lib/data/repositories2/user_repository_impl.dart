@@ -28,12 +28,12 @@ class UserRepositoryImpl implements UserRepository {
     final defaultBand =
         await bandRepository.getBandById(bandId: DEFAULT_BAND_ID);
     final initialUserData = User(
-        id: email!,
-        email: email,
-        name: email,
-        currentProfession: defaultProfession!,
-        currentBand: defaultBand!,
-        updatedAreas: []).toJson();
+      id: email!,
+      email: email,
+      name: email,
+      currentProfession: defaultProfession!,
+      currentBand: defaultBand!,
+    ).toJson();
 
     await userFirebaseService.createUser(initialUserData);
   }
