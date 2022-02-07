@@ -10,9 +10,22 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
+  make-env:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Generate env file
+        uses: SpicyPizza/create-envfile@master
+        with:
+          directory: ./
+          file_name: .env
+
   build-ios:
     # The type of runner that the job will run on
     runs-on: macos-latest
+    needs: make-env
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -32,12 +45,6 @@ jobs:
         env:
           IOS_FIREBASE_CONFIG: ${{ secrets.IOS_FIREBASE_CONFIG }}
         run: echo "$IOS_FIREBASE_CONFIG" | base64 --decode > $GITHUB_WORKSPACE/ios/Runner/GoogleService-Info.plist
-
-      - name: Generate env file
-        uses: SpicyPizza/create-envfile@master
-        with:
-          directory: ./
-          file_name: .env
 
       - name: Insert certificate and provisioning profile
         working-directory: ./ios
