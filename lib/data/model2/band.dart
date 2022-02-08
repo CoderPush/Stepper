@@ -11,6 +11,8 @@ class Band {
   String type;
   int level;
 
+  static final empty = Band(id: '', name: '', type: '', level: 0);
+
   Band(
       {required this.id,
       required this.name,

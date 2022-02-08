@@ -19,6 +19,8 @@ class Profession {
       required this.type,
       required this.bandIds});
 
+  static final empty = Profession(id: '', name: '', type: '', bandIds: []);
+
   factory Profession.fromJson(Map<String, dynamic> json) =>
       _$ProfessionFromJson(json);
 
