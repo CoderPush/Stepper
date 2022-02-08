@@ -4,5 +4,10 @@ abstract class AreaRepository {
   Future<List<Area>> getAllAreas();
 
   Future<List<Area>> getAreasByAreaTypeAndBandId(
-      {required AreaType areaType, required String bandId});
+      {AreaType? areaType = AreaType.scope, required String bandId});
+
+  Stream<List<Area>> subscribeAreas();
+
+  Future<List<Area>> getUserAreasByTypeAndBandId(
+      {AreaType? areaType = AreaType.scope, required String bandId});
 }

@@ -14,8 +14,20 @@ class AreaRepositoryImpl implements AreaRepository {
 
   @override
   Future<List<Area>> getAreasByAreaTypeAndBandId(
-      {required AreaType areaType, required String bandId}) async {
+      {AreaType? areaType = AreaType.scope, required String bandId}) async {
     return areaFirebaseService.getAreasByAreaTypeAndBandId(
-        areaType: areaType.name, bandId: bandId);
+        areaType: areaType!.name, bandId: bandId);
+  }
+
+  @override
+  Stream<List<Area>> subscribeAreas() {
+    return areaFirebaseService.subscribeAreas();
+  }
+
+  @override
+  Future<List<Area>> getUserAreasByTypeAndBandId(
+      {AreaType? areaType = AreaType.scope, required String bandId}) async {
+    return areaFirebaseService.getUserAreasByAreaTypeAndBandId(
+        areaType: areaType!.name, bandId: bandId);
   }
 }
