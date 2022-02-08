@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:stepper/data/model2/helpers/timestamp_converter.dart';
 import 'package:stepper/data/model2/models2.dart';
 
 part 'user.g.dart';
@@ -14,10 +16,12 @@ class User {
   Profession currentProfession;
   @JsonKey(name: 'current_band')
   Band currentBand;
+  @TimestampConverter()
   @JsonKey(name: 'created_at')
-  String? createdAt;
+  DateTime? createdAt;
+  @TimestampConverter()
   @JsonKey(name: 'updated_at')
-  String? updatedAt;
+  DateTime? updatedAt;
 
   User(
       {required this.id,
@@ -27,6 +31,14 @@ class User {
       required this.currentBand,
       this.createdAt,
       this.updatedAt});
+
+  static final empty = User(
+    id: '',
+    email: '',
+    name: '',
+    currentProfession: Profession.empty,
+    currentBand: Band.empty,
+  );
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 

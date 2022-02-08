@@ -7,7 +7,7 @@ part of 'user.dart';
 // **************************************************************************
 
 abstract class _$UserCWProxy {
-  User createdAt(String? createdAt);
+  User createdAt(DateTime? createdAt);
 
   User currentBand(Band currentBand);
 
@@ -19,7 +19,7 @@ abstract class _$UserCWProxy {
 
   User name(String name);
 
-  User updatedAt(String? updatedAt);
+  User updatedAt(DateTime? updatedAt);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `User(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -28,13 +28,13 @@ abstract class _$UserCWProxy {
   /// User(...).copyWith(id: 12, name: "My name")
   /// ````
   User call({
-    String? createdAt,
+    DateTime? createdAt,
     Band? currentBand,
     Profession? currentProfession,
     String? email,
     String? id,
     String? name,
-    String? updatedAt,
+    DateTime? updatedAt,
   });
 }
 
@@ -45,7 +45,7 @@ class _$UserCWProxyImpl implements _$UserCWProxy {
   const _$UserCWProxyImpl(this._value);
 
   @override
-  User createdAt(String? createdAt) => this(createdAt: createdAt);
+  User createdAt(DateTime? createdAt) => this(createdAt: createdAt);
 
   @override
   User currentBand(Band currentBand) => this(currentBand: currentBand);
@@ -64,7 +64,7 @@ class _$UserCWProxyImpl implements _$UserCWProxy {
   User name(String name) => this(name: name);
 
   @override
-  User updatedAt(String? updatedAt) => this(updatedAt: updatedAt);
+  User updatedAt(DateTime? updatedAt) => this(updatedAt: updatedAt);
 
   @override
 
@@ -87,7 +87,7 @@ class _$UserCWProxyImpl implements _$UserCWProxy {
       createdAt: createdAt == const $CopyWithPlaceholder()
           ? _value.createdAt
           // ignore: cast_nullable_to_non_nullable
-          : createdAt as String?,
+          : createdAt as DateTime?,
       currentBand:
           currentBand == const $CopyWithPlaceholder() || currentBand == null
               ? _value.currentBand
@@ -113,7 +113,7 @@ class _$UserCWProxyImpl implements _$UserCWProxy {
       updatedAt: updatedAt == const $CopyWithPlaceholder()
           ? _value.updatedAt
           // ignore: cast_nullable_to_non_nullable
-          : updatedAt as String?,
+          : updatedAt as DateTime?,
     );
   }
 }
@@ -134,8 +134,10 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       currentProfession: Profession.fromJson(
           json['current_profession'] as Map<String, dynamic>),
       currentBand: Band.fromJson(json['current_band'] as Map<String, dynamic>),
-      createdAt: json['created_at'] as String?,
-      updatedAt: json['updated_at'] as String?,
+      createdAt:
+          const TimestampConverter().fromJson(json['created_at'] as Timestamp?),
+      updatedAt:
+          const TimestampConverter().fromJson(json['updated_at'] as Timestamp?),
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
@@ -144,6 +146,6 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'name': instance.name,
       'current_profession': instance.currentProfession.toJson(),
       'current_band': instance.currentBand.toJson(),
-      'created_at': instance.createdAt,
-      'updated_at': instance.updatedAt,
+      'created_at': const TimestampConverter().toJson(instance.createdAt),
+      'updated_at': const TimestampConverter().toJson(instance.updatedAt),
     };

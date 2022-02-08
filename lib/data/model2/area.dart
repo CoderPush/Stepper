@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:stepper/data/model2/helpers/timestamp_converter.dart';
 
 part 'area.g.dart';
 
@@ -8,52 +10,40 @@ part 'area.g.dart';
 class Area {
   String id;
   String name;
-  String type;
+  AreaType type;
   String description;
-
   @JsonKey(name: 'band_id')
   String bandId;
+  @JsonKey(name: 'number_of_posts')
+  int? numberOfPosts = 0;
+  int? rating = 0;
+  @TimestampConverter()
+  @JsonKey(name: 'updated_at')
+  DateTime? updatedAt;
+
+  static final empty =
+      Area(id: '', name: '', type: AreaType.scope, description: '', bandId: '');
 
   Area(
       {required this.id,
       required this.name,
       required this.type,
       required this.description,
-      required this.bandId});
+      required this.bandId,
+      this.numberOfPosts,
+      this.rating,
+      this.updatedAt});
 
   factory Area.fromJson(Map<String, dynamic> json) => _$AreaFromJson(json);
 
   Map<String, dynamic> toJson() => _$AreaToJson(this);
 }
 
-@JsonSerializable()
-@CopyWith()
-class UserUpdatedArea extends Area {
-  @JsonKey(name: 'number_of_posts')
-  int? numberOfPosts = 0;
-  int? rating = 0;
-  @JsonKey(name: 'updated_at')
-  DateTime? updatedAt;
-
-  UserUpdatedArea(
-      {id,
-      name,
-      type,
-      description,
-      bandId,
-      this.numberOfPosts,
-      this.rating,
-      this.updatedAt})
-      : super(
-            id: id,
-            name: name,
-            type: type,
-            description: description,
-            bandId: bandId);
-  factory UserUpdatedArea.fromJson(Map<String, dynamic> json) =>
-      _$UserUpdatedAreaFromJson(json);
-
-  Map<String, dynamic> toJson() => _$UserUpdatedAreaToJson(this);
+enum AreaType {
+  @JsonValue("scope")
+  scope,
+  @JsonValue("expertise")
+  expertise,
+  @JsonValue("mindset")
+  mindset
 }
-
-enum AreaType { scope, expertise, mindset }

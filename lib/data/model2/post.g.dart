@@ -131,12 +131,10 @@ Post _$PostFromJson(Map<String, dynamic> json) => Post(
       description: json['description'] as String,
       areaId: json['area_id'] as String,
       imgUrl: json['img_url'] as String?,
-      createdAt: json['created_at'] == null
-          ? null
-          : DateTime.parse(json['created_at'] as String),
-      updatedAt: json['updated_at'] == null
-          ? null
-          : DateTime.parse(json['updated_at'] as String),
+      createdAt:
+          const TimestampConverter().fromJson(json['created_at'] as Timestamp?),
+      updatedAt:
+          const TimestampConverter().fromJson(json['updated_at'] as Timestamp?),
     );
 
 Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
@@ -144,7 +142,7 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'status': instance.status,
       'description': instance.description,
       'area_id': instance.areaId,
-      'created_at': instance.createdAt?.toIso8601String(),
-      'updated_at': instance.updatedAt?.toIso8601String(),
+      'created_at': const TimestampConverter().toJson(instance.createdAt),
+      'updated_at': const TimestampConverter().toJson(instance.updatedAt),
       'img_url': instance.imgUrl,
     };
