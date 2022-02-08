@@ -40,4 +40,9 @@ class UserRepositoryImpl implements UserRepository {
 
   // @override
   // Future<void> updateUser(Map<String, dynamic> data) {}
+
+  @override
+  Future<User> getUser() async {
+    return await userFirebaseService.getUser();
+  }
 }

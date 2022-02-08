@@ -15,7 +15,7 @@ class UserFirebaseService {
 
   Future<void> createUser(Map<String, dynamic> dataJson) async {
     var userDocSnap = await firestore.userDocument();
-    var userDoc = await userDocSnap.set(
+    await userDocSnap.set(
       {
         ...dataJson,
         "created_at": FieldValue.serverTimestamp(),
