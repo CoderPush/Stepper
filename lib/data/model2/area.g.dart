@@ -15,9 +15,9 @@ abstract class _$AreaCWProxy {
 
   Area name(String name);
 
-  Area numberOfPosts(int? numberOfPosts);
+  Area numberOfPosts(int numberOfPosts);
 
-  Area rating(int? rating);
+  Area rating(int rating);
 
   Area type(AreaType type);
 
@@ -60,10 +60,10 @@ class _$AreaCWProxyImpl implements _$AreaCWProxy {
   Area name(String name) => this(name: name);
 
   @override
-  Area numberOfPosts(int? numberOfPosts) => this(numberOfPosts: numberOfPosts);
+  Area numberOfPosts(int numberOfPosts) => this(numberOfPosts: numberOfPosts);
 
   @override
-  Area rating(int? rating) => this(rating: rating);
+  Area rating(int rating) => this(rating: rating);
 
   @override
   Area type(AreaType type) => this(type: type);
@@ -107,14 +107,15 @@ class _$AreaCWProxyImpl implements _$AreaCWProxy {
           ? _value.name
           // ignore: cast_nullable_to_non_nullable
           : name as String,
-      numberOfPosts: numberOfPosts == const $CopyWithPlaceholder()
-          ? _value.numberOfPosts
-          // ignore: cast_nullable_to_non_nullable
-          : numberOfPosts as int?,
-      rating: rating == const $CopyWithPlaceholder()
+      numberOfPosts:
+          numberOfPosts == const $CopyWithPlaceholder() || numberOfPosts == null
+              ? _value.numberOfPosts
+              // ignore: cast_nullable_to_non_nullable
+              : numberOfPosts as int,
+      rating: rating == const $CopyWithPlaceholder() || rating == null
           ? _value.rating
           // ignore: cast_nullable_to_non_nullable
-          : rating as int?,
+          : rating as int,
       type: type == const $CopyWithPlaceholder() || type == null
           ? _value.type
           // ignore: cast_nullable_to_non_nullable
@@ -142,8 +143,8 @@ Area _$AreaFromJson(Map<String, dynamic> json) => Area(
       type: $enumDecode(_$AreaTypeEnumMap, json['type']),
       description: json['description'] as String,
       bandId: json['band_id'] as String,
-      numberOfPosts: json['number_of_posts'] as int?,
-      rating: json['rating'] as int?,
+      numberOfPosts: json['number_of_posts'] as int? ?? 0,
+      rating: json['rating'] as int? ?? 0,
       updatedAt:
           const TimestampConverter().fromJson(json['updated_at'] as Timestamp?),
     );

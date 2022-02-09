@@ -15,8 +15,8 @@ class Area {
   @JsonKey(name: 'band_id')
   String bandId;
   @JsonKey(name: 'number_of_posts')
-  int? numberOfPosts = 0;
-  int? rating = 0;
+  int numberOfPosts;
+  int rating;
   @TimestampConverter()
   @JsonKey(name: 'updated_at')
   DateTime? updatedAt;
@@ -30,8 +30,8 @@ class Area {
       required this.type,
       required this.description,
       required this.bandId,
-      this.numberOfPosts,
-      this.rating,
+      this.numberOfPosts = 0,
+      this.rating = 0,
       this.updatedAt});
 
   factory Area.fromJson(Map<String, dynamic> json) => _$AreaFromJson(json);
