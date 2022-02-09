@@ -5,11 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
-import 'package:stepper/presentation/common/commons.dart';
-import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
+import 'package:stepper/presentation/create_post/cubit/create_post_cubit_2.dart';
+import 'package:stepper/presentation/create_post/cubit/create_post_state_2.dart';
 import 'package:stepper/presentation/create_post/views/create_post_action_button.dart';
 import 'package:stepper/presentation/utils.dart';
-import 'package:stepper/config/routes/routes.dart';
 
 class WriteUpdateView extends StatefulWidget {
   final String? initialPostDescription;
@@ -26,8 +25,11 @@ class WriteUpdateView extends StatefulWidget {
 }
 
 class _WriteUpdateViewState extends State<WriteUpdateView> {
+  final Debounce _debounce = Debounce(miliseconds: 300);
   late TextEditingController _controller;
   File? file;
+  late CreatePostCubit2 createPostCubit;
+  late CreatePostState2 createPostState;
 
   @override
   void initState() {
@@ -35,23 +37,52 @@ class _WriteUpdateViewState extends State<WriteUpdateView> {
     _controller =
         TextEditingController(text: widget.initialPostDescription ?? '');
     _controller.addListener(() {
-      if (_controller.text.isNotEmpty) {
-        context.read<CreatePostCubit>().onUserWriteUpdate(_controller.text);
-      }
+      if (_controller.text.isEmpty) return;
+      // Auto save feature should be used only on mode Edit only
+      _onAutoUpdatePost(_controller.text);
     });
   }
 
   @override
   void dispose() {
+    // Happen only when mode is createNew and user does not create new post by pressing publish
+    createDraftPostOnCreateNewModeOnly();
+    _debounce.cancel();
     super.dispose();
     _controller.dispose();
   }
 
-  void onPostClick(BuildContext context) async {
-    await context
-        .read<CreatePostCubit>()
-        .onPublishUpdate(_controller.text, file);
-    context.read<DrawerCubit>().selectDrawerItem(DrawerType.home);
+  void _onAutoUpdatePost(String text) {
+    _debounce.run(() {
+      context.read<CreatePostCubit2>().onAutoUpdatePost(postContent: text);
+    });
+  }
+
+  void createDraftPostOnCreateNewModeOnly() {
+    final mode = createPostState.mode;
+    final shouldCreateDraft = createPostState.shouldCreateDraft;
+    final postContent = _controller.text;
+    if (mode != CreatePostScreenMode.createNew) return;
+
+    if (!shouldCreateDraft) return;
+
+    if (postContent.isEmpty) return;
+
+    createPostCubit.onCreateNewDraftPost(
+        postContent: _controller.text, imgFile: file);
+  }
+
+  void onPressPublish(CreatePostState2 state) {
+    final mode = state.mode;
+    if (mode == CreatePostScreenMode.createNew) {
+      BlocProvider.of<CreatePostCubit2>(context)
+          .onCreateNewPublishPost(postContent: _controller.text, imgFile: file);
+    } else {
+      BlocProvider.of<CreatePostCubit2>(context)
+          .onUpdatePublishPost(postContent: _controller.text, imgFile: file);
+    }
+
+    Navigator.of(context).pop();
   }
 
   void onAttachFile() {}
@@ -67,26 +98,30 @@ class _WriteUpdateViewState extends State<WriteUpdateView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CreatePostCubit, CreatePostState>(
-      listener: (context, state) {
-        if (state is CreateUpdateSuccessState) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text(writeUpdateSucceed),
-            duration: Duration(milliseconds: 1000),
-          ));
-          Navigator.of(context).pushReplacementNamed(RouteNames.home);
-        } else if (state is CreateGoalSuccessState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text(setGoalSucceed)),
-          );
-          Navigator.of(context).pushReplacementNamed(RouteNames.home);
-        } else if (state is CreatePostErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errorMessage)),
-          );
-        }
-      },
+    return BlocConsumer<CreatePostCubit2, CreatePostState2>(
+      listener: (context, state) {},
+      // TODO:
+      // listener: (context, state) {
+      //   if (state is CreateUpdateSuccessState) {
+      //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      //       content: Text(writeUpdateSucceed),
+      //       duration: Duration(milliseconds: 1000),
+      //     ));
+      //     Navigator.of(context).pushReplacementNamed(RouteNames.home);
+      //   } else if (state is CreateGoalSuccessState) {
+      //     ScaffoldMessenger.of(context).showSnackBar(
+      //       const SnackBar(content: Text(setGoalSucceed)),
+      //     );
+      //     Navigator.of(context).pushReplacementNamed(RouteNames.home);
+      //   } else if (state is CreatePostErrorState) {
+      //     ScaffoldMessenger.of(context).showSnackBar(
+      //       SnackBar(content: Text(state.errorMessage)),
+      //     );
+      //   }
+      // },
       builder: (context, state) {
+        createPostCubit = BlocProvider.of<CreatePostCubit2>(context);
+        createPostState = state;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -138,6 +173,7 @@ class _WriteUpdateViewState extends State<WriteUpdateView> {
                 ),
                 const SizedBox(width: screenLargePadding),
                 Expanded(
+                  flex: 2,
                   child: SizedBox(
                     height: buttonHeight,
                     child: ElevatedButton(
@@ -149,7 +185,9 @@ class _WriteUpdateViewState extends State<WriteUpdateView> {
                               BorderRadius.circular(extraLargeBorderRadius),
                         ),
                       ),
-                      onPressed: () => onPostClick(context),
+                      onPressed: () {
+                        onPressPublish(state);
+                      },
                       child: const Text(publish),
                     ),
                   ),
