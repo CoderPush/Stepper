@@ -65,9 +65,23 @@ class AreaFirebaseService2 {
 
   Stream<List<Area>> subscribeAreas() async* {
     final userDocSnap = await firestore.userDocument();
-    final areaStream = userDocSnap.areaCollection.snapshots();
+    final areaStream = userDocSnap.areaCollection
+        .orderBy("updated_at", descending: true)
+        .limit(6)
+        .snapshots();
     yield* areaStream.map((snapshot) => snapshot.docs
         .map((doc) => Area.fromJson(doc.data() as Map<String, dynamic>))
         .toList());
+  }
+
+  Future<Area> updateUserArea(
+      {required String areaId, required Map<String, dynamic> data}) async {
+    final userDoc = await firestore.userDocument();
+    final modifiedData = {...data, "updated_at": FieldValue.serverTimestamp()};
+    await userDoc.areaCollection
+        .doc(areaId)
+        .set(modifiedData, SetOptions(merge: true));
+    final updatedAreaSnap = await userDoc.areaCollection.doc(areaId).get();
+    return Area.fromJson(updatedAreaSnap.data() as Map<String, dynamic>);
   }
 }

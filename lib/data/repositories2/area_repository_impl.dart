@@ -6,6 +6,10 @@ class AreaRepositoryImpl implements AreaRepository {
   AreaFirebaseService2 areaFirebaseService;
 
   AreaRepositoryImpl({required this.areaFirebaseService});
+  @override
+  Stream<List<Area>> subscribeAreas() {
+    return areaFirebaseService.subscribeAreas();
+  }
 
   @override
   Future<List<Area>> getAllAreas() async {
@@ -20,14 +24,15 @@ class AreaRepositoryImpl implements AreaRepository {
   }
 
   @override
-  Stream<List<Area>> subscribeAreas() {
-    return areaFirebaseService.subscribeAreas();
-  }
-
-  @override
   Future<List<Area>> getUserAreasByTypeAndBandId(
       {AreaType? areaType = AreaType.scope, required String bandId}) async {
     return areaFirebaseService.getUserAreasByAreaTypeAndBandId(
         areaType: areaType!.name, bandId: bandId);
+  }
+
+  @override
+  Future<Area> updateUserArea({required String areaId, required Area area}) {
+    return areaFirebaseService.updateUserArea(
+        areaId: areaId, data: area.toJson());
   }
 }
