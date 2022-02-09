@@ -159,4 +159,93 @@ class CreatePostCubit2 extends Cubit<CreatePostState2> {
     postRepository.updatePost(postId: post.id!, updatedPost: post);
   }
 
+  onCreateNewPublishPost({required String postContent, File? imgFile}) {
+    emit(state.copyWith(shouldCreateDraft: false));
+    _createPost(
+        postContent: postContent,
+        postStatus: PostStatus.published,
+        imgFile: imgFile);
+  }
 
+  onUpdatePublishPost({required String postContent, File? imgFile}) {
+    _updatePost(
+        postId: state.post!.id!,
+        postStatus: PostStatus.published,
+        postContent: postContent,
+        imgFile: imgFile);
+  }
+
+  onCreateNewDraftPost({required String postContent, File? imgFile}) {
+    _createPost(
+        postContent: postContent,
+        postStatus: PostStatus.draft,
+        imgFile: imgFile);
+  }
+
+  onUpdateDraftPost({required String postContent, File? imgFile}) {
+    _updatePost(
+        postId: state.post!.id!,
+        postStatus: PostStatus.draft,
+        postContent: postContent,
+        imgFile: imgFile);
+  }
+
+  onAutoUpdatePost({required String postContent}) {
+    // Auto save should be called on Edit mode only
+    if (state.mode != CreatePostScreenMode.edit) return;
+
+    final post = state.post;
+    if (post!.status == PostStatus.published) {
+      onUpdatePublishPost(postContent: postContent);
+    } else if (post.status == PostStatus.draft) {
+      onUpdateDraftPost(postContent: postContent);
+    }
+  }
+
+  _createPost(
+      {required String postContent,
+      required PostStatus postStatus,
+      File? imgFile}) async {
+    String? imgUrl;
+    if (imgFile != null) {
+      imgUrl = await _uploadImage(file: imgFile);
+    }
+
+    final updatedArea = await areaRepository.updateUserArea(
+        areaId: state.selectedArea.id, area: state.selectedArea);
+
+    final post = Post(
+        status: postStatus,
+        area: updatedArea,
+        description: postContent,
+        imgUrl: imgUrl);
+
+    postRepository.createPost(post: post);
+  }
+
+  _updatePost(
+      {required String postId,
+      required String postContent,
+      required postStatus,
+      File? imgFile}) async {
+    String? imgUrl;
+    if (imgFile != null) {
+      imgUrl = await _uploadImage(file: imgFile);
+    }
+    final updatedArea = await areaRepository.updateUserArea(
+        areaId: state.selectedArea.id, area: state.selectedArea);
+    Post currentPost = state.post!;
+    Post post = currentPost.copyWith(
+        status: postStatus,
+        area: updatedArea,
+        description: postContent,
+        imgUrl: imgUrl);
+
+    postRepository.updatePost(postId: postId, updatedPost: post);
+  }
+
+  Future<String?> _uploadImage({required File file}) async {
+    final url = await userRepository.uploadFile(file: file);
+    return url;
+  }
+}
