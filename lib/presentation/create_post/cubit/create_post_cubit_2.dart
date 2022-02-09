@@ -123,3 +123,10 @@ class CreatePostCubit2 extends Cubit<CreatePostState2> {
     emit(state.copyWith(areas: areas, selectedArea: areas[0]));
   }
 
+  onAreaChanged(String areaName) {
+    final selectedArea = _getItemByName<Area>(
+        list: state.areas, name: areaName, getter: (item) => item.name);
+    emit(state.copyWith(selectedArea: selectedArea));
+  }
+
+
