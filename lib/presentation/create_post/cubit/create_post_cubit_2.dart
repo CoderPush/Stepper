@@ -117,3 +117,9 @@ class CreatePostCubit2 extends Cubit<CreatePostState2> {
     );
   }
 
+  onAreaTypeChanged(AreaType areaType) async {
+    emit(state.copyWith(selectedAreaType: areaType));
+    final areas = await _getAreas();
+    emit(state.copyWith(areas: areas, selectedArea: areas[0]));
+  }
+
