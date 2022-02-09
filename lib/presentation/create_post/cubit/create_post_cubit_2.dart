@@ -129,4 +129,12 @@ class CreatePostCubit2 extends Cubit<CreatePostState2> {
     emit(state.copyWith(selectedArea: selectedArea));
   }
 
+  onBandChanged(String bandName) async {
+    final selectedBand = _getItemByName<Band>(
+        list: state.bands, name: bandName, getter: (item) => item.name);
+    emit(state.copyWith(selectedBand: selectedBand));
+    final areas = await _getAreas();
+    emit(state.copyWith(areas: areas, selectedArea: areas[0]));
+  }
+
 
