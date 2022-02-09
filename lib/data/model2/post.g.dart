@@ -7,17 +7,17 @@ part of 'post.dart';
 // **************************************************************************
 
 abstract class _$PostCWProxy {
-  Post areaId(String areaId);
+  Post area(Area area);
 
   Post createdAt(DateTime? createdAt);
 
   Post description(String description);
 
-  Post id(String id);
+  Post id(String? id);
 
   Post imgUrl(String? imgUrl);
 
-  Post status(String status);
+  Post status(PostStatus status);
 
   Post updatedAt(DateTime? updatedAt);
 
@@ -28,12 +28,12 @@ abstract class _$PostCWProxy {
   /// Post(...).copyWith(id: 12, name: "My name")
   /// ````
   Post call({
-    String? areaId,
+    Area? area,
     DateTime? createdAt,
     String? description,
     String? id,
     String? imgUrl,
-    String? status,
+    PostStatus? status,
     DateTime? updatedAt,
   });
 }
@@ -45,7 +45,7 @@ class _$PostCWProxyImpl implements _$PostCWProxy {
   const _$PostCWProxyImpl(this._value);
 
   @override
-  Post areaId(String areaId) => this(areaId: areaId);
+  Post area(Area area) => this(area: area);
 
   @override
   Post createdAt(DateTime? createdAt) => this(createdAt: createdAt);
@@ -54,13 +54,13 @@ class _$PostCWProxyImpl implements _$PostCWProxy {
   Post description(String description) => this(description: description);
 
   @override
-  Post id(String id) => this(id: id);
+  Post id(String? id) => this(id: id);
 
   @override
   Post imgUrl(String? imgUrl) => this(imgUrl: imgUrl);
 
   @override
-  Post status(String status) => this(status: status);
+  Post status(PostStatus status) => this(status: status);
 
   @override
   Post updatedAt(DateTime? updatedAt) => this(updatedAt: updatedAt);
@@ -74,7 +74,7 @@ class _$PostCWProxyImpl implements _$PostCWProxy {
   /// Post(...).copyWith(id: 12, name: "My name")
   /// ````
   Post call({
-    Object? areaId = const $CopyWithPlaceholder(),
+    Object? area = const $CopyWithPlaceholder(),
     Object? createdAt = const $CopyWithPlaceholder(),
     Object? description = const $CopyWithPlaceholder(),
     Object? id = const $CopyWithPlaceholder(),
@@ -83,10 +83,10 @@ class _$PostCWProxyImpl implements _$PostCWProxy {
     Object? updatedAt = const $CopyWithPlaceholder(),
   }) {
     return Post(
-      areaId: areaId == const $CopyWithPlaceholder() || areaId == null
-          ? _value.areaId
+      area: area == const $CopyWithPlaceholder() || area == null
+          ? _value.area
           // ignore: cast_nullable_to_non_nullable
-          : areaId as String,
+          : area as Area,
       createdAt: createdAt == const $CopyWithPlaceholder()
           ? _value.createdAt
           // ignore: cast_nullable_to_non_nullable
@@ -96,10 +96,10 @@ class _$PostCWProxyImpl implements _$PostCWProxy {
               ? _value.description
               // ignore: cast_nullable_to_non_nullable
               : description as String,
-      id: id == const $CopyWithPlaceholder() || id == null
+      id: id == const $CopyWithPlaceholder()
           ? _value.id
           // ignore: cast_nullable_to_non_nullable
-          : id as String,
+          : id as String?,
       imgUrl: imgUrl == const $CopyWithPlaceholder()
           ? _value.imgUrl
           // ignore: cast_nullable_to_non_nullable
@@ -107,7 +107,7 @@ class _$PostCWProxyImpl implements _$PostCWProxy {
       status: status == const $CopyWithPlaceholder() || status == null
           ? _value.status
           // ignore: cast_nullable_to_non_nullable
-          : status as String,
+          : status as PostStatus,
       updatedAt: updatedAt == const $CopyWithPlaceholder()
           ? _value.updatedAt
           // ignore: cast_nullable_to_non_nullable
@@ -126,10 +126,10 @@ extension $PostCopyWith on Post {
 // **************************************************************************
 
 Post _$PostFromJson(Map<String, dynamic> json) => Post(
-      id: json['id'] as String,
-      status: json['status'] as String,
+      id: json['id'] as String?,
+      status: $enumDecode(_$PostStatusEnumMap, json['status']),
       description: json['description'] as String,
-      areaId: json['area_id'] as String,
+      area: Area.fromJson(json['area'] as Map<String, dynamic>),
       imgUrl: json['img_url'] as String?,
       createdAt:
           const TimestampConverter().fromJson(json['created_at'] as Timestamp?),
@@ -139,10 +139,15 @@ Post _$PostFromJson(Map<String, dynamic> json) => Post(
 
 Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'id': instance.id,
-      'status': instance.status,
+      'status': _$PostStatusEnumMap[instance.status],
       'description': instance.description,
-      'area_id': instance.areaId,
+      'area': instance.area.toJson(),
       'created_at': const TimestampConverter().toJson(instance.createdAt),
       'updated_at': const TimestampConverter().toJson(instance.updatedAt),
       'img_url': instance.imgUrl,
     };
+
+const _$PostStatusEnumMap = {
+  PostStatus.published: 'published',
+  PostStatus.draft: 'draft',
+};
