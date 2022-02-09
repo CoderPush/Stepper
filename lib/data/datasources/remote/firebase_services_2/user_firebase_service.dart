@@ -1,11 +1,16 @@
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:stepper/data/helpers/firestore_helpers.dart';
 import 'package:stepper/data/model2/user.dart';
 
 class UserFirebaseService {
   FirebaseFirestore firestore;
+  FirebaseStorage firebaseStorage;
 
-  UserFirebaseService({required this.firestore});
+  UserFirebaseService({required this.firestore, required this.firebaseStorage});
 
   Future<User> getUser() async {
     var userDocSnap = await firestore.userDocument();
@@ -29,5 +34,18 @@ class UserFirebaseService {
     await userDocSnap.set(
         {...dataJson, "updated_at": FieldValue.serverTimestamp()},
         SetOptions(merge: true));
+  }
+
+  Future<String?> uploadFile(
+      {required File file, Function(String url)? onUploadSuccess}) async {
+    try {
+      final fileName = basename(file.path);
+      final ref = firebaseStorage.ref('users_files/$fileName');
+      await ref.putFile(file);
+      String url = await ref.getDownloadURL();
+      return url;
+    } catch (error) {
+      return null;
+    }
   }
 }

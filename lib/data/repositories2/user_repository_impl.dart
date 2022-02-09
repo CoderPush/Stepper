@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:stepper/data/datasources/remote/firebase_services_2/user_firebase_service.dart';
 import 'package:stepper/data/model2/user.dart';
 import 'package:stepper/domain/repositories2/auth_repository.dart';
@@ -44,5 +46,10 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<User> getUser() async {
     return await userFirebaseService.getUser();
+  }
+
+  @override
+  Future<String?> uploadFile({required File file}) async {
+    return await userFirebaseService.uploadFile(file: file);
   }
 }
