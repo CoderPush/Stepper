@@ -137,4 +137,26 @@ class CreatePostCubit2 extends Cubit<CreatePostState2> {
     emit(state.copyWith(areas: areas, selectedArea: areas[0]));
   }
 
+  onAreaRatingChanged(int rating) async {
+    final selectedArea = state.selectedArea;
+    final mode = state.mode;
+    final area = selectedArea.copyWith(rating: rating);
+    emit(state.copyWith(selectedArea: area));
+    if (mode == CreatePostScreenMode.edit) {
+      // auto update area should be called only edit mode
+      _updateAreaOfPost();
+    }
+  }
+
+  _updateAreaOfPost() async {
+    final updatedArea = await areaRepository.updateUserArea(
+        areaId: state.selectedArea.id, area: state.selectedArea);
+    Post currentPost = state.post!;
+    Post post = currentPost.copyWith(
+      area: updatedArea,
+    );
+
+    postRepository.updatePost(postId: post.id!, updatedPost: post);
+  }
+
 
