@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
+import 'package:stepper/presentation/create_post/cubit/create_post_cubit_2.dart';
+import 'package:stepper/presentation/create_post/cubit/create_post_state_2.dart';
 import 'package:stepper/presentation/create_post/views/area_rating.dart';
 
 class AreaSection extends StatelessWidget {
@@ -16,23 +17,20 @@ class AreaSection extends StatelessWidget {
         color: blueGrey,
         borderRadius: BorderRadius.circular(largeBorderRadius),
       ),
-      child: Column(
-        children: [
-          const AreaRating(),
-          const SizedBox(height: screenSmallPadding),
-          BlocBuilder<CreatePostCubit, CreatePostState>(
-            builder: (context, state) {
-              final currentState = state as CreatePostLoadedState;
-              return Text(
-                currentState.areaList
-                    .firstWhere((area) =>
-                        area.areaName == currentState.selectedAreaName)
-                    .areaDescription,
-              );
-            },
-          )
-        ],
-      ),
+      child: BlocBuilder<CreatePostCubit2, CreatePostState2>(
+          builder: (context, state) {
+        if (state.isLoadingAreas) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        return Column(
+          children: [
+            const AreaRating(),
+            const SizedBox(height: screenSmallPadding),
+            Text(state.selectedArea.description)
+          ],
+        );
+      }),
     );
   }
 }
