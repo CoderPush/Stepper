@@ -45,3 +45,18 @@ DateTime? parseTime(dynamic date) {
   }
   return null;
 }
+
+class Debounce {
+  final int miliseconds;
+  VoidCallback? action;
+  Timer? _timer;
+
+  Debounce({this.miliseconds = 500});
+
+  void run(VoidCallback action) {
+    if (_timer?.isActive ?? false) _timer?.cancel();
+    _timer = Timer(Duration(milliseconds: miliseconds), action);
+  }
+
+  void cancel() => _timer?.cancel();
+}
