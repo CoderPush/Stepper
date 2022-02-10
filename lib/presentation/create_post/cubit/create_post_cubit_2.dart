@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/data/model2/models2.dart';
 import 'package:stepper/domain/repositories2/repositories2.dart';
 import 'package:stepper/presentation/create_post/cubit/create_post_state_2.dart';
+import 'package:stepper/presentation/utils.dart';
 
 class CreatePostCubit2 extends Cubit<CreatePostState2> {
   UserRepository userRepository;
@@ -64,7 +65,7 @@ class CreatePostCubit2 extends Cubit<CreatePostState2> {
     List<Band> bands = await bandRepository.getBandsByProfessionType(
         professionType: user.currentProfession.type);
 
-    final selectedBand = _getItemByName<Band>(
+    final selectedBand = getItemByName<Band>(
         list: bands, name: selectedArea.bandId, getter: (band) => band.id);
 
     final areas =
@@ -89,6 +90,7 @@ class CreatePostCubit2 extends Cubit<CreatePostState2> {
     final selectedAreaType = areaType ?? state.selectedAreaType;
     final selectedBand = band ?? state.selectedBand;
 
+    // TODO: will move all areas that relates to user, store in areas collection of user
     final areas = await areaRepository.getAreasByAreaTypeAndBandId(
         bandId: selectedBand.id, areaType: selectedAreaType);
     final userAreas = await areaRepository.getUserAreasByTypeAndBandId(
@@ -96,9 +98,9 @@ class CreatePostCubit2 extends Cubit<CreatePostState2> {
 
     final result = areas.map((area) {
       try {
-        final userArea = _getItemByName<Area>(
+        final userArea = getItemByName<Area>(
             list: userAreas, name: area.name, getter: (item) => item.name);
-        return Area.fromJson(userArea.toJson());
+        return Area.fromJson(userArea!.toJson());
       } catch (error) {
         return area;
       }
@@ -108,15 +110,6 @@ class CreatePostCubit2 extends Cubit<CreatePostState2> {
     return result;
   }
 
-  _getItemByName<T>(
-      {required List<T> list,
-      required String name,
-      required String Function(T) getter}) {
-    return list.firstWhere(
-      (item) => getter(item) == name,
-    );
-  }
-
   onAreaTypeChanged(AreaType areaType) async {
     emit(state.copyWith(selectedAreaType: areaType));
     final areas = await _getAreas();
@@ -124,13 +117,13 @@ class CreatePostCubit2 extends Cubit<CreatePostState2> {
   }
 
   onAreaChanged(String areaName) {
-    final selectedArea = _getItemByName<Area>(
+    final selectedArea = getItemByName<Area>(
         list: state.areas, name: areaName, getter: (item) => item.name);
     emit(state.copyWith(selectedArea: selectedArea));
   }
 
   onBandChanged(String bandName) async {
-    final selectedBand = _getItemByName<Band>(
+    final selectedBand = getItemByName<Band>(
         list: state.bands, name: bandName, getter: (item) => item.name);
     emit(state.copyWith(selectedBand: selectedBand));
     final areas = await _getAreas();
