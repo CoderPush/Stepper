@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/config/routes/routes.dart';
 import 'package:stepper/config/extensions/string_extensions.dart';
-import 'package:stepper/data/model/models.dart';
+import 'package:stepper/data/model2/models2.dart';
 import 'package:stepper/presentation/about/about_screen.dart';
 import 'package:stepper/presentation/area/area_screen.dart';
 import 'package:stepper/presentation/authentication/authentication_screen.dart';
@@ -41,8 +41,7 @@ class AppRoutes {
           preSelectedArea: routingData?['area'],
           preSelectedPostId: routingData?['postId'],
         );
-        return _materialRoute(
-            CreatePostScreen(argument: createPostScreenArgument), settings);
+        return _materialRoute(const CreatePostScreen(), settings);
       case RouteNames.calendar:
         return _materialRoute(const CalendarScreen(), settings);
       case RouteNames.profileUser:
