@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/texts.dart';
-import 'package:stepper/data/model/models.dart';
+import 'package:stepper/data/model2/models2.dart';
 import 'package:stepper/presentation/common/commons.dart';
 
 class MonthSection extends StatelessWidget {
-  final List<Goal> goalList;
+  // TODO:
+  // final List<Goal> goalList;
   final List<Post> postList;
   const MonthSection({
     Key? key,
-    required this.goalList,
+    // TODO:
+    // required this.goalList,
     required this.postList,
   }) : super(key: key);
 
@@ -28,7 +30,8 @@ class MonthSection extends StatelessWidget {
             ),
           ),
         ),
-        GoalList(goalList: goalList.toList()),
+        // TODO:
+        // GoalList(goalList: goalList.toList()),
         PostList(
           postList: postList,
           hasAreaName: false,

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
-import 'package:stepper/data/model/models.dart';
+
+import 'package:stepper/data/model2/models2.dart';
 import 'package:stepper/injection_container.dart';
 import 'package:stepper/presentation/common/commons.dart';
 import 'package:stepper/presentation/post_list/cubit/post_list_cubit.dart';
@@ -24,7 +25,7 @@ class PostListScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: darkPurple,
-          title: Text(area.areaName),
+          title: Text(area.name),
           centerTitle: true,
           actions: [
             IconButton(

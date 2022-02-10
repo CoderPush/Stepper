@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
-import 'package:stepper/data/model/models.dart';
+import 'package:stepper/data/model2/models2.dart';
 import 'package:stepper/presentation/home/views/rating_indicator.dart';
 import 'package:stepper/presentation/utils.dart';
 
@@ -27,9 +27,9 @@ class AreaMainCard extends StatelessWidget {
           Row(
             children: [
               Text(
-                area.areaName,
+                area.name,
                 style: TextStyle(
-                  color: getAreaTheme(area.areaType)[2],
+                  color: getAreaTheme(area.type)[2],
                   fontSize: superLargeFontSize,
                   fontWeight: FontWeight.bold,
                 ),
@@ -47,7 +47,7 @@ class AreaMainCard extends StatelessWidget {
             area: area,
           ),
           const SizedBox(height: screenMediumPadding),
-          Text(area.areaDescription),
+          Text(area.description),
         ],
       ),
     );
