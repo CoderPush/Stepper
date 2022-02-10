@@ -60,3 +60,16 @@ class Debounce {
 
   void cancel() => _timer?.cancel();
 }
+
+T? getItemByName<T>(
+    {required List<T> list,
+    required String name,
+    required String Function(T) getter}) {
+  try {
+    return list.firstWhere(
+      (item) => getter(item) == name,
+    );
+  } catch (error) {
+    return null;
+  }
+}
