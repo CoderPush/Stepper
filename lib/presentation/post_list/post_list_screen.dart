@@ -4,9 +4,11 @@ import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 
 import 'package:stepper/data/model2/models2.dart';
+import 'package:stepper/enums/enums.dart';
 import 'package:stepper/injection_container.dart';
 import 'package:stepper/presentation/common/commons.dart';
-import 'package:stepper/presentation/post_list/cubit/post_list_cubit.dart';
+import 'package:stepper/presentation/post_list/cubit/post_list_cubit_2.dart';
+import 'package:stepper/presentation/post_list/cubit/post_list_state_2.dart';
 import 'package:stepper/presentation/post_list/views/area_main_card.dart';
 
 class PostListScreen extends StatelessWidget {
@@ -21,7 +23,8 @@ class PostListScreen extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
 
     return BlocProvider(
-      create: (context) => PostListCubit(postRepository: sl(), area: area),
+      create: (context) =>
+          PostsListCubit(postRepository: sl(), selectedArea: area),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: darkPurple,
@@ -41,30 +44,42 @@ class PostListScreen extends StatelessWidget {
           width: screenSize.width * 0.7,
         ),
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(screenMediumPadding),
-              child: Column(
-                children: [
-                  AreaMainCard(area: area),
-                  BlocBuilder<PostListCubit, PostListState>(
-                    builder: (context, state) {
-                      if (state is PostListLoadingState) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (state is PostListLoadedState) {
-                        return PostList(
-                            hasAreaName: false, postList: state.postList);
-                      } else if (state is PostListErrorState) {
-                        return Text(state.errorMessage);
-                      } else {
+          child: CustomScrollView(slivers: [
+            SliverFillRemaining(
+              child: Padding(
+                padding: const EdgeInsets.all(screenMediumPadding),
+                child: Column(
+                  children: [
+                    AreaMainCard(area: area),
+                    BlocBuilder<PostsListCubit, PostsListState>(
+                      builder: (context, state) {
+                        if (state.fetchingStatus == StateStatus.loading) {
+                          return const Expanded(
+                              child:
+                                  Center(child: CircularProgressIndicator()));
+                        }
+
+                        if (state.fetchingStatus == StateStatus.success) {
+                          if (state.posts.isEmpty) {
+                            return const Expanded(
+                                child: Center(child: Text("No posts yet")));
+                          }
+                          return PostList(
+                              hasAreaName: false, postList: state.posts);
+                        }
+
+                        if (state.fetchingStatus == StateStatus.failure) {
+                          return const Text("Error");
+                        }
+
                         return Container();
-                      }
-                    },
-                  )
-                ],
+                      },
+                    )
+                  ],
+                ),
               ),
-            ),
-          ),
+            )
+          ]),
         ),
         floatingActionButton: CustomFloatingButton(area: area),
       ),
