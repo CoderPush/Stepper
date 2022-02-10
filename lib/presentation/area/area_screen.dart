@@ -72,7 +72,6 @@ class AreaScreen extends StatelessWidget {
                 child: BlocBuilder<AreasCubit, AreasState>(
                   builder: (context, state) => TabBar(
                     labelPadding: const EdgeInsets.all(0.0),
-                    // TODO:
                     onTap: (int index) =>
                         onSelectAreaType(context, index: index),
                     indicatorColor: Colors.transparent,

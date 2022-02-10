@@ -6,7 +6,7 @@ import 'package:stepper/presentation/about/about_screen.dart';
 import 'package:stepper/presentation/area/area_screen.dart';
 import 'package:stepper/presentation/authentication/authentication_screen.dart';
 import 'package:stepper/presentation/calendar/calendar_screen.dart';
-import 'package:stepper/presentation/common/arguments/screen_arguments.dart';
+// import 'package:stepper/presentation/common/arguments/screen_arguments.dart';
 import 'package:stepper/presentation/create_post/create_post_screen.dart';
 import 'package:stepper/presentation/home/home_screen.dart';
 // import 'package:stepper/presentation/post_detail/post_detail_screen.dart';
@@ -37,10 +37,10 @@ class AppRoutes {
       //   }
       //   return _errorRoute();
       case RouteNames.createPost:
-        final createPostScreenArgument = CreatePostScreenArgument(
-          preSelectedArea: routingData?['area'],
-          preSelectedPostId: routingData?['postId'],
-        );
+        // final createPostScreenArgument = CreatePostScreenArgument(
+        //   preSelectedArea: routingData?['area'],
+        //   preSelectedPostId: routingData?['postId'],
+        // );
         return _materialRoute(const CreatePostScreen(), settings);
       case RouteNames.calendar:
         return _materialRoute(const CalendarScreen(), settings);

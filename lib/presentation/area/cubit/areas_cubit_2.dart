@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/data/model2/models2.dart';
 import 'package:stepper/domain/repositories2/repositories2.dart';
@@ -33,7 +32,7 @@ class AreasCubit extends Cubit<AreasState> {
     emit(state.copyWith(userCurrentBand: user.currentBand));
   }
 
-  Future _getUserAreas({AreaType? areaType, Band? band}) async {
+  Future _getUserAreas() async {
     emit(state.copyWith(fetchingStatus: StateStatus.loading));
 
     final selectedAreaType = state.selectedAreaType;

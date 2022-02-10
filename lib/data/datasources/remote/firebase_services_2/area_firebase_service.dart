@@ -24,7 +24,9 @@ class AreaFirebaseService2 {
         return Area.fromJson(querySnapshot.data()!);
       }
       return null;
-    } catch (error) {}
+    } catch (error) {
+      return null;
+    }
   }
 
   Future<List<Area>> getAreasByAreaTypeAndBandId(

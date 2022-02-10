@@ -27,4 +27,11 @@ class Profession {
   Map<String, dynamic> toJson() => _$ProfessionToJson(this);
 }
 
-enum ProfessionType { engineer, qa, tech_lead }
+enum ProfessionType {
+  @JsonValue("engineer")
+  engineer,
+  @JsonValue("qa")
+  qa,
+  @JsonValue("tech_lead")
+  techLead
+}

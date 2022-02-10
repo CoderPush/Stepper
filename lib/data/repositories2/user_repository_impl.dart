@@ -8,8 +8,8 @@ import 'package:stepper/domain/repositories2/profession_repository.dart';
 import 'package:stepper/domain/repositories2/user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {
-  final DEFAULT_PROFESSION_ID = 'engineer';
-  final DEFAULT_BAND_ID = 'engineer_1';
+  final defaultProfessionId = 'engineer';
+  final defaultBandId = 'engineer_1';
   UserFirebaseService userFirebaseService;
   AuthRepository authRepository;
   ProfessionRepository professionRepository;
@@ -26,9 +26,8 @@ class UserRepositoryImpl implements UserRepository {
     final email = authRepository.authUser?.email;
 
     final defaultProfession = await professionRepository.getProfessionById(
-        professionId: DEFAULT_PROFESSION_ID);
-    final defaultBand =
-        await bandRepository.getBandById(bandId: DEFAULT_BAND_ID);
+        professionId: defaultProfessionId);
+    final defaultBand = await bandRepository.getBandById(bandId: defaultBandId);
     final initialUserData = User(
       id: email!,
       email: email,

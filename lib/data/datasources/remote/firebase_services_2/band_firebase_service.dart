@@ -23,7 +23,9 @@ class BandFirebaseService {
         return Band.fromJson(querySnapshot.data()!);
       }
       return null;
-    } catch (error) {}
+    } catch (error) {
+      return null;
+    }
   }
 
   Future<List<Band>> getBandsByProfessionType(

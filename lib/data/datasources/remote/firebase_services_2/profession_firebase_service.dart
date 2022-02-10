@@ -23,6 +23,8 @@ class ProfessionFirebaseService {
         return Profession.fromJson(querySnapshot.data()!);
       }
       return null;
-    } catch (error) {}
+    } catch (error) {
+      return null;
+    }
   }
 }
