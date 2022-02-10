@@ -18,6 +18,11 @@ class PostRepositoryImpl implements PostRepository {
   }
 
   @override
+  Future<List<Post>> getPostsByAreaId({required String areaId}) {
+    return postFirebaseService.getPostsByAreaId(areaId: areaId);
+  }
+
+  @override
   Future<void> createPost({required Post post}) {
     final data = post.toJson();
     return postFirebaseService.createPost(data: data);

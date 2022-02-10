@@ -20,6 +20,16 @@ class PostFirebaseService {
     return Post.fromJson(postSnap.data() as Map<String, dynamic>);
   }
 
+  Future<List<Post>> getPostsByAreaId({required String areaId}) async {
+    final userDocSnap = await firestore.userDocument();
+    final postsSnap = await userDocSnap.postCollection
+        .where("area.id", isEqualTo: areaId)
+        .get();
+    return postsSnap.docs
+        .map((doc) => Post.fromJson(doc.data() as Map<String, dynamic>))
+        .toList();
+  }
+
   Stream<List<Post>> subscribePosts() async* {
     final userDocSnap = await firestore.userDocument();
     final postsStream = userDocSnap.postCollection
