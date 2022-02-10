@@ -3,7 +3,8 @@ import 'package:readmore/readmore.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
-import 'package:stepper/data/model/models.dart';
+import 'package:stepper/data/model2/models2.dart';
+import 'package:stepper/presentation/create_post/cubit/create_post_state_2.dart';
 import 'package:stepper/presentation/utils.dart';
 import 'package:stepper/config/routes/routes.dart';
 
@@ -18,23 +19,25 @@ class PostItem extends StatelessWidget {
   }) : super(key: key);
 
   void _tapOnPostItem(BuildContext context, Post post) {
-    Navigator.of(context).pushNamed(
-      Uri(
-        path: RouteNames.createPost,
-        queryParameters: {'postId': post.postId},
-      ).toString(),
-    );
+    // Navigator.of(context).pushNamed(
+    //   Uri(
+    //     path: RouteNames.createPost,
+    //     queryParameters: {'postId': post.id},
+    //   ).toString(),
+    // );
+    Navigator.of(context).pushNamed(RouteNames.createPost,
+        arguments: CreatePostArgs(mode: CreatePostScreenMode.edit, post: post));
   }
 
   String _getPostTitleText() {
     if (hasAreaName) {
-      return post.postedTime == null
+      return post.updatedAt == null
           ? ''
-          : ' ${post.postedTime!.day.toString()} ${monthNames[post.postedTime!.month - 1].substring(0, 3)} ${post.postedTime!.year}';
+          : ' ${post.updatedAt!.day.toString()} ${monthNames[post.updatedAt!.month - 1].substring(0, 3)} ${post.updatedAt!.year}';
     } else {
-      return post.postedTime == null
+      return post.updatedAt == null
           ? ''
-          : ' ${monthNames[post.postedTime!.month - 1]} ${post.postedTime!.year}';
+          : ' ${monthNames[post.updatedAt!.month - 1]} ${post.updatedAt!.year}';
     }
   }
 
@@ -57,15 +60,15 @@ class PostItem extends StatelessWidget {
                 RichText(
                   text: TextSpan(
                     text: hasAreaName
-                        ? post.areaName
-                        : post.postedTime == null
-                            ? post.areaName
-                            : post.postedTime!.day.toString(),
+                        ? "${post.area.name} - ${post.status.name}"
+                        : post.updatedAt == null
+                            ? post.area.name
+                            : post.updatedAt!.day.toString(),
                     style: TextStyle(
                       fontSize: largeFontSize,
                       fontWeight: FontWeight.bold,
                       color: hasAreaName
-                          ? getAreaTheme(getAreaType(post.areaName))[2]
+                          ? getAreaTheme(post.area.type)[2]
                           : textColor,
                     ),
                     children: [
@@ -96,7 +99,7 @@ class PostItem extends StatelessWidget {
               trimExpandedText: seeLess,
               style: const TextStyle(color: textColor),
             ),
-            post.imageUrl != null
+            post.imgUrl != null
                 ? Container(
                     height: 150.0,
                     width: double.infinity,
@@ -105,7 +108,7 @@ class PostItem extends StatelessWidget {
                       borderRadius: const BorderRadius.all(
                           Radius.circular(mediumBorderRadius)),
                       child: Image(
-                        image: NetworkImage(post.imageUrl!),
+                        image: NetworkImage(post.imgUrl!),
                         fit: BoxFit.cover,
                       ),
                     ),
