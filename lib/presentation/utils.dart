@@ -1,15 +1,18 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/data/model/models.dart';
+import 'package:stepper/data/model2/models2.dart' as models2;
 
-List<Color> getAreaTheme(AreaType areaType) {
+List<Color> getAreaTheme(models2.AreaType areaType) {
   switch (areaType) {
-    case AreaType.scope:
+    case models2.AreaType.scope:
       return scopeScheme;
-    case AreaType.expertise:
+    case models2.AreaType.expertise:
       return expertiseScheme;
-    case AreaType.mindset:
+    case models2.AreaType.mindset:
       return mindsetScheme;
   }
 }
