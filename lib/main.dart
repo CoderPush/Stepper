@@ -68,6 +68,8 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               title: 'Stepper',
               theme: ThemeData(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
                 scaffoldBackgroundColor: scaffoldColor,
                 primarySwatch: Colors.blue,
                 textSelectionTheme: const TextSelectionThemeData(
