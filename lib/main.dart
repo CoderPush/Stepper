@@ -6,6 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/config/routes/app_routes.dart';
 import 'package:stepper/injection_container.dart';
+import 'package:stepper/injection_container2.dart';
 import 'package:stepper/presentation/authentication/cubit/authentication_cubit.dart';
 import 'package:stepper/presentation/common/drawer/drawer.dart';
 import 'package:stepper/config/routes/routes.dart';
@@ -14,6 +15,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
+  await initializeDependencies2();
   // enable data persistence on Flutter web
   if (kIsWeb) {
     try {
