@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
-import 'package:stepper/data/model/models.dart';
+import 'package:stepper/data/model2/models2.dart';
 import 'package:stepper/presentation/home/views/rating_indicator.dart';
 import 'package:stepper/presentation/utils.dart';
 import 'package:stepper/config/routes/routes.dart';
@@ -51,11 +51,11 @@ class AreaWithDescriptionItem extends StatelessWidget {
                   Flexible(
                     flex: 2,
                     child: Text(
-                      area.areaName,
+                      area.name,
                       style: TextStyle(
                         fontSize: largeFontSize,
                         fontWeight: FontWeight.bold,
-                        color: getAreaTheme(area.areaType)[2],
+                        color: getAreaTheme(area.type)[2],
                       ),
                     ),
                   ),
@@ -78,7 +78,7 @@ class AreaWithDescriptionItem extends StatelessWidget {
               ),
               const SizedBox(height: screenSmallPadding),
               Text(
-                area.areaDescription,
+                area.description,
                 style: const TextStyle(
                   fontSize: normalFontSize,
                   color: lightGrey,
