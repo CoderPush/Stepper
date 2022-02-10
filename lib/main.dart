@@ -51,8 +51,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => AuthenticationCubit(
             userRepository: sl(),
-            bandRepository: sl(),
-            professionRepository: sl(),
+            authRepository: sl(),
           ),
         )
       ],
