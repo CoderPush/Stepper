@@ -17,6 +17,36 @@ class UserProfileEditCubit extends Cubit<UserProfileEditState> {
     _init();
   }
 
+  onProfessionChanged({required String professionName}) async {
+    try {
+      emit(state.copyWith(fetchingStatus: StateStatus.loading));
+
+      final selectedProfession = state.professions[state.professions
+          .indexWhere((profession) => profession.name == professionName)];
+
+      final bands = await _getBands(professionType: selectedProfession.type);
+
+      final selectedBand = selectedProfession.type ==
+              state.user!.currentProfession.type
+          ? bands[bands
+              .indexWhere((band) => band.name == state.user!.currentBand.name)]
+          : bands[0];
+
+      emit(state.copyWith(
+          selectedProfession: selectedProfession,
+          selectedBand: selectedBand,
+          bands: bands,
+          fetchingStatus: StateStatus.success));
+    } catch (error) {
+      emit(state.copyWith(fetchingStatus: StateStatus.failure));
+    }
+  }
+
+  onBandChanged({required String bandName}) {
+    final selectedBand =
+        state.bands[state.bands.indexWhere((band) => band.name == bandName)];
+    emit(state.copyWith(selectedBand: selectedBand));
+  }
   _init() async {
     emit(state.copyWith(fetchingStatus: StateStatus.loading));
     final user = await _getUser();
