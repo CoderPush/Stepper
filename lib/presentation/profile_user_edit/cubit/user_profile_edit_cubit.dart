@@ -47,6 +47,19 @@ class UserProfileEditCubit extends Cubit<UserProfileEditState> {
         state.bands[state.bands.indexWhere((band) => band.name == bandName)];
     emit(state.copyWith(selectedBand: selectedBand));
   }
+
+  onSaveProfessionAndBand() async {
+    emit(state.copyWith(updatingUserProfileStatus: StateStatus.loading));
+
+    final User updatedUser = state.user!.copyWith(
+        currentProfession: state.selectedProfession,
+        currentBand: state.selectedBand);
+
+    await userRepository.updateUser(updatedUser);
+
+    emit(state.copyWith(updatingUserProfileStatus: StateStatus.success));
+  }
+
   _init() async {
     emit(state.copyWith(fetchingStatus: StateStatus.loading));
     final user = await _getUser();
@@ -81,4 +94,4 @@ class UserProfileEditCubit extends Cubit<UserProfileEditState> {
 
     return user;
   }
-  }
+}
