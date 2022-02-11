@@ -47,7 +47,7 @@ class AppRoutes {
       case RouteNames.profileUser:
         return _materialRoute(const ProfileUserScreen(), settings);
       case RouteNames.profileUserEdit:
-        return _materialRoute(const ProfileUserEditScreen(), settings);
+        return _materialRoute(ProfileUserEditScreen(), settings);
       case RouteNames.auth:
         return _materialRoute(const AuthenticationScreen(), settings);
       case RouteNames.about:
