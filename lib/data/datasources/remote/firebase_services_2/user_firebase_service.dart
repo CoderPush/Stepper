@@ -17,6 +17,13 @@ class UserFirebaseService {
     return User.fromJson(userDoc.data() as Map<String, dynamic>);
   }
 
+  Stream<User> subscribeUser() async* {
+    var userDocSnap = await firestore.userDocument();
+    var userStream = userDocSnap.snapshots();
+    yield* userStream
+        .map((change) => User.fromJson(change.data() as Map<String, dynamic>));
+  }
+
   Future<void> createUser(Map<String, dynamic> dataJson) async {
     var userDocSnap = await firestore.userDocument();
     await userDocSnap.set(

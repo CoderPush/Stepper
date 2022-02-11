@@ -22,6 +22,16 @@ class UserRepositoryImpl implements UserRepository {
       required this.bandRepository});
 
   @override
+  Future<User> getUser() async {
+    return await userFirebaseService.getUser();
+  }
+
+  @override
+  Stream<User> subscribeUser() {
+    return userFirebaseService.subscribeUser();
+  }
+
+  @override
   Future<void> createUser() async {
     final email = authRepository.authUser?.email;
 
@@ -42,11 +52,6 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<void> updateUser(User user) async {
     await userFirebaseService.updateUser(user.toJson());
-  }
-
-  @override
-  Future<User> getUser() async {
-    return await userFirebaseService.getUser();
   }
 
   @override
