@@ -5,7 +5,9 @@ import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/numbers.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
-import 'package:stepper/presentation/profile_user_edit/cubit/profile_user_edit_cubit.dart';
+import 'package:stepper/enums/enums.dart';
+import 'package:stepper/presentation/profile_user_edit/cubit/user_profile_edit_cubit.dart';
+import 'package:stepper/presentation/profile_user_edit/cubit/user_profile_edit_state.dart';
 import 'package:stepper/presentation/profile_user_edit/views/row_level_view.dart';
 
 class UserLevelView extends StatelessWidget {
@@ -20,7 +22,9 @@ class UserLevelView extends StatelessWidget {
         duration: Duration(milliseconds: 2000),
       ));
     } else {
-      context.read<ProfileUserEditCubit>().onProfessionChanged(professonName);
+      context
+          .read<UserProfileEditCubit>()
+          .onProfessionChanged(professionName: professonName);
     }
   }
 
@@ -33,13 +37,14 @@ class UserLevelView extends StatelessWidget {
         duration: Duration(milliseconds: 2000),
       ));
     } else {
-      context.read<ProfileUserEditCubit>().onBandChanged(bandName);
+      context.read<UserProfileEditCubit>().onBandChanged(bandName: bandName);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 140,
       margin: const EdgeInsets.only(left: twenty, right: twenty),
       padding:
           const EdgeInsets.symmetric(vertical: sixteen, horizontal: twenty),
@@ -48,17 +53,21 @@ class UserLevelView extends StatelessWidget {
         color: blueGrey,
         borderRadius: BorderRadius.circular(largeBorderRadius),
       ),
-      child: BlocBuilder<ProfileUserEditCubit, ProfileUserEditState>(
+      child: BlocBuilder<UserProfileEditCubit, UserProfileEditState>(
         builder: (context, state) {
-          if (state is ProfileUserEditInSuccess) {
+          if (state.fetchingStatus == StateStatus.loading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (state.fetchingStatus == StateStatus.success) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 RowLevelView(
                   titleText: professionText,
-                  value: state.selectedProfession,
-                  list: state.professionList
-                      .map((profession) => profession.professionName)
+                  value: state.selectedProfession.name,
+                  list: state.professions
+                      .map((profession) => profession.name)
                       .toList(),
                   onChanged: (professionName) =>
                       _onProfessionChange(professionName, context),
@@ -66,8 +75,8 @@ class UserLevelView extends StatelessWidget {
                 const SizedBox(height: twenty),
                 RowLevelView(
                   titleText: bandText,
-                  value: state.selectedBand.bandName,
-                  list: state.bandList.map((band) => band.bandName).toList(),
+                  value: state.selectedBand.name,
+                  list: state.bands.map((band) => band.name).toList(),
                   onChanged: (bandName) => _onBandChange(bandName, context),
                 )
               ],
