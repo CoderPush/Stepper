@@ -13,7 +13,7 @@ abstract class _$BandCWProxy {
 
   Band name(String name);
 
-  Band type(String type);
+  Band professionType(ProfessionType professionType);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Band(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -25,7 +25,7 @@ abstract class _$BandCWProxy {
     String? id,
     int? level,
     String? name,
-    String? type,
+    ProfessionType? professionType,
   });
 }
 
@@ -45,7 +45,8 @@ class _$BandCWProxyImpl implements _$BandCWProxy {
   Band name(String name) => this(name: name);
 
   @override
-  Band type(String type) => this(type: type);
+  Band professionType(ProfessionType professionType) =>
+      this(professionType: professionType);
 
   @override
 
@@ -59,7 +60,7 @@ class _$BandCWProxyImpl implements _$BandCWProxy {
     Object? id = const $CopyWithPlaceholder(),
     Object? level = const $CopyWithPlaceholder(),
     Object? name = const $CopyWithPlaceholder(),
-    Object? type = const $CopyWithPlaceholder(),
+    Object? professionType = const $CopyWithPlaceholder(),
   }) {
     return Band(
       id: id == const $CopyWithPlaceholder() || id == null
@@ -74,10 +75,11 @@ class _$BandCWProxyImpl implements _$BandCWProxy {
           ? _value.name
           // ignore: cast_nullable_to_non_nullable
           : name as String,
-      type: type == const $CopyWithPlaceholder() || type == null
-          ? _value.type
+      professionType: professionType == const $CopyWithPlaceholder() ||
+              professionType == null
+          ? _value.professionType
           // ignore: cast_nullable_to_non_nullable
-          : type as String,
+          : professionType as ProfessionType,
     );
   }
 }
@@ -94,13 +96,19 @@ extension $BandCopyWith on Band {
 Band _$BandFromJson(Map<String, dynamic> json) => Band(
       id: json['id'] as String,
       name: json['name'] as String,
-      type: json['type'] as String,
+      professionType: $enumDecode(_$ProfessionTypeEnumMap, json['type']),
       level: json['level'] as int,
     );
 
 Map<String, dynamic> _$BandToJson(Band instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'type': instance.type,
+      'type': _$ProfessionTypeEnumMap[instance.professionType],
       'level': instance.level,
     };
+
+const _$ProfessionTypeEnumMap = {
+  ProfessionType.engineer: 'engineer',
+  ProfessionType.qa: 'qa',
+  ProfessionType.techLead: 'tech_lead',
+};

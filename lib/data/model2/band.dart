@@ -1,5 +1,6 @@
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:stepper/data/model2/models2.dart';
 
 part 'band.g.dart';
 
@@ -8,15 +9,17 @@ part 'band.g.dart';
 class Band {
   String id;
   String name;
-  String type;
+  @JsonKey(name: "type")
+  ProfessionType professionType;
   int level;
 
-  static final empty = Band(id: '', name: '', type: '', level: 0);
+  static final empty =
+      Band(id: '', name: '', professionType: ProfessionType.engineer, level: 0);
 
   Band(
       {required this.id,
       required this.name,
-      required this.type,
+      required this.professionType,
       required this.level});
 
   factory Band.fromJson(Map<String, dynamic> json) => _$BandFromJson(json);
