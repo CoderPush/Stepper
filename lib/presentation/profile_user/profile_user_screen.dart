@@ -4,7 +4,7 @@ import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/injection_container.dart';
 import 'package:stepper/presentation/common/commons.dart';
-import 'package:stepper/presentation/profile_user/cubit/profile_user_cubit.dart';
+import 'package:stepper/presentation/profile_user/cubit/user_profile_cubit.dart';
 import 'package:stepper/presentation/profile_user/views/avatar_view.dart';
 import 'package:stepper/presentation/profile_user/views/clear_data_view.dart';
 import 'package:stepper/presentation/profile_user/views/sign_out_view.dart';
@@ -17,9 +17,8 @@ class ProfileUserScreen extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
 
     return BlocProvider(
-      create: (context) => ProfileUserCubit(
-        professionRepository: sl(),
-        bandRepository: sl(),
+      create: (context) => UserProfileCubit(
+        userRepository: sl(),
       ),
       child: Scaffold(
         drawer: SizedBox(
