@@ -18,5 +18,37 @@ class UserProfileEditCubit extends Cubit<UserProfileEditState> {
   }
 
   _init() async {
+    emit(state.copyWith(fetchingStatus: StateStatus.loading));
+    final user = await _getUser();
+
+    final professions = await _getProfessions();
+
+    final bands =
+        await _getBands(professionType: user.currentBand.professionType);
+
+    emit(state.copyWith(
+        professions: professions,
+        bands: bands,
+        user: user,
+        selectedProfession: user.currentProfession,
+        selectedBand: user.currentBand,
+        fetchingStatus: StateStatus.success));
+  }
+
+  Future<List<Profession>> _getProfessions() async {
+    final professions = await professionRepository.getAllProfessions();
+    return professions;
+  }
+
+  Future<List<Band>> _getBands({required ProfessionType professionType}) async {
+    final bands = await bandRepository.getBandsByProfessionType(
+        professionType: professionType);
+    return bands;
+  }
+
+  Future<User> _getUser() async {
+    final user = await userRepository.getUser();
+
+    return user;
   }
   }
