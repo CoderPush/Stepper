@@ -39,8 +39,10 @@ class UserRepositoryImpl implements UserRepository {
     await userFirebaseService.createUser(initialUserData);
   }
 
-  // @override
-  // Future<void> updateUser(Map<String, dynamic> data) {}
+  @override
+  Future<void> updateUser(User user) async {
+    await userFirebaseService.updateUser(user.toJson());
+  }
 
   @override
   Future<User> getUser() async {
