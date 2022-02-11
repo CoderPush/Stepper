@@ -13,7 +13,7 @@ abstract class _$ProfessionCWProxy {
 
   Profession name(String name);
 
-  Profession type(String type);
+  Profession type(ProfessionType type);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Profession(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -25,7 +25,7 @@ abstract class _$ProfessionCWProxy {
     List<String>? bandIds,
     String? id,
     String? name,
-    String? type,
+    ProfessionType? type,
   });
 }
 
@@ -45,7 +45,7 @@ class _$ProfessionCWProxyImpl implements _$ProfessionCWProxy {
   Profession name(String name) => this(name: name);
 
   @override
-  Profession type(String type) => this(type: type);
+  Profession type(ProfessionType type) => this(type: type);
 
   @override
 
@@ -77,7 +77,7 @@ class _$ProfessionCWProxyImpl implements _$ProfessionCWProxy {
       type: type == const $CopyWithPlaceholder() || type == null
           ? _value.type
           // ignore: cast_nullable_to_non_nullable
-          : type as String,
+          : type as ProfessionType,
     );
   }
 }
@@ -94,7 +94,7 @@ extension $ProfessionCopyWith on Profession {
 Profession _$ProfessionFromJson(Map<String, dynamic> json) => Profession(
       id: json['id'] as String,
       name: json['name'] as String,
-      type: json['type'] as String,
+      type: $enumDecode(_$ProfessionTypeEnumMap, json['type']),
       bandIds:
           (json['band_ids'] as List<dynamic>).map((e) => e as String).toList(),
     );
@@ -103,6 +103,12 @@ Map<String, dynamic> _$ProfessionToJson(Profession instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'type': instance.type,
+      'type': _$ProfessionTypeEnumMap[instance.type],
       'band_ids': instance.bandIds,
     };
+
+const _$ProfessionTypeEnumMap = {
+  ProfessionType.engineer: 'engineer',
+  ProfessionType.qa: 'qa',
+  ProfessionType.techLead: 'tech_lead',
+};

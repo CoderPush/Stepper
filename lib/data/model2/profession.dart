@@ -8,7 +8,7 @@ part 'profession.g.dart';
 class Profession {
   String id;
   String name;
-  String type;
+  ProfessionType type;
 
   @JsonKey(name: 'band_ids')
   List<String> bandIds = [];
@@ -19,7 +19,8 @@ class Profession {
       required this.type,
       required this.bandIds});
 
-  static final empty = Profession(id: '', name: '', type: '', bandIds: []);
+  static final empty =
+      Profession(id: '', name: '', type: ProfessionType.engineer, bandIds: []);
 
   factory Profession.fromJson(Map<String, dynamic> json) =>
       _$ProfessionFromJson(json);
