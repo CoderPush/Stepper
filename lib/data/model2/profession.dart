@@ -13,6 +13,8 @@ class Profession {
   @JsonKey(name: 'band_ids')
   List<String> bandIds = [];
 
+  static get enumMap => _$ProfessionTypeEnumMap;
+
   Profession(
       {required this.id,
       required this.name,
