@@ -1,5 +1,6 @@
 import 'package:stepper/data/datasources/remote/firebase_services_2/band_firebase_service.dart';
 import 'package:stepper/data/model2/band.dart';
+import 'package:stepper/data/model2/profession.dart';
 import 'package:stepper/domain/repositories2/band_repository.dart';
 
 class BandRepositoryImpl implements BandRepository {
@@ -9,9 +10,9 @@ class BandRepositoryImpl implements BandRepository {
 
   @override
   Future<List<Band>> getBandsByProfessionType(
-      {required String professionType}) async {
+      {required ProfessionType professionType}) async {
     return await bandFirebaseService.getBandsByProfessionType(
-        professionType: professionType);
+        professionType: Profession.enumMap[professionType]);
   }
 
   @override

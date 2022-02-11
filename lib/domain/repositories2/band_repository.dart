@@ -1,6 +1,8 @@
 import 'package:stepper/data/model2/band.dart';
+import 'package:stepper/data/model2/profession.dart';
 
 abstract class BandRepository {
-  Future<List<Band>> getBandsByProfessionType({required String professionType});
+  Future<List<Band>> getBandsByProfessionType(
+      {required ProfessionType professionType});
   Future<Band?> getBandById({required String bandId});
 }
