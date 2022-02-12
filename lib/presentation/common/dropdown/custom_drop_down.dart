@@ -35,7 +35,7 @@ class CustomDropdown extends StatelessWidget {
             color: dropdownButtonColor,
           ),
           iconEnabledColor: white,
-          iconDisabledColor: white,
+          iconDisabledColor: Colors.transparent,
           onChanged: (value) {
             onChanged(value as String);
           },
