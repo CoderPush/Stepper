@@ -191,9 +191,9 @@ class CreatePostCubit2 extends Cubit<CreatePostState2> {
     if (imgFile != null) {
       imgUrl = await _uploadImage(file: imgFile);
     }
-
+    final selectedArea = _updateNumberOfPostsOfArea(state.selectedArea);
     final updatedArea = await areaRepository.updateUserArea(
-        areaId: state.selectedArea.id, area: state.selectedArea);
+        areaId: state.selectedArea.id, area: selectedArea);
 
     final post = Post(
         status: postStatus,
@@ -202,6 +202,10 @@ class CreatePostCubit2 extends Cubit<CreatePostState2> {
         imgUrl: imgUrl);
 
     postRepository.createPost(post: post);
+  }
+
+  _updateNumberOfPostsOfArea(Area area) {
+    return area.copyWith(numberOfPosts: area.numberOfPosts + 1);
   }
 
   _updatePost(
