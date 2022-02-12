@@ -90,24 +90,12 @@ class CreatePostCubit2 extends Cubit<CreatePostState2> {
     final selectedAreaType = areaType ?? state.selectedAreaType;
     final selectedBand = band ?? state.selectedBand;
 
-    // TODO: will move all areas that relates to user, store in areas collection of user
-    final areas = await areaRepository.getAreasByAreaTypeAndBandId(
-        bandId: selectedBand.id, areaType: selectedAreaType);
-    final userAreas = await areaRepository.getUserAreasByTypeAndBandId(
+    final userAreas = await areaRepository.getUserAreasByAreaTypeAndBandId(
         bandId: selectedBand.id, areaType: selectedAreaType);
 
-    final result = areas.map((area) {
-      try {
-        final userArea = getItemByName<Area>(
-            list: userAreas, name: area.name, getter: (item) => item.name);
-        return Area.fromJson(userArea!.toJson());
-      } catch (error) {
-        return area;
-      }
-    }).toList();
     emit(state.copyWith(isLoadingAreas: false));
 
-    return result;
+    return userAreas;
   }
 
   onAreaTypeChanged(AreaType areaType) async {

@@ -17,8 +17,8 @@ class AreaRepositoryImpl implements AreaRepository {
   }
 
   @override
-  Stream<List<Area>> subscribeAreas() {
-    return areaFirebaseService.subscribeAreas();
+  Stream<List<Area>> subscribeUserAreas() {
+    return areaFirebaseService.subscribeUserAreas();
   }
 
   @override

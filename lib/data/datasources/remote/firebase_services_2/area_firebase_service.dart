@@ -32,13 +32,13 @@ class AreaFirebaseService2 {
   Future<List<Area>> getAreasByAreaTypeAndBandId(
       {required String areaType, required String bandId}) async {
     try {
-      final querySnapshot = await firestore
-          .collection('areas')
+      final querySnapshot = await firestore.areaCollection
           .where("type", isEqualTo: areaType)
           .where("band_id", isEqualTo: bandId)
           .get();
-      final filteredAreas =
-          querySnapshot.docs.map((doc) => Area.fromJson(doc.data())).toList();
+      final filteredAreas = querySnapshot.docs
+          .map((doc) => Area.fromJson(doc.data() as Map<String, dynamic>))
+          .toList();
       return filteredAreas;
     } catch (error) {
       return [];
@@ -47,7 +47,7 @@ class AreaFirebaseService2 {
 
   Future<List<Area>> getUserAreas() async {
     final userDocSnap = await firestore.userDocument();
-    final areasSnap = await userDocSnap.areaCollection.get();
+    final areasSnap = await userDocSnap.userAreaCollection.get();
     return areasSnap.docs
         .map((doc) => Area.fromJson(doc.data() as Map<String, dynamic>))
         .toList();
@@ -56,7 +56,7 @@ class AreaFirebaseService2 {
   Future<List<Area>> getUserAreasByAreaTypeAndBandId(
       {required String areaType, required String bandId}) async {
     final userDocSnap = await firestore.userDocument();
-    final areasSnap = await userDocSnap.areaCollection
+    final areasSnap = await userDocSnap.userAreaCollection
         .where("type", isEqualTo: areaType)
         .where("band_id", isEqualTo: bandId)
         .get();
@@ -81,10 +81,10 @@ class AreaFirebaseService2 {
       {required String areaId, required Map<String, dynamic> data}) async {
     final userDoc = await firestore.userDocument();
     final modifiedData = {...data, "updated_at": FieldValue.serverTimestamp()};
-    await userDoc.areaCollection
+    await userDoc.userAreaCollection
         .doc(areaId)
         .set(modifiedData, SetOptions(merge: true));
-    final updatedAreaSnap = await userDoc.areaCollection.doc(areaId).get();
+    final updatedAreaSnap = await userDoc.userAreaCollection.doc(areaId).get();
     return Area.fromJson(updatedAreaSnap.data() as Map<String, dynamic>);
   }
 
