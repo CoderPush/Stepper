@@ -20,10 +20,6 @@ class AreaScreen extends StatelessWidget {
   }
 
   Widget buildAreasTab(AreasState state, {int? index}) {
-    if (AreaType.values.indexOf(state.selectedAreaType) != index) {
-      return _buildLoadingState();
-    }
-
     if (state.fetchingStatus == StateStatus.loading) {
       return _buildLoadingState();
     }
@@ -57,23 +53,21 @@ class AreaScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          AreasCubit(areaRepository: sl(), userRepository: sl()),
-      child: Builder(builder: (context) {
-        return DefaultTabController(
+        create: (context) =>
+            AreasCubit(areaRepository: sl(), userRepository: sl()),
+        child: DefaultTabController(
           length: 3,
-          child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: darkPurple,
-              title: const Text(area),
-              centerTitle: true,
-              bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(kToolbarHeight),
-                child: BlocBuilder<AreasCubit, AreasState>(
-                  builder: (context, state) => TabBar(
+          child: BlocBuilder<AreasCubit, AreasState>(
+            builder: (context, state) => Scaffold(
+              appBar: AppBar(
+                backgroundColor: darkPurple,
+                title: const Text(area),
+                centerTitle: true,
+                bottom: PreferredSize(
+                  preferredSize: const Size.fromHeight(kToolbarHeight),
+                  child: TabBar(
                     labelPadding: const EdgeInsets.all(0.0),
-                    onTap: (int index) =>
-                        onSelectAreaType(context, index: index),
+                    onTap: (index) => onSelectAreaType(context, index: index),
                     indicatorColor: Colors.transparent,
                     tabs: [
                       Padding(
@@ -102,19 +96,12 @@ class AreaScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-            body: SafeArea(
-              child: BlocBuilder<AreasCubit, AreasState>(
-                builder: (context, state) => TabBarView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: List.generate(
-                        3, (index) => buildAreasTab(state, index: index))),
+              body: SafeArea(
+                child: buildAreasTab(state),
               ),
+              drawer: MainDrawer(),
             ),
-            drawer: MainDrawer(),
           ),
-        );
-      }),
-    );
+        ));
   }
 }
