@@ -8,6 +8,7 @@ import 'package:stepper/common/texts.dart';
 import 'package:stepper/presentation/create_post/cubit/create_post_cubit_2.dart';
 import 'package:stepper/presentation/create_post/cubit/create_post_state_2.dart';
 import 'package:stepper/presentation/create_post/views/create_post_action_button.dart';
+import 'package:stepper/presentation/create_post/views/get_scroll_controller.dart';
 import 'package:stepper/presentation/utils.dart';
 
 class WriteUpdateView extends StatefulWidget {
@@ -27,6 +28,7 @@ class WriteUpdateView extends StatefulWidget {
 class _WriteUpdateViewState extends State<WriteUpdateView> {
   final Debounce _debounce = Debounce(miliseconds: 300);
   late TextEditingController _controller;
+  final FocusNode _focusNode = FocusNode();
   File? file;
   late CreatePostCubit2 createPostCubit;
   late CreatePostState2 createPostState;
@@ -41,6 +43,15 @@ class _WriteUpdateViewState extends State<WriteUpdateView> {
       // Auto save feature should be used only on mode Edit only
       _onAutoUpdatePost(_controller.text);
     });
+    _focusNode.addListener(() async {
+      if (_focusNode.hasFocus) {
+        final scrollCtrl = GetScrollController.of(context).scrollController;
+        await Future.delayed(const Duration(milliseconds: 300));
+
+        scrollCtrl.animateTo(scrollCtrl.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 300), curve: Curves.linear);
+      }
+    });
   }
 
   @override
@@ -48,8 +59,9 @@ class _WriteUpdateViewState extends State<WriteUpdateView> {
     // Happen only when mode is createNew and user does not create new post by pressing publish
     createDraftPostOnCreateNewModeOnly();
     _debounce.cancel();
-    super.dispose();
     _controller.dispose();
+    _focusNode.dispose();
+    super.dispose();
   }
 
   void _onAutoUpdatePost(String text) {
@@ -127,11 +139,15 @@ class _WriteUpdateViewState extends State<WriteUpdateView> {
           children: [
             Expanded(
               child: Container(
+                constraints:
+                    const BoxConstraints(minHeight: 150, maxHeight: 150),
                 padding: const EdgeInsets.only(right: screenMediumPadding),
                 child: TextFormField(
+                  expands: true,
                   controller: _controller,
+                  focusNode: _focusNode,
                   keyboardType: TextInputType.multiline,
-                  textInputAction: TextInputAction.done,
+                  textInputAction: TextInputAction.newline,
                   maxLines: null,
                   decoration: const InputDecoration(
                     border: InputBorder.none,

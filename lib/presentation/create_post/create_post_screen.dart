@@ -8,6 +8,7 @@ import 'package:stepper/presentation/common/commons.dart';
 import 'package:stepper/presentation/create_post/cubit/create_post_cubit_2.dart';
 import 'package:stepper/presentation/create_post/cubit/create_post_state_2.dart';
 import 'package:stepper/presentation/create_post/views/area_section.dart';
+import 'package:stepper/presentation/create_post/views/get_scroll_controller.dart';
 import 'package:stepper/presentation/create_post/views/post_section.dart';
 import 'package:stepper/presentation/create_post/views/tab_row.dart';
 
@@ -63,14 +64,18 @@ class CreatePostScreen extends StatelessWidget {
                       items: state.bands.map((band) => band.name).toList()),
                 ],
               ),
-              body: const Padding(
-                padding: EdgeInsets.only(
+              body: Padding(
+                padding: const EdgeInsets.only(
                   left: screenMediumPadding,
                   right: screenMediumPadding,
                   bottom: screenMediumPadding,
                 ),
-                child: CustomScrollView(
-                  slivers: [
+                child: GetScrollController(
+                  child: Builder(builder: (BuildContext innerContext) {
+                    return CustomScrollView(
+                      controller:
+                          GetScrollController.of(innerContext).scrollController,
+                      slivers: const [
                     SliverList(
                       delegate: SliverChildListDelegate.fixed(
                         [
@@ -87,6 +92,8 @@ class CreatePostScreen extends StatelessWidget {
                       hasScrollBody: false,
                     )
                   ],
+                    );
+                  }),
                 ),
               ),
             );
