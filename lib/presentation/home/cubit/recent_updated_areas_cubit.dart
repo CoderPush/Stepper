@@ -18,7 +18,7 @@ class RecentUpdatedAreasCubit extends Cubit<RecentUpdatedAreasState> {
     try {
       emit(state.copyWith(status: StateStatus.loading));
       _areasSteamSubscription =
-          areaRepository.subscribeAreas().listen((areasList) {
+          areaRepository.subscribeUserAreas().listen((areasList) {
         emit(state.copyWith(
             status: StateStatus.success, recentUpdatedAreas: areasList));
       });
