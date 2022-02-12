@@ -49,7 +49,9 @@ class CreatePostScreen extends StatelessWidget {
                   },
                   icon: const Icon(Icons.close),
                 ),
-                title: const Text(createPost),
+                title: Text(state.mode == CreatePostScreenMode.createNew
+                    ? createPost
+                    : writeUpdate),
                 centerTitle: true,
                 actions: [
                   CustomDropdown(
@@ -76,22 +78,22 @@ class CreatePostScreen extends StatelessWidget {
                       controller:
                           GetScrollController.of(innerContext).scrollController,
                       slivers: const [
-                    SliverList(
-                      delegate: SliverChildListDelegate.fixed(
-                        [
-                          SizedBox(height: screenMediumPadding),
-                          TabRow(),
-                          SizedBox(height: screenMediumPadding),
-                          AreaSection(),
-                          SizedBox(height: screenMediumPadding),
-                        ],
-                      ),
-                    ),
-                    SliverFillRemaining(
-                      child: PostSection(),
-                      hasScrollBody: false,
-                    )
-                  ],
+                        SliverList(
+                          delegate: SliverChildListDelegate.fixed(
+                            [
+                              SizedBox(height: screenMediumPadding),
+                              TabRow(),
+                              SizedBox(height: screenMediumPadding),
+                              AreaSection(),
+                              SizedBox(height: screenMediumPadding),
+                            ],
+                          ),
+                        ),
+                        SliverFillRemaining(
+                          child: PostSection(),
+                          hasScrollBody: false,
+                        )
+                      ],
                     );
                   }),
                 ),
