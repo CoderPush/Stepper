@@ -60,7 +60,7 @@ class PostItem extends StatelessWidget {
                 RichText(
                   text: TextSpan(
                     text: hasAreaName
-                        ? "${post.area.name} - ${post.status.name}"
+                        ? post.area.name
                         : post.updatedAt == null
                             ? post.area.name
                             : post.updatedAt!.day.toString(),
@@ -83,10 +83,19 @@ class PostItem extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Icon(
-                  Icons.more_vert,
-                  color: moreIconColor,
-                )
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      post.status.name,
+                      style: const TextStyle(fontSize: smallFontSize),
+                    ),
+                    const Icon(
+                      Icons.more_vert,
+                      color: moreIconColor,
+                    ),
+                  ],
+                ),
               ],
             ),
             const SizedBox(height: screenExtraSmallPadding),
