@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -26,20 +28,30 @@ class UserFirebaseService {
 
   Future<void> createUser(Map<String, dynamic> dataJson) async {
     var userDocSnap = await firestore.userDocument();
-    await userDocSnap.set(
-      {
-        ...dataJson,
-        "created_at": FieldValue.serverTimestamp(),
-        "updated_at": FieldValue.serverTimestamp()
-      },
-    );
+    await userDocSnap
+        .set(
+          {
+            ...dataJson,
+            "created_at": FieldValue.serverTimestamp(),
+            "updated_at": FieldValue.serverTimestamp()
+          },
+        )
+        .timeout(const Duration(seconds: 1))
+        .catchError((error) {
+          log(error.toString());
+        });
   }
 
   Future<void> updateUser(Map<String, dynamic> dataJson) async {
     var userDocSnap = await firestore.userDocument();
-    await userDocSnap.set(
-        {...dataJson, "updated_at": FieldValue.serverTimestamp()},
-        SetOptions(merge: true));
+    await userDocSnap
+        .update(
+          {...dataJson, "updated_at": FieldValue.serverTimestamp()},
+        )
+        .timeout(const Duration(seconds: 1))
+        .catchError((error) {
+          log(error.toString());
+        });
   }
 
   Future<String?> uploadFile(

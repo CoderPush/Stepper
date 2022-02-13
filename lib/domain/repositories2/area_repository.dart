@@ -11,5 +11,5 @@ abstract class AreaRepository {
   Future<List<Area>> getUserAreasByAreaTypeAndBandId(
       {AreaType? areaType = AreaType.scope, required String bandId});
 
-  Future<Area> updateUserArea({required String areaId, required Area area});
+  Future<Area?> updateUserArea({required String areaId, required Area area});
 }

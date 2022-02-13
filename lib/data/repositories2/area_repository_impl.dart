@@ -47,7 +47,7 @@ class AreaRepositoryImpl implements AreaRepository {
   }
 
   @override
-  Future<Area> updateUserArea({required String areaId, required Area area}) {
+  Future<Area?> updateUserArea({required String areaId, required Area area}) {
     return areaFirebaseService.updateUserArea(
         areaId: areaId, data: area.toJson());
   }

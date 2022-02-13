@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:stepper/data/model2/models2.dart';
 import 'package:stepper/data/helpers/firestore_helpers.dart';
@@ -41,24 +43,32 @@ class PostFirebaseService {
   }
 
   Future<void> createPost({required Map<String, dynamic> data}) async {
-    final userDocSnap = await firestore.userDocument();
-    final newPostRef = userDocSnap.postCollection.doc();
-    await newPostRef.set({
-      ...data,
-      // Auto set id for post
-      "id": newPostRef.id,
-      "created_at": FieldValue.serverTimestamp(),
-      "updated_at": FieldValue.serverTimestamp()
-    });
+    try {
+      final userDocSnap = await firestore.userDocument();
+      final newPostRef = userDocSnap.postCollection.doc();
+      await newPostRef.set({
+        ...data,
+        // Auto set id for post
+        "id": newPostRef.id,
+        "created_at": FieldValue.serverTimestamp(),
+        "updated_at": FieldValue.serverTimestamp()
+      });
+    } catch (error) {
+      log(error.toString());
+    }
   }
 
   Future<void> updatePost(
       {required String postId, required Map<String, dynamic> data}) async {
-    final userDocSnap = await firestore.userDocument();
-    final postRef = userDocSnap.postCollection.doc(postId);
-    await postRef.set({
-      ...data,
-      "updated_at": FieldValue.serverTimestamp(),
-    }, SetOptions(merge: true));
+    try {
+      final userDocSnap = await firestore.userDocument();
+      final postRef = userDocSnap.postCollection.doc(postId);
+      await postRef.update({
+        ...data,
+        "updated_at": FieldValue.serverTimestamp(),
+      });
+    } catch (error) {
+      log(error.toString());
+    }
   }
 }

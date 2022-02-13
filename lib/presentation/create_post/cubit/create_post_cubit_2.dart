@@ -134,7 +134,7 @@ class CreatePostCubit2 extends Cubit<CreatePostState2> {
         areaId: state.selectedArea.id, area: state.selectedArea);
     Post currentPost = state.post!;
     Post post = currentPost.copyWith(
-      area: updatedArea,
+      area: updatedArea ?? state.selectedArea,
     );
 
     postRepository.updatePost(postId: post.id!, updatedPost: post);
@@ -197,7 +197,7 @@ class CreatePostCubit2 extends Cubit<CreatePostState2> {
 
     final post = Post(
         status: postStatus,
-        area: updatedArea,
+        area: updatedArea ?? selectedArea,
         description: postContent,
         imgUrl: imgUrl);
 
