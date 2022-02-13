@@ -13,32 +13,14 @@ import 'package:stepper/presentation/profile_user_edit/views/row_level_view.dart
 class UserLevelView extends StatelessWidget {
   const UserLevelView({Key? key}) : super(key: key);
 
-  _onProfessionChange(String professonName, BuildContext context) async {
-    final connectivityResult = await (Connectivity().checkConnectivity());
-
-    if (connectivityResult == ConnectivityResult.none) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text(internetRequireToChangeProfession),
-        duration: Duration(milliseconds: 2000),
-      ));
-    } else {
-      context
-          .read<UserProfileEditCubit>()
-          .onProfessionChanged(professionName: professonName);
-    }
+  _onProfessionChange(String professonName, BuildContext context) {
+    context
+        .read<UserProfileEditCubit>()
+        .onProfessionChanged(professionName: professonName);
   }
 
   _onBandChange(String bandName, BuildContext context) async {
-    final connectivityResult = await (Connectivity().checkConnectivity());
-
-    if (connectivityResult == ConnectivityResult.none) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text(internetRequireToChangeBand),
-        duration: Duration(milliseconds: 2000),
-      ));
-    } else {
-      context.read<UserProfileEditCubit>().onBandChanged(bandName: bandName);
-    }
+    context.read<UserProfileEditCubit>().onBandChanged(bandName: bandName);
   }
 
   @override
