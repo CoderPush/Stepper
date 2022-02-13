@@ -23,4 +23,9 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   User? get authUser => authFirebaseService.authUser;
+
+  @override
+  Stream<User?> subscribeAuthenticatedUser() {
+    return authFirebaseService.subscribeAuthenticatedUser();
+  }
 }

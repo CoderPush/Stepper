@@ -9,6 +9,11 @@ class BandRepositoryImpl implements BandRepository {
   BandRepositoryImpl({required this.bandFirebaseService});
 
   @override
+  Future<List<Band>> getAllBands() {
+    return bandFirebaseService.getAllBands();
+  }
+
+  @override
   Future<List<Band>> getBandsByProfessionType(
       {required ProfessionType professionType}) async {
     return await bandFirebaseService.getBandsByProfessionType(

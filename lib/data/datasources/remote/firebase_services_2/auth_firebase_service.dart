@@ -43,4 +43,8 @@ class AuthFirebaseService {
   }
 
   User? get authUser => firebaseAuth.currentUser;
+
+  Stream<User?> subscribeAuthenticatedUser() {
+    return firebaseAuth.authStateChanges();
+  }
 }
