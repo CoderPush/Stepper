@@ -44,42 +44,45 @@ class PostListScreen extends StatelessWidget {
           width: screenSize.width * 0.7,
         ),
         body: SafeArea(
-          child: CustomScrollView(slivers: [
-            SliverFillRemaining(
-              child: Padding(
-                padding: const EdgeInsets.all(screenMediumPadding),
-                child: Column(
-                  children: [
-                    AreaMainCard(area: area),
-                    BlocBuilder<PostsListCubit, PostsListState>(
-                      builder: (context, state) {
-                        if (state.fetchingStatus == StateStatus.loading) {
-                          return const Expanded(
-                              child:
-                                  Center(child: CircularProgressIndicator()));
-                        }
-
-                        if (state.fetchingStatus == StateStatus.success) {
-                          if (state.posts.isEmpty) {
-                            return const Expanded(
-                                child: Center(child: Text("No posts yet")));
-                          }
-                          return PostList(
-                              hasAreaName: false, postList: state.posts);
-                        }
-
-                        if (state.fetchingStatus == StateStatus.failure) {
-                          return const Text("Error");
-                        }
-
-                        return Container();
-                      },
-                    )
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: screenMediumPadding),
+            child: CustomScrollView(slivers: [
+              SliverList(
+                delegate: SliverChildListDelegate.fixed(
+                  [
+                    Padding(
+                      padding: const EdgeInsets.only(top: screenMediumPadding),
+                      child: AreaMainCard(area: area),
+                    ),
                   ],
                 ),
               ),
-            )
-          ]),
+              SliverFillRemaining(
+                child: BlocBuilder<PostsListCubit, PostsListState>(
+                  builder: (context, state) {
+                    if (state.fetchingStatus == StateStatus.loading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    if (state.fetchingStatus == StateStatus.success) {
+                      if (state.posts.isEmpty) {
+                        return const Center(child: Text("No posts yet"));
+                      }
+                      return PostList(
+                          hasAreaName: false, postList: state.posts);
+                    }
+
+                    if (state.fetchingStatus == StateStatus.failure) {
+                      return const Text("Error");
+                    }
+
+                    return Container();
+                  },
+                ),
+              )
+            ]),
+          ),
         ),
         floatingActionButton: CustomFloatingButton(area: area),
       ),
