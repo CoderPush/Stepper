@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:stepper/data/datasources/remote/firebase_services_2/firebase_services.dart';
+import 'package:stepper/data/helpers/precache_firestore_handler.dart';
 import 'package:stepper/data/repositories2/repositories_impl2.dart';
 import 'package:stepper/domain/repositories2/repositories2.dart';
 
@@ -44,4 +45,12 @@ Future<void> initializeDependencies2() async {
 
   locator.registerLazySingleton<PostRepository>(
       () => PostRepositoryImpl(postFirebaseService: locator()));
+
+  locator.registerLazySingleton<PreCacheFirestoreHandler>(() =>
+      PreCacheFirestoreHandler(
+          authFirebaseService: locator(),
+          userFirebaseService: locator(),
+          professionFirebaseService: locator(),
+          bandFirebaseService: locator(),
+          areaFirebaseService: locator()));
 }
