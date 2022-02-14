@@ -13,9 +13,12 @@ class UserFirebaseService {
 
   UserFirebaseService({required this.firestore, required this.firebaseStorage});
 
-  Future<User> getUser() async {
+  Future<User?> getUser() async {
     var userDocSnap = await firestore.userDocument();
     var userDoc = await userDocSnap.get();
+    if (userDoc.data() == null) {
+      return null;
+    }
     return User.fromJson(userDoc.data() as Map<String, dynamic>);
   }
 
