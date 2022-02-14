@@ -95,23 +95,17 @@ class AreaFirebaseService2 {
 
   Future<Area?> updateUserArea(
       {required String areaId, required Map<String, dynamic> data}) async {
-    try {
-      final userDoc = await firestore.userDocument();
-      final modifiedData = {
-        ...data,
-        "updated_at": FieldValue.serverTimestamp()
-      };
-      await userDoc.userAreaCollection
-          .doc(areaId)
-          .set(modifiedData, SetOptions(merge: true))
-          .timeout(const Duration(seconds: 1));
-      final updatedAreaSnap =
-          await userDoc.userAreaCollection.doc(areaId).get();
-      return Area.fromJson(updatedAreaSnap.data() as Map<String, dynamic>);
-    } on TimeoutException catch (error) {
-      log(error.message!);
-      return null;
-    }
+    final userDoc = await firestore.userDocument();
+    final modifiedData = {...data, "updated_at": FieldValue.serverTimestamp()};
+    await userDoc.userAreaCollection
+        .doc(areaId)
+        .set(modifiedData, SetOptions(merge: true))
+        .timeout(const Duration(seconds: 1))
+        .catchError((error) {
+      log(error.toString());
+    });
+    final updatedAreaSnap = await userDoc.userAreaCollection.doc(areaId).get();
+    return Area.fromJson(updatedAreaSnap.data() as Map<String, dynamic>);
   }
 
   Future importAreasToUserAreas(List<Area> areas) async {
