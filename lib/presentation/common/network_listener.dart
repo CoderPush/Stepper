@@ -4,12 +4,15 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:stepper/data/helpers/precache_firestore_handler.dart';
 import 'package:stepper/injection_container.dart';
 
 class NetworkListener extends StatefulWidget {
-  final Widget child;
+  final Widget Function(BuildContext) builder;
+  final PreCacheFirestoreHandler preCacheFirestoreHandler;
 
-  const NetworkListener({Key? key, required this.child})
+  const NetworkListener(
+      {Key? key, required this.builder, required this.preCacheFirestoreHandler})
       : super(
           key: key,
         );
@@ -20,19 +23,21 @@ class NetworkListener extends StatefulWidget {
 
 class _NetworkListenerState extends State<NetworkListener> {
   final _connectivity = Connectivity();
-  StreamSubscription? stream;
+  StreamSubscription? _networkListener;
+
   @override
   void initState() {
-    stream = _connectivity.onConnectivityChanged.listen((event) {
+    widget.preCacheFirestoreHandler.init();
+    _networkListener = _connectivity.onConnectivityChanged.listen((event) {
       if (event == ConnectivityResult.none) {
         log('Network Disconnected');
-        log('Firestore using cached db');
+        log('Firestore using cached database');
 
         sl.get<FirebaseFirestore>().disableNetwork();
       } else {
         sl.get<FirebaseFirestore>().enableNetwork();
         log('Network Connected');
-        log('Firestore connected with server');
+        log('Firestore using with server database');
       }
     });
     super.initState();
@@ -40,12 +45,13 @@ class _NetworkListenerState extends State<NetworkListener> {
 
   @override
   void dispose() {
-    stream?.cancel();
+    _networkListener?.cancel();
+    widget.preCacheFirestoreHandler.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return widget.child;
+    return widget.builder(context);
   }
 }

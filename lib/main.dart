@@ -7,13 +7,11 @@ import 'package:stepper/common/palette.dart';
 import 'package:stepper/config/routes/app_routes.dart';
 import 'package:stepper/injection_container.dart';
 import 'package:stepper/injection_container2.dart';
-import 'package:stepper/data/helpers/network_listener.dart';
+import 'package:stepper/presentation/common/network_listener.dart';
 import 'package:stepper/presentation/authentication/cubit/authentication_cubit.dart';
 import 'package:stepper/presentation/common/drawer/drawer.dart';
 import 'package:stepper/config/routes/routes.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:stepper/presentation/offline/cubit/offline_cubit.dart';
-import 'package:stepper/presentation/offline/cubit/offline_state.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,59 +48,51 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return NetworkListener(
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<DrawerCubit>(create: (context) => DrawerCubit()),
-          BlocProvider(
-            create: (context) => AuthenticationCubit(
-              userRepository: sl(),
-              authRepository: sl(),
-            ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<DrawerCubit>(create: (context) => DrawerCubit()),
+        BlocProvider(
+          create: (context) => AuthenticationCubit(
+            userRepository: sl(),
+            authRepository: sl(),
           ),
-          BlocProvider(
-              create: (context) => OfflineCubit(
-                  authRepository: sl(),
-                  userRepository: sl(),
-                  professionRepository: sl(),
-                  bandRepository: sl(),
-                  areaRepository: sl()))
-        ],
-        child: BlocBuilder<AuthenticationCubit, AuthenticationState>(
-          builder: (context, state) {
-            return BlocBuilder<OfflineCubit, OfflineState>(
-                builder: (context, _) {
-              if (state is AuthenticationInitial) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else {
-                return MaterialApp(
-                  key: UniqueKey(),
-                  debugShowCheckedModeBanner: false,
-                  title: 'Stepper',
-                  theme: ThemeData(
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    scaffoldBackgroundColor: scaffoldColor,
-                    primarySwatch: Colors.blue,
-                    textSelectionTheme: const TextSelectionThemeData(
-                      cursorColor: white,
-                    ),
-                    textTheme: Theme.of(context).textTheme.apply(
-                          bodyColor: textColor,
-                          displayColor: textColor,
-                        ),
-                  ),
-                  initialRoute: state is AuthenticatedState
-                      ? RouteNames.home
-                      : RouteNames.auth,
-                  onGenerateRoute: AppRoutes.onGenerateRoutes,
-                );
-              }
-            });
-          },
         ),
+      ],
+      child: BlocBuilder<AuthenticationCubit, AuthenticationState>(
+        builder: (context, state) {
+          return NetworkListener(
+              preCacheFirestoreHandler: locator(),
+              builder: (context) {
+                if (state is AuthenticationInitial) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  return MaterialApp(
+                    key: UniqueKey(),
+                    debugShowCheckedModeBanner: false,
+                    title: 'Stepper',
+                    theme: ThemeData(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      scaffoldBackgroundColor: scaffoldColor,
+                      primarySwatch: Colors.blue,
+                      textSelectionTheme: const TextSelectionThemeData(
+                        cursorColor: white,
+                      ),
+                      textTheme: Theme.of(context).textTheme.apply(
+                            bodyColor: textColor,
+                            displayColor: textColor,
+                          ),
+                    ),
+                    initialRoute: state is AuthenticatedState
+                        ? RouteNames.home
+                        : RouteNames.auth,
+                    onGenerateRoute: AppRoutes.onGenerateRoutes,
+                  );
+                }
+              });
+        },
       ),
     );
   }
