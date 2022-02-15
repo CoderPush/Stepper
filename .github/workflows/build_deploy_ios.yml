@@ -10,24 +10,37 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
+  make-env:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Generate env file
+        uses: SpicyPizza/create-envfile@master
+        with:
+          directory: ./
+          file_name: .env
+
   build-ios:
     # The type of runner that the job will run on
     runs-on: macos-latest
+    needs: make-env
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      
+
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.7'
+          ruby-version: "2.7"
 
       - name: Install Gem (For Fastlane)
         working-directory: ./ios
         run: bundle install
-            
+
       - name: Generate Google Service Plist
         env:
           IOS_FIREBASE_CONFIG: ${{ secrets.IOS_FIREBASE_CONFIG }}
@@ -44,15 +57,15 @@ jobs:
           MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
         run: bundle exec fastlane install_cert_and_profile
-          
+
       - uses: subosito/flutter-action@v2
-      
-      - name: Get pub 
+
+      - name: Get pub
         run: flutter pub get
 
       - name: Build ipa
         run: flutter build ipa --release --export-options-plist=$GITHUB_WORKSPACE/ios/ExportOptions.plist
-  
+
       - uses: actions/upload-artifact@v2
         with:
           name: ipa
@@ -67,7 +80,7 @@ jobs:
 
       - uses: actions/download-artifact@v2
         with:
-          name:  ipa
+          name: ipa
           path: build/ios/ipa
 
       - name: Distribute to Firebase Distribution

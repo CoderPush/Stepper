@@ -34,7 +34,6 @@ class CreatePostScreen extends StatelessWidget {
             return const Scaffold(
                 body: Center(child: CircularProgressIndicator()));
           }
-
           if (state.ready) {
             return Scaffold(
               appBar: AppBar(
