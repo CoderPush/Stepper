@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/data/model2/models2.dart';
@@ -15,6 +16,11 @@ class HorizontalAreaList extends StatelessWidget {
     return SizedBox(
       height: 80,
       child: PageView.builder(
+          scrollBehavior: const ScrollBehavior().copyWith(
+              dragDevices: <PointerDeviceKind>{
+                PointerDeviceKind.mouse,
+                PointerDeviceKind.touch
+              }),
           padEnds: false,
           controller: PageController(viewportFraction: 0.8),
           itemCount: areaList.length,
