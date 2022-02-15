@@ -19,6 +19,7 @@ class PostsCubit extends Cubit<PostsState> {
       emit(state.copyWith(status: StateStatus.loading));
       // TODO: have to fetch posts that relate to user current band
       _postStreamSubscription = postRepository.subscribePosts().listen((posts) {
+
         emit(state.copyWith(status: StateStatus.success, posts: posts));
       });
     } on Exception {
