@@ -10,17 +10,6 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  make-env:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Generate env file
-        uses: SpicyPizza/create-envfile@master
-        with:
-          directory: ./
-          file_name: .env
 
   build-ios:
     # The type of runner that the job will run on
@@ -40,6 +29,9 @@ jobs:
       - name: Install Gem (For Fastlane)
         working-directory: ./ios
         run: bundle install
+
+      - name: Generate empty .env
+        run: touch $GITHUB_WORKSPACE/.env
 
       - name: Generate Google Service Plist
         env:
