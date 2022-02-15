@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
-import 'package:stepper/data/model/models.dart';
+import 'package:stepper/data/model2/models2.dart';
 import 'package:stepper/presentation/utils.dart';
 
 class RatingIndicator extends StatelessWidget {
@@ -21,7 +21,7 @@ class RatingIndicator extends StatelessWidget {
   }) : super(key: key);
 
   List<Color> _calculateColorSchema() {
-    List<Color> currentAreaScheme = List.from(getAreaTheme(area.areaType));
+    List<Color> currentAreaScheme = List.from(getAreaTheme(area.type));
     for (var i = area.rating; i < currentAreaScheme.length; i++) {
       currentAreaScheme[i] = lightGrey;
     }

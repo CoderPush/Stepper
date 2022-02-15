@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/numbers.dart';
 import 'package:stepper/common/palette.dart';
+import 'package:stepper/enums/enums.dart';
 import 'package:stepper/presentation/authentication/cubit/authentication_cubit.dart';
-import 'package:stepper/presentation/profile_user/cubit/profile_user_cubit.dart';
+import 'package:stepper/presentation/profile_user/cubit/user_profile_cubit.dart';
+import 'package:stepper/presentation/profile_user/cubit/user_profile_state.dart';
 import 'package:stepper/presentation/profile_user/views/label_view.dart';
 import 'package:stepper/config/routes/routes.dart';
 
@@ -12,7 +14,7 @@ class AvatarView extends StatelessWidget {
   const AvatarView({Key? key}) : super(key: key);
 
   void _onProfileUserEditScreenTap(BuildContext context) {
-    Navigator.pushReplacementNamed(context, RouteNames.profileUserEdit);
+    Navigator.of(context).pushNamed(RouteNames.profileUserEdit);
   }
 
   @override
@@ -61,13 +63,13 @@ class AvatarView extends StatelessWidget {
         ),
         Container(
           padding: const EdgeInsets.only(bottom: fifty),
-          child: BlocBuilder<ProfileUserCubit, ProfileUserState>(
+          child: BlocBuilder<UserProfileCubit, UserProfileState>(
             builder: (context, state) {
-              if (state is ProfileUserLoadedState) {
+              if (state.fetchingStatus == StateStatus.success) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    LabelView(labelText: state.currentProfession),
+                    LabelView(labelText: state.user.currentProfession.name),
                     Container(
                       height: four,
                       width: four,
@@ -78,7 +80,7 @@ class AvatarView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(largeBorderRadius),
                       ),
                     ),
-                    LabelView(labelText: state.currentBand),
+                    LabelView(labelText: state.user.currentBand.name),
                   ],
                 );
               }

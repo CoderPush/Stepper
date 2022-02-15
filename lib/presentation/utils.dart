@@ -1,15 +1,18 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/data/model/models.dart';
+import 'package:stepper/data/model2/models2.dart' as models2;
 
-List<Color> getAreaTheme(AreaType areaType) {
+List<Color> getAreaTheme(models2.AreaType areaType) {
   switch (areaType) {
-    case AreaType.scope:
+    case models2.AreaType.scope:
       return scopeScheme;
-    case AreaType.expertise:
+    case models2.AreaType.expertise:
       return expertiseScheme;
-    case AreaType.mindset:
+    case models2.AreaType.mindset:
       return mindsetScheme;
   }
 }
@@ -44,4 +47,32 @@ DateTime? parseTime(dynamic date) {
     return (date).toDate();
   }
   return null;
+}
+
+class Debounce {
+  final int miliseconds;
+  VoidCallback? action;
+  Timer? _timer;
+
+  Debounce({this.miliseconds = 500});
+
+  void run(VoidCallback action) {
+    if (_timer?.isActive ?? false) _timer?.cancel();
+    _timer = Timer(Duration(milliseconds: miliseconds), action);
+  }
+
+  void cancel() => _timer?.cancel();
+}
+
+T? getItemByName<T>(
+    {required List<T> list,
+    required String name,
+    required String Function(T) getter}) {
+  try {
+    return list.firstWhere(
+      (item) => getter(item) == name,
+    );
+  } catch (error) {
+    return null;
+  }
 }

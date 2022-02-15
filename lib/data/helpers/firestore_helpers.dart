@@ -12,6 +12,8 @@ extension FirestoreX on FirebaseFirestore {
     return FirebaseFirestore.instance.collection('users').doc(user.email);
   }
 
+  CollectionReference get areaCollection => collection('areas');
+
   Future<DocumentReference> commonAreaDocument(String areaName) async {
     return FirebaseFirestore.instance.collection('commonAreas').doc(areaName);
   }
@@ -21,6 +23,8 @@ extension DocumentReferenceX on DocumentReference {
   CollectionReference get postCollection => collection('posts');
 
   CollectionReference get areaCollection => collection('areas');
+
+  CollectionReference get userAreaCollection => collection('user_areas');
 
   CollectionReference get settingCollection => collection('settings');
 }

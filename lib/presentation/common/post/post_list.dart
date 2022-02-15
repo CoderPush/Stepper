@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
-import 'package:stepper/data/model/models.dart';
+import 'package:stepper/data/model2/models2.dart';
 import 'package:stepper/presentation/common/post/post_item.dart';
 
 class PostList extends StatelessWidget {

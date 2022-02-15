@@ -111,8 +111,7 @@ class HomeScreen extends StatelessWidget {
                   screenMediumPadding,
                 ),
                 child: BlocProvider(
-                  create: (context) => PostsCubit(
-                      postRepository: sl(), settingFirebaseService: sl()),
+                  create: (context) => PostsCubit(postRepository: sl()),
                   child: BlocBuilder<PostsCubit, PostsState>(
                       builder: (context, state) {
                     if (state.status == StateStatus.loading) {

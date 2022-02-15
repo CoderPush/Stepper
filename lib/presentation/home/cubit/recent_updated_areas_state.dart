@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:stepper/data/model/area.dart';
+import 'package:stepper/data/model2/models2.dart';
 import 'package:stepper/enums/enums.dart';
 
 class RecentUpdatedAreasState extends Equatable {

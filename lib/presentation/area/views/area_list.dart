@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/texts.dart';
-import 'package:stepper/data/model/models.dart';
+import 'package:stepper/data/model2/models2.dart';
 import 'package:stepper/presentation/area/views/area_with_description_item.dart';
 
 class AreaList extends StatelessWidget {
@@ -20,7 +20,7 @@ class AreaList extends StatelessWidget {
       padding: const EdgeInsets.all(screenMediumPadding),
       itemBuilder: (context, index) => AreaWithDescriptionItem(
         area: areaList[index],
-        areaSubTitle: '${areaList[index].numberOfUpdate} $updateThisWeek',
+        areaSubTitle: '${areaList[index].numberOfPosts} $updateThisWeek',
         itemWidth: screenSize.width - screenMediumPadding * 2,
       ),
       itemCount: areaList.length,

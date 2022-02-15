@@ -6,6 +6,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/config/routes/app_routes.dart';
 import 'package:stepper/injection_container.dart';
+import 'package:stepper/injection_container2.dart';
+import 'package:stepper/presentation/common/network_listener.dart';
 import 'package:stepper/presentation/authentication/cubit/authentication_cubit.dart';
 import 'package:stepper/presentation/common/drawer/drawer.dart';
 import 'package:stepper/config/routes/routes.dart';
@@ -14,6 +16,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
+  await initializeDependencies2();
   // enable data persistence on Flutter web
   if (kIsWeb) {
     try {
@@ -51,39 +54,44 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => AuthenticationCubit(
             userRepository: sl(),
-            bandRepository: sl(),
-            professionRepository: sl(),
+            authRepository: sl(),
           ),
-        )
+        ),
       ],
       child: BlocBuilder<AuthenticationCubit, AuthenticationState>(
         builder: (context, state) {
-          if (state is AuthenticationInitial) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            return MaterialApp(
-              key: UniqueKey(),
-              debugShowCheckedModeBanner: false,
-              title: 'Stepper',
-              theme: ThemeData(
-                scaffoldBackgroundColor: scaffoldColor,
-                primarySwatch: Colors.blue,
-                textSelectionTheme: const TextSelectionThemeData(
-                  cursorColor: white,
-                ),
-                textTheme: Theme.of(context).textTheme.apply(
-                      bodyColor: textColor,
-                      displayColor: textColor,
+          return NetworkListener(
+              preCacheFirestoreHandler: locator(),
+              builder: (context) {
+                if (state is AuthenticationInitial) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  return MaterialApp(
+                    key: UniqueKey(),
+                    debugShowCheckedModeBanner: false,
+                    title: 'Stepper',
+                    theme: ThemeData(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      scaffoldBackgroundColor: scaffoldColor,
+                      primarySwatch: Colors.blue,
+                      textSelectionTheme: const TextSelectionThemeData(
+                        cursorColor: white,
+                      ),
+                      textTheme: Theme.of(context).textTheme.apply(
+                            bodyColor: textColor,
+                            displayColor: textColor,
+                          ),
                     ),
-              ),
-              initialRoute: state is AuthenticatedState
-                  ? RouteNames.home
-                  : RouteNames.auth,
-              onGenerateRoute: AppRoutes.onGenerateRoutes,
-            );
-          }
+                    initialRoute: state is AuthenticatedState
+                        ? RouteNames.home
+                        : RouteNames.auth,
+                    onGenerateRoute: AppRoutes.onGenerateRoutes,
+                  );
+                }
+              });
         },
       ),
     );
