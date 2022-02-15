@@ -63,7 +63,6 @@ platform :ios do
       firebase_app_distribution(
         app: ENV["IOS_FIREBASE_APP_ID"],
         testers: "testers",
-        release_notes: "Test using fastlane using Github actions",
         firebase_cli_token: ENV["FIREBASE_TOKEN"],
         ipa_path: "../build/ios/ipa/Stepper.ipa"
     )
