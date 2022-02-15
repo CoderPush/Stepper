@@ -14,8 +14,8 @@ class UserFirebaseService {
   UserFirebaseService({required this.firestore, required this.firebaseStorage});
 
   Future<User?> getUser() async {
-    var userDocSnap = await firestore.userDocument();
-    var userDoc = await userDocSnap.get();
+    var userDocRef = await firestore.userDocument();
+    var userDoc = await userDocRef.get();
     if (userDoc.data() == null) {
       return null;
     }
@@ -23,38 +23,32 @@ class UserFirebaseService {
   }
 
   Stream<User> subscribeUser() async* {
-    var userDocSnap = await firestore.userDocument();
-    var userStream = userDocSnap.snapshots();
+    var userDocRef = await firestore.userDocument();
+    var userStream = userDocRef.snapshots();
     yield* userStream
         .map((change) => User.fromJson(change.data() as Map<String, dynamic>));
   }
 
   Future<void> createUser(Map<String, dynamic> dataJson) async {
-    var userDocSnap = await firestore.userDocument();
-    await userDocSnap
-        .set(
-          {
-            ...dataJson,
-            "created_at": FieldValue.serverTimestamp(),
-            "updated_at": FieldValue.serverTimestamp()
-          },
-        )
-        .timeout(const Duration(seconds: 1))
-        .catchError((error) {
-          log(error.toString());
-        });
+    var userDocRef = await firestore.userDocument();
+    userDocRef.set(
+      {
+        ...dataJson,
+        "created_at": FieldValue.serverTimestamp(),
+        "updated_at": FieldValue.serverTimestamp()
+      },
+    ).catchError((error) {
+      log(error.toString());
+    });
   }
 
   Future<void> updateUser(Map<String, dynamic> dataJson) async {
-    var userDocSnap = await firestore.userDocument();
-    await userDocSnap
-        .update(
-          {...dataJson, "updated_at": FieldValue.serverTimestamp()},
-        )
-        .timeout(const Duration(seconds: 1))
-        .catchError((error) {
-          log(error.toString());
-        });
+    var userDocRef = await firestore.userDocument();
+    userDocRef.update(
+      {...dataJson, "updated_at": FieldValue.serverTimestamp()},
+    ).catchError((error) {
+      log(error.toString());
+    });
   }
 
   Future<String?> uploadFile(

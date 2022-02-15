@@ -84,10 +84,10 @@ class AreaFirebaseService2 {
           .where("updated_at", isNull: false)
           .orderBy("updated_at", descending: true)
           .limit(6)
-          .snapshots();
-      yield* areaStream.map((snapshot) => snapshot.docs
-          .map((doc) => Area.fromJson(doc.data() as Map<String, dynamic>))
-          .toList());
+          .snapshots(includeMetadataChanges: true);
+      yield* areaStream.map((snapshot) => snapshot.docs.map((doc) {
+            return Area.fromJson(doc.data() as Map<String, dynamic>);
+          }).toList());
     } catch (error) {
       log(error.toString());
     }
@@ -97,14 +97,14 @@ class AreaFirebaseService2 {
       {required String areaId, required Map<String, dynamic> data}) async {
     final userDoc = await firestore.userDocument();
     final modifiedData = {...data, "updated_at": FieldValue.serverTimestamp()};
-    await userDoc.userAreaCollection
+    userDoc.userAreaCollection
         .doc(areaId)
         .set(modifiedData, SetOptions(merge: true))
-        .timeout(const Duration(seconds: 1))
         .catchError((error) {
       log(error.toString());
     });
     final updatedAreaSnap = await userDoc.userAreaCollection.doc(areaId).get();
+
     return Area.fromJson(updatedAreaSnap.data() as Map<String, dynamic>);
   }
 

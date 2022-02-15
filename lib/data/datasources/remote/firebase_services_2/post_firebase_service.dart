@@ -36,7 +36,7 @@ class PostFirebaseService {
     final userDocSnap = await firestore.userDocument();
     final postsStream = userDocSnap.postCollection
         .orderBy("updated_at", descending: true)
-        .snapshots();
+        .snapshots(includeMetadataChanges: true);
     yield* postsStream.map((snapshot) => snapshot.docs
         .map((doc) => Post.fromJson(doc.data() as Map<String, dynamic>))
         .toList());
@@ -46,7 +46,7 @@ class PostFirebaseService {
     try {
       final userDocSnap = await firestore.userDocument();
       final newPostRef = userDocSnap.postCollection.doc();
-      await newPostRef.set({
+      newPostRef.set({
         ...data,
         // Auto set id for post
         "id": newPostRef.id,
@@ -63,7 +63,7 @@ class PostFirebaseService {
     try {
       final userDocSnap = await firestore.userDocument();
       final postRef = userDocSnap.postCollection.doc(postId);
-      await postRef.update({
+      postRef.update({
         ...data,
         "updated_at": FieldValue.serverTimestamp(),
       });
