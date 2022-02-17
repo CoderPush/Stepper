@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stepper/data/model2/models2.dart';
-import 'package:stepper/domain/repositories2/repositories2.dart';
+import 'package:stepper/data/models/models.dart';
+import 'package:stepper/domain/repositories/repositories.dart';
 import 'package:stepper/enums/enums.dart';
-import 'package:stepper/presentation/area/cubit/areas_state_2.dart';
+import 'package:stepper/presentation/area/cubit/areas_state.dart';
 
 class AreasCubit extends Cubit<AreasState> {
   AreaRepository areaRepository;
