@@ -18,20 +18,20 @@ jobs:
       - name: set up java
         uses: actions/setup-java@v1
         with:
-          java-version: "12.x"
+          java-version: '12.x'
       - uses: subosito/flutter-action@v1
         with:
-          channel: "stable"
+          channel: 'stable'
           flutter-version: '2.5.2'
       - name: flutter pub get
         run: flutter pub get
       - name: flutter analyze
-        run: flutter analyze > flutter_analyze_report.txt
+        run: flutter analyze
       - name: setup ruby
         if: ${{ failure() }}
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: "2.6"
+          ruby-version: '2.6'
       - name: setup danger
         if: ${{ failure() }}
         run: |
@@ -41,9 +41,9 @@ jobs:
         if: ${{ failure() }}
         uses: MeilCli/danger-action@v5
         with:
-          plugins_file: "Gemfile"
-          install_path: "vendor/bundle"
-          danger_file: "Dangerfile"
-          danger_id: "danger-pr"
+          plugins_file: 'Gemfile'
+          install_path: 'vendor/bundle'
+          danger_file: 'Dangerfile'
+          danger_id: 'danger-pr'
         env:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
