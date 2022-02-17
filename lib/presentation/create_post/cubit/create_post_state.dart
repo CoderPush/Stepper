@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:stepper/data/model2/models2.dart';
+import 'package:stepper/data/models/models.dart';
 
 enum CreatePostScreenMode { createNew, edit }
 
@@ -10,7 +10,7 @@ class CreatePostArgs {
   CreatePostArgs({this.mode = CreatePostScreenMode.createNew, this.post});
 }
 
-class CreatePostState2 extends Equatable {
+class CreatePostState extends Equatable {
   final Post? post;
   final Band selectedBand;
   final List<Band> bands;
@@ -23,7 +23,7 @@ class CreatePostState2 extends Equatable {
   final bool ready;
   final bool isLoadingAreas;
 
-  CreatePostState2(
+  CreatePostState(
       {this.post,
       selectedBand,
       this.bands = const [],
@@ -39,7 +39,7 @@ class CreatePostState2 extends Equatable {
         selectedArea = selectedArea ?? Area.empty,
         user = user ?? User.empty;
 
-  CreatePostState2 copyWith(
+  CreatePostState copyWith(
           {Post? post,
           Band? selectedBand,
           List<Band>? bands,
@@ -51,7 +51,7 @@ class CreatePostState2 extends Equatable {
           bool? shouldCreateDraft,
           bool? ready,
           bool? isLoadingAreas}) =>
-      CreatePostState2(
+      CreatePostState(
           post: post ?? this.post,
           selectedBand: selectedBand ?? this.selectedBand,
           bands: bands ?? this.bands,

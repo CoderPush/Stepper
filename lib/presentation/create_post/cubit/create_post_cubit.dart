@@ -2,25 +2,25 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stepper/data/model2/models2.dart';
-import 'package:stepper/domain/repositories2/repositories2.dart';
-import 'package:stepper/presentation/create_post/cubit/create_post_state_2.dart';
+import 'package:stepper/data/models/models.dart';
+import 'package:stepper/domain/repositories/repositories.dart';
+import 'package:stepper/presentation/create_post/cubit/create_post_state.dart';
 import 'package:stepper/presentation/utils.dart';
 
-class CreatePostCubit2 extends Cubit<CreatePostState2> {
+class CreatePostCubit extends Cubit<CreatePostState> {
   UserRepository userRepository;
   PostRepository postRepository;
   AreaRepository areaRepository;
   BandRepository bandRepository;
   CreatePostArgs args;
 
-  CreatePostCubit2(
+  CreatePostCubit(
       {required this.userRepository,
       required this.areaRepository,
       required this.postRepository,
       required this.bandRepository,
       required this.args})
-      : super(CreatePostState2()) {
+      : super(CreatePostState()) {
     _init();
   }
 

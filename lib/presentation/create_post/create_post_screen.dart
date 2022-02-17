@@ -5,8 +5,8 @@ import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/injection_container.dart';
 import 'package:stepper/presentation/common/commons.dart';
-import 'package:stepper/presentation/create_post/cubit/create_post_cubit_2.dart';
-import 'package:stepper/presentation/create_post/cubit/create_post_state_2.dart';
+import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
+import 'package:stepper/presentation/create_post/cubit/create_post_state.dart';
 import 'package:stepper/presentation/create_post/views/area_section.dart';
 import 'package:stepper/presentation/create_post/views/get_scroll_controller.dart';
 import 'package:stepper/presentation/create_post/views/post_section.dart';
@@ -20,7 +20,7 @@ class CreatePostScreen extends StatelessWidget {
     final args = ModalRoute.of(context)!.settings.arguments as CreatePostArgs;
 
     return BlocProvider(
-      create: (context) => CreatePostCubit2(
+      create: (context) => CreatePostCubit(
           areaRepository: sl(),
           postRepository: sl(),
           bandRepository: sl(),
@@ -28,7 +28,7 @@ class CreatePostScreen extends StatelessWidget {
           args: args),
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: BlocBuilder<CreatePostCubit2, CreatePostState2>(
+        child: BlocBuilder<CreatePostCubit, CreatePostState>(
             builder: (context, state) {
           if (!state.ready) {
             return const Scaffold(
@@ -58,9 +58,7 @@ class CreatePostScreen extends StatelessWidget {
                       disableHintText: state.selectedBand.name,
                       value: state.selectedBand.name,
                       onChanged: (String bandName) {
-                        context
-                            .read<CreatePostCubit2>()
-                            .onBandChanged(bandName);
+                        context.read<CreatePostCubit>().onBandChanged(bandName);
                       },
                       items: state.bands.map((band) => band.name).toList()),
                 ],
