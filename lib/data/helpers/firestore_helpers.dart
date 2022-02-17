@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:stepper/domain/exceptions/auth_exception.dart';
-import 'package:stepper/domain/repositories/repositories.dart';
+import 'package:stepper/data/datasources/firebase_services/firebase_services.dart';
 import 'package:stepper/injection_container.dart';
 
 extension FirestoreX on FirebaseFirestore {
   Future<DocumentReference> userDocument() async {
-    final user = sl<UserRepository>().getSignedInUser();
+    final user = sl<AuthFirebaseService>().authUser;
+
     if (user == null) {
       throw const AuthException('Not authenticated');
     }

@@ -5,7 +5,7 @@ import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:stepper/data/helpers/firestore_helpers.dart';
-import 'package:stepper/data/model2/user.dart';
+import 'package:stepper/data/models/models.dart';
 
 class UserFirebaseService {
   FirebaseFirestore firestore;
