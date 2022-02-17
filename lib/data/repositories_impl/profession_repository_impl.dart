@@ -1,4 +1,4 @@
-import 'package:stepper/data/datasources/firebase_service/profession_firebase_service.dart';
+import 'package:stepper/data/datasources/firebase_services/profession_firebase_service.dart';
 import 'package:stepper/data/models/profession.dart';
 import 'package:stepper/domain/repositories/profession_repository.dart';
 

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:stepper/data/datasources/firebase_service/user_firebase_service.dart';
+import 'package:stepper/data/datasources/firebase_services/user_firebase_service.dart';
 import 'package:stepper/data/models/user.dart';
 import 'package:stepper/domain/repositories/auth_repository.dart';
 import 'package:stepper/domain/repositories/band_repository.dart';

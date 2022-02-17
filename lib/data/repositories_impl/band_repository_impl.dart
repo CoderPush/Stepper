@@ -1,4 +1,4 @@
-import 'package:stepper/data/datasources/firebase_service/band_firebase_service.dart';
+import 'package:stepper/data/datasources/firebase_services/band_firebase_service.dart';
 import 'package:stepper/data/models/band.dart';
 import 'package:stepper/data/models/profession.dart';
 import 'package:stepper/domain/repositories/band_repository.dart';

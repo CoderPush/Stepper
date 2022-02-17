@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:stepper/data/datasources/firebase_service/auth_firebase_service.dart';
+import 'package:stepper/data/datasources/firebase_services/auth_firebase_service.dart';
 import 'package:stepper/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
