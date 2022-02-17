@@ -32,6 +32,8 @@ class Post {
     this.updatedAt,
   });
 
+  static get postStatusEnumMap => _$PostStatusEnumMap;
+
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
 
   Map<String, dynamic> toJson() => _$PostToJson(this);

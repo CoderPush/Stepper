@@ -30,17 +30,17 @@ class AreaRepositoryImpl implements AreaRepository {
   Future<List<Area>> getAreasByAreaTypeAndBandId(
       {AreaType? areaType = AreaType.scope, required String bandId}) async {
     return areaFirebaseService.getAreasByAreaTypeAndBandId(
-        areaType: areaType!.name, bandId: bandId);
+        areaType: Area.enumMap[areaType], bandId: bandId);
   }
 
   @override
   Future<List<Area>> getUserAreasByAreaTypeAndBandId(
       {AreaType? areaType = AreaType.scope, required String bandId}) async {
     final userAreas = await areaFirebaseService.getUserAreasByAreaTypeAndBandId(
-        areaType: areaType!.name, bandId: bandId);
+        areaType: Area.enumMap[areaType], bandId: bandId);
 
     if (userAreas.isEmpty) {
-      return _importAreasToUserAreas(areaType: areaType, bandId: bandId);
+      return _importAreasToUserAreas(areaType: areaType!, bandId: bandId);
     }
 
     return userAreas;

@@ -87,7 +87,7 @@ class PostItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      post.status.name,
+                      Post.postStatusEnumMap[post.status],
                       style: const TextStyle(fontSize: smallFontSize),
                     ),
                     const Icon(
