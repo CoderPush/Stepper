@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/config/routes/routes.dart';
 import 'package:stepper/config/extensions/string_extensions.dart';
-import 'package:stepper/data/model2/models2.dart';
+import 'package:stepper/data/models/models.dart';
 import 'package:stepper/presentation/about/about_screen.dart';
 import 'package:stepper/presentation/area/area_screen.dart';
 import 'package:stepper/presentation/authentication/authentication_screen.dart';

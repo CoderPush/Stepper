@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
-import 'package:stepper/data/model2/models2.dart';
+import 'package:stepper/data/models/models.dart';
 import 'package:stepper/presentation/home/views/rating_indicator.dart';
 import 'package:stepper/presentation/utils.dart';
 import 'package:stepper/config/routes/routes.dart';

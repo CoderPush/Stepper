@@ -1,11 +1,6 @@
-import 'package:stepper/data/model/models.dart';
+import 'package:stepper/data/models/profession.dart';
 
 abstract class ProfessionRepository {
-  Future<ProfessionModel> getProfessions();
-
-  Future<ProfessionItemModel> getProfessionByName(String professionName);
-
-  Future<String> getSelectedProfession();
-
-  Future<void> saveSelectedProfession(String professionName);
+  Future<List<Profession>> getAllProfessions();
+  Future<Profession?> getProfessionById({required String professionId});
 }

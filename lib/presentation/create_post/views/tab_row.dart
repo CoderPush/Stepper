@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/texts.dart';
-import 'package:stepper/data/model2/models2.dart';
+import 'package:stepper/data/models/models.dart';
 import 'package:stepper/presentation/area/views/tabbar_item.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stepper/presentation/create_post/cubit/create_post_cubit_2.dart';
-import 'package:stepper/presentation/create_post/cubit/create_post_state_2.dart';
+import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
+import 'package:stepper/presentation/create_post/cubit/create_post_state.dart';
 
 class TabRow extends StatelessWidget {
   const TabRow({Key? key}) : super(key: key);
@@ -13,7 +13,7 @@ class TabRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
-      child: BlocBuilder<CreatePostCubit2, CreatePostState2>(
+      child: BlocBuilder<CreatePostCubit, CreatePostState>(
         builder: (context, state) => TabBar(
           physics: const NeverScrollableScrollPhysics(),
           labelPadding: const EdgeInsets.all(0.0),
@@ -23,17 +23,17 @@ class TabRow extends StatelessWidget {
             switch (index) {
               case 0:
                 context
-                    .read<CreatePostCubit2>()
+                    .read<CreatePostCubit>()
                     .onAreaTypeChanged(AreaType.scope);
                 break;
               case 1:
                 context
-                    .read<CreatePostCubit2>()
+                    .read<CreatePostCubit>()
                     .onAreaTypeChanged(AreaType.expertise);
                 break;
               case 2:
                 context
-                    .read<CreatePostCubit2>()
+                    .read<CreatePostCubit>()
                     .onAreaTypeChanged(AreaType.mindset);
                 break;
             }

@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stepper/data/model2/models2.dart';
-import 'package:stepper/domain/repositories2/repositories2.dart';
+import 'package:stepper/data/models/models.dart';
+import 'package:stepper/domain/repositories/repositories.dart';
 import 'package:stepper/enums/enums.dart';
 import 'package:stepper/presentation/home/cubit/posts_state.dart';
 
@@ -19,7 +19,6 @@ class PostsCubit extends Cubit<PostsState> {
       emit(state.copyWith(status: StateStatus.loading));
       // TODO: have to fetch posts that relate to user current band
       _postStreamSubscription = postRepository.subscribePosts().listen((posts) {
-
         emit(state.copyWith(status: StateStatus.success, posts: posts));
       });
     } on Exception {

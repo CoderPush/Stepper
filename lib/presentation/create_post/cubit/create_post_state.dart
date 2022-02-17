@@ -1,95 +1,81 @@
-part of 'create_post_cubit.dart';
+import 'package:equatable/equatable.dart';
+import 'package:stepper/data/models/models.dart';
 
-@immutable
-abstract class CreatePostState extends Equatable {
+enum CreatePostScreenMode { createNew, edit }
+
+class CreatePostArgs {
+  CreatePostScreenMode mode;
+  Post? post;
+
+  CreatePostArgs({this.mode = CreatePostScreenMode.createNew, this.post});
+}
+
+class CreatePostState extends Equatable {
+  final Post? post;
+  final Band selectedBand;
+  final List<Band> bands;
   final AreaType selectedAreaType;
-  const CreatePostState({required this.selectedAreaType});
-  @override
-  List<Object?> get props => [selectedAreaType];
-}
+  final Area selectedArea;
+  final List<Area> areas;
+  final User user;
+  final CreatePostScreenMode mode;
+  final bool shouldCreateDraft;
+  final bool ready;
+  final bool isLoadingAreas;
 
-class CreatePostInitialState extends CreatePostState {
-  const CreatePostInitialState({required AreaType selectedAreaType})
-      : super(selectedAreaType: selectedAreaType);
-}
+  CreatePostState(
+      {this.post,
+      selectedBand,
+      this.bands = const [],
+      this.selectedAreaType = AreaType.scope,
+      selectedArea,
+      this.areas = const [],
+      user,
+      this.mode = CreatePostScreenMode.createNew,
+      this.shouldCreateDraft = true,
+      this.ready = false,
+      this.isLoadingAreas = false})
+      : selectedBand = selectedBand ?? Band.empty,
+        selectedArea = selectedArea ?? Area.empty,
+        user = user ?? User.empty;
 
-class CreatePostLoadingState extends CreatePostState {
-  const CreatePostLoadingState({required AreaType selectedAreaType})
-      : super(selectedAreaType: selectedAreaType);
-}
-
-class CreatePostLoadedState extends CreatePostState {
-  final List<Area> areaList;
-  final String selectedAreaName;
-  final int areaRating;
-  final CreatePostMode createPostMode;
-  final List<Goal> newlyAddedGoals;
-  final Post? draftPost;
-  final List<String> bandList;
-  final String selectedBandName;
-
-  const CreatePostLoadedState({
-    required this.areaList,
-    required selectedAreaType,
-    required this.selectedAreaName,
-    this.areaRating = 0,
-    this.createPostMode = CreatePostMode.writeUpdate,
-    this.newlyAddedGoals = const [],
-    this.draftPost,
-    required this.bandList,
-    required this.selectedBandName,
-  }) : super(selectedAreaType: selectedAreaType);
-
-  CreatePostLoadedState copyWith({
-    List<Area>? areaList,
-    AreaType? selectedAreaType,
-    String? selectedAreaName,
-    int? areaRating,
-    CreatePostMode? createPostMode,
-    List<Goal>? newlyAddedGoals,
-    Post? draftPost,
-    List<String>? bandList,
-    String? selectedBandName,
-  }) {
-    return CreatePostLoadedState(
-      areaList: areaList ?? this.areaList,
-      selectedAreaType: selectedAreaType ?? this.selectedAreaType,
-      selectedAreaName: selectedAreaName ?? this.selectedAreaName,
-      areaRating: areaRating ?? this.areaRating,
-      createPostMode: createPostMode ?? this.createPostMode,
-      newlyAddedGoals: newlyAddedGoals ?? this.newlyAddedGoals,
-      draftPost: draftPost,
-      bandList: bandList ?? this.bandList,
-      selectedBandName: selectedBandName ?? this.selectedBandName,
-    );
-  }
+  CreatePostState copyWith(
+          {Post? post,
+          Band? selectedBand,
+          List<Band>? bands,
+          AreaType? selectedAreaType,
+          Area? selectedArea,
+          List<Area>? areas,
+          User? user,
+          CreatePostScreenMode? mode,
+          bool? shouldCreateDraft,
+          bool? ready,
+          bool? isLoadingAreas}) =>
+      CreatePostState(
+          post: post ?? this.post,
+          selectedBand: selectedBand ?? this.selectedBand,
+          bands: bands ?? this.bands,
+          selectedAreaType: selectedAreaType ?? this.selectedAreaType,
+          selectedArea: selectedArea ?? this.selectedArea,
+          areas: areas ?? this.areas,
+          user: user ?? this.user,
+          mode: mode ?? this.mode,
+          shouldCreateDraft: shouldCreateDraft ?? this.shouldCreateDraft,
+          ready: ready ?? this.ready,
+          isLoadingAreas: isLoadingAreas ?? this.isLoadingAreas);
 
   @override
   List<Object?> get props => [
-        areaList,
+        post,
+        selectedBand,
+        bands,
         selectedAreaType,
-        selectedAreaName,
-        areaRating,
-        createPostMode,
-        newlyAddedGoals,
-        draftPost,
-        selectedBandName,
+        selectedArea,
+        areas,
+        user,
+        mode,
+        shouldCreateDraft,
+        ready,
+        isLoadingAreas
       ];
-}
-
-class CreatePostErrorState extends CreatePostState {
-  final String errorMessage;
-  const CreatePostErrorState(
-      {required this.errorMessage, required selectedAreaType})
-      : super(selectedAreaType: selectedAreaType);
-}
-
-class CreateUpdateSuccessState extends CreatePostState {
-  const CreateUpdateSuccessState({required selectedAreaType})
-      : super(selectedAreaType: selectedAreaType);
-}
-
-class CreateGoalSuccessState extends CreatePostState {
-  const CreateGoalSuccessState({required selectedAreaType})
-      : super(selectedAreaType: selectedAreaType);
 }

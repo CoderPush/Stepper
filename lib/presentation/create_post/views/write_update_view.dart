@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
-import 'package:stepper/presentation/create_post/cubit/create_post_cubit_2.dart';
-import 'package:stepper/presentation/create_post/cubit/create_post_state_2.dart';
+import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
+import 'package:stepper/presentation/create_post/cubit/create_post_state.dart';
 import 'package:stepper/presentation/create_post/views/create_post_action_button.dart';
 import 'package:stepper/presentation/create_post/views/get_scroll_controller.dart';
 import 'package:stepper/presentation/utils.dart';
@@ -30,8 +30,8 @@ class _WriteUpdateViewState extends State<WriteUpdateView> {
   late TextEditingController _controller;
   final FocusNode _focusNode = FocusNode();
   File? file;
-  late CreatePostCubit2 createPostCubit;
-  late CreatePostState2 createPostState;
+  late CreatePostCubit createPostCubit;
+  late CreatePostState createPostState;
 
   @override
   void initState() {
@@ -66,7 +66,7 @@ class _WriteUpdateViewState extends State<WriteUpdateView> {
 
   void _onAutoUpdatePost(String text) {
     _debounce.run(() {
-      context.read<CreatePostCubit2>().onAutoUpdatePost(postContent: text);
+      context.read<CreatePostCubit>().onAutoUpdatePost(postContent: text);
     });
   }
 
@@ -84,13 +84,13 @@ class _WriteUpdateViewState extends State<WriteUpdateView> {
         postContent: _controller.text, imgFile: file);
   }
 
-  void onPressPublish(CreatePostState2 state) {
+  void onPressPublish(CreatePostState state) {
     final mode = state.mode;
     if (mode == CreatePostScreenMode.createNew) {
-      BlocProvider.of<CreatePostCubit2>(context)
+      BlocProvider.of<CreatePostCubit>(context)
           .onCreateNewPublishPost(postContent: _controller.text, imgFile: file);
     } else {
-      BlocProvider.of<CreatePostCubit2>(context)
+      BlocProvider.of<CreatePostCubit>(context)
           .onUpdatePublishPost(postContent: _controller.text, imgFile: file);
     }
 
@@ -110,7 +110,7 @@ class _WriteUpdateViewState extends State<WriteUpdateView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CreatePostCubit2, CreatePostState2>(
+    return BlocConsumer<CreatePostCubit, CreatePostState>(
       listener: (context, state) {},
       // TODO:
       // listener: (context, state) {
@@ -132,7 +132,7 @@ class _WriteUpdateViewState extends State<WriteUpdateView> {
       //   }
       // },
       builder: (context, state) {
-        createPostCubit = BlocProvider.of<CreatePostCubit2>(context);
+        createPostCubit = BlocProvider.of<CreatePostCubit>(context);
         createPostState = state;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,

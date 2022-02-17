@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:stepper/data/datasources/remote/firebase_services_2/firebase_services.dart';
+import 'package:stepper/data/datasources/firebase_services/firebase_services.dart';
 
 class PreCacheFirestoreHandler {
   AuthFirebaseService authFirebaseService;
   UserFirebaseService userFirebaseService;
   ProfessionFirebaseService professionFirebaseService;
   BandFirebaseService bandFirebaseService;
-  AreaFirebaseService2 areaFirebaseService;
+  AreaFirebaseService areaFirebaseService;
 
   StreamSubscription? _authenticatedUserSubscription;
 

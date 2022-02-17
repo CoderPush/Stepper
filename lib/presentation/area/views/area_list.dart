@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/texts.dart';
-import 'package:stepper/data/model2/models2.dart';
+import 'package:stepper/data/models/models.dart';
 import 'package:stepper/presentation/area/views/area_with_description_item.dart';
 
 class AreaList extends StatelessWidget {

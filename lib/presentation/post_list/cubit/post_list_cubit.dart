@@ -1,40 +1,30 @@
-import 'dart:async';
-
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:stepper/data/model/models.dart';
-import 'package:stepper/data/repositories/repositories_impl.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stepper/data/models/models.dart';
 import 'package:stepper/domain/repositories/repositories.dart';
+import 'package:stepper/enums/enums.dart';
+import 'package:stepper/presentation/post_list/cubit/post_list_state.dart';
 
-part 'post_list_state.dart';
+class PostsListCubit extends Cubit<PostsListState> {
+  PostRepository postRepository;
+  Area selectedArea;
 
-class PostListCubit extends Cubit<PostListState> {
-  final PostRepository postRepository;
-  final Area area;
-  StreamSubscription<List<Post>>? _postStreamSubscription;
-
-  PostListCubit({required this.postRepository, required this.area})
-      : super(PostListInitialState(area: area)) {
-    loadPostListScreen();
+  PostsListCubit({required this.postRepository, required this.selectedArea})
+      : super(PostsListState(selectedArea: selectedArea)) {
+    _init();
   }
 
-  Future<void> loadPostListScreen() async {
+  _init() {
+    _getPosts();
+  }
+
+  _getPosts() async {
     try {
-      emit(PostListLoadingState(area: area));
-      _postStreamSubscription =
-          postRepository.watchAllPosts().listen((postList) {
-        final postListByArea =
-            postList.where((post) => post.areaName == area.areaName).toList();
-        emit(PostListLoadedState(postList: postListByArea, area: area));
-      }, cancelOnError: true);
-    } on NetworkException {
-      emit(PostListErrorState(errorMessage: 'Network error', area: area));
+      emit(state.copyWith(fetchingStatus: StateStatus.loading));
+      final posts =
+          await postRepository.getPostsByAreaId(areaId: state.selectedArea.id);
+      emit(state.copyWith(posts: posts, fetchingStatus: StateStatus.success));
+    } catch (error) {
+      emit(state.copyWith(fetchingStatus: StateStatus.failure));
     }
-  }
-
-  @override
-  Future<void> close() async {
-    await _postStreamSubscription?.cancel();
-    return super.close();
   }
 }

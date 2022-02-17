@@ -1,33 +1,26 @@
-part of 'post_list_cubit.dart';
+import 'package:equatable/equatable.dart';
+import 'package:stepper/data/models/models.dart';
+import 'package:stepper/enums/enums.dart';
 
-abstract class PostListState extends Equatable {
-  final Area area;
-  const PostListState({required this.area});
+class PostsListState extends Equatable {
+  final List<Post> posts;
+  final StateStatus fetchingStatus;
+  final Area selectedArea;
+
+  const PostsListState(
+      {this.posts = const [],
+      this.fetchingStatus = StateStatus.initial,
+      required this.selectedArea});
+
+  PostsListState copyWith(
+          {List<Post>? posts,
+          StateStatus? fetchingStatus,
+          Area? selectedArea}) =>
+      PostsListState(
+          posts: posts ?? this.posts,
+          fetchingStatus: fetchingStatus ?? this.fetchingStatus,
+          selectedArea: selectedArea ?? this.selectedArea);
 
   @override
-  List<Object> get props => [];
-}
-
-class PostListInitialState extends PostListState {
-  const PostListInitialState({required Area area}) : super(area: area);
-}
-
-class PostListLoadingState extends PostListState {
-  const PostListLoadingState({required Area area}) : super(area: area);
-}
-
-class PostListLoadedState extends PostListState {
-  final List<Post> postList;
-
-  const PostListLoadedState({required this.postList, required Area area})
-      : super(area: area);
-
-  @override
-  List<Object> get props => [postList];
-}
-
-class PostListErrorState extends PostListState {
-  final String errorMessage;
-  const PostListErrorState({required this.errorMessage, required Area area})
-      : super(area: area);
+  List<Object?> get props => [posts, fetchingStatus];
 }

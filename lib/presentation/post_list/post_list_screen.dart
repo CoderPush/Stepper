@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 
-import 'package:stepper/data/model2/models2.dart';
+import 'package:stepper/data/models/models.dart';
 import 'package:stepper/enums/enums.dart';
 import 'package:stepper/injection_container.dart';
 import 'package:stepper/presentation/common/commons.dart';
-import 'package:stepper/presentation/post_list/cubit/post_list_cubit_2.dart';
-import 'package:stepper/presentation/post_list/cubit/post_list_state_2.dart';
+import 'package:stepper/presentation/post_list/cubit/post_list_cubit.dart';
+import 'package:stepper/presentation/post_list/cubit/post_list_state.dart';
 import 'package:stepper/presentation/post_list/views/area_main_card.dart';
 
 class PostListScreen extends StatelessWidget {

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/config/routes/routes.dart';
-import 'package:stepper/data/model2/models2.dart';
-import 'package:stepper/presentation/create_post/cubit/create_post_state_2.dart';
+import 'package:stepper/data/models/models.dart';
+import 'package:stepper/presentation/create_post/cubit/create_post_state.dart';
 
 class CustomFloatingButton extends StatelessWidget {
   final Area? area;

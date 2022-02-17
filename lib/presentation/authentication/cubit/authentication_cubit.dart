@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:stepper/config/extensions/string_extensions.dart';
 import 'package:stepper/domain/exceptions/exceptions.dart';
-import 'package:stepper/domain/repositories2/repositories2.dart';
+import 'package:stepper/domain/repositories/repositories.dart';
 
 part 'authentication_state.dart';
 

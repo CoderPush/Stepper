@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/presentation/common/commons.dart';
-import 'package:stepper/presentation/create_post/cubit/create_post_cubit_2.dart';
-import 'package:stepper/presentation/create_post/cubit/create_post_state_2.dart';
+import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
+import 'package:stepper/presentation/create_post/cubit/create_post_state.dart';
 
 class AreaDropdown extends StatelessWidget {
   const AreaDropdown({Key? key}) : super(key: key);
 
   void _onDropdownItemSelected(BuildContext context, String areaName) {
-    context.read<CreatePostCubit2>().onAreaChanged(areaName);
+    context.read<CreatePostCubit>().onAreaChanged(areaName);
   }
 
   @override
@@ -21,7 +21,7 @@ class AreaDropdown extends StatelessWidget {
         color: dropdownButtonColor,
         borderRadius: BorderRadius.circular(extraLargeBorderRadius),
       ),
-      child: BlocBuilder<CreatePostCubit2, CreatePostState2>(
+      child: BlocBuilder<CreatePostCubit, CreatePostState>(
         builder: (context, state) {
           final List<String> areas =
               state.areas.map((area) => area.name).toList();

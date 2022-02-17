@@ -1,19 +1,15 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:io';
+
+import 'package:stepper/data/models/user.dart';
 
 abstract class UserRepository {
-  Future<void> registerWithEmailAndPassword({
-    required String emailAddress,
-    required String password,
-  });
+  Future<User> getUser();
 
-  Future<void> signInWithEmailAndPassword({
-    required String emailAddress,
-    required String password,
-  });
+  Stream<User> subscribeUser();
 
-  Future<void> signOut();
+  Future<void> createUser();
 
-  Future<bool> isSignedIn();
+  Future<void> updateUser(User user);
 
-  User? getSignedInUser();
+  Future<String?> uploadFile({required File file});
 }

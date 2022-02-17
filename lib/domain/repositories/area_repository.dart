@@ -1,18 +1,15 @@
-import 'package:stepper/data/model/area.dart';
+import 'package:stepper/data/models/area.dart';
 
 abstract class AreaRepository {
-  Future<List<Area>> fetchAreasByType(AreaType areaType);
+  Stream<List<Area>> subscribeUserAreas();
 
-  Future<List<Area>> fetchAreasWithBandAndType(
-    String bandName,
-    AreaType areaType,
-  );
+  Future<List<Area>> getAllAreas();
 
-  Future<List<Area>> fetchRecentlyUpdatedAreas();
+  Future<List<Area>> getAreasByAreaTypeAndBandId(
+      {AreaType? areaType = AreaType.scope, required String bandId});
 
-  Future<Area> fetchAreaByAreaName(String areaName);
+  Future<List<Area>> getUserAreasByAreaTypeAndBandId(
+      {AreaType? areaType = AreaType.scope, required String bandId});
 
-  Future<void> updateAreaWhenAddNewPost(String areaName);
-
-  Future<void> rateArea(String areaName, int rating);
+  Future<Area?> updateUserArea({required String areaId, required Area area});
 }

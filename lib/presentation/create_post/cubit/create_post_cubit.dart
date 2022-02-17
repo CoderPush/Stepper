@@ -1,271 +1,236 @@
+import 'dart:async';
 import 'dart:io';
 
-import 'package:bloc/bloc.dart';
-import 'package:uuid/uuid.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:stepper/data/model/models.dart';
-import 'package:stepper/data/repositories/repositories_impl.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stepper/data/models/models.dart';
 import 'package:stepper/domain/repositories/repositories.dart';
-import 'package:stepper/presentation/common/arguments/screen_arguments.dart';
+import 'package:stepper/presentation/create_post/cubit/create_post_state.dart';
 import 'package:stepper/presentation/utils.dart';
 
-part 'create_post_state.dart';
-
 class CreatePostCubit extends Cubit<CreatePostState> {
-  final AreaRepository areaRepository;
-  final PostRepository postRepository;
-  final BandRepository bandRepository;
-  final UserRepository userRepository;
-  final CreatePostScreenArgument createPostScreenArgument;
+  UserRepository userRepository;
+  PostRepository postRepository;
+  AreaRepository areaRepository;
+  BandRepository bandRepository;
+  CreatePostArgs args;
 
-  CreatePostCubit({
-    required this.areaRepository,
-    required this.postRepository,
-    required this.bandRepository,
-    required this.userRepository,
-    required this.createPostScreenArgument,
-  }) : super(const CreatePostInitialState(selectedAreaType: AreaType.scope)) {
-    if (createPostScreenArgument.preSelectedPostId != null) {
-      editPost(createPostScreenArgument.preSelectedPostId!);
-    } else {
-      getAreas(preSelectedAreaName: createPostScreenArgument.preSelectedArea);
+  CreatePostCubit(
+      {required this.userRepository,
+      required this.areaRepository,
+      required this.postRepository,
+      required this.bandRepository,
+      required this.args})
+      : super(CreatePostState()) {
+    _init();
+  }
+
+  // Load all prepared data
+  // for create post mode
+  _init() async {
+    if (args.mode == CreatePostScreenMode.edit) {
+      _initForEditMode();
+    } else if (args.mode == CreatePostScreenMode.createNew) {
+      _initForCreateNewMode();
     }
   }
 
-  Future<void> editPost(String postId) async {
-    // get editing post
-    final post = await postRepository.getPostById(postId);
+  _initForCreateNewMode() async {
+// For create mode
+    User user = await userRepository.getUser();
+    List<Band> bands = await bandRepository.getBandsByProfessionType(
+        professionType: user.currentProfession.type);
 
-    // get areaType of editing post
-    final areaType = getAreaType(post!.areaName);
+    final areas =
+        await _getAreas(areaType: AreaType.scope, band: user.currentBand);
 
-    try {
-      emit(CreatePostLoadingState(selectedAreaType: areaType));
+    final selectedArea = areas[0];
+    emit(state.copyWith(
+        selectedBand: user.currentBand,
+        bands: bands,
+        selectedAreaType: selectedArea.type,
+        selectedArea: selectedArea,
+        areas: areas,
+        user: user,
+        mode: args.mode,
+        ready: true,
+        isLoadingAreas: false,
+        shouldCreateDraft: true));
+  }
 
-      // get band
-      final selectedBandName =
-          (await bandRepository.getBandByAreaName(post.areaName)).bandName;
+  _initForEditMode() async {
+    final post = args.post;
+    final selectedArea = post!.area;
 
-      // get area list for drop down
-      var areaList = await areaRepository.fetchAreasWithBandAndType(
-        selectedBandName,
-        areaType,
-      );
+    User user = await userRepository.getUser();
+    List<Band> bands = await bandRepository.getBandsByProfessionType(
+        professionType: user.currentProfession.type);
 
-      // sort area list in order
-      areaList = sortAreasInOrder(areaList);
-      final area = await areaRepository.fetchAreaByAreaName(post.areaName);
+    final selectedBand = getItemByName<Band>(
+        list: bands, name: selectedArea.bandId, getter: (band) => band.id);
 
-      // fetch bandList
-      final bandList = await bandRepository.getBandWithChildBand();
+    final areas =
+        await _getAreas(areaType: selectedArea.type, band: selectedBand);
 
-      emit(CreatePostLoadedState(
-        areaList: areaList,
-        areaRating: area.rating,
-        selectedAreaType: areaType,
-        selectedAreaName: post.areaName,
-        draftPost: post,
-        bandList: bandList,
-        selectedBandName: selectedBandName,
-      ));
-    } on NetworkException {
-      emit(CreatePostErrorState(
-        errorMessage: 'Network error',
-        selectedAreaType: areaType,
-      ));
+    emit(state.copyWith(
+        post: args.post,
+        selectedBand: selectedBand, // depend on post.area
+        bands: bands,
+        selectedAreaType: selectedArea.type,
+        selectedArea: selectedArea,
+        areas: areas, //depend on post.ara
+        user: user,
+        mode: args.mode,
+        ready: true,
+        isLoadingAreas: false,
+        shouldCreateDraft: false));
+  }
+
+  Future<List<Area>> _getAreas({AreaType? areaType, Band? band}) async {
+    emit(state.copyWith(isLoadingAreas: true));
+    final selectedAreaType = areaType ?? state.selectedAreaType;
+    final selectedBand = band ?? state.selectedBand;
+
+    final userAreas = await areaRepository.getUserAreasByAreaTypeAndBandId(
+        bandId: selectedBand.id, areaType: selectedAreaType);
+
+    emit(state.copyWith(isLoadingAreas: false));
+
+    return userAreas;
+  }
+
+  onAreaTypeChanged(AreaType areaType) async {
+    emit(state.copyWith(selectedAreaType: areaType));
+    final areas = await _getAreas();
+    emit(state.copyWith(areas: areas, selectedArea: areas[0]));
+  }
+
+  onAreaChanged(String areaName) {
+    final selectedArea = getItemByName<Area>(
+        list: state.areas, name: areaName, getter: (item) => item.name);
+    emit(state.copyWith(selectedArea: selectedArea));
+  }
+
+  onBandChanged(String bandName) async {
+    final selectedBand = getItemByName<Band>(
+        list: state.bands, name: bandName, getter: (item) => item.name);
+    emit(state.copyWith(selectedBand: selectedBand));
+    final areas = await _getAreas();
+    emit(state.copyWith(areas: areas, selectedArea: areas[0]));
+  }
+
+  onAreaRatingChanged(int rating) async {
+    final selectedArea = state.selectedArea;
+    final mode = state.mode;
+    final area = selectedArea.copyWith(rating: rating);
+    emit(state.copyWith(selectedArea: area));
+    if (mode == CreatePostScreenMode.edit) {
+      // auto update area should be called only edit mode
+      _updateAreaOfPost();
     }
   }
 
-  Future<void> getAreas({
-    String? preSelectedAreaName,
-    AreaType? areaType,
-  }) async {
-    var calculatedAreaType = preSelectedAreaName != null
-        ? (await areaRepository.fetchAreaByAreaName(preSelectedAreaName))
-            .areaType
-        : AreaType.scope;
-    calculatedAreaType = areaType ?? calculatedAreaType;
-    try {
-      emit(CreatePostLoadingState(selectedAreaType: calculatedAreaType));
-
-      // fetch bandList
-      final bandList = await bandRepository.getBandWithChildBand();
-
-      // fetch selectedBand
-      final selectedBandName =
-          (await bandRepository.getSelectedBand()).bandName;
-
-      // get area list for drop down
-      var areaList = await areaRepository.fetchAreasWithBandAndType(
-        selectedBandName,
-        calculatedAreaType,
-      );
-
-      // sort area list in order
-      areaList = sortAreasInOrder(areaList);
-
-      final selectedAreaName = preSelectedAreaName ?? areaList[0].areaName;
-      final area = await areaRepository.fetchAreaByAreaName(selectedAreaName);
-      final draftPost =
-          await postRepository.getDraftPostByAreaName(selectedAreaName);
-
-      emit(CreatePostLoadedState(
-        areaRating: area.rating,
-        areaList: areaList,
-        selectedAreaType: calculatedAreaType,
-        selectedAreaName: selectedAreaName,
-        draftPost: draftPost,
-        bandList: bandList,
-        selectedBandName: selectedBandName,
-      ));
-    } on NetworkException {
-      emit(CreatePostErrorState(
-        errorMessage: 'Network error',
-        selectedAreaType: areaType,
-      ));
-    }
-  }
-
-  Future<void> onAreaTypeTabChanged(AreaType areaType) async {
-    final currentState = state as CreatePostLoadedState;
-
-    // get area list for drop down
-    var areaList = await areaRepository.fetchAreasWithBandAndType(
-      currentState.selectedBandName,
-      areaType,
+  _updateAreaOfPost() async {
+    final updatedArea = await areaRepository.updateUserArea(
+        areaId: state.selectedArea.id, area: state.selectedArea);
+    Post currentPost = state.post!;
+    Post post = currentPost.copyWith(
+      area: updatedArea ?? state.selectedArea,
     );
 
-    // sort area list in order
-    areaList = sortAreasInOrder(areaList);
-
-    // get first area
-    final selectedArea = areaList[0];
-
-    // get draft post
-    final draftPost =
-        await postRepository.getDraftPostByAreaName(selectedArea.areaName);
-
-    emit(currentState.copyWith(
-      areaList: areaList,
-      areaRating: selectedArea.rating,
-      draftPost: draftPost,
-      selectedAreaType: areaType,
-      selectedAreaName: selectedArea.areaName,
-    ));
+    postRepository.updatePost(postId: post.id!, updatedPost: post);
   }
 
-  Future<void> onChangeAreaName(String areaName) async {
-    final currentState = state as CreatePostLoadedState;
-    final draftPost = await postRepository.getDraftPostByAreaName(areaName);
-    final area = await areaRepository.fetchAreaByAreaName(areaName);
-    emit(currentState.copyWith(
-      selectedAreaName: areaName,
-      areaRating: area.rating,
-      draftPost: draftPost,
-    ));
+  onCreateNewPublishPost({required String postContent, File? imgFile}) {
+    emit(state.copyWith(shouldCreateDraft: false));
+    _createPost(
+        postContent: postContent,
+        postStatus: PostStatus.published,
+        imgFile: imgFile);
   }
 
-  Future<void> onChangeAreaRating(int areaRating) async {
-    final currentState = state as CreatePostLoadedState;
-    await areaRepository.rateArea(currentState.selectedAreaName, areaRating);
-    emit(currentState.copyWith(
-      areaRating: areaRating,
-      draftPost: currentState.draftPost,
-    ));
+  onUpdatePublishPost({required String postContent, File? imgFile}) {
+    _updatePost(
+        postId: state.post!.id!,
+        postStatus: PostStatus.published,
+        postContent: postContent,
+        imgFile: imgFile);
   }
 
-  Future<void> onBandChange(String bandName) async {
-    final currentState = state as CreatePostLoadedState;
-
-    // get area list for drop down
-    var areaList = await areaRepository.fetchAreasWithBandAndType(
-      bandName,
-      currentState.selectedAreaType,
-    );
-
-    // sort area list in order
-    areaList = sortAreasInOrder(areaList);
-
-    // get first area
-    final selectedArea = areaList[0];
-
-    // get draft post
-    final draftPost =
-        await postRepository.getDraftPostByAreaName(selectedArea.areaName);
-
-    emit(currentState.copyWith(
-      areaList: areaList,
-      selectedBandName: bandName,
-      selectedAreaName: selectedArea.areaName,
-      areaRating: selectedArea.rating,
-      draftPost: draftPost,
-    ));
+  onCreateNewDraftPost({required String postContent, File? imgFile}) {
+    _createPost(
+        postContent: postContent,
+        postStatus: PostStatus.draft,
+        imgFile: imgFile);
   }
 
-  void onCreatePostModeChange(CreatePostMode createPostMode) {
-    final currentState = state as CreatePostLoadedState;
-    emit(currentState.copyWith(createPostMode: createPostMode));
+  onUpdateDraftPost({required String postContent, File? imgFile}) {
+    _updatePost(
+        postId: state.post!.id!,
+        postStatus: PostStatus.draft,
+        postContent: postContent,
+        imgFile: imgFile);
   }
 
-  Future<void> onPublishUpdate(String postDescription, File? imageFile) async {
-    final currentState = state as CreatePostLoadedState;
-    String? imageUrl;
-    if (postDescription.isEmpty) {
-      return;
+  onAutoUpdatePost({required String postContent}) {
+    // Auto save should be called on Edit mode only
+    if (state.mode != CreatePostScreenMode.edit) return;
+
+    final post = state.post;
+    if (post!.status == PostStatus.published) {
+      onUpdatePublishPost(postContent: postContent);
+    } else if (post.status == PostStatus.draft) {
+      onUpdateDraftPost(postContent: postContent);
     }
-
-    // upload image if exists
-    if (imageFile != null) {
-      final uploadTask = await postRepository.uploadImage(imageFile);
-      if (uploadTask != null) {
-        final taskSnapshot = await uploadTask.whenComplete(() {});
-        imageUrl = await taskSnapshot.ref.getDownloadURL();
-      }
-    }
-
-    final currentTime = DateTime.now();
-    final editedPost = await postRepository
-        .getPostById(createPostScreenArgument.preSelectedPostId);
-    final addedPost = Post(
-      // If we in edit mode and editing post is not draft
-      postId: editedPost != null &&
-              editedPost.areaName == currentState.selectedAreaName &&
-              !createPostScreenArgument.preSelectedPostId!.startsWith('draft')
-          ? createPostScreenArgument.preSelectedPostId!
-          : const Uuid().v1(),
-      areaName: currentState.selectedAreaName,
-      postedTime: currentTime,
-      description: postDescription,
-      imageUrl: imageUrl,
-      createdBy: userRepository.getSignedInUser()?.email ?? '',
-    );
-    // save new post
-    await postRepository.savePost(addedPost);
-    // delete draft post
-    await postRepository.deletePost('draft_${currentState.selectedAreaName}');
-    // update area
-    await areaRepository
-        .updateAreaWhenAddNewPost(currentState.selectedAreaName);
-    emit(CreateUpdateSuccessState(selectedAreaType: state.selectedAreaType));
   }
 
-  Future<void> onUserWriteUpdate(String update) async {
-    final currentState = state as CreatePostLoadedState;
-    final editedPost = await postRepository
-        .getPostById(createPostScreenArgument.preSelectedPostId);
-    if (editedPost != null &&
-        editedPost.areaName == currentState.selectedAreaName) {
-      await postRepository.savePost(editedPost.copyWith(description: update));
-    } else {
-      final post = Post(
-        postId: 'draft_${currentState.selectedAreaName}',
-        areaName: currentState.selectedAreaName,
-        postedTime: DateTime.now(),
-        description: update,
-        createdBy: userRepository.getSignedInUser()?.email ?? '',
-      );
-      await postRepository.savePost(post);
+  _createPost(
+      {required String postContent,
+      required PostStatus postStatus,
+      File? imgFile}) async {
+    String? imgUrl;
+    if (imgFile != null) {
+      imgUrl = await _uploadImage(file: imgFile);
     }
+    final selectedArea = _updateNumberOfPostsOfArea(state.selectedArea);
+    final updatedArea = await areaRepository.updateUserArea(
+        areaId: state.selectedArea.id, area: selectedArea);
+
+    final post = Post(
+        status: postStatus,
+        area: updatedArea ?? selectedArea,
+        description: postContent,
+        imgUrl: imgUrl);
+
+    postRepository.createPost(post: post);
+  }
+
+  _updateNumberOfPostsOfArea(Area area) {
+    return area.copyWith(numberOfPosts: area.numberOfPosts + 1);
+  }
+
+  _updatePost(
+      {required String postId,
+      required String postContent,
+      required postStatus,
+      File? imgFile}) async {
+    String? imgUrl;
+    if (imgFile != null) {
+      imgUrl = await _uploadImage(file: imgFile);
+    }
+    final updatedArea = await areaRepository.updateUserArea(
+        areaId: state.selectedArea.id, area: state.selectedArea);
+    Post currentPost = state.post!;
+    Post post = currentPost.copyWith(
+        status: postStatus,
+        area: updatedArea,
+        description: postContent,
+        imgUrl: imgUrl);
+
+    postRepository.updatePost(postId: postId, updatedPost: post);
+  }
+
+  Future<String?> _uploadImage({required File file}) async {
+    final url = await userRepository.uploadFile(file: file);
+    return url;
   }
 }

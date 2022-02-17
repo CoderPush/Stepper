@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stepper/domain/repositories2/repositories2.dart';
+import 'package:stepper/domain/repositories/repositories.dart';
 import 'package:stepper/enums/enums.dart';
 import 'package:stepper/presentation/profile_user/cubit/user_profile_state.dart';
 

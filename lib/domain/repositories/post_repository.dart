@@ -1,20 +1,15 @@
-import 'dart:io';
-
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:stepper/data/model/models.dart';
+import 'package:stepper/data/models/models.dart';
 
 abstract class PostRepository {
-  Future<void> savePost(Post post);
+  Future<List<Post>> getAllPosts();
 
-  Future<UploadTask?> uploadImage(File file);
+  Future<Post> getPostById({required String postId});
 
-  Future<List<Post>> getPostsByAreaName(String areaName);
+  Future<List<Post>> getPostsByAreaId({required String areaId});
 
-  Future<Post?> getPostById(String? postId);
+  Future<void> createPost({required Post post});
 
-  Future<Post?> getDraftPostByAreaName(String areaName);
+  Future<void> updatePost({required String postId, required Post updatedPost});
 
-  Future<void> deletePost(String postId);
-
-  Stream<List<Post>> watchAllPosts();
+  Stream<List<Post>> subscribePosts();
 }

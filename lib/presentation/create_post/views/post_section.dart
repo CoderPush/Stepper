@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
-import 'package:stepper/presentation/create_post/cubit/create_post_cubit_2.dart';
-import 'package:stepper/presentation/create_post/cubit/create_post_state_2.dart';
+import 'package:stepper/presentation/create_post/cubit/create_post_cubit.dart';
+import 'package:stepper/presentation/create_post/cubit/create_post_state.dart';
 import 'package:stepper/presentation/create_post/views/write_update_view.dart';
 
 class PostSection extends StatelessWidget {
@@ -17,7 +17,7 @@ class PostSection extends StatelessWidget {
         color: blueGrey,
         borderRadius: BorderRadius.circular(largeBorderRadius),
       ),
-      child: BlocBuilder<CreatePostCubit2, CreatePostState2>(
+      child: BlocBuilder<CreatePostCubit, CreatePostState>(
         builder: (context, state) {
           return Padding(
             padding: const EdgeInsets.only(
