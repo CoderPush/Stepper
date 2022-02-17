@@ -24,6 +24,8 @@ class Area {
   static final empty =
       Area(id: '', name: '', type: AreaType.scope, description: '', bandId: '');
 
+  static get enumMap => _$AreaTypeEnumMap;
+
   Area(
       {required this.id,
       required this.name,
