@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
-import 'package:stepper/data/model/models.dart';
+import 'package:stepper/data/models/models.dart';
 import 'package:stepper/presentation/common/commons.dart';
 
 class PostDetailScreen extends StatelessWidget {
@@ -14,8 +14,6 @@ class PostDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Goal> taggedGoals = [];
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: darkPurple,
@@ -45,13 +43,14 @@ class PostDetailScreen extends StatelessWidget {
                 const SizedBox(height: screenMediumPadding),
                 Text(selectedPost.description),
                 const SizedBox(height: screenMediumPadding),
-                ...List.generate(
-                  taggedGoals.length,
-                  (index) => GoalItem(
-                    goal: taggedGoals[index],
-                    isCreatingGoal: false,
-                  ),
-                )
+                // TODO:
+                // ...List.generate(
+                //   taggedGoals.length,
+                //   (index) => GoalItem(
+                //     goal: taggedGoals[index],
+                //     isCreatingGoal: false,
+                //   ),
+                // )
               ],
             ),
           ),

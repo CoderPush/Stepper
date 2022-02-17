@@ -3,16 +3,15 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:stepper/common/palette.dart';
-import 'package:stepper/data/model/models.dart';
-import 'package:stepper/data/model2/models2.dart' as models2;
+import 'package:stepper/data/models/models.dart';
 
-List<Color> getAreaTheme(models2.AreaType areaType) {
+List<Color> getAreaTheme(AreaType areaType) {
   switch (areaType) {
-    case models2.AreaType.scope:
+    case AreaType.scope:
       return scopeScheme;
-    case models2.AreaType.expertise:
+    case AreaType.expertise:
       return expertiseScheme;
-    case models2.AreaType.mindset:
+    case AreaType.mindset:
       return mindsetScheme;
   }
 }
@@ -26,27 +25,6 @@ AreaType getAreaType(String areaName) {
   } else {
     return AreaType.mindset;
   }
-}
-
-AreaType convertAreaTypeString(String areaType) => AreaType.values.firstWhere(
-    (type) => type.toString().split('.')[1] == areaType.toLowerCase());
-
-List<Area> sortAreasInOrder(List<Area> areaList) {
-  return areaList
-    ..sort((first, next) => first.areaName
-        .substring(1)
-        .padLeft(3, '0')
-        .compareTo(next.areaName.substring(1).padLeft(3, '0')));
-}
-
-// Parse timestamp from Firestore
-DateTime? parseTime(dynamic date) {
-  if (date is int) {
-    return DateTime.fromMicrosecondsSinceEpoch(date);
-  } else if (date is Timestamp) {
-    return (date).toDate();
-  }
-  return null;
 }
 
 class Debounce {
