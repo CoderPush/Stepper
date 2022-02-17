@@ -1,4 +1,4 @@
-import 'package:stepper/data/model2/models2.dart';
+import 'package:stepper/data/models/models.dart';
 
 abstract class PostRepository {
   Future<List<Post>> getAllPosts();

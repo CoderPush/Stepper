@@ -1,4 +1,4 @@
-import 'package:stepper/data/model2/area.dart';
+import 'package:stepper/data/models/area.dart';
 
 abstract class AreaRepository {
   Stream<List<Area>> subscribeUserAreas();

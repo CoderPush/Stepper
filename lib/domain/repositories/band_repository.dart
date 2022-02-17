@@ -1,5 +1,5 @@
-import 'package:stepper/data/model2/band.dart';
-import 'package:stepper/data/model2/profession.dart';
+import 'package:stepper/data/models/band.dart';
+import 'package:stepper/data/models/profession.dart';
 
 abstract class BandRepository {
   Future<List<Band>> getAllBands();

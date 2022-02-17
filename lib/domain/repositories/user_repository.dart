@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:stepper/data/model2/user.dart';
+import 'package:stepper/data/models/user.dart';
 
 abstract class UserRepository {
   Future<User> getUser();

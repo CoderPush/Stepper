@@ -1,4 +1,4 @@
-import 'package:stepper/data/model2/profession.dart';
+import 'package:stepper/data/models/profession.dart';
 
 abstract class ProfessionRepository {
   Future<List<Profession>> getAllProfessions();
