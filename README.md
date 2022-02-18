@@ -6,7 +6,7 @@ Flutter open-source project for level up employees (engineers, designers, etc). 
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment section for notes on how to deploy the project on a live system.
 
-### **Development setup**
+## **Development setup**
 
 To run the project, here are the steps:
 
@@ -30,7 +30,7 @@ To run the project, here are the steps:
 
 - Open the project in VsCode (or Android Studio), click Run tab -> Start Debugging (make sure you have chosen an Android/iOS simulator or Chrome (for web) for targeted device).
 
-### **Firebase setup**
+## **Firebase setup**
 
 - Stepper's back-end utilizes Firebase authentication for registering/signing in users, Firestore for  storing user's data, and Firebase storage for saving user's uploading images.
 
@@ -53,20 +53,13 @@ To run the project, here are the steps:
     ```
 
 - When Firebase is setup for your local project, please enable these services:
-  - Authentication: Enable Firebase Authentication with email/password sign-in provider, see image below:
+  ### Firebase Authentication:
+  -  Enable Firebase Authentication with email/password sign-in provider, see image below:
   <br><br>
   ![image](https://i.ibb.co/PDJQp3z/Screenshot-2021-12-29-at-12-55-10.png)
-  - Firestore Database: go to [Goolgle Cloud Shell](https://cloud.google.com/shell), in cloud shell terminal, run this command line to import Firebase 'commonAreas' collection from shared `stepper_export_bucket`. Make sure you have your project linked with a billing account:
-
-    ```
-    gcloud firestore import gs://stepper_export_bucket/2021-12-29T10:44:41_452 --async
-    ```
-    <br>
-
-    ![image](https://i.ibb.co/vVY0JvN/Screenshot-2021-12-29-at-13-05-50.png)
-
-    This command line will populate the inital data for `commonAreas` collections
-    ![image](https://i.ibb.co/k0V84KR/Screenshot-2021-12-29-at-13-09-01.png)
+  ### Firestore Database: 
+  - You can use Google Cloud Shell to import data from offical Stepper firestore. But Google will require an enabled billing account. 
+  - There is a trick. Use this Node app to import domain data json to your firestore [mthinh/json_to_firestore](https://github.com/mthinh/json_to_firestore.git)
 
 ## **Auto-release with CodeMagic**
 
@@ -86,73 +79,14 @@ To setup Rowy for your own project, please follow this document: https://docs.ro
 - Choose your project in the list of available projects in your GCP account
 - Choose region to deploy and let cloud console to finish the set up
 - At the end of the setup, remember to sign in with the admin account to start creating tables, by clicking to the link in the image below:
+
 ![image](https://i.ibb.co/hV0C2YN/setup.png)
 
 ## **Application demo**
 
-Sign up / Sign in:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Post options:
-
-<a href="https://imgflip.com/gif/5z7wjh"><img src="https://i.imgflip.com/5z7wjh.gif" title="Sign in/ Register"/></a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://imgflip.com/gif/5z7x7c
-"><img src="https://i.imgflip.com/5z7x7c.gif" title="Post options"/></a>
-<<<<<<< HEAD
-
-Create new post:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Edit post:
-
-<a href="https://imgflip.com/gif/5z7xeg
-"><img src="https://i.imgflip.com/5z7xeg.gif" title="Create new post"/></a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://imgflip.com/gif/5z7xls
-"><img src="https://i.imgflip.com/5z7xls.gif" title="Edit post"/></a>
-
-Area screen:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-User profile:
-
-<a href="https://imgflip.com/gif/5z7xx8
-"><img src="https://i.imgflip.com/5z7xx8.gif" title="Edit post"/></a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://imgflip.com/gif/5z7y68
-"><img src="https://i.imgflip.com/5z7y68.gif" title="Edit post"/></a>
-
-Log out:
-
-<a href="https://imgflip.com/gif/5z7y9m
-"><img src="https://i.imgflip.com/5z7y9m.gif" title="Edit post"/></a>
-
-## **Internal development**
-Regarding internal development for Stepper, please refer to [STEPPER.md](./docs/STEPPER.md) for more info.
-=======
-
-Create new post:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Edit post:
-
-<a href="https://imgflip.com/gif/5z7xeg
-"><img src="https://i.imgflip.com/5z7xeg.gif" title="Create new post"/></a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://imgflip.com/gif/5z7xls
-"><img src="https://i.imgflip.com/5z7xls.gif" title="Edit post"/></a>
-
-Area screen:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-User profile:
-
-<a href="https://imgflip.com/gif/5z7xx8
-"><img src="https://i.imgflip.com/5z7xx8.gif" title="Edit post"/></a>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://imgflip.com/gif/5z7y68
-"><img src="https://i.imgflip.com/5z7y68.gif" title="Edit post"/></a>
-
-Log out:
-
-<a href="https://imgflip.com/gif/5z7y9m
-"><img src="https://i.imgflip.com/5z7y9m.gif" title="Edit post"/></a>
+<a href="https://www.loom.com/share/10c3e1254a864fd8a2b4ad22cfda73a5">
+    <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/10c3e1254a864fd8a2b4ad22cfda73a5-with-play.gif">
+</a>
 
 ## **Internal development**
 Regarding internal development for Stepper, please refer to [STEPPER.md](./docs/STEPPER.md) for more info.
@@ -165,7 +99,6 @@ Please refer to this doc: [app_architecture.md](./docs/app_architecture.md) for 
 Stepper can be download add: http://onelink.to/3nr8qa <br/><br/>
 QR code:<br/><br/>
 <img src="https://i.ibb.co/C5B4kn3/Image-Pasted-at-2021-12-27-13-50.jpg" width="150">
->>>>>>> fe0a5a32769d8f5ee36b061a7e2ec4f34702860f
 
 ## **Contributors**
 Many thanks to the contributors:
@@ -174,6 +107,7 @@ Many thanks to the contributors:
 - Hung Nguyen: harrison@coderpush.com
 - Tien Le: tien@coderpush.com
 - Kim Long: kimlong@coderpush.com
+- Thinh Mai: thinh@coderpush.com
 
 ## License
 This project is licensed under the GNU License - see the [LICENSE.md](docs/LICENSE.md) file for details
