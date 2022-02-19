@@ -23,11 +23,11 @@ class LoginButton extends StatelessWidget {
           BlocProvider.of<AuthenticationCubit>(context).signIn();
         },
         child: Container(
-            width: 80.w,
+            width: 200.sp,
             padding: EdgeInsets.symmetric(
                 horizontal: screenMediumPadding.sp, vertical: 10),
             decoration: BoxDecoration(
-                color: darkBlue, borderRadius: BorderRadius.circular(40)),
+                color: darkBlue, borderRadius: BorderRadius.circular(75.sp)),
             child: Row(
               children: [
                 SvgPicture.asset("assets/svg/google_logo.svg",

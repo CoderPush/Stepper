@@ -24,8 +24,8 @@ class AuthenticationScreen extends StatelessWidget {
               Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
             Padding(
               padding: const EdgeInsets.only(bottom: 50),
-              child:
-                  SvgPicture.asset("assets/svg/stepper_logo.svg", width: 70.w),
+              child: SvgPicture.asset("assets/svg/stepper_logo.svg",
+                  width: 120.sp),
             ),
             const LoginButton(),
           ]),
