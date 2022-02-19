@@ -47,4 +47,13 @@ class AuthFirebaseService {
   Stream<User?> subscribeAuthenticatedUser() {
     return firebaseAuth.authStateChanges();
   }
+
+  Future<UserCredential> signInWithCredential(AuthCredential credential) async {
+    return firebaseAuth.signInWithCredential(credential);
+  }
+
+  Future<UserCredential> signInWithPopup(
+      GoogleAuthProvider authProvider) async {
+    return await firebaseAuth.signInWithPopup(authProvider);
+  }
 }
