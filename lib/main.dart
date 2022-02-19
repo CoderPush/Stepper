@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:sizer/sizer.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/config/routes/app_routes.dart';
 import 'package:stepper/injection_container.dart';
@@ -66,27 +67,29 @@ class MyApp extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 } else {
-                  return MaterialApp(
-                    key: UniqueKey(),
-                    debugShowCheckedModeBanner: false,
-                    title: 'Stepper',
-                    theme: ThemeData(
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      scaffoldBackgroundColor: scaffoldColor,
-                      primarySwatch: Colors.blue,
-                      textSelectionTheme: const TextSelectionThemeData(
-                        cursorColor: white,
+                  return Sizer(
+                    builder: (context, orientation, deviceType) => MaterialApp(
+                      key: UniqueKey(),
+                      debugShowCheckedModeBanner: false,
+                      title: 'Stepper',
+                      theme: ThemeData(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        scaffoldBackgroundColor: scaffoldColor,
+                        primarySwatch: Colors.blue,
+                        textSelectionTheme: const TextSelectionThemeData(
+                          cursorColor: white,
+                        ),
+                        textTheme: Theme.of(context).textTheme.apply(
+                              bodyColor: textColor,
+                              displayColor: textColor,
+                            ),
                       ),
-                      textTheme: Theme.of(context).textTheme.apply(
-                            bodyColor: textColor,
-                            displayColor: textColor,
-                          ),
+                      initialRoute: state is AuthenticatedState
+                          ? RouteNames.home
+                          : RouteNames.auth,
+                      onGenerateRoute: AppRoutes.onGenerateRoutes,
                     ),
-                    initialRoute: state is AuthenticatedState
-                        ? RouteNames.home
-                        : RouteNames.auth,
-                    onGenerateRoute: AppRoutes.onGenerateRoutes,
                   );
                 }
               });
