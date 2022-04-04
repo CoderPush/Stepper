@@ -13,6 +13,7 @@ import 'package:stepper/presentation/home/home_screen.dart';
 import 'package:stepper/presentation/post_list/post_list_screen.dart';
 import 'package:stepper/presentation/profile_user/profile_user_screen.dart';
 import 'package:stepper/presentation/profile_user_edit/profile_user_edit_screen.dart';
+import 'package:stepper/presentation/splash/splash_screen.dart';
 
 class AppRoutes {
   static Route<dynamic> onGenerateRoutes(RouteSettings settings) {
@@ -21,6 +22,8 @@ class AppRoutes {
     final args = settings.arguments;
 
     switch (routingData?.route) {
+      case '/':
+        return _materialRoute(const SplashScreen(), settings);
       case RouteNames.home:
         return _materialRoute(const HomeScreen(), settings);
       case RouteNames.area:

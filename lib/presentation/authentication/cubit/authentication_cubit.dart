@@ -34,6 +34,8 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     }
   }
 
+  bool isUserSignedIn() => authRepository.authUser != null;
+
   Future<void> signInWithEmailAndPassword(
       String emailAddress, String password) async {
     try {
