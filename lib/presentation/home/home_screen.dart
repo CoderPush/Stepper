@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stepper/common/consts.dart';
@@ -11,6 +13,7 @@ import 'package:stepper/presentation/home/cubit/posts_state.dart';
 import 'package:stepper/presentation/home/cubit/recent_updated_areas_cubit.dart';
 import 'package:stepper/presentation/home/cubit/recent_updated_areas_state.dart';
 import 'package:stepper/presentation/home/views/horizontal_area_list.dart';
+import 'package:stepper/presentation/home/views/stepper_app_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,6 +21,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+
+    if (screenSize.width > maxAppWidth) {
+      return _largeScreenHome(maxWidth: screenSize.width * maxAppWidthRatio);
+    }
 
     return Scaffold(
       drawer: SizedBox(
@@ -137,6 +144,22 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       )),
+      floatingActionButton: const CustomFloatingButton(),
+    );
+  }
+
+  Widget _largeScreenHome({double maxWidth = maxAppWidth}) {
+    return Scaffold(
+      body: Center(
+        child: SizedBox(
+          width: maxWidth,
+          child: Column(
+            children: const [
+              StepperAppBar(),
+            ],
+          ),
+        ),
+      ),
       floatingActionButton: const CustomFloatingButton(),
     );
   }

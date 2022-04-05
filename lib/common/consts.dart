@@ -19,6 +19,11 @@ const double mediumBorderRadius = 5.0;
 const double largeBorderRadius = 10.0;
 const double extraLargeBorderRadius = 20.0;
 
+// Size
+const double maxAppWidth = 1000;
+const double maxAppWidthRatio = 0.8;
+const double maxAppBarHeight = 100;
+
 // Button
 const double buttonHeight = 33.0;
 
