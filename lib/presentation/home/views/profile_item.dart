@@ -32,7 +32,9 @@ class ProfileItem extends StatelessWidget {
           ),
           BlocBuilder<AuthenticationCubit, AuthenticationState>(
             builder: (context, state) {
-              return Text((state as AuthenticatedState).userName);
+              return Text(
+                state is AuthenticatedState ? state.userName : '',
+              );
             },
           )
         ],

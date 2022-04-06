@@ -146,7 +146,6 @@ class AreasPageWidget extends StatelessWidget {
     return LayoutBuilder(
       builder: (ctx, constraints) {
         return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: data.list
               .map(
                 (data) => _item(
