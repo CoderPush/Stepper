@@ -23,6 +23,7 @@ const double extraLargeBorderRadius = 20.0;
 const double maxAppWidth = 1000;
 const double maxAppWidthRatio = 0.8;
 const double maxAppBarHeight = 100;
+const double defaultAreaPageHeight = 200;
 
 // Button
 const double buttonHeight = 33.0;

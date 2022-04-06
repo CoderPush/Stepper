@@ -6,7 +6,16 @@ import 'package:stepper/presentation/home/views/page_item.dart';
 import 'package:stepper/presentation/home/views/profile_item.dart';
 
 class StepperAppBar extends StatelessWidget {
-  const StepperAppBar({Key? key}) : super(key: key);
+  final EdgeInsets padding;
+
+  const StepperAppBar({
+    Key? key,
+    this.padding = const EdgeInsets.only(
+      left: screenMediumPadding,
+      bottom: screenSmallPadding,
+      top: screenMediumPadding,
+    ),
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +23,7 @@ class StepperAppBar extends StatelessWidget {
       constraints: const BoxConstraints(
         maxHeight: maxAppBarHeight,
       ),
+      padding: padding,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
