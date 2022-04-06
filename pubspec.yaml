@@ -39,6 +39,9 @@ dependencies:
   connectivity_plus: ^2.1.0
   uuid: ^3.0.5
   copy_with_extension: ^4.0.0
+  google_sign_in: ^5.2.3
+  flutter_svg: ^1.0.3
+  sizer: ^2.0.15
 
   # Firebase
   firebase_core: ^1.10.0
@@ -100,6 +103,8 @@ flutter:
   assets:
     - data.json
     - assets/images/avatar.png
+    - assets/svg/google_logo.svg
+    - assets/svg/stepper_logo.svg
     - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see

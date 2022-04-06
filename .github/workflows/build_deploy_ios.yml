@@ -23,7 +23,7 @@ jobs:
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "2.7"
+          ruby-version: '2.7'
 
       - name: Install Gem (For Fastlane)
         working-directory: ./ios
@@ -36,6 +36,13 @@ jobs:
         env:
           IOS_FIREBASE_CONFIG: ${{ secrets.IOS_FIREBASE_CONFIG }}
         run: echo "$IOS_FIREBASE_CONFIG" | base64 --decode > $GITHUB_WORKSPACE/ios/Runner/GoogleService-Info.plist
+
+      - name: Insert FIREBASE_REVERSED_CLIENT_ID in Info.plist
+        env:
+          IOS_FIREBASE_REVERSED_CLIENT_ID: ${{ secrets.IOS_FIREBASE_REVERSED_CLIENT_ID }}
+        run: |
+          REVERSED_CLIENT_ID=$IOS_FIREBASE_REVERSED_CLIENT_ID
+          sed -i '' "s/REVERSED_CLIENT_ID/${REVERSED_CLIENT_ID}/" $GITHUB_WORKSPACE/ios/Runner/Info.plist
 
       - name: Insert certificate and provisioning profile
         working-directory: ./ios
