@@ -22,12 +22,8 @@ class UserRepositoryImpl implements UserRepository {
       required this.bandRepository});
 
   @override
-  Future<User> getUser() async {
+  Future<User?> getUser() async {
     final user = await userFirebaseService.getUser();
-    if (user == null) {
-      await createUser();
-      return await getUser();
-    }
     return user;
   }
 

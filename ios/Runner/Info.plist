@@ -45,5 +45,20 @@
 	<false/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app needs to access your photo library to show your achievement</string>
+	<!-- Google Signin -->
+	<!-- Google Sign-in Section -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+	<array>
+		<!-- Placeholder for CI to add production reversed client id -->
+		<string>REVERSED_CLIENT_ID</string>
+		</array>
+	</dict>
+</array>
+<!-- End of the Google Sign-in Section -->
 </dict>
 </plist>

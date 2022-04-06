@@ -17,6 +17,16 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Future<UserCredential> signInWithCredential(AuthCredential credential) async {
+    return authFirebaseService.signInWithCredential(credential);
+  }
+
+  @override
+  Future<UserCredential> signInWithPopup(GoogleAuthProvider authProvider) {
+    return authFirebaseService.signInWithPopup(authProvider);
+  }
+
+  @override
   Future<void> signOut() async {
     await authFirebaseService.signOut();
   }

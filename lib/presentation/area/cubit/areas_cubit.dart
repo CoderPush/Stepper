@@ -36,8 +36,8 @@ class AreasCubit extends Cubit<AreasState> {
   }
 
   Future<Band> _getUserCurrentBand() async {
-    final User user = await userRepository.getUser();
-    return user.currentBand;
+    final user = await userRepository.getUser();
+    return user!.currentBand;
   }
 
   Future<List<Area>> _getUserAreas(

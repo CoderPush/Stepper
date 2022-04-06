@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:stepper/data/models/user.dart';
 
 abstract class UserRepository {
-  Future<User> getUser();
+  Future<User?> getUser();
 
   Stream<User> subscribeUser();
 

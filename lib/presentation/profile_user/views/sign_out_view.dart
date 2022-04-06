@@ -10,8 +10,9 @@ class SignOutView extends StatelessWidget {
   const SignOutView({Key? key}) : super(key: key);
 
   void _onUserSignOut(BuildContext context) {
+    Navigator.of(context).pushNamedAndRemoveUntil('/auth', (route) => false);
+
     context.read<AuthenticationCubit>().onUserSignOut();
-    Navigator.of(context).pop();
   }
 
   void _showAlertDialog(BuildContext context) {

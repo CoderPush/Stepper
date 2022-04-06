@@ -72,3 +72,6 @@ const String internetRequireToChangeProfession =
 // Success message
 const String markGoalAsDone = 'Goal is marked as done';
 const String markGoalAsUndone = 'Goal is marked as undone';
+
+// Button
+const String signInWithGoogle = 'Sign in with Google';

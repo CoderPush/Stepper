@@ -92,6 +92,6 @@ class UserProfileEditCubit extends Cubit<UserProfileEditState> {
   Future<User> _getUser() async {
     final user = await userRepository.getUser();
 
-    return user;
+    return user!;
   }
 }

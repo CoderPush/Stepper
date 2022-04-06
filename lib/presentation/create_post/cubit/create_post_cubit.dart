@@ -36,9 +36,9 @@ class CreatePostCubit extends Cubit<CreatePostState> {
 
   _initForCreateNewMode() async {
 // For create mode
-    User user = await userRepository.getUser();
+    final user = await userRepository.getUser();
     List<Band> bands = await bandRepository.getBandsByProfessionType(
-        professionType: user.currentProfession.type);
+        professionType: user!.currentProfession.type);
 
     final areas =
         await _getAreas(areaType: AreaType.scope, band: user.currentBand);
@@ -61,9 +61,9 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     final post = args.post;
     final selectedArea = post!.area;
 
-    User user = await userRepository.getUser();
+    final user = await userRepository.getUser();
     List<Band> bands = await bandRepository.getBandsByProfessionType(
-        professionType: user.currentProfession.type);
+        professionType: user!.currentProfession.type);
 
     final selectedBand = getItemByName<Band>(
         list: bands, name: selectedArea.bandId, getter: (band) => band.id);
