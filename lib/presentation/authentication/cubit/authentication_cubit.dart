@@ -65,6 +65,8 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     return userCredential;
   }
 
+  bool isUserSignedIn() => authRepository.authUser != null;
+
   Future<void> signIn() async {
     late UserCredential? userCredential;
     try {
@@ -103,14 +105,11 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   Future<void> onUserSignOut() async {
     try {
       emit(AuthenticationInitial());
-      await Future.delayed(const Duration(seconds: 1));
-
       if (!kIsWeb) {
         await _googleSignIn.signOut();
       }
 
       await authRepository.signOut();
-      emit(UnauthenticatedState());
     } on AuthException catch (e) {
       emit(AuthenticationError(e.toString()));
     }
