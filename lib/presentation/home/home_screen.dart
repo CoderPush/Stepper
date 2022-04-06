@@ -69,38 +69,6 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  screenMediumPadding,
-                  screenSmallPadding,
-                  screenMediumPadding,
-                  screenMediumPadding,
-                ),
-                child: BlocProvider(
-                  create: (context) => PostsCubit(postRepository: sl()),
-                  child: BlocBuilder<PostsCubit, PostsState>(
-                      builder: (context, state) {
-                    if (state.status == StateStatus.loading) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-
-                    if (state.status == StateStatus.success) {
-                      if (state.posts.isEmpty) {
-                        return const Center(
-                          child: Text(noPost),
-                        );
-                      }
-
-                      return PostList(
-                        hasAreaName: true,
-                        postList: state.posts,
-                      );
-                    }
-
-                    return Container();
-                  }),
-                ),
-              ),
             ],
           ),
         ),
