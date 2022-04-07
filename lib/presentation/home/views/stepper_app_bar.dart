@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/config/routes/routes.dart';
@@ -27,7 +28,13 @@ class StepperAppBar extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Image.asset('assets/images/avatar.png'),
+          SvgPicture.asset(
+            "assets/svg/stepper_logo.svg",
+            width: stepperTabBarIconSize,
+          ),
+          const SizedBox(
+            width: screenMediumPadding,
+          ),
           ...pages(context),
           const Expanded(
             child: Align(
@@ -43,15 +50,17 @@ class StepperAppBar extends StatelessWidget {
   List<Widget> pages(BuildContext context) {
     List<PageData> list = [
       PageData(
-          title: area,
-          onClick: () {
-            Navigator.of(context).pushNamed(RouteNames.area);
-          }),
+        title: area,
+        onClick: () {
+          Navigator.of(context).pushNamed(RouteNames.area);
+        },
+      ),
       PageData(
-          title: calendar,
-          onClick: () {
-            Navigator.of(context).pushNamed(RouteNames.calendar);
-          }),
+        title: calendar,
+        onClick: () {
+          Navigator.of(context).pushNamed(RouteNames.calendar);
+        },
+      ),
     ];
 
     return list.map((pageData) => PageItem(pageData: pageData)).toList();
