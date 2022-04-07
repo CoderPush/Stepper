@@ -40,17 +40,13 @@ class AvatarView extends StatelessWidget {
             children: [
               BlocBuilder<AuthenticationCubit, AuthenticationState>(
                 builder: (context, state) {
-                  if (state == AuthenticatedState) {
-                    return Text(
-                      (state as AuthenticatedState).userName,
-                      style: const TextStyle(
-                        fontSize: seventeen,
-                        color: white,
-                      ),
-                    );
-                  } else {
-                    return const SizedBox.shrink();
-                  }
+                  return Text(
+                    state is AuthenticatedState ? state.userName : '',
+                    style: const TextStyle(
+                      fontSize: seventeen,
+                      color: white,
+                    ),
+                  );
                 },
               ),
               IconButton(
