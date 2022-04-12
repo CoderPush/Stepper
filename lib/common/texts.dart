@@ -56,7 +56,6 @@ const String designerName = 'Tien Le';
 const String aboutText =
     'with help from Ha Pham, Anh Phan, Harley Trung, and Long Vu';
 const String aboutStepper = 'About Stepper';
-const String appVersion = '2.0.0';
 
 // Testing
 const String writeUpdateText = 'Today i will integration test code in flutter';
