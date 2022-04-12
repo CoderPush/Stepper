@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:stepper/common/consts.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
@@ -41,11 +42,16 @@ class AboutScreen extends StatelessWidget {
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(version),
-                    Text(
-                      appVersion,
-                      style: TextStyle(color: moreIconColor),
+                  children: [
+                    const Text(version),
+                    FutureBuilder<PackageInfo>(
+                      future: PackageInfo.fromPlatform(),
+                      builder: (ctx, snapshot) {
+                        return Text(
+                          snapshot.hasData ? snapshot.data!.version : '',
+                          style: const TextStyle(color: moreIconColor),
+                        );
+                      },
                     ),
                   ],
                 ),
