@@ -49,7 +49,7 @@ class AboutScreen extends StatelessWidget {
                       builder: (ctx, snapshot) {
                         return Text(
                           snapshot.hasData ? snapshot.data!.version : '',
-                          style: TextStyle(color: moreIconColor),
+                          style: const TextStyle(color: moreIconColor),
                         );
                       },
                     ),
