@@ -206,9 +206,11 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   StepperAppBar(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: iconControllerSize + contentPadding,
-                      vertical: screenSmallPadding,
+                    setting: StepperAppBarSetting(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: iconControllerSize + contentPadding,
+                        vertical: screenSmallPadding,
+                      ),
                     ),
                   ),
                   _recentlyUpdatedText(

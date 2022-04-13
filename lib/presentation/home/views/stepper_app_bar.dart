@@ -6,17 +6,40 @@ import 'package:stepper/config/routes/routes.dart';
 import 'package:stepper/presentation/home/views/page_item.dart';
 import 'package:stepper/presentation/home/views/profile_item.dart';
 
-class StepperAppBar extends StatelessWidget {
+class StepperAppBarSetting {
   final EdgeInsets padding;
+  final Function()? onHomeClick;
+  final bool showProfile;
 
-  const StepperAppBar({
-    Key? key,
+  final String svgIconPath;
+
+  const StepperAppBarSetting({
+    this.svgIconPath = 'assets/svg/stepper_logo.svg',
     this.padding = const EdgeInsets.only(
       left: screenMediumPadding,
       bottom: screenSmallPadding,
       top: screenMediumPadding,
     ),
+    this.onHomeClick,
+    this.showProfile = true,
+  });
+}
+
+class StepperAppBar extends StatelessWidget {
+  final StepperAppBarSetting setting;
+
+  const StepperAppBar({
+    Key? key,
+    this.setting = const StepperAppBarSetting(),
   }) : super(key: key);
+
+  EdgeInsets get padding => setting.padding;
+
+  Function()? get onHomeClick => setting.onHomeClick;
+
+  String get svgIconPath => setting.svgIconPath;
+
+  bool get showProfile => setting.showProfile;
 
   @override
   Widget build(BuildContext context) {
@@ -28,21 +51,32 @@ class StepperAppBar extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
-          SvgPicture.asset(
-            "assets/svg/stepper_logo.svg",
-            width: stepperTabBarIconSize,
+          _homeIcon(
+            onTap: onHomeClick,
           ),
           const SizedBox(
             width: screenMediumPadding,
           ),
           ...pages(context),
-          const Expanded(
+          Expanded(
             child: Align(
               alignment: Alignment.centerRight,
-              child: ProfileItem(),
+              child: showProfile ? const ProfileItem() : const SizedBox(),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _homeIcon({
+    Function()? onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      child: SvgPicture.asset(
+        svgIconPath,
+        width: stepperTabBarIconSize,
       ),
     );
   }
