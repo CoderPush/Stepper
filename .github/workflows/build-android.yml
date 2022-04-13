@@ -19,6 +19,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+
       # Set up Flutter
       - name: Clone Flutter repository with stable channel
         uses: subosito/flutter-action@4389e6cbc6cb8a4b18c628ff96ff90be0e926aa8
@@ -31,5 +32,19 @@ jobs:
       - name: Checkout Stepper code
         uses: actions/checkout@v2
       - run: flutter pub get -v
+
+      # Create .env file with Firebase credentials
+      - name: Make .env file
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_APIKEY: ${{ secrets.FIREBASE_APIKEY }}
+          envkey_AUTHDOMAIN: ${{ secrets.FIREBASE_AUTHDOMAIN }}
+          envkey_PROJETID: ${{ secrets.FIREBASE_PROJETID }}
+          envkey_STORAGEBUCKET: ${{ secrets.FIREBASE_STORAGEBUCKET }}
+          envkey_MESSAGINGSENDERID: ${{ secrets.FIREBASE_MESSAGINGSENDERID }}
+          envkey_APPID: ${{ secrets.FIREBASE_APPID }}
+          envkey_MEASUREMENTID: ${{ secrets.FIREBASE_MEASUREMENTID }}
+          directory: ./
+          file_name: .env
 
       - run: flutter build apk --debug
