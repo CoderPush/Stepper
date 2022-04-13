@@ -17,6 +17,9 @@ class ClearDataView extends StatelessWidget {
         ));
       },
       child: Container(
+        constraints: const BoxConstraints(
+          maxWidth: maxButtonWidth,
+        ),
         padding: const EdgeInsets.symmetric(vertical: twelve),
         width: double.infinity,
         decoration: BoxDecoration(
