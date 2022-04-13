@@ -1,0 +1,35 @@
+name: Build apk
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+  push:
+    branches:
+      - main
+      - setup-actions
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build apk --debug
+    runs-on: macos-latest
+    steps:
+      # Set up java
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      # Set up Flutter
+      - name: Clone Flutter repository with stable channel
+        uses: subosito/flutter-action@4389e6cbc6cb8a4b18c628ff96ff90be0e926aa8
+        with:
+          channel: stable
+      - run: flutter config --enable-macos-desktop
+      - run: flutter doctor -v
+
+      # Checkout repository code and get packages.
+      - name: Checkout Stepper code
+        uses: actions/checkout@v2
+      - run: flutter pub get -v
+
+      - run: flutter build apk --debug
