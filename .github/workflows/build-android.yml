@@ -46,4 +46,10 @@ jobs:
           echo MEASUREMENTID=${{ secrets.FIREBASE_MEASUREMENTID }} >> .env
           cat .env
 
+      # Create file firebase json
+      - name: Make firebase json
+        env:
+          FIREBASE_SERVICES_JSON: ${{ secrets.FIREBASE_SERVICES_JSON }}
+        run: echo $FIREBASE_SERVICES_JSON > android/app/google-services.json
+
       - run: flutter build apk --debug
