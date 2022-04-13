@@ -8,14 +8,9 @@ import 'package:stepper/presentation/authentication/cubit/authentication_cubit.d
 import 'package:stepper/presentation/profile_user/cubit/user_profile_cubit.dart';
 import 'package:stepper/presentation/profile_user/cubit/user_profile_state.dart';
 import 'package:stepper/presentation/profile_user/views/label_view.dart';
-import 'package:stepper/config/routes/routes.dart';
 
 class AvatarView extends StatelessWidget {
   const AvatarView({Key? key}) : super(key: key);
-
-  void _onProfileUserEditScreenTap(BuildContext context) {
-    Navigator.of(context).pushNamed(RouteNames.profileUserEdit);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,15 +43,6 @@ class AvatarView extends StatelessWidget {
                     ),
                   );
                 },
-              ),
-              IconButton(
-                padding: const EdgeInsets.only(left: screenSmallPadding),
-                constraints: const BoxConstraints(),
-                onPressed: () => _onProfileUserEditScreenTap(context),
-                icon: const Icon(
-                  Icons.arrow_forward_ios,
-                  color: darkGrey,
-                ),
               ),
             ],
           ),
