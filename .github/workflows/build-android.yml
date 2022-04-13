@@ -35,16 +35,15 @@ jobs:
 
       # Create .env file with Firebase credentials
       - name: Make .env file
-        uses: SpicyPizza/create-envfile@v1.3
-        with:
-          envkey_APIKEY: ${{ secrets.FIREBASE_APIKEY }}
-          envkey_AUTHDOMAIN: ${{ secrets.FIREBASE_AUTHDOMAIN }}
-          envkey_PROJETID: ${{ secrets.FIREBASE_PROJETID }}
-          envkey_STORAGEBUCKET: ${{ secrets.FIREBASE_STORAGEBUCKET }}
-          envkey_MESSAGINGSENDERID: ${{ secrets.FIREBASE_MESSAGINGSENDERID }}
-          envkey_APPID: ${{ secrets.FIREBASE_APPID }}
-          envkey_MEASUREMENTID: ${{ secrets.FIREBASE_MEASUREMENTID }}
-          directory: ./
-          file_name: .env
+        run: |
+          touch .env
+          echo APIKEY=${{ secrets.FIREBASE_APIKEY }} >> .env
+          echo AUTHDOMAIN=${{ secrets.FIREBASE_AUTHDOMAIN }} >> .env
+          echo PROJETID=${{ secrets.FIREBASE_PROJETID }} >> .env
+          echo STORAGEBUCKET=${{ secrets.FIREBASE_STORAGEBUCKET }} >> .env
+          echo MESSAGINGSENDERID=${{ secrets.FIREBASE_MESSAGINGSENDERID }} >> .env
+          echo APPID=${{ secrets.FIREBASE_APPID }} >> .env
+          echo MEASUREMENTID=${{ secrets.FIREBASE_MEASUREMENTID }} >> .env
+          cat .env
 
       - run: flutter build apk --debug
