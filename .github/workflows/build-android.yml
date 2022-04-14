@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-appbundle:
     name: Build apk --debug
     runs-on: macos-latest
     steps:
@@ -33,18 +33,8 @@ jobs:
         uses: actions/checkout@v2
       - run: flutter pub get -v
 
-      # Create .env file with Firebase credentials
-      - name: Make .env file
-        run: |
-          touch .env
-          echo APIKEY=${{ secrets.FIREBASE_APIKEY }} >> .env
-          echo AUTHDOMAIN=${{ secrets.FIREBASE_AUTHDOMAIN }} >> .env
-          echo PROJETID=${{ secrets.FIREBASE_PROJETID }} >> .env
-          echo STORAGEBUCKET=${{ secrets.FIREBASE_STORAGEBUCKET }} >> .env
-          echo MESSAGINGSENDERID=${{ secrets.FIREBASE_MESSAGINGSENDERID }} >> .env
-          echo APPID=${{ secrets.FIREBASE_APPID }} >> .env
-          echo MEASUREMENTID=${{ secrets.FIREBASE_MEASUREMENTID }} >> .env
-          cat .env
+      - name: Generate empty .env
+        run: touch .env
 
       # Create file firebase json
       - name: Make firebase json
@@ -52,4 +42,56 @@ jobs:
           FIREBASE_SERVICES_JSON: ${{ secrets.FIREBASE_SERVICES_JSON }}
         run: echo $FIREBASE_SERVICES_JSON > android/app/google-services.json
 
-      - run: flutter build apk --debug
+      # Setup Ruby, Bundler, and Gemfile dependencies
+      - name: Setup Fastlane
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+          bundler-cache: true
+          working-directory: android
+
+      - name: Install Gem (For Fastlane)
+        working-directory: ./ios
+        run: bundle install
+
+      - name: Configure Keystore
+        run: |
+          echo "$ANDROID_KEYSTORE" | base64 --decode > app/upload-keystore.jks
+          echo "storeFile=upload-keystore.jks" >> key.properties
+          echo "keyAlias=$KEYSTORE_KEY_ALIAS" >> key.properties
+          echo "storePassword=$KEYSTORE_STORE_PASSWORD" >> key.properties
+          echo "keyPassword=$KEYSTORE_KEY_PASSWORD" >> key.properties
+        env:
+          ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
+          KEYSTORE_KEY_ALIAS: ${{ secrets.ANDROID_KEYSTORE_KEY_ALIAS }}
+          KEYSTORE_KEY_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_KEY_PASSWORD }}
+          KEYSTORE_STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_STORE_PASSWORD }}
+        working-directory: android
+
+      - name: Build appbundle
+        run: flutter build appbundle --release
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: aab
+          path: build/app/outputs/bundle/release/app-release.aab
+
+  distribute_to_firebase:
+    runs-on: ubuntu-latest
+
+    needs: build-appbundle
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: aab
+          path: build/app/outputs/bundle/release
+
+      - name: Distribute to Firebase Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{secrets.ANDROID_FIREBASE_APP_ID}}
+          token: ${{secrets.FIREBASE_TOKEN}}
+          groups: testers
+          file: build/app/outputs/bundle/release/app-release.aab
