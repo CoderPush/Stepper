@@ -12,7 +12,6 @@ import 'package:stepper/presentation/home/home_screen.dart';
 // import 'package:stepper/presentation/post_detail/post_detail_screen.dart';
 import 'package:stepper/presentation/post_list/post_list_screen.dart';
 import 'package:stepper/presentation/profile_user/profile_user_screen.dart';
-import 'package:stepper/presentation/profile_user_edit/profile_user_edit_screen.dart';
 import 'package:stepper/presentation/splash/splash_screen.dart';
 
 class AppRoutes {
@@ -49,8 +48,6 @@ class AppRoutes {
         return _materialRoute(const CalendarScreen(), settings);
       case RouteNames.profileUser:
         return _materialRoute(const ProfileUserScreen(), settings);
-      case RouteNames.profileUserEdit:
-        return _materialRoute(ProfileUserEditScreen(), settings);
       case RouteNames.auth:
         return _materialRoute(const AuthenticationScreen(), settings);
       case RouteNames.about:

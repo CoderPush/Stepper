@@ -7,26 +7,38 @@ import 'package:stepper/common/texts.dart';
 import 'package:stepper/enums/enums.dart';
 import 'package:stepper/presentation/profile_user_edit/cubit/user_profile_edit_cubit.dart';
 import 'package:stepper/presentation/profile_user_edit/cubit/user_profile_edit_state.dart';
-import 'package:stepper/presentation/profile_user_edit/views/row_level_view.dart';
+import 'package:stepper/presentation/profile_user/views/row_level_view.dart';
 
 class UserLevelView extends StatelessWidget {
-  const UserLevelView({Key? key}) : super(key: key);
+  final EdgeInsets margin;
 
-  _onProfessionChange(String professonName, BuildContext context) {
-    context
+  const UserLevelView({
+    Key? key,
+    this.margin = const EdgeInsets.only(
+      left: twenty,
+      right: twenty,
+    ),
+  }) : super(key: key);
+
+  _onProfessionChange(String professonName, BuildContext context) async {
+    await context
         .read<UserProfileEditCubit>()
         .onProfessionChanged(professionName: professonName);
+    context
+        .read<UserProfileEditCubit>().onSaveProfessionAndBand();
   }
 
   _onBandChange(String bandName, BuildContext context) async {
-    context.read<UserProfileEditCubit>().onBandChanged(bandName: bandName);
+    await context.read<UserProfileEditCubit>().onBandChanged(bandName: bandName);
+    context
+        .read<UserProfileEditCubit>().onSaveProfessionAndBand();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 140,
-      margin: const EdgeInsets.only(left: twenty, right: twenty),
+      margin: margin,
       padding:
           const EdgeInsets.symmetric(vertical: sixteen, horizontal: twenty),
       width: double.infinity,

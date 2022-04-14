@@ -10,6 +10,9 @@ import 'package:stepper/presentation/profile_user/cubit/user_profile_cubit.dart'
 import 'package:stepper/presentation/profile_user/views/avatar_view.dart';
 import 'package:stepper/presentation/profile_user/views/clear_data_view.dart';
 import 'package:stepper/presentation/profile_user/views/sign_out_view.dart';
+import 'package:stepper/presentation/profile_user/views/user_information_view.dart';
+import 'package:stepper/presentation/profile_user/views/user_level_view.dart';
+import 'package:stepper/presentation/profile_user_edit/cubit/user_profile_edit_cubit.dart';
 
 class ProfileUserScreen extends StatelessWidget {
   const ProfileUserScreen({Key? key}) : super(key: key);
@@ -18,10 +21,21 @@ class ProfileUserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
 
-    return BlocProvider(
-      create: (context) => UserProfileCubit(
-        userRepository: sl(),
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => UserProfileCubit(
+            userRepository: sl(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => UserProfileEditCubit(
+            professionRepository: sl(),
+            bandRepository: sl(),
+            userRepository: sl(),
+          ),
+        ),
+      ],
       child: screenSize.width > maxAppWidth
           ? _largeScreenProfile(
               context: context,
@@ -40,6 +54,8 @@ class ProfileUserScreen extends StatelessWidget {
                     children: [
                       _drawerButton(),
                       const AvatarView(),
+                      const UserInformationView(),
+                      const UserLevelView(),
                       _clearDataButton(),
                       _signOutButton(),
                     ],
@@ -117,6 +133,17 @@ class ProfileUserScreen extends StatelessWidget {
                     ),
                   ),
                   const AvatarView(),
+                  UserInformationView(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: fifty + contentPadding,
+                    ),
+                  ),
+                  UserLevelView(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: fifty + contentPadding,
+                      vertical: screenMediumPadding,
+                    ),
+                  ),
                   _clearDataButton(),
                   _signOutButton(),
                 ],

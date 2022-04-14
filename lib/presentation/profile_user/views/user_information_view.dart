@@ -5,19 +5,24 @@ import 'package:stepper/common/numbers.dart';
 import 'package:stepper/common/palette.dart';
 import 'package:stepper/common/texts.dart';
 import 'package:stepper/presentation/authentication/cubit/authentication_cubit.dart';
-import 'package:stepper/presentation/profile_user_edit/views/row_information_view.dart';
+import 'package:stepper/presentation/profile_user/views/row_information_view.dart';
 
 class UserInformationView extends StatelessWidget {
-  const UserInformationView({Key? key}) : super(key: key);
+  final EdgeInsets margin;
+
+  const UserInformationView({
+    Key? key,
+    this.margin = const EdgeInsets.only(
+      left: twenty,
+      right: twenty,
+      bottom: twenty,
+    ),
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(
-        left: twenty,
-        right: twenty,
-        bottom: twenty,
-      ),
+      margin: margin,
       padding: const EdgeInsets.symmetric(
         vertical: sixteen,
         horizontal: twenty,

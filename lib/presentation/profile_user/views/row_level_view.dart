@@ -45,7 +45,9 @@ class RowLevelView extends StatelessWidget {
             ),
             child: CustomDropdown(
               onChanged: (value) {
-                onChanged(value);
+                if (this.value != value) {
+                  onChanged(value);
+                }
               },
               value: value,
               items: list,
