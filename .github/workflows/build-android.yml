@@ -42,18 +42,6 @@ jobs:
           FIREBASE_SERVICES_JSON: ${{ secrets.FIREBASE_SERVICES_JSON }}
         run: echo $FIREBASE_SERVICES_JSON > android/app/google-services.json
 
-      # Setup Ruby, Bundler, and Gemfile dependencies
-#      - name: Setup Fastlane
-#        uses: ruby/setup-ruby@v1
-#        with:
-#          ruby-version: '2.6'
-#          bundler-cache: true
-#          working-directory: android
-#
-#      - name: Install Gem (For Fastlane)
-#        working-directory: ./ios
-#        run: bundle install
-
       - name: Configure Keystore
         run: |
           echo "$ANDROID_KEYSTORE" | base64 --decode > app/upload-keystore.jks
