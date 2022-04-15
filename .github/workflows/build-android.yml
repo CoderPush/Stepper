@@ -57,12 +57,13 @@ jobs:
         working-directory: android
 
       - name: Build appbundle
-        run: flutter build appbundle --release
+        run: flutter build apk --release
 
+      # build apk
       - uses: actions/upload-artifact@v2
         with:
-          name: aab
-          path: build/app/outputs/bundle/release/app-release.aab
+          name: apk
+          path: build/app/outputs/flutter-apk/app-release.apk
 
   distribute_to_firebase:
     name: distribute to firebase
@@ -74,8 +75,8 @@ jobs:
 
       - uses: actions/download-artifact@v2
         with:
-          name: aab
-          path: build/app/outputs/bundle/release
+          name: apk
+          path: build/app/outputs/flutter-apk/
 
       - name: Distribute to Firebase Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
@@ -83,4 +84,4 @@ jobs:
           appId: ${{secrets.ANDROID_FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: testers
-          file: build/app/outputs/bundle/release/app-release.aab
+          file: build/app/outputs/flutter-apk/app-release.apk
