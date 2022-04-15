@@ -8,10 +8,16 @@ on:
       - main
       - setup-actions
   workflow_dispatch:
+    inputs:
+      tester_group:
+        description: 'Firebase tester group'
+        required: true
+        type: string
+        default: 'testers'
 
 jobs:
-  build-appbundle:
-    name: Build android appbundle
+  build-apk:
+    name: Build android apk
     runs-on: macos-latest
     steps:
       # Set up java
@@ -56,10 +62,9 @@ jobs:
           KEYSTORE_STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_STORE_PASSWORD }}
         working-directory: android
 
-      - name: Build appbundle
+      - name: Build apk
         run: flutter build apk --release
 
-      # build apk
       - uses: actions/upload-artifact@v2
         with:
           name: apk
@@ -69,7 +74,7 @@ jobs:
     name: distribute to firebase
     runs-on: ubuntu-latest
 
-    needs: build-appbundle
+    needs: build-apk
     steps:
       - uses: actions/checkout@v2
 
@@ -83,5 +88,5 @@ jobs:
         with:
           appId: ${{secrets.ANDROID_FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
-          groups: testers
+          groups: ${{ github.event.inputs.tester_group || 'testers' }}
           file: build/app/outputs/flutter-apk/app-release.apk
