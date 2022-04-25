@@ -74,3 +74,4 @@ const String markGoalAsUndone = 'Goal is marked as undone';
 
 // Button
 const String signInWithGoogle = 'Sign in with Google';
+const String signInWithApple = 'Sign in with Apple';
