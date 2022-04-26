@@ -39,12 +39,12 @@ class UserInformationView extends StatelessWidget {
             children: [
               RowInformationView(
                 firstText: name,
-                secondText: (state as AuthenticatedState).userName,
+                secondText: state is AuthenticatedState ? state.userName : '',
               ),
               const SizedBox(height: twenty),
               RowInformationView(
                 firstText: email,
-                secondText: (state).userEmail,
+                secondText: state is AuthenticatedState ? state.userEmail : '',
               ),
             ],
           );

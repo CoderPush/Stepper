@@ -2,12 +2,21 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:stepper/config/extensions/string_extensions.dart';
 import 'package:stepper/domain/exceptions/exceptions.dart';
 import 'package:stepper/domain/repositories/repositories.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../../services/apple_sign_in_service.dart';
+
 part 'authentication_state.dart';
+
+enum SignInPlatform {
+  web,
+  android,
+  ios,
+}
 
 class AuthenticationCubit extends Cubit<AuthenticationState> {
   final AuthRepository authRepository;
@@ -65,6 +74,45 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     return userCredential;
   }
 
+  Future<void> signInApple() async {
+    try {
+      var appleSignInService = AppleSignInService();
+
+      final rawNonce = appleSignInService.generateNonce();
+      final nonce = appleSignInService.sha256ofString(rawNonce);
+
+      AuthorizationCredentialAppleID appleCredential =
+      await appleSignInService(nonce);
+
+      // Create an `OAuthCredential` from the credential returned by Apple.
+      final oauthCredential = OAuthProvider("apple.com").credential(
+        idToken: appleCredential.identityToken,
+        rawNonce: rawNonce,
+      );
+
+      final userCredential =
+      await authRepository.signInWithCredential(oauthCredential);
+
+      final isUserProfileCreated = await _checkUserProfileCreated();
+      if (!isUserProfileCreated) {
+        await _createInitialUserProfile();
+      }
+
+      final email = userCredential.user!.email;
+      final name = userCredential.user!.displayName;
+      emit(
+        AuthenticatedState(
+          userEmail: email ?? '',
+          userName: email != null && email.isNotEmpty
+              ? email.split('@')[0].capitalizeFirstLetter()
+              : name ?? userCredential.user!.uid,
+        ),
+      );
+    } catch (e) {
+      emit(AuthenticationError(e.toString()));
+    }
+  }
+
   bool isUserSignedIn() => authRepository.authUser != null;
 
   Future<void> signIn() async {
@@ -84,10 +132,12 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       }
 
       final email = userCredential.user!.email!;
-      emit(AuthenticatedState(
-        userEmail: email,
-        userName: email.split('@')[0].capitalizeFirstLetter(),
-      ));
+      emit(
+        AuthenticatedState(
+          userEmail: email,
+          userName: email.split('@')[0].capitalizeFirstLetter(),
+        ),
+      );
     } catch (e) {
       emit(AuthenticationError(e.toString()));
     }
