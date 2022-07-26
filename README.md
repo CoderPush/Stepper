@@ -100,14 +100,5 @@ Stepper can be download add: http://onelink.to/3nr8qa <br/><br/>
 QR code:<br/><br/>
 <img src="https://i.ibb.co/C5B4kn3/Image-Pasted-at-2021-12-27-13-50.jpg" width="150">
 
-## **Contributors**
-Many thanks to the contributors:
-- Harley Trung: harley@coderpush.com
-- Long Vu: long@coderpush.com
-- Hung Nguyen: harrison@coderpush.com
-- Tien Le: tien@coderpush.com
-- Kim Long: kimlong@coderpush.com
-- Thinh Mai: thinh@coderpush.com
-
 ## License
 This project is licensed under the GNU License - see the [LICENSE.md](docs/LICENSE.md) file for details
